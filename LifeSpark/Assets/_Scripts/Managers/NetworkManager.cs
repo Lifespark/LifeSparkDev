@@ -82,7 +82,9 @@ public class NetworkManager : LSMonoBehaviour {
 		photonView.RPC("RPC_setGUIStage", PhotonTargets.All, (int)GuiStage.inGame);
 		PhotonNetwork.LoadLevel ("MainMap");
 		//photonView.RPC("RPC_startGame", PhotonTargets.All, null);
+
 	}
+
 
 //	//Not needed (autosync + PhotonNetwork.LoadLevel takes care of this for us)
 //	[RPC]
@@ -129,6 +131,7 @@ public class NetworkManager : LSMonoBehaviour {
 		for (int i = 0; i < players.Length; i++){
 			metaPlayers[i] = new MetaPlayer(players[i].ID, players[i].name);
 		}
+
 
 		return metaPlayers;
 	}
