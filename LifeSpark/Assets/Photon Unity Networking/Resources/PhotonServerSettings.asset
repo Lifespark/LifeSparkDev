@@ -27,4 +27,8 @@ MonoBehaviour:
   - DestroyRpc
   - RPC_startGame
   - RPC_setGUIStage
+  - RPC_initialGameNetworkDatas
+  - setMine
+  - RPC_setMine
+  - RPC_setPlayerTarget
   DisableAutoOpenWizard: 0
