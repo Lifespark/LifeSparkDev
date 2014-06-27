@@ -26,6 +26,7 @@ public class Player : UnitObject {
 		if (this.GetComponent<PlayerInput> ().isMine) {
 			GUI.TextArea (new Rect (10, 10, 200, 20), "Position:" + this.transform.position.x + ":" + this.transform.position.y + ":" + this.transform.position.z);
 			GUI.TextArea (new Rect (10, 30, 200, 20), "Target:" + target.x + ":0:" + target.z);
+			//
 		}
 	}
 
