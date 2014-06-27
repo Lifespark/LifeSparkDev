@@ -387,7 +387,8 @@ MonoBehaviour:
   team: 2
   playerID: 0
   playerName: 
-  needTranslate: {x: 0, y: 0, z: 0}
+  target: {x: 0, y: 0, z: 0}
+  speed: 0
 --- !u!23 &622257730
 Renderer:
   m_ObjectHideFlags: 0
@@ -566,7 +567,8 @@ MonoBehaviour:
   team: 1
   playerID: 0
   playerName: 
-  needTranslate: {x: 0, y: 0, z: 0}
+  target: {x: 0, y: 0, z: 0}
+  speed: 0
 --- !u!23 &826583818
 Renderer:
   m_ObjectHideFlags: 0
@@ -663,7 +665,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.0999999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1117,7 +1119,7 @@ Transform:
   m_PrefabInternal: {fileID: 1028192842}
   m_GameObject: {fileID: 1631433288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.38554, y: 6.0999999, z: -17.210598}
+  m_LocalPosition: {x: 18.38554, y: 1, z: -17.210598}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 617715527}
@@ -1149,7 +1151,8 @@ MonoBehaviour:
   team: 1
   playerID: 0
   playerName: 
-  needTranslate: {x: 0, y: 0, z: 0}
+  target: {x: 0, y: 0, z: 0}
+  speed: 0
 --- !u!23 &1631433292
 Renderer:
   m_ObjectHideFlags: 0
@@ -1599,7 +1602,8 @@ MonoBehaviour:
   team: 2
   playerID: 0
   playerName: 
-  needTranslate: {x: 0, y: 0, z: 0}
+  target: {x: 0, y: 0, z: 0}
+  speed: 0
 --- !u!23 &1989543779
 Renderer:
   m_ObjectHideFlags: 0

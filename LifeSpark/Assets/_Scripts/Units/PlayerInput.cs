@@ -16,6 +16,8 @@ public class PlayerInput : UnitMovement {
 		}
 	}
 
+
+
 	// PC input
 	void KeyBoardMouseInput () {
 		// mouse left button down
@@ -29,6 +31,9 @@ public class PlayerInput : UnitMovement {
 					// hit.point.y = 0;
 					Vector3 tempHit = hit.point;
 					tempHit.y = 0;
+					//
+
+					//
 					GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget", PhotonTargets.All, this.name, tempHit);
 				}
 			}
