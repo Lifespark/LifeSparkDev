@@ -1,0 +1,5 @@
+2014-06-28 19:26:53,704 [1] INFO  Lite.LiteApplication [(null)] - Created application Instance: type=Lite.LiteApplication
+2014-06-28 19:26:53,824 [1] INFO  Photon.SocketServer.ApplicationBase [(null)] - Application start: AppId=Lite; AppPath=C:\Users\Johnathan\Documents\LifeSpark\deploy\Lite, Type=Lite.LiteApplication 
+2014-06-28 19:26:53,857 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher [(null)] - CounterPublisher started on: 255.255.255.255:40001
+2014-06-28 19:56:50,321 [1] INFO  Photon.SocketServer.ApplicationBase [(null)] - Application is stopping: AppId=Lite
+2014-06-28 19:56:50,443 [1] INFO  Photon.SocketServer.ApplicationBase [(null)] - Application stop: AppId=Lite
