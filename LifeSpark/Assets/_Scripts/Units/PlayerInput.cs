@@ -2,10 +2,13 @@
 using System.Collections;
 
 public class PlayerInput : UnitMovement {
+	
+	Vector3 tempHit;
 	public bool isMine;
-
+	
 	// Use this for initialization
 	void Start () {
+		tempHit = Vector3.zero;
 		isMine = false;
 	}
 	
@@ -15,9 +18,9 @@ public class PlayerInput : UnitMovement {
 			KeyBoardMouseInput ();
 		}
 	}
-
-
-
+	
+	
+	
 	// PC input
 	void KeyBoardMouseInput () {
 		// mouse left button down
@@ -29,15 +32,31 @@ public class PlayerInput : UnitMovement {
 				Debug.Log(hit.collider.name);
 				if (hit.collider.name.Equals("Ground")) {
 					// hit.point.y = 0;
-					Vector3 tempHit = hit.point;
+					tempHit = hit.point;
 					tempHit.y = 0;
 					//
 					//
 					//
-					GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget", PhotonTargets.All, this.name, tempHit);
+					GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget",
+					                                              PhotonTargets.All,
+					                                              this.name,
+					                                              tempHit,
+					                                              hit.collider.name);
+				}
+				else if (hit.collider.name.Contains("SparkPoint")) {
+					if (GameObject.Find(hit.collider.name).GetComponent<SparkPoint>().GetOwner()
+					    != this.GetComponent<Player>().GetTeam()) {
+						tempHit = hit.point;
+						tempHit.y = 0;
+						GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget",
+						                                              PhotonTargets.All,
+						                                              this.name,
+						                                              tempHit,
+						                                              hit.collider.name);
+					}
 				}
 			}
 		}
 	}
-
+	
 }

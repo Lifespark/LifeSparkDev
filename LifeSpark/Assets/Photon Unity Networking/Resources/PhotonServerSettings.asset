@@ -31,4 +31,6 @@ MonoBehaviour:
   - setMine
   - RPC_setMine
   - RPC_setPlayerTarget
+  - RPC_setSparkPointCapture
+  - RPC_setPlayerSparkPointCaptured
   DisableAutoOpenWizard: 0

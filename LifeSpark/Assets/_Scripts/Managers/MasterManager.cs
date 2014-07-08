@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class MasterManager : LSMonoBehaviour {
-
+	
+	GameObject tempPlayer;
+	GameObject tempSparkPoint;
+	
 	// Use this for initialization
 	void Start () {
 		NetworkManager tempNM = GameObject.Find ("Manager").GetComponent<NetworkManager>();
@@ -15,13 +18,13 @@ public class MasterManager : LSMonoBehaviour {
 			}
 		}
 		Debug.Log ("The MasterPlayer is " + masterPlayer.name);
-
+		
 		// if this is the masterPlayer, manage and set each client to 1 player (only has 1 masterPlayer)
 		if (tempNM.playerName.Equals (masterPlayer.name)) {
 			Debug.Log ("I'm the MasterPlayer.");
 			// 
 			int playerNum = 1;
-
+			
 			foreach (MetaPlayer forMP in tempMPs) {
 				photonView.RPC ("RPC_setMine", PhotonTargets.All, "Player"+playerNum, forMP.name);
 				//
@@ -36,23 +39,35 @@ public class MasterManager : LSMonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 	}
-
+	
 	[RPC]
 	void RPC_setMine (string playerObject, string playerName) {
 		NetworkManager tempNM = GameObject.Find ("Manager").GetComponent<NetworkManager>();
-		GameObject tempPlayer = GameObject.Find ("Players/" + playerObject);
+		tempPlayer = GameObject.Find ("Players/" + playerObject);
 		if (tempNM.playerName.Equals (playerName)) {
 			tempPlayer.GetComponent<PlayerInput>().isMine = true;
 			Debug.Log ("I'm " + playerName + ", control " + playerObject);
 		}
 		tempPlayer.GetComponent<Player> ().playerName = playerName;
 	}
-
+	
 	[RPC]
-	void RPC_setPlayerTarget (string playerObject, Vector3 target) {
-		GameObject tempPlayer = GameObject.Find ("Players/" + playerObject);
-		tempPlayer.GetComponent<Player> ().target = target;
+	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName) {
+		tempPlayer = GameObject.Find ("Players/" + playerObject);
+		tempPlayer.GetComponent<Player>().UpdateTarget(target,targetName);
+	}
+	
+	[RPC]
+	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b) {
+		tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName,team,b);
+	}
+	
+	[RPC]
+	void RPC_setPlayerSparkPointCaptured (string playerName) {
+		tempPlayer = GameObject.Find("Players/"+playerName);
+		tempPlayer.GetComponent<Player>().CapturedObjective();
 	}
 }
