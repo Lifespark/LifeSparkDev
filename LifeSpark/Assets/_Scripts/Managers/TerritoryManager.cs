@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LaneManager : LSMonoBehaviour {
+public class TerritoryManager : LSMonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
