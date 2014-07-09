@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SparkPoint : MonoBehaviour {
+public class SparkPoint : LSMonoBehaviour {
 
 	public SparkPoint[] _connections;
 
@@ -12,9 +12,9 @@ public class SparkPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		foreach(SparkPoint sp in _connections) {
+		/*foreach(SparkPoint sp in _connections) {
 			Debug.DrawLine(this.transform.position, sp.transform.position, Color.red);
-		}
+		}*/
 	}
 
 }

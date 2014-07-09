@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class MasterManager : LSMonoBehaviour {
+	public Material OriginalLine;
+	public Material BrokenLine;
+	public Material Team1Line;
+	public Material Team2Line;
 
 	// Use this for initialization
 	void Start () {
