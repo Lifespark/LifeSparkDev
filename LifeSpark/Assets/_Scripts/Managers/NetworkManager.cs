@@ -56,6 +56,11 @@ public class NetworkManager : LSMonoBehaviour {
 
 	private void Awake()
 	{
+        DebugClient dc = new DebugClient(1);
+        DebugClient dc2 = new DebugClient(2);
+        dc.Run();
+        dc2.Run();
+
 		mode = NetMode.initial;
 		connectFailed = false;
 		// Connect to the main photon server.

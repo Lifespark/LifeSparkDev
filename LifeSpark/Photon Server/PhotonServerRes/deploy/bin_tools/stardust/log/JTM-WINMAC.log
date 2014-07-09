@@ -1,0 +1,32 @@
+2014-06-28 19:27:26,376 [1] INFO  Photon.StarDust.Client.Program - Starting 5 games with 3 players
+2014-06-28 19:27:27,475 [6] DEBUG Photon.StarDust.Client.Program - peers: 2, r-ev: 1.220963, ur-ev: 0, r-op: 6.104808, ur-op: 0, res: 1.22095, r-rtt: 0, ur-rtt: 0, rtt: 0, var: 0, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:28,467 [12] DEBUG Photon.StarDust.Client.Program - peers: 3, r-ev: 41.25667, ur-ev: 0, r-op: 23.14397, ur-op: 0, res: 2.012518, r-rtt: 56.5, ur-rtt: 0, rtt: 5.333333, var: 0, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:28,721 [5] INFO  Photon.StarDust.Client.Program - [7092] Started game JTM-WINMAC(7092)1 with 3 clients
+2014-06-28 19:27:29,480 [8] DEBUG Photon.StarDust.Client.Program - peers: 4, r-ev: 56.30796, ur-ev: 0, r-op: 31.6115, ur-op: 0, res: 0.9878597, r-rtt: 82.08929, ur-rtt: 0, rtt: 3.5, var: 0.75, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:30,503 [11] DEBUG Photon.StarDust.Client.Program - peers: 5, r-ev: 60.57196, ur-ev: 0, r-op: 43.96352, ur-op: 0, res: 0.9769668, r-rtt: 38.41667, ur-rtt: 0, rtt: 2.6, var: 1.2, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:31,508 [11] DEBUG Photon.StarDust.Client.Program - peers: 6, r-ev: 93.58501, ur-ev: 0, r-op: 47.78811, ur-op: 0, res: 0.9955863, r-rtt: 48.65934, ur-rtt: 0, rtt: 2, var: 1.333333, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:31,660 [5] INFO  Photon.StarDust.Client.Program - [7092] Started game JTM-WINMAC(7092)2 with 3 clients
+2014-06-28 19:27:32,524 [11] DEBUG Photon.StarDust.Client.Program - peers: 8, r-ev: 97.43667, ur-ev: 0, r-op: 62.98936, ur-op: 0, res: 0.9842088, r-rtt: 43.93877, ur-rtt: 0, rtt: 1.571429, var: 1.142857, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:33,535 [11] DEBUG Photon.StarDust.Client.Program - peers: 9, r-ev: 149.3619, ur-ev: 0, r-op: 74.18631, ur-op: 0, res: 1.978301, r-rtt: 68.47945, ur-rtt: 0, rtt: 1.111111, var: 0.8888889, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:34,554 [6] DEBUG Photon.StarDust.Client.Program - peers: 9, r-ev: 158.9713, ur-ev: 0, r-op: 84.39223, ur-op: 0, res: 0, r-rtt: 39.32099, ur-rtt: 0, rtt: 1, var: 0.8888889, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:34,668 [5] INFO  Photon.StarDust.Client.Program - [7092] Started game JTM-WINMAC(7092)3 with 3 clients
+2014-06-28 19:27:35,563 [12] DEBUG Photon.StarDust.Client.Program - peers: 10, r-ev: 175.431, ur-ev: 0, r-op: 88.21106, ur-op: 0, res: 0.9911355, r-rtt: 51.59659, ur-rtt: 0, rtt: 0.8, var: 0.8, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:36,583 [6] DEBUG Photon.StarDust.Client.Program - peers: 11, r-ev: 167.5618, ur-ev: 0, r-op: 96.02953, ur-op: 0, res: 0.9798927, r-rtt: 35.17751, ur-rtt: 0, rtt: 0.5833333, var: 0.5833333, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:37,592 [12] DEBUG Photon.StarDust.Client.Program - peers: 12, r-ev: 206.2499, ur-ev: 0, r-op: 104.1165, ur-op: 0, res: 0.9915856, r-rtt: 56.27317, ur-rtt: 0, rtt: 0.6363636, var: 0.6363636, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:38,392 [5] INFO  Photon.StarDust.Client.Program - [7092] Started game JTM-WINMAC(7092)4 with 3 clients
+2014-06-28 19:27:38,638 [8] DEBUG Photon.StarDust.Client.Program - peers: 13, r-ev: 201.659, ur-ev: 0, r-op: 110.8646, ur-op: 0, res: 0.9557297, r-rtt: 49.59524, ur-rtt: 0, rtt: 0.5384616, var: 0.5384616, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:39,619 [8] DEBUG Photon.StarDust.Client.Program - peers: 14, r-ev: 247.7867, ur-ev: 0, r-op: 122.3638, ur-op: 0, res: 1.019699, r-rtt: 61.74274, ur-rtt: 0, rtt: 0.5, var: 0.5, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:40,646 [8] DEBUG Photon.StarDust.Client.Program - peers: 14, r-ev: 221.8485, ur-ev: 0, r-op: 128.4369, ur-op: 0, res: 0, r-rtt: 51.42105, ur-rtt: 0, rtt: 0.4666667, var: 0.4666667, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:41,610 [5] INFO  Photon.StarDust.Client.Program - [7092] Started game JTM-WINMAC(7092)5 with 3 clients
+2014-06-28 19:27:41,647 [8] DEBUG Photon.StarDust.Client.Program - peers: 15, r-ev: 278.9274, ur-ev: 0, r-op: 135.9665, ur-op: 0, res: 0.9997649, r-rtt: 56.34783, ur-rtt: 0, rtt: 0.5, var: 0.5, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:42,663 [12] DEBUG Photon.StarDust.Client.Program - peers: 15, r-ev: 257.7185, ur-ev: 0, r-op: 136.7285, ur-op: 0, res: 0, r-rtt: 45.0687, ur-rtt: 0, rtt: 0.4666667, var: 0.4666667, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:43,675 [6] DEBUG Photon.StarDust.Client.Program - peers: 15, r-ev: 292.6626, ur-ev: 0, r-op: 136.444, ur-op: 0, res: 0, r-rtt: 49.08108, ur-rtt: 0, rtt: 0.4666667, var: 0.4666667, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:44,722 [6] DEBUG Photon.StarDust.Client.Program - peers: 15, r-ev: 259.7105, ur-ev: 0, r-op: 132.7197, ur-op: 0, res: 0, r-rtt: 49.1875, ur-rtt: 0, rtt: 0.4666667, var: 0.4666667, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:45,703 [5] DEBUG Photon.StarDust.Client.Program - peers: 15, r-ev: 293.6745, ur-ev: 0, r-op: 144.7979, ur-op: 0, res: 0, r-rtt: 48.10727, ur-rtt: 0, rtt: 0.4375, var: 0.4375, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:46,719 [5] DEBUG Photon.StarDust.Client.Program - peers: 15, r-ev: 257.6898, ur-ev: 0, r-op: 134.7461, ur-op: 0, res: 0, r-rtt: 54.5364, ur-rtt: 0, rtt: 0.5, var: 0.5, flsh-rtt: 0, flsh-ev 0, flsh-op 0
+2014-06-28 19:27:47,599 [1] INFO  Photon.StarDust.Client.Program - [7092] Shutdown: Stopped game JTM-WINMAC(7092)1
+2014-06-28 19:27:47,599 [1] INFO  Photon.StarDust.Client.Program - [7092] Shutdown: Stopped game JTM-WINMAC(7092)2
+2014-06-28 19:27:47,599 [1] INFO  Photon.StarDust.Client.Program - [7092] Shutdown: Stopped game JTM-WINMAC(7092)3
+2014-06-28 19:27:47,599 [1] INFO  Photon.StarDust.Client.Program - [7092] Shutdown: Stopped game JTM-WINMAC(7092)4
+2014-06-28 19:27:47,600 [1] INFO  Photon.StarDust.Client.Program - [7092] Shutdown: Stopped game JTM-WINMAC(7092)5
+2014-06-28 19:27:47,606 [1] INFO  Photon.StarDust.Client.Program - [7092] Stopped

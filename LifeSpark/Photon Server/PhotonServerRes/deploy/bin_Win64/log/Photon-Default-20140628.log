@@ -1,0 +1,626 @@
+4012: 19:25:51.475 - ---
+4012: 19:25:51.475 - Service: "Photon Socket Server" starting
+4012: 19:25:51.475 - Config File: C:\Users\Johnathan\Documents\LifeSpark\deploy\bin_Win64\PhotonServer.config
+4012: 19:25:51.577 - Will produce at most: 10 crash dumps
+4012: 19:25:51.577 - Action: run as exe
+4012: 19:25:51.651 - Server Starting...
+4012: 19:25:51.651 -    Tick count: 2637508 (wraps in: 49.6797 days)
+4012: 19:25:51.651 - Tick count 64: 2637508
+4012: 19:25:51.651 - Photon Version: 3.4.4.2588
+4012: 19:25:51.651 - PID: 6200
+4012: 19:25:51.660 - Config File: C:\Users\Johnathan\Documents\LifeSpark\deploy\bin_Win64\PhotonServer.config
+4012: 19:25:51.660 - Will NOT log unimportant exceptions
+4012: 19:25:51.751 - Not using performance counters as they are not currently installed. Run the service with /InstallCounters to install them.
+4012: 19:25:51.752 - Shutdown timeout enabled: 30000ms
+4012: 19:25:51.753 - Starting I/O thread pool with 2 threads
+4012: 19:25:51.753 - Using Standard allocator
+4012: 19:25:51.753 - Max message size: 512000
+4012: 19:25:51.781 - Starting business logic thread pool with the following settings
+4012: 19:25:51.781 - InitialThreads: 4 threads
+4012: 19:25:51.781 - MinThreads: 4 threads
+4012: 19:25:51.781 - Thread pool is fixed size
+4012: 19:25:51.781 - Starting ENet thread pool with the following settings
+4012: 19:25:51.781 - InitialThreads: 2 threads
+4012: 19:25:51.781 - MinThreads: 2 threads
+4012: 19:25:51.781 - Thread pool is fixed size
+4012: 19:25:51.781 - OnlyDispatchTimers: False
+4012: 19:25:51.781 - S2S: flow control: Max pending writes: 50
+4012: 19:25:51.781 - S2S: flow control: Max queued buffers: 200
+4012: 19:25:51.781 - S2S: flow control: Max pending writes MUX: 500
+4012: 19:25:51.781 - S2S: flow control: Max queued buffers MUX: 2000
+4012: 19:25:51.781 - S2S: MaxInboundMessageSize: 512000
+4012: 19:25:51.781 - S2S: MaxOutboundMessageSize: 512000
+4012: 19:25:51.781 - S2S: No inactivity timeout
+4012: 19:25:51.998 - WebSocket S2S: MaxInboundMessageSize: 512000
+4012: 19:25:51.998 - WebSocket S2S: MaxOutboundMessageSize: 512000
+4012: 19:25:51.998 - WebSocket S2S: No inactivity timeout
+4012: 19:25:52.069 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+4012: 19:25:52.069 - Per peer bandwidth limit
+4012: 19:25:52.069 - Transmit Rate Limit: 256 KB/Sec
+4012: 19:25:52.069 - Limit period: 200ms
+4012: 19:25:52.069 - Limit per period: 52428 bytes
+4012: 19:25:52.069 - Max queued data for transmission per peer: 512000 bytes
+4012: 19:25:52.069 - Minimum retransmit timeout: 200
+4012: 19:25:52.069 - Minimum ENet timeout: 5000ms
+4012: 19:25:52.069 - Maximum ENet timeout: 30000ms
+4012: 19:25:52.069 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+4012: 19:25:52.069 - Outbound ENet: MaxInboundMessageSize: 512000
+4012: 19:25:52.069 - Outbound ENet: MaxOutboundMessageSize: 512000
+4012: 19:25:52.176 - GetRuntime - About to load CLR - versions available:
+4012: 19:25:52.176 - v2.0.50727
+4012: 19:25:52.176 - v4.0.30319
+4012: 19:25:52.176 - Configuration requests: "v2.0.50727"
+4012: 19:25:52.176 - About to load version: "v2.0.50727"
+4012: 19:25:52.272 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+4012: 19:25:52.272 - CLRBaseDirectory set to "C:\Users\Johnathan\Documents\LifeSpark\deploy"
+4012: 19:25:52.272 - Optimising event broadcast for 20 or more peers
+4012: 19:25:52.395 - Start: About to load CLR - versions available:
+4012: 19:25:52.395 - v2.0.50727
+4012: 19:25:52.395 - v4.0.30319
+4012: 19:25:52.395 - No preference in configuration file, will load latest.
+4012: 19:25:52.395 - About to load version: "v4.0.30319"
+4012: 19:25:52.397 - Loaded version: "v4.0.30319"
+4012: 19:25:58.979 - Photon host runtime loaded
+4012: 19:26:30.270 - LICENSE: No license file was found. Starting with Bootstrap License.
+4012: 19:26:30.309 - License is valid.
+4012: 19:26:30.309 - Licensed for 20 concurrent connections.
+4012: 19:26:30.309 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+4012: 19:26:30.309 - ENet: Per peer bandwidth limit
+4012: 19:26:30.309 - ENet: Transmit Rate Limit: 256 KB/Sec
+4012: 19:26:30.309 - ENet: Limit period: 200ms
+4012: 19:26:30.309 - ENet: Limit per period: 52428 bytes
+4012: 19:26:30.309 - ENet: Max queued data for transmission per peer: 512000 bytes
+4012: 19:26:30.309 - ENet: Minimum retransmit timeout: 200
+4012: 19:26:30.309 - ENet: Minimum timeout: 5000ms
+4012: 19:26:30.309 - ENet: Maximum timeout: 30000ms
+4012: 19:26:30.309 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+4012: 19:26:30.309 - About to load application: Lite from Lite
+4012: 19:26:30.309 - Auto restart is enabled for application, existing connections will be terminated during restart
+4012: 19:26:30.309 - Application will restart 1000ms after the last change detected
+4012: 19:26:30.309 - Application will restart if files matching the following are changed: "dll;config"
+4012: 19:26:30.309 - Application will NOT restart if files matching the following are changed: "log4net.config"
+4012: 19:26:31.922 - Taking reference on default app domain
+4012: 19:26:34.358 - Application: "Lite" started in app domain: 2
+4012: 19:26:34.358 - About to load application: LiteLobby from LiteLobby
+4012: 19:26:34.358 - Auto restart is enabled for application, existing connections will be terminated during restart
+4012: 19:26:34.358 - Application will restart 1000ms after the last change detected
+4012: 19:26:34.358 - Application will restart if files matching the following are changed: "dll;config"
+4012: 19:26:34.358 - Application will NOT restart if files matching the following are changed: "log4net.config"
+4012: 19:26:35.785 - Taking reference on default app domain
+4012: 19:26:36.868 - Application: "LiteLobby" started in app domain: 3
+4012: 19:26:36.868 - About to load application: MmoDemo from Photon.MmoDemo.Server
+4012: 19:26:36.868 - Auto restart is enabled for application, existing connections will be terminated during restart
+4012: 19:26:36.868 - Application will restart 1000ms after the last change detected
+4012: 19:26:36.868 - Application will restart if files matching the following are changed: "dll;config"
+4012: 19:26:36.868 - Application will NOT restart if files matching the following are changed: "log4net.config"
+4012: 19:26:38.260 - Taking reference on default app domain
+4012: 19:26:39.459 - Application: "MmoDemo" started in app domain: 4
+4012: 19:26:39.459 - About to load application: CounterPublisher from CounterPublisher
+4012: 19:26:39.459 - Auto restart is enabled for application, existing connections will be terminated during restart
+4012: 19:26:39.459 - Application will restart 1000ms after the last change detected
+4012: 19:26:39.459 - Application will restart if files matching the following are changed: "dll;config"
+4012: 19:26:39.459 - Application will NOT restart if files matching the following are changed: "log4net.config"
+4012: 19:26:40.394 - Taking reference on default app domain
+4012: 19:26:41.609 - Application: "CounterPublisher" started in app domain: 5
+4012: 19:26:41.609 - Adding TCP listener on :0.0.0.0: 4530 with a listen backlog of: 150
+4012: 19:26:41.609 - TCP inactivity timeout: 10000ms
+4012: 19:26:41.609 - TCP disconnect timeout: 120000ms
+4012: 19:26:41.609 - MaxInboundMessageSize: 512000
+4012: 19:26:41.609 - MaxOutboundMessageSize: 512000
+4012: 19:26:41.609 - Serving policy file requests from: "C:\Users\Johnathan\Documents\LifeSpark\deploy\Policy\assets\socket-policy.xml"
+4012: 19:26:41.712 - MaxInboundMessageSize: 512000
+4012: 19:26:41.712 - MaxOutboundMessageSize: 512000
+4012: 19:26:41.712 - UDP address specified as:0.0.0.0 adding listener to each available IPv4 address
+4012: 19:26:41.815 - Adding UDP listener on :192.168.0.3: 5055 with a listen backlog of: 500
+4012: 19:26:41.815 - Adding UDP listener on :127.0.0.1: 5055 with a listen backlog of: 500
+4012: 19:26:41.815 - Adding WebSocket TCP listener on :0.0.0.0: 9090 with a listen backlog of: 150
+4012: 19:26:41.815 - Nagle disabled
+4012: 19:26:41.815 - TCP inactivity timeout: 10000ms
+4012: 19:26:41.815 - MaxInboundMessageSize: 512000
+4012: 19:26:41.815 - MaxOutboundMessageSize: 512000
+4012: 19:26:41.815 - Forcing all applications ids to: "Lite"
+4012: 19:26:41.815 - Will accept ANY sub-protocols from the client
+4012: 19:26:41.815 - No automatic WebSocket ping
+4012: 19:26:41.897 - Adding Policy File listener on :0.0.0.0: 843 with a listen backlog of: 150 and serving Policy File: "C:\Users\Johnathan\Documents\LifeSpark\deploy\Policy\assets\socket-policy.xml"
+4012: 19:26:41.897 - TCP inactivity timeout: 10000ms
+4012: 19:26:41.898 - Adding Policy File listener on :0.0.0.0: 943 with a listen backlog of: 150 and serving Policy File: "C:\Users\Johnathan\Documents\LifeSpark\deploy\Policy\assets\socket-policy-silverlight.xml"
+4012: 19:26:41.898 - TCP inactivity timeout: 10000ms
+4012: 19:26:42.186 - Service is running...
+4012: 19:56:50.169 - Service is stopped...
+4012: 19:56:50.169 - Server shutting down...
+4012: 19:56:50.169 - Shutdown monitoring enabled, 30000ms before process abort
+4012: 19:56:50.169 - Notifying CLR applications of shutdown...
+4012: 19:56:50.169 - RequestApplicationStop: 5
+4012: 19:56:50.317 - RequestApplicationStop: 2
+4012: 19:56:50.322 - RequestApplicationStop: 3
+4012: 19:56:50.327 - RequestApplicationStop: 4
+4012: 19:56:50.330 - RequestStop: defalt app domain
+4012: 19:56:50.331 - Shutting down WebSocket Outbound Connection Manager...
+4012: 19:56:50.331 - Shutting down TCP Outbound Connection Manager...
+4012: 19:56:50.403 - Shutting down ENet Outbound Connection Manager...
+4012: 19:56:50.403 - Disconnecting all outbound peers...
+4012: 19:56:50.403 - Shutting down ENet host...
+4012: 19:56:50.403 - Disconnecting all peers...
+4012: 19:56:50.403 - Shutting down socket servers...
+4012: 19:56:50.403 - Shutting down ENet thread pool...
+4012: 19:56:50.437 - Shutting down TCP inactivity timers...
+4012: 19:56:50.437 - WaitingForShutdownToComplete: NativePolicy:0.0.0.0:843
+4012: 19:56:50.437 - OnShutdownCompleted: NativePolicy:0.0.0.0:843
+4012: 19:56:50.437 - WaitingForShutdownToComplete: NativePolicy:0.0.0.0:943
+4012: 19:56:50.437 - OnShutdownCompleted: NativePolicy:0.0.0.0:943
+4012: 19:56:50.437 - WaitingForShutdownToComplete: TCP:0.0.0.0:4530
+4012: 19:56:50.437 - OnShutdownCompleted: TCP:0.0.0.0:4530
+4012: 19:56:50.437 - WaitingForShutdownToComplete: UDP:127.0.0.1:5055
+4012: 19:56:50.437 - OnShutdownCompleted: UDP:127.0.0.1:5055
+4012: 19:56:50.437 - WaitingForShutdownToComplete: UDP:192.168.0.3:5055
+4012: 19:56:50.437 - OnShutdownCompleted: UDP:192.168.0.3:5055
+4012: 19:56:50.437 - WaitingForShutdownToComplete: WebSocket:0.0.0.0:9090
+4012: 19:56:50.437 - OnShutdownCompleted: WebSocket:0.0.0.0:9090
+4012: 19:56:50.437 - Shutting down CLR applications...
+6184: 19:56:50.443 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+4012: 19:56:50.449 - Shutting down business logic thread pool...
+2752: 19:56:50.484 - Unloading Domain: ApplicationName = 'CounterPublisher', DomainId='5'
+6184: 19:56:50.484 - CManagedHost::OnDomainUnload() - 5
+4012: 19:56:50.487 - Shutting down I/O thread pool...
+4012: 19:56:50.488 - Destroying servers
+4012: 19:56:50.488 - Destroying WebSocket Outbound Connection Manager
+4012: 19:56:50.488 - Destroying TCP Outbound Connection Manager
+4012: 19:56:50.488 - Destroying TCP inactivity timer
+4012: 19:56:50.488 - Destroying ENet timer wheel
+4012: 19:56:50.488 - Destroying ENet host
+4012: 19:56:50.488 - Destroying ENet outbound host
+4012: 19:56:50.488 - Destroying HTTP inactivity timer
+4012: 19:56:50.488 - Destroying HTTP host
+4012: 19:56:50.488 - Flushing ENET buffer allocator...
+4012: 19:56:50.489 - Flushing TCP buffer handle allocator...
+4012: 19:56:50.489 - Flushing stream socket allocator...
+4012: 19:56:50.489 - Flushing inbound datagram socket allocator...
+4012: 19:56:50.490 - Flushing outbound datagram socket allocator...
+4012: 19:56:50.490 - Destroying CLR dispatcher
+4012: 19:56:50.490 - Destroying CLR applications
+6184: 19:56:50.496 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+2752: 19:56:50.518 - Unloading Domain: ApplicationName = 'Lite', DomainId='2'
+6184: 19:56:50.518 - CManagedHost::OnDomainUnload() - 2
+4012: 19:56:50.565 - ~CCLRApplicationCollection() - Waiting up to 10 seconds for the CLR to release all of our objects
+6184: 19:56:50.569 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+2752: 19:56:50.590 - Unloading Domain: ApplicationName = 'LiteLobby', DomainId='3'
+6184: 19:56:50.591 - CManagedHost::OnDomainUnload() - 3
+6184: 19:56:50.594 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+2752: 19:56:50.605 - Unloading Domain: ApplicationName = 'MmoDemo', DomainId='4'
+6184: 19:56:50.607 - CManagedHost::OnDomainUnload() - 4
+4012: 19:56:50.608 - ~CCLRApplicationCollection() - Done. All objects released
+4012: 19:56:50.609 - ~CManagedHost() - Release default app domain
+4012: 19:56:50.609 - CManagedHost::OnDomainUnload() - 1
+4012: 19:56:50.609 - ~CManagedHost() - Waiting up to 10 seconds for CLR shutdown...
+4012: 19:56:50.609 - ~CManagedHost
+4012: 19:56:50.609 - Destroying ENet thread pool
+4012: 19:56:50.609 - Destroying Business logic thread pool
+4012: 19:56:50.609 - Destroying I/O thread pool
+4012: 19:56:50.609 - Destroying ENet buffer allocator
+4012: 19:56:50.609 - Destroying TCP buffer allocator
+4012: 19:56:50.609 - Destroying TCP socket allocator
+4012: 19:56:50.609 - Destroying ENet inbound socket allocator
+4012: 19:56:50.609 - Destroying ENet outbound socket allocator
+4012: 19:56:50.617 - Shutdown complete...
+4012: 19:56:50.617 - Service shutting down
+4012: 19:56:50.618 - Service shut down complete
+6960: 20:56:29.978 - ---
+6960: 20:56:29.978 - Service: "Photon Socket Server" starting
+6960: 20:56:29.978 - Config File: C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Assets\Photon Server\PhotonServerRes\deploy\bin_Win64\PhotonServer.config
+6960: 20:56:29.979 - Will produce at most: 10 crash dumps
+6960: 20:56:29.979 - Action: run as exe
+6960: 20:56:29.979 - Server Starting...
+6960: 20:56:29.979 -    Tick count: 8075828 (wraps in: 49.6168 days)
+6960: 20:56:29.979 - Tick count 64: 8075828
+6960: 20:56:29.979 - Photon Version: 3.4.4.2588
+6960: 20:56:29.979 - PID: 7348
+6960: 20:56:29.979 - Config File: C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Assets\Photon Server\PhotonServerRes\deploy\bin_Win64\PhotonServer.config
+6960: 20:56:29.980 - Will NOT log unimportant exceptions
+6960: 20:56:29.982 - Not using performance counters as they are not currently installed. Run the service with /InstallCounters to install them.
+6960: 20:56:29.982 - Shutdown timeout enabled: 30000ms
+6960: 20:56:29.982 - Starting I/O thread pool with 2 threads
+6960: 20:56:29.982 - Using Standard allocator
+6960: 20:56:29.982 - Max message size: 512000
+6960: 20:56:29.982 - Starting business logic thread pool with the following settings
+6960: 20:56:29.982 - InitialThreads: 4 threads
+6960: 20:56:29.982 - MinThreads: 4 threads
+6960: 20:56:29.982 - Thread pool is fixed size
+6960: 20:56:29.982 - Starting ENet thread pool with the following settings
+6960: 20:56:29.982 - InitialThreads: 2 threads
+6960: 20:56:29.982 - MinThreads: 2 threads
+6960: 20:56:29.982 - Thread pool is fixed size
+6960: 20:56:29.982 - OnlyDispatchTimers: False
+6960: 20:56:29.982 - S2S: flow control: Max pending writes: 50
+6960: 20:56:29.982 - S2S: flow control: Max queued buffers: 200
+6960: 20:56:29.982 - S2S: flow control: Max pending writes MUX: 500
+6960: 20:56:29.982 - S2S: flow control: Max queued buffers MUX: 2000
+6960: 20:56:29.982 - S2S: MaxInboundMessageSize: 512000
+6960: 20:56:29.982 - S2S: MaxOutboundMessageSize: 512000
+6960: 20:56:29.982 - S2S: No inactivity timeout
+6960: 20:56:29.985 - WebSocket S2S: MaxInboundMessageSize: 512000
+6960: 20:56:29.985 - WebSocket S2S: MaxOutboundMessageSize: 512000
+6960: 20:56:29.985 - WebSocket S2S: No inactivity timeout
+6960: 20:56:29.985 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+6960: 20:56:29.985 - Per peer bandwidth limit
+6960: 20:56:29.985 - Transmit Rate Limit: 256 KB/Sec
+6960: 20:56:29.985 - Limit period: 200ms
+6960: 20:56:29.985 - Limit per period: 52428 bytes
+6960: 20:56:29.985 - Max queued data for transmission per peer: 512000 bytes
+6960: 20:56:29.985 - Minimum retransmit timeout: 200
+6960: 20:56:29.985 - Minimum ENet timeout: 5000ms
+6960: 20:56:29.985 - Maximum ENet timeout: 30000ms
+6960: 20:56:29.985 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+6960: 20:56:29.985 - Outbound ENet: MaxInboundMessageSize: 512000
+6960: 20:56:29.985 - Outbound ENet: MaxOutboundMessageSize: 512000
+6960: 20:56:29.986 - GetRuntime - About to load CLR - versions available:
+6960: 20:56:29.986 - v2.0.50727
+6960: 20:56:29.986 - v4.0.30319
+6960: 20:56:29.986 - Configuration requests: "v2.0.50727"
+6960: 20:56:29.986 - About to load version: "v2.0.50727"
+6960: 20:56:29.993 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+6960: 20:56:29.993 - CLRBaseDirectory set to "C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Assets\Photon Server\PhotonServerRes\deploy"
+6960: 20:56:29.993 - Optimising event broadcast for 20 or more peers
+6960: 20:56:29.994 - Start: About to load CLR - versions available:
+6960: 20:56:29.994 - v2.0.50727
+6960: 20:56:29.994 - v4.0.30319
+6960: 20:56:29.994 - No preference in configuration file, will load latest.
+6960: 20:56:29.994 - About to load version: "v4.0.30319"
+6960: 20:56:29.995 - Loaded version: "v4.0.30319"
+6960: 20:56:30.338 - Photon host runtime loaded
+6960: 20:56:41.023 - LICENSE: No license file was found. Starting with Bootstrap License.
+6960: 20:56:41.023 - License is valid.
+6960: 20:56:41.023 - Licensed for 20 concurrent connections.
+6960: 20:56:41.023 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+6960: 20:56:41.023 - ENet: Per peer bandwidth limit
+6960: 20:56:41.023 - ENet: Transmit Rate Limit: 256 KB/Sec
+6960: 20:56:41.023 - ENet: Limit period: 200ms
+6960: 20:56:41.023 - ENet: Limit per period: 52428 bytes
+6960: 20:56:41.023 - ENet: Max queued data for transmission per peer: 512000 bytes
+6960: 20:56:41.023 - ENet: Minimum retransmit timeout: 200
+6960: 20:56:41.023 - ENet: Minimum timeout: 5000ms
+6960: 20:56:41.023 - ENet: Maximum timeout: 30000ms
+6960: 20:56:41.023 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+6960: 20:56:41.023 - About to load application: Lite from Lite
+6960: 20:56:41.023 - Auto restart is enabled for application, existing connections will be terminated during restart
+6960: 20:56:41.023 - Application will restart 1000ms after the last change detected
+6960: 20:56:41.023 - Application will restart if files matching the following are changed: "dll;config"
+6960: 20:56:41.023 - Application will NOT restart if files matching the following are changed: "log4net.config"
+6960: 20:56:41.192 - Taking reference on default app domain
+6960: 20:56:41.568 - Application: "Lite" started in app domain: 2
+6960: 20:56:41.568 - About to load application: DataStore from DataStore
+6960: 20:56:41.568 - Auto restart is enabled for application, existing connections will be terminated during restart
+6960: 20:56:41.568 - Application will restart 1000ms after the last change detected
+6960: 20:56:41.697 - CService::OnException() - Exception: CManagedHost::CreateApplicationInNewAppDomain() - Failed to create new application domain for : "DataStore" - Can't find DataStore.dll in C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Assets\Photon Server\PhotonServerRes\deploy\Lite\bin or C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Assets\Photon Server\PhotonServerRes\deploy\DataStore\bin
+6960: 20:56:41.697 - Server shutting down...
+6960: 20:56:41.697 - Shutdown monitoring enabled, 30000ms before process abort
+6960: 20:56:41.697 - Notifying CLR applications of shutdown...
+6960: 20:56:41.697 - RequestApplicationStop: 2
+6960: 20:56:41.705 - RequestStop: defalt app domain
+6960: 20:56:41.707 - Shutting down WebSocket Outbound Connection Manager...
+6960: 20:56:41.707 - Shutting down TCP Outbound Connection Manager...
+6960: 20:56:41.707 - Shutting down ENet Outbound Connection Manager...
+6960: 20:56:41.707 - Disconnecting all outbound peers...
+6960: 20:56:41.707 - Shutting down ENet host...
+6960: 20:56:41.707 - Disconnecting all peers...
+6960: 20:56:41.707 - Shutting down socket servers...
+6960: 20:56:41.707 - Shutting down ENet thread pool...
+6960: 20:56:41.709 - Shutting down TCP inactivity timers...
+6960: 20:56:41.709 - Shutting down CLR applications...
+6960: 20:56:41.711 - Shutting down business logic thread pool...
+5392: 20:56:41.711 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+7800: 20:56:41.726 - Unloading Domain: ApplicationName = 'Lite', DomainId='2'
+5392: 20:56:41.726 - CManagedHost::OnDomainUnload() - 2
+6960: 20:56:41.727 - Shutting down I/O thread pool...
+6960: 20:56:41.730 - Destroying servers
+6960: 20:56:41.730 - Destroying WebSocket Outbound Connection Manager
+6960: 20:56:41.730 - Destroying TCP Outbound Connection Manager
+6960: 20:56:41.730 - Destroying TCP inactivity timer
+6960: 20:56:41.730 - Destroying ENet timer wheel
+6960: 20:56:41.730 - Destroying ENet host
+6960: 20:56:41.730 - Destroying ENet outbound host
+6960: 20:56:41.730 - Destroying HTTP inactivity timer
+6960: 20:56:41.730 - Destroying HTTP host
+6960: 20:56:41.730 - Flushing ENET buffer allocator...
+6960: 20:56:41.730 - Flushing TCP buffer handle allocator...
+6960: 20:56:41.730 - Flushing stream socket allocator...
+6960: 20:56:41.730 - Flushing inbound datagram socket allocator...
+6960: 20:56:41.730 - Flushing outbound datagram socket allocator...
+6960: 20:56:41.730 - Destroying CLR dispatcher
+6960: 20:56:41.730 - Destroying CLR applications
+6960: 20:56:41.730 - ~CCLRApplicationCollection() - Waiting up to 10 seconds for the CLR to release all of our objects
+6960: 20:56:41.730 - ~CCLRApplicationCollection() - Done. All objects released
+6960: 20:56:41.730 - ~CManagedHost() - Release default app domain
+6960: 20:56:41.730 - CManagedHost::OnDomainUnload() - 1
+6960: 20:56:41.730 - ~CManagedHost() - Waiting up to 10 seconds for CLR shutdown...
+6960: 20:56:41.730 - ~CManagedHost
+6960: 20:56:41.730 - Destroying ENet thread pool
+6960: 20:56:41.730 - Destroying Business logic thread pool
+6960: 20:56:41.730 - Destroying I/O thread pool
+6960: 20:56:41.730 - Destroying ENet buffer allocator
+6960: 20:56:41.730 - Destroying TCP buffer allocator
+6960: 20:56:41.730 - Destroying TCP socket allocator
+6960: 20:56:41.730 - Destroying ENet inbound socket allocator
+6960: 20:56:41.730 - Destroying ENet outbound socket allocator
+6960: 20:56:41.730 - Shutdown complete...
+6960: 20:56:41.730 - Service shutting down
+6960: 20:56:41.731 - Service shut down complete
+7292: 22:00:10.272 - ---
+7292: 22:00:10.272 - Service: "Photon Socket Server" starting
+7292: 22:00:10.272 - Config File: C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\bin_Win64\PhotonServer.config
+7292: 22:00:10.272 - Will produce at most: 10 crash dumps
+7292: 22:00:10.273 - Action: run as exe
+7292: 22:00:10.273 - Server Starting...
+7292: 22:00:10.273 -    Tick count: 11896121 (wraps in: 49.5726 days)
+7292: 22:00:10.273 - Tick count 64: 11896121
+7292: 22:00:10.273 - Photon Version: 3.4.4.2588
+7292: 22:00:10.273 - PID: 4992
+7292: 22:00:10.273 - Config File: C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\bin_Win64\PhotonServer.config
+7292: 22:00:10.273 - Will NOT log unimportant exceptions
+7292: 22:00:10.276 - Not using performance counters as they are not currently installed. Run the service with /InstallCounters to install them.
+7292: 22:00:10.276 - Shutdown timeout enabled: 30000ms
+7292: 22:00:10.276 - Starting I/O thread pool with 2 threads
+7292: 22:00:10.276 - Using Standard allocator
+7292: 22:00:10.276 - Max message size: 512000
+7292: 22:00:10.276 - Starting business logic thread pool with the following settings
+7292: 22:00:10.276 - InitialThreads: 4 threads
+7292: 22:00:10.276 - MinThreads: 4 threads
+7292: 22:00:10.276 - Thread pool is fixed size
+7292: 22:00:10.276 - Starting ENet thread pool with the following settings
+7292: 22:00:10.276 - InitialThreads: 2 threads
+7292: 22:00:10.276 - MinThreads: 2 threads
+7292: 22:00:10.276 - Thread pool is fixed size
+7292: 22:00:10.276 - OnlyDispatchTimers: False
+7292: 22:00:10.276 - S2S: flow control: Max pending writes: 50
+7292: 22:00:10.276 - S2S: flow control: Max queued buffers: 200
+7292: 22:00:10.276 - S2S: flow control: Max pending writes MUX: 500
+7292: 22:00:10.276 - S2S: flow control: Max queued buffers MUX: 2000
+7292: 22:00:10.276 - S2S: MaxInboundMessageSize: 512000
+7292: 22:00:10.276 - S2S: MaxOutboundMessageSize: 512000
+7292: 22:00:10.276 - S2S: No inactivity timeout
+7292: 22:00:10.279 - WebSocket S2S: MaxInboundMessageSize: 512000
+7292: 22:00:10.279 - WebSocket S2S: MaxOutboundMessageSize: 512000
+7292: 22:00:10.279 - WebSocket S2S: No inactivity timeout
+7292: 22:00:10.279 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+7292: 22:00:10.279 - Per peer bandwidth limit
+7292: 22:00:10.279 - Transmit Rate Limit: 256 KB/Sec
+7292: 22:00:10.279 - Limit period: 200ms
+7292: 22:00:10.279 - Limit per period: 52428 bytes
+7292: 22:00:10.279 - Max queued data for transmission per peer: 512000 bytes
+7292: 22:00:10.279 - Minimum retransmit timeout: 200
+7292: 22:00:10.279 - Minimum ENet timeout: 5000ms
+7292: 22:00:10.279 - Maximum ENet timeout: 30000ms
+7292: 22:00:10.279 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+7292: 22:00:10.279 - Outbound ENet: MaxInboundMessageSize: 512000
+7292: 22:00:10.279 - Outbound ENet: MaxOutboundMessageSize: 512000
+7292: 22:00:10.280 - GetRuntime - About to load CLR - versions available:
+7292: 22:00:10.280 - v2.0.50727
+7292: 22:00:10.280 - v4.0.30319
+7292: 22:00:10.280 - Configuration requests: "v2.0.50727"
+7292: 22:00:10.280 - About to load version: "v2.0.50727"
+7292: 22:00:10.288 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+7292: 22:00:10.288 - CLRBaseDirectory set to "C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy"
+7292: 22:00:10.288 - Optimising event broadcast for 20 or more peers
+7292: 22:00:10.289 - Start: About to load CLR - versions available:
+7292: 22:00:10.289 - v2.0.50727
+7292: 22:00:10.289 - v4.0.30319
+7292: 22:00:10.289 - No preference in configuration file, will load latest.
+7292: 22:00:10.289 - About to load version: "v4.0.30319"
+7292: 22:00:10.290 - Loaded version: "v4.0.30319"
+7292: 22:00:10.631 - Photon host runtime loaded
+7292: 22:00:22.290 - LICENSE: No license file was found. Starting with Bootstrap License.
+7292: 22:00:22.290 - License is valid.
+7292: 22:00:22.290 - Licensed for 20 concurrent connections.
+7292: 22:00:22.290 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+7292: 22:00:22.290 - ENet: Per peer bandwidth limit
+7292: 22:00:22.290 - ENet: Transmit Rate Limit: 256 KB/Sec
+7292: 22:00:22.290 - ENet: Limit period: 200ms
+7292: 22:00:22.290 - ENet: Limit per period: 52428 bytes
+7292: 22:00:22.290 - ENet: Max queued data for transmission per peer: 512000 bytes
+7292: 22:00:22.290 - ENet: Minimum retransmit timeout: 200
+7292: 22:00:22.290 - ENet: Minimum timeout: 5000ms
+7292: 22:00:22.290 - ENet: Maximum timeout: 30000ms
+7292: 22:00:22.290 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+7292: 22:00:22.290 - About to load application: Lite from Lite
+7292: 22:00:22.290 - Auto restart is enabled for application, existing connections will be terminated during restart
+7292: 22:00:22.290 - Application will restart 1000ms after the last change detected
+7292: 22:00:22.290 - Application will restart if files matching the following are changed: "dll;config"
+7292: 22:00:22.290 - Application will NOT restart if files matching the following are changed: "log4net.config"
+7292: 22:00:22.479 - Taking reference on default app domain
+7292: 22:00:22.566 - Application: "Lite" started in app domain: 2
+7292: 22:00:22.566 - About to load application: DataStore from DataStore
+7292: 22:00:22.566 - Auto restart is enabled for application, existing connections will be terminated during restart
+7292: 22:00:22.566 - Application will restart 1000ms after the last change detected
+7292: 22:00:22.570 - CService::OnException() - Exception: CManagedHost::CreateApplicationInNewAppDomain() - Failed to create new application domain for : "DataStore" - Can't find DataStore.dll in C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\Lite\bin or C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\DataStore\bin
+7292: 22:00:22.570 - Server shutting down...
+7292: 22:00:22.570 - Shutdown monitoring enabled, 30000ms before process abort
+7292: 22:00:22.570 - Notifying CLR applications of shutdown...
+7292: 22:00:22.570 - RequestApplicationStop: 2
+7292: 22:00:22.576 - RequestStop: defalt app domain
+7292: 22:00:22.578 - Shutting down WebSocket Outbound Connection Manager...
+7292: 22:00:22.578 - Shutting down TCP Outbound Connection Manager...
+7292: 22:00:22.578 - Shutting down ENet Outbound Connection Manager...
+7292: 22:00:22.578 - Disconnecting all outbound peers...
+7292: 22:00:22.578 - Shutting down ENet host...
+7292: 22:00:22.578 - Disconnecting all peers...
+7292: 22:00:22.578 - Shutting down socket servers...
+7292: 22:00:22.578 - Shutting down ENet thread pool...
+7292: 22:00:22.590 - Shutting down TCP inactivity timers...
+7292: 22:00:22.590 - Shutting down CLR applications...
+7292: 22:00:22.593 - Shutting down business logic thread pool...
+6248: 22:00:22.594 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+7556: 22:00:22.609 - Unloading Domain: ApplicationName = 'Lite', DomainId='2'
+6248: 22:00:22.610 - CManagedHost::OnDomainUnload() - 2
+7292: 22:00:22.615 - Shutting down I/O thread pool...
+7292: 22:00:22.616 - Destroying servers
+7292: 22:00:22.616 - Destroying WebSocket Outbound Connection Manager
+7292: 22:00:22.616 - Destroying TCP Outbound Connection Manager
+7292: 22:00:22.616 - Destroying TCP inactivity timer
+7292: 22:00:22.616 - Destroying ENet timer wheel
+7292: 22:00:22.616 - Destroying ENet host
+7292: 22:00:22.616 - Destroying ENet outbound host
+7292: 22:00:22.616 - Destroying HTTP inactivity timer
+7292: 22:00:22.616 - Destroying HTTP host
+7292: 22:00:22.616 - Flushing ENET buffer allocator...
+7292: 22:00:22.616 - Flushing TCP buffer handle allocator...
+7292: 22:00:22.616 - Flushing stream socket allocator...
+7292: 22:00:22.616 - Flushing inbound datagram socket allocator...
+7292: 22:00:22.616 - Flushing outbound datagram socket allocator...
+7292: 22:00:22.616 - Destroying CLR dispatcher
+7292: 22:00:22.616 - Destroying CLR applications
+7292: 22:00:22.616 - ~CCLRApplicationCollection() - Waiting up to 10 seconds for the CLR to release all of our objects
+7292: 22:00:22.616 - ~CCLRApplicationCollection() - Done. All objects released
+7292: 22:00:22.616 - ~CManagedHost() - Release default app domain
+7292: 22:00:22.616 - CManagedHost::OnDomainUnload() - 1
+7292: 22:00:22.617 - ~CManagedHost() - Waiting up to 10 seconds for CLR shutdown...
+7292: 22:00:22.617 - ~CManagedHost
+7292: 22:00:22.617 - Destroying ENet thread pool
+7292: 22:00:22.617 - Destroying Business logic thread pool
+7292: 22:00:22.617 - Destroying I/O thread pool
+7292: 22:00:22.617 - Destroying ENet buffer allocator
+7292: 22:00:22.617 - Destroying TCP buffer allocator
+7292: 22:00:22.617 - Destroying TCP socket allocator
+7292: 22:00:22.617 - Destroying ENet inbound socket allocator
+7292: 22:00:22.617 - Destroying ENet outbound socket allocator
+7292: 22:00:22.617 - Shutdown complete...
+7292: 22:00:22.617 - Service shutting down
+7292: 22:00:22.618 - Service shut down complete
+7552: 22:05:13.268 - ---
+7552: 22:05:13.268 - Service: "Photon Socket Server" starting
+7552: 22:05:13.268 - Config File: C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\bin_Win64\PhotonServer.config
+7552: 22:05:13.269 - Will produce at most: 10 crash dumps
+7552: 22:05:13.269 - Action: run as exe
+7552: 22:05:13.269 - Server Starting...
+7552: 22:05:13.269 -    Tick count: 12199122 (wraps in: 49.5691 days)
+7552: 22:05:13.269 - Tick count 64: 12199122
+7552: 22:05:13.269 - Photon Version: 3.4.4.2588
+7552: 22:05:13.269 - PID: 8016
+7552: 22:05:13.269 - Config File: C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\bin_Win64\PhotonServer.config
+7552: 22:05:13.270 - Will NOT log unimportant exceptions
+7552: 22:05:13.272 - Not using performance counters as they are not currently installed. Run the service with /InstallCounters to install them.
+7552: 22:05:13.272 - Shutdown timeout enabled: 30000ms
+7552: 22:05:13.272 - Starting I/O thread pool with 2 threads
+7552: 22:05:13.272 - Using Standard allocator
+7552: 22:05:13.272 - Max message size: 512000
+7552: 22:05:13.272 - Starting business logic thread pool with the following settings
+7552: 22:05:13.272 - InitialThreads: 4 threads
+7552: 22:05:13.272 - MinThreads: 4 threads
+7552: 22:05:13.272 - Thread pool is fixed size
+7552: 22:05:13.272 - Starting ENet thread pool with the following settings
+7552: 22:05:13.272 - InitialThreads: 2 threads
+7552: 22:05:13.272 - MinThreads: 2 threads
+7552: 22:05:13.272 - Thread pool is fixed size
+7552: 22:05:13.272 - OnlyDispatchTimers: False
+7552: 22:05:13.272 - S2S: flow control: Max pending writes: 50
+7552: 22:05:13.272 - S2S: flow control: Max queued buffers: 200
+7552: 22:05:13.272 - S2S: flow control: Max pending writes MUX: 500
+7552: 22:05:13.272 - S2S: flow control: Max queued buffers MUX: 2000
+7552: 22:05:13.272 - S2S: MaxInboundMessageSize: 512000
+7552: 22:05:13.272 - S2S: MaxOutboundMessageSize: 512000
+7552: 22:05:13.272 - S2S: No inactivity timeout
+7552: 22:05:13.275 - WebSocket S2S: MaxInboundMessageSize: 512000
+7552: 22:05:13.275 - WebSocket S2S: MaxOutboundMessageSize: 512000
+7552: 22:05:13.275 - WebSocket S2S: No inactivity timeout
+7552: 22:05:13.275 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+7552: 22:05:13.275 - Per peer bandwidth limit
+7552: 22:05:13.275 - Transmit Rate Limit: 256 KB/Sec
+7552: 22:05:13.275 - Limit period: 200ms
+7552: 22:05:13.275 - Limit per period: 52428 bytes
+7552: 22:05:13.275 - Max queued data for transmission per peer: 512000 bytes
+7552: 22:05:13.275 - Minimum retransmit timeout: 200
+7552: 22:05:13.275 - Minimum ENet timeout: 5000ms
+7552: 22:05:13.275 - Maximum ENet timeout: 30000ms
+7552: 22:05:13.275 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+7552: 22:05:13.275 - Outbound ENet: MaxInboundMessageSize: 512000
+7552: 22:05:13.275 - Outbound ENet: MaxOutboundMessageSize: 512000
+7552: 22:05:13.276 - GetRuntime - About to load CLR - versions available:
+7552: 22:05:13.276 - v2.0.50727
+7552: 22:05:13.276 - v4.0.30319
+7552: 22:05:13.276 - Configuration requests: "v2.0.50727"
+7552: 22:05:13.276 - About to load version: "v2.0.50727"
+7552: 22:05:13.283 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+7552: 22:05:13.283 - CLRBaseDirectory set to "C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy"
+7552: 22:05:13.283 - Optimising event broadcast for 20 or more peers
+7552: 22:05:13.284 - Start: About to load CLR - versions available:
+7552: 22:05:13.284 - v2.0.50727
+7552: 22:05:13.284 - v4.0.30319
+7552: 22:05:13.284 - No preference in configuration file, will load latest.
+7552: 22:05:13.284 - About to load version: "v4.0.30319"
+7552: 22:05:13.285 - Loaded version: "v4.0.30319"
+7552: 22:05:13.643 - Photon host runtime loaded
+7552: 22:05:25.143 - LICENSE: No license file was found. Starting with Bootstrap License.
+7552: 22:05:25.143 - License is valid.
+7552: 22:05:25.143 - Licensed for 20 concurrent connections.
+7552: 22:05:25.143 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+7552: 22:05:25.143 - ENet: Per peer bandwidth limit
+7552: 22:05:25.143 - ENet: Transmit Rate Limit: 256 KB/Sec
+7552: 22:05:25.143 - ENet: Limit period: 200ms
+7552: 22:05:25.143 - ENet: Limit per period: 52428 bytes
+7552: 22:05:25.143 - ENet: Max queued data for transmission per peer: 512000 bytes
+7552: 22:05:25.143 - ENet: Minimum retransmit timeout: 200
+7552: 22:05:25.143 - ENet: Minimum timeout: 5000ms
+7552: 22:05:25.143 - ENet: Maximum timeout: 30000ms
+7552: 22:05:25.143 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+7552: 22:05:25.143 - About to load application: Lite from Lite
+7552: 22:05:25.143 - Auto restart is enabled for application, existing connections will be terminated during restart
+7552: 22:05:25.143 - Application will restart 1000ms after the last change detected
+7552: 22:05:25.143 - Application will restart if files matching the following are changed: "dll;config"
+7552: 22:05:25.143 - Application will NOT restart if files matching the following are changed: "log4net.config"
+7552: 22:05:25.281 - Taking reference on default app domain
+7552: 22:05:25.351 - Application: "Lite" started in app domain: 2
+7552: 22:05:25.351 - About to load application: DataStore from DataStore
+7552: 22:05:25.351 - Auto restart is enabled for application, existing connections will be terminated during restart
+7552: 22:05:25.351 - Application will restart 1000ms after the last change detected
+7552: 22:05:25.361 - CService::OnException() - Exception: CManagedHost::CreateApplicationInNewAppDomain() - Failed to create new application domain for : "DataStore" - Can't find DataStore.dll in C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\Lite\bin or C:\Users\Johnathan\Documents\GitHub\LifeSparkDev\LifeSpark\Photon Server\PhotonServerRes\deploy\DataStore\bin
+7552: 22:05:25.361 - Server shutting down...
+7552: 22:05:25.361 - Shutdown monitoring enabled, 30000ms before process abort
+7552: 22:05:25.361 - Notifying CLR applications of shutdown...
+7552: 22:05:25.361 - RequestApplicationStop: 2
+7552: 22:05:25.368 - RequestStop: defalt app domain
+7552: 22:05:25.373 - Shutting down WebSocket Outbound Connection Manager...
+7552: 22:05:25.373 - Shutting down TCP Outbound Connection Manager...
+7552: 22:05:25.373 - Shutting down ENet Outbound Connection Manager...
+7552: 22:05:25.373 - Disconnecting all outbound peers...
+7552: 22:05:25.373 - Shutting down ENet host...
+7552: 22:05:25.373 - Disconnecting all peers...
+7552: 22:05:25.373 - Shutting down socket servers...
+7552: 22:05:25.373 - Shutting down ENet thread pool...
+7552: 22:05:25.378 - Shutting down TCP inactivity timers...
+7552: 22:05:25.378 - Shutting down CLR applications...
+7552: 22:05:25.381 - Shutting down business logic thread pool...
+3020: 22:05:25.382 - CManagedHost::OnDefaultAction() - OPR_AppDomainUnload - eUnloadAppDomain
+8064: 22:05:25.396 - Unloading Domain: ApplicationName = 'Lite', DomainId='2'
+3020: 22:05:25.397 - CManagedHost::OnDomainUnload() - 2
+7552: 22:05:25.398 - Shutting down I/O thread pool...
+7552: 22:05:25.399 - Destroying servers
+7552: 22:05:25.399 - Destroying WebSocket Outbound Connection Manager
+7552: 22:05:25.399 - Destroying TCP Outbound Connection Manager
+7552: 22:05:25.399 - Destroying TCP inactivity timer
+7552: 22:05:25.399 - Destroying ENet timer wheel
+7552: 22:05:25.399 - Destroying ENet host
+7552: 22:05:25.399 - Destroying ENet outbound host
+7552: 22:05:25.399 - Destroying HTTP inactivity timer
+7552: 22:05:25.399 - Destroying HTTP host
+7552: 22:05:25.399 - Flushing ENET buffer allocator...
+7552: 22:05:25.399 - Flushing TCP buffer handle allocator...
+7552: 22:05:25.399 - Flushing stream socket allocator...
+7552: 22:05:25.399 - Flushing inbound datagram socket allocator...
+7552: 22:05:25.399 - Flushing outbound datagram socket allocator...
+7552: 22:05:25.399 - Destroying CLR dispatcher
+7552: 22:05:25.399 - Destroying CLR applications
+7552: 22:05:25.400 - ~CCLRApplicationCollection() - Waiting up to 10 seconds for the CLR to release all of our objects
+7552: 22:05:25.400 - ~CCLRApplicationCollection() - Done. All objects released
+7552: 22:05:25.400 - ~CManagedHost() - Release default app domain
+7552: 22:05:25.400 - CManagedHost::OnDomainUnload() - 1
+7552: 22:05:25.401 - ~CManagedHost() - Waiting up to 10 seconds for CLR shutdown...
+7552: 22:05:25.401 - ~CManagedHost
+7552: 22:05:25.401 - Destroying ENet thread pool
+7552: 22:05:25.401 - Destroying Business logic thread pool
+7552: 22:05:25.401 - Destroying I/O thread pool
+7552: 22:05:25.401 - Destroying ENet buffer allocator
+7552: 22:05:25.401 - Destroying TCP buffer allocator
+7552: 22:05:25.401 - Destroying TCP socket allocator
+7552: 22:05:25.401 - Destroying ENet inbound socket allocator
+7552: 22:05:25.401 - Destroying ENet outbound socket allocator
+7552: 22:05:25.401 - Shutdown complete...
+7552: 22:05:25.401 - Service shutting down
+7552: 22:05:25.405 - Service shut down complete
