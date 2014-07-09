@@ -15,6 +15,7 @@ public class Line : LSMonoBehaviour {
 		// *now it just support all spark point at same y
 		Vector3 direction = edgePoints [0].transform.position - edgePoints [1].transform.position;
 		float angle = Vector3.Angle (direction, this.transform.right);
+		if (angle > 90) {angle = angle - (2*(angle - 90));}
 		this.transform.Rotate (new Vector3 (0, angle, 0));
 		//
 		state = 0;

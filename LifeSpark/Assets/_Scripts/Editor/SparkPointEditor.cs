@@ -2,16 +2,18 @@
 using UnityEditor;
 using System.Collections;
 	
-[CustomEditor (typeof(SparkPoint)), CanEditMultipleObjects]
+//[CustomEditor (typeof(SparkPoint)), CanEditMultipleObjects]
 public class SparkPointEditor : Editor {
 
 	SerializedProperty connectedSparkPoints;
+	SerializedProperty connectedLines;
 
 	private static GUIContent addPoint = new GUIContent("+", "Add Point");
 	private static GUIContent minusPoint = new GUIContent("-", "Remove Point");
 
 	public void OnEnable () {
 		connectedSparkPoints = serializedObject.FindProperty("_connections");
+		connectedLines = serializedObject.FindProperty("connectionLines");
 	}
 
 	public override void OnInspectorGUI () {

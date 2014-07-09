@@ -5,6 +5,8 @@ using System.Collections;
 public class SparkPoint : LSMonoBehaviour {
 	
 	public SparkPoint[] _connections;
+	public Line[] connectionLines;
+
 	int owner;
 	enum SparkPointState {
 		Free,
@@ -43,6 +45,14 @@ public class SparkPoint : LSMonoBehaviour {
 			if (captureTimer == captureTime) {
 				captureTimer = 0;
 				sparkPointState = SparkPointState.Captured;
+				//// captured, check connection sparkpoint owner to change line color
+				int tempSize = _connections.Length;
+				for (int i=0; i<tempSize; i++) {
+					if(_connections[i].owner == capturingTeam) {
+						connectionLines[i].photonView.RPC("RPC_setLineMaterial", PhotonTargets.All, capturingTeam);
+					}
+				}
+				////
 				owner = capturingTeam;
 				capturingTeam = -1;
 				for (int i = 0; i < capturers.Count; i++) {
