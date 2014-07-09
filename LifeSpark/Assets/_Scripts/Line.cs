@@ -10,7 +10,7 @@ public class Line : LSMonoBehaviour {
 		// initial position
 		this.transform.position = (edgePoints [0].transform.position + edgePoints [1].transform.position) / 2;
 		// initial scale
-		this.transform.localScale = new Vector3(Mathf.Sqrt((edgePoints [0].transform.position - edgePoints [1].transform.position).sqrMagnitude), 1, 1);
+		this.transform.localScale = new Vector3(Mathf.Sqrt((edgePoints [0].transform.position - edgePoints [1].transform.position).sqrMagnitude) - 1, 1, 1);
 		// initial angle 
 		// *now it just support all spark point at same y
 		Vector3 direction = edgePoints [0].transform.position - edgePoints [1].transform.position;
@@ -22,7 +22,7 @@ public class Line : LSMonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		RPC_setLineMaterial (state);
+		//RPC_setLineMaterial (state);
 	}
 
 	//--------------------------------------------------------------------------

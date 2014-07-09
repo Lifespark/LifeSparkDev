@@ -206,8 +206,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1055509249}
   - {fileID: 718303305}
-  connectionLines: []
-  state: 0
 --- !u!23 &472274812
 Renderer:
   m_ObjectHideFlags: 0
@@ -394,6 +392,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &622257730
 Renderer:
@@ -482,8 +481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _connections:
   - {fileID: 1055509249}
-  connectionLines: []
-  state: 0
 --- !u!23 &718303306
 Renderer:
   m_ObjectHideFlags: 0
@@ -577,6 +574,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &826583818
 Renderer:
@@ -703,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subId: 3
+  subId: 12
   ownerId: 0
   group: 0
   prefixBackup: -1
@@ -727,7 +725,6 @@ MonoBehaviour:
   edgePoints:
   - {fileID: 472274811}
   - {fileID: 1055509249}
-  testArray: 
   state: 0
 --- !u!23 &950957057
 Renderer:
@@ -861,8 +858,6 @@ MonoBehaviour:
   - {fileID: 1654555801}
   - {fileID: 472274811}
   - {fileID: 718303305}
-  connectionLines: []
-  state: 0
 --- !u!23 &1055509250
 Renderer:
   m_ObjectHideFlags: 0
@@ -1056,7 +1051,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 6f67825c1656d2d489568ee5d086fbd2, type: 2}
       propertyPath: subId
-      value: 1
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 6f67825c1656d2d489568ee5d086fbd2, type: 2}
       propertyPath: edgePoints.Array.data[0]
@@ -1193,7 +1188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subId: 1
+  subId: 11
   ownerId: 0
   group: 0
   prefixBackup: -1
@@ -1217,7 +1212,6 @@ MonoBehaviour:
   edgePoints:
   - {fileID: 718303305}
   - {fileID: 1654555801}
-  testArray: 
   state: 0
 --- !u!23 &1492624987
 Renderer:
@@ -1459,6 +1453,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &1631433292
 Renderer:
@@ -1538,8 +1533,6 @@ MonoBehaviour:
   _connections:
   - {fileID: 1055509249}
   - {fileID: 718303305}
-  connectionLines: []
-  state: 0
 --- !u!23 &1654555802
 Renderer:
   m_ObjectHideFlags: 0
@@ -1979,6 +1972,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &1989543779
 Renderer:
@@ -2061,7 +2055,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 6f67825c1656d2d489568ee5d086fbd2, type: 2}
       propertyPath: subId
-      value: 3
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6f67825c1656d2d489568ee5d086fbd2, type: 2}
       propertyPath: m_Name

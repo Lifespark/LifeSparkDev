@@ -33,4 +33,6 @@ MonoBehaviour:
   - RPC_setPlayerTarget
   - RPC_setSparkPointCapture
   - RPC_setPlayerSparkPointCaptured
+  - RPC_setLineColorByState
+  - RPC_setLineMaterial
   DisableAutoOpenWizard: 0
