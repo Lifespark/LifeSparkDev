@@ -8,9 +8,9 @@ public class Line : LSMonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// initial position
-		this.transform.position = (edgePoints [0].transform.position + edgePoints [1].transform.position) / 2;
+		this.transform.position = (edgePoints [0].transform.position + edgePoints [1].transform.position - new Vector3(0, edgePoints[0].transform.position.y, 0)) / 2;
 		// initial scale
-		this.transform.localScale = new Vector3(Mathf.Sqrt((edgePoints [0].transform.position - edgePoints [1].transform.position).sqrMagnitude) - 1, 1, 1);
+		this.transform.localScale = new Vector3(Mathf.Sqrt((edgePoints [0].transform.position - edgePoints [1].transform.position).sqrMagnitude) - 1, 0.1f, 1);
 		// initial angle 
 		// *now it just support all spark point at same y
 		Vector3 direction = edgePoints [0].transform.position - edgePoints [1].transform.position;
