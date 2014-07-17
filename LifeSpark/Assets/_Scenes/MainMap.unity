@@ -391,6 +391,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &622257730
 Renderer:
@@ -479,8 +480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connections:
-  - {fileID: 472274811}
   - {fileID: 1654555801}
+  - {fileID: 0}
+  - {fileID: 472274811}
 --- !u!23 &718303306
 Renderer:
   m_ObjectHideFlags: 0
@@ -574,6 +576,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &826583818
 Renderer:
@@ -759,6 +762,7 @@ MonoBehaviour:
   _connections:
   - {fileID: 1654555801}
   - {fileID: 472274811}
+  - {fileID: 718303305}
 --- !u!23 &1055509250
 Renderer:
   m_ObjectHideFlags: 0
@@ -812,7 +816,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
       propertyPath: _connections.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
       propertyPath: m_LocalPosition.x
@@ -854,6 +858,14 @@ Prefab:
       propertyPath: _connections.Array.data[1]
       value: 
       objectReference: {fileID: 472274811}
+    - target: {fileID: 11400000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
+      propertyPath: _connections.Array.data[2]
+      value: 
+      objectReference: {fileID: 718303305}
+    - target: {fileID: 11400000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
+      propertyPath: _connections.Array.data[3]
+      value: 
+      objectReference: {fileID: 718303305}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
   m_RootGameObject: {fileID: 1055509247}
@@ -1173,6 +1185,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &1631433292
 Renderer:
@@ -1250,8 +1263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connections:
-  - {fileID: 1055509249}
   - {fileID: 718303305}
+  - {fileID: 1055509249}
 --- !u!23 &1654555802
 Renderer:
   m_ObjectHideFlags: 0
@@ -1353,11 +1366,11 @@ Prefab:
     - target: {fileID: 11400000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
       propertyPath: _connections.Array.data[0]
       value: 
-      objectReference: {fileID: 1055509249}
+      objectReference: {fileID: 718303305}
     - target: {fileID: 11400000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
       propertyPath: _connections.Array.data[1]
       value: 
-      objectReference: {fileID: 718303305}
+      objectReference: {fileID: 1055509249}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
   m_RootGameObject: {fileID: 1654555800}
@@ -1683,6 +1696,7 @@ MonoBehaviour:
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
+  targetName: 
   speed: 0
 --- !u!23 &1989543779
 Renderer:
