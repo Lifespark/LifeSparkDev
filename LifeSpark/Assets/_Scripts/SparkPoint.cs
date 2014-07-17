@@ -2,9 +2,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class SparkPoint : MonoBehaviour {
+public class SparkPoint : LSMonoBehaviour {
 	
 	public SparkPoint[] _connections;
+	public Line[] connectionLines;
+
 	int owner;
 	enum SparkPointState {
 		Free,
@@ -35,14 +37,22 @@ public class SparkPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		foreach(SparkPoint sp in _connections) {
+		/*foreach(SparkPoint sp in _connections) {
 			Debug.DrawLine(this.transform.position, sp.transform.position, Color.red);
-		}
+		}*/
 		switch (sparkPointState) {
 		case SparkPointState.Capturing:
 			if (captureTimer == captureTime) {
 				captureTimer = 0;
 				sparkPointState = SparkPointState.Captured;
+				//// captured, check connection sparkpoint owner to change line color
+				int tempSize = _connections.Length;
+				for (int i=0; i<tempSize; i++) {
+					if(_connections[i].owner == capturingTeam) {
+						connectionLines[i].photonView.RPC("RPC_setLineMaterial", PhotonTargets.All, capturingTeam);
+					}
+				}
+				////
 				owner = capturingTeam;
 				capturingTeam = -1;
 				for (int i = 0; i < capturers.Count; i++) {

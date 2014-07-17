@@ -2,6 +2,11 @@
 using System.Collections;
 
 public class MasterManager : LSMonoBehaviour {
+	public Material OriginalLine;
+	public Material BrokenLine;
+	public Material Team1Line;
+	public Material Team2Line;
+
 	
 	GameObject tempPlayer;
 	GameObject tempSparkPoint;
