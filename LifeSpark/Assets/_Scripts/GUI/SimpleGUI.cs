@@ -14,6 +14,7 @@ public class SimpleGUI : LSMonoBehaviour {
 
 	private Vector2 scrollPos = Vector2.zero;
 	private string lobbyName = "default";
+	private string sceneName = "MainMap";
 
 	// Use this for initialization
 	void Start () {
@@ -131,9 +132,13 @@ public class SimpleGUI : LSMonoBehaviour {
 			GUILayout.Label("ID: "+player.ID+" Name: "+player.name);
 		}
 
+
+		GUILayout.Label("Scene To Load:");
+		this.sceneName = GUILayout.TextField(this.sceneName);
+
 		if (GUILayout.Button("Start game"))
 		{
-			networkManager.startNetworkedGame();
+			networkManager.startNetworkedGame(this.sceneName);
 		}
 
 		if (GUILayout.Button("Leave room"))
