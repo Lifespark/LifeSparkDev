@@ -8,7 +8,7 @@ public class Line : LSMonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// initial position
-		this.transform.position = (edgePoints [0].transform.position + edgePoints [1].transform.position - new Vector3(0, edgePoints[0].transform.position.y, 0)) / 2;
+		/*this.transform.position = (edgePoints [0].transform.position + edgePoints [1].transform.position - new Vector3(0, edgePoints[0].transform.position.y, 0)) / 2;
 		// initial scale
 		this.transform.localScale = new Vector3(Mathf.Sqrt((edgePoints [0].transform.position - edgePoints [1].transform.position).sqrMagnitude) - 1, 0.1f, 1);
 		// initial angle 
@@ -16,7 +16,7 @@ public class Line : LSMonoBehaviour {
 		Vector3 direction = edgePoints [0].transform.position - edgePoints [1].transform.position;
 		float angle = Vector3.Angle (direction, this.transform.right);
 		if (angle > 90) {angle = angle - (2*(angle - 90));}
-		this.transform.Rotate (new Vector3 (0, angle, 0));
+		this.transform.Rotate (new Vector3 (0, angle, 0));*/
 		//
 		state = 0;
 	}
@@ -65,4 +65,16 @@ public class Line : LSMonoBehaviour {
 		}
 	}
 	//--------------------------------------------------------------------------
+	// Set transform
+	//---------------------------
+	// Set all
+	[RPC]
+	void RPC_setInitialTransform (Vector3 edge1, Vector3 edge2) {
+		this.transform.position = (edge1 + edge2 - new Vector3(0, edge1.y, 0)) / 2;
+		this.transform.localScale = new Vector3(Mathf.Sqrt((edge1 - edge2).sqrMagnitude) - 1, 0.1f, 1);
+		Vector3 direction = edge1 - edge2;
+		float angle = Vector3.Angle (direction, this.transform.right);
+		if (angle > 90) {angle = angle - (2*(angle - 90));}
+		this.transform.Rotate (new Vector3 (0, angle, 0));
+	}
 }

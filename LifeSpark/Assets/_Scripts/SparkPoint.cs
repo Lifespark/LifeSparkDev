@@ -5,7 +5,7 @@ using System.Collections;
 public class SparkPoint : LSMonoBehaviour {
 	
 	public SparkPoint[] _connections;
-	public Line[] connectionLines;
+	//public Line[] connectionLines;
 
 	int owner;
 	enum SparkPointState {
@@ -45,14 +45,26 @@ public class SparkPoint : LSMonoBehaviour {
 			if (captureTimer == captureTime) {
 				captureTimer = 0;
 				sparkPointState = SparkPointState.Captured;
-				//// captured, check connection sparkpoint owner to change line color
-				int tempSize = _connections.Length;
-				for (int i=0; i<tempSize; i++) {
-					if(_connections[i].owner == capturingTeam) {
-						connectionLines[i].photonView.RPC("RPC_setLineMaterial", PhotonTargets.All, capturingTeam);
+				//-----------------------------------------------------------------------------------------
+				//// captured, check connection sparkpoint owner to build new line (MasterClient only)
+				//Debug.Log(PhotonNetwork.isMasterClient);
+				if(PhotonNetwork.isMasterClient){
+					int tempSize = _connections.Length;
+					for (int i=0; i<tempSize; i++) {
+						if(_connections[i].owner == capturingTeam) {
+							//// if this connection has same owner, initial new line
+							GameObject tempObject = PhotonNetwork.InstantiateSceneObject("Line", _connections[i].transform.position, new Quaternion(), 0, null);
+							Line tempLine = tempObject.GetComponent<Line>();
+							//// set line name
+							tempObject.name = "Line" + this.name + _connections[i].name;
+							//// set line material
+							tempLine.photonView.RPC("RPC_setLineMaterial", PhotonTargets.All, capturingTeam);
+							//// set line position, location and scale
+							tempLine.photonView.RPC("RPC_setInitialTransform", PhotonTargets.All, this.transform.position, _connections[i].transform.position);
+						}
 					}
 				}
-				////
+				//-----------------------------------------------------------------------------------------
 				owner = capturingTeam;
 				capturingTeam = -1;
 				for (int i = 0; i < capturers.Count; i++) {
