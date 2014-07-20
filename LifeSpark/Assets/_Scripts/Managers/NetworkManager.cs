@@ -147,4 +147,10 @@ public class NetworkManager : LSMonoBehaviour {
 		connectFailed = true;
 		Debug.Log("OnFailedToConnectToPhoton. StatusCode: " + parameters);
 	}
+
+	void OnJoinedRoom() {
+		if (mode == NetMode.quick) {
+			startNetworkedGame ("MainMap");
+		}
+	}
 }

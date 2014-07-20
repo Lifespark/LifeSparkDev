@@ -36,10 +36,16 @@ public class SimpleGUI : LSMonoBehaviour {
 	}
 
 	private void StartQuickTest() {
-		Debug.Log ("Loading MainMap.unity...");
+//		Debug.Log ("Loading MainMap.unity...");
+//		guiStage = GuiStage.inGame;
+//		networkManager.mode = NetMode.quick; 
+//		Application.LoadLevel ("MainMap");
+
+		networkManager.lobbyName = this.lobbyName;
 		guiStage = GuiStage.inGame;
-		networkManager.mode = NetMode.quick; 
-		Application.LoadLevel ("MainMap");
+		networkManager.mode = NetMode.quick;
+		networkManager.playerName = "Quicktest Player";
+		networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
 	}
 
 	private void OnGUI () {
