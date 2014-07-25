@@ -150,9 +150,4 @@ public class NetworkManager : LSMonoBehaviour {
 			startNetworkedGame ("MainMap");
 		}
 	}
-
-	void OnApplicationQuit() {
-		// This is a workaround, as I'm currently unable to find the cause of the "freeze on exit" bug present on windows.
-		if (!Application.isEditor) System.Diagnostics.Process.GetCurrentProcess().Kill();
-	}
 }

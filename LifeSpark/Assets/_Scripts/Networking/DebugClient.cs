@@ -33,7 +33,7 @@ using UnityEngine;
             }
             else
                 Debug.Log("Unknown hostname!");
-            //peer.Disconnect(); //<- uncomment this line to see a faster disconnect/leave on the other clients.
+            peer.Disconnect(); //<- uncomment this line to see a faster disconnect/leave on the other clients.
         }
 
         #region IPhotonPeerListener Members
