@@ -1509,10 +1509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6a8bd642893de4fa20d0d4202bd8e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OriginalLine: {fileID: 2100000, guid: e3b4575e07c3ad24883f3becbec33965, type: 2}
-  BrokenLine: {fileID: 2100000, guid: 1585ed61acc2643408838eaf996a231f, type: 2}
-  Team1Line: {fileID: 2100000, guid: 2e408f7f7b39af34494bfa0e7fb027c4, type: 2}
-  Team2Line: {fileID: 2100000, guid: 61fe3efce228d1c43837984fe1ff4982, type: 2}
+  OriginalLane: {fileID: 0}
+  BrokenLane: {fileID: 0}
+  Team1Lane: {fileID: 0}
+  Team2Lane: {fileID: 0}
 --- !u!114 &1680029867
 MonoBehaviour:
   m_ObjectHideFlags: 0

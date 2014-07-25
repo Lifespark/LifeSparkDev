@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MasterManager : LSMonoBehaviour {
-	public Material OriginalLine;
-	public Material BrokenLine;
-	public Material Team1Line;
-	public Material Team2Line;
+public class PlayerManager : LSMonoBehaviour {
+	public Material OriginalLane;
+	public Material BrokenLane;
+	public Material Team1Lane;
+	public Material Team2Lane;
 
 	
 	GameObject tempPlayer;

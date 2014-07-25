@@ -36,4 +36,6 @@ MonoBehaviour:
   - RPC_setLineColorByState
   - RPC_setLineMaterial
   - RPC_setInitialTransform
+  - RPC_setLaneColorByState
+  - RPC_setLaneMaterial
   DisableAutoOpenWizard: 0

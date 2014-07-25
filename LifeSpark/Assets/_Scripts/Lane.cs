@@ -1,37 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Line : LSMonoBehaviour {
+public class Lane : LSMonoBehaviour {
 	public SparkPoint[] edgePoints;	// should just have 2 spark points
 	public int state; // may not be used // now -1 = broken, 0 = unoccupied, 1 = team 1, 2 = team 2
 
 	// Use this for initialization
 	void Start () {
-		// initial position
-		/*this.transform.position = (edgePoints [0].transform.position + edgePoints [1].transform.position - new Vector3(0, edgePoints[0].transform.position.y, 0)) / 2;
-		// initial scale
-		this.transform.localScale = new Vector3(Mathf.Sqrt((edgePoints [0].transform.position - edgePoints [1].transform.position).sqrMagnitude) - 1, 0.1f, 1);
-		// initial angle 
-		// *now it just support all spark point at same y
-		Vector3 direction = edgePoints [0].transform.position - edgePoints [1].transform.position;
-		float angle = Vector3.Angle (direction, this.transform.right);
-		if (angle > 90) {angle = angle - (2*(angle - 90));}
-		this.transform.Rotate (new Vector3 (0, angle, 0));*/
-		//
 		state = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//RPC_setLineMaterial (state);
+		//RPC_setLaneMaterial (state);
 	}
 
 	//--------------------------------------------------------------------------
 	// Set color functions
 	//---------------------------
-	// Set Line Color By State
+	// Set Lane Color By State
 	[RPC]
-	void RPC_setLineColorByState (int state) {
+	void RPC_setLaneColorByState (int state) {
 		this.state = state;
 		// just change material's color
 		if (state == -1) {
@@ -47,21 +36,21 @@ public class Line : LSMonoBehaviour {
 		}
 	}
 
-	// Set Line Material
+	// Set Lane Material
 	[RPC]
-	void RPC_setLineMaterial (int state) {
+	void RPC_setLaneMaterial (int state) {
 		this.state = state;
-		GameObject temp = GameObject.Find ("Terrain/Ground"); 
+		GameObject temp = GameObject.Find ("Manager"); 
 		if (state == -1) {
-			this.renderer.material = temp.GetComponent<MasterManager>().BrokenLine;
+			this.renderer.material = temp.GetComponent<TerritoryManager>().BrokenLane;
 		} else if (state == 0) {
-			this.renderer.material = temp.GetComponent<MasterManager>().OriginalLine;
+			this.renderer.material = temp.GetComponent<TerritoryManager>().OriginalLane;
 		} else if (state == 1) {
-			this.renderer.material = temp.GetComponent<MasterManager>().Team1Line;
+			this.renderer.material = temp.GetComponent<TerritoryManager>().Team1Lane;
 		} else if (state == 2) {
-			this.renderer.material = temp.GetComponent<MasterManager>().Team2Line;
+			this.renderer.material = temp.GetComponent<TerritoryManager>().Team2Lane;
 		} else {
-			this.renderer.material = temp.GetComponent<MasterManager>().OriginalLine;
+			this.renderer.material = temp.GetComponent<TerritoryManager>().OriginalLane;
 		}
 	}
 	//--------------------------------------------------------------------------
