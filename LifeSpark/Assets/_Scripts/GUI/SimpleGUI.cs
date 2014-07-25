@@ -14,6 +14,7 @@ public class SimpleGUI : LSMonoBehaviour {
 
 	private Vector2 scrollPos = Vector2.zero;
 	private string lobbyName = "default";
+	private string sceneName = "MainMap";
 
 	// Use this for initialization
 	void Start () {
@@ -35,10 +36,16 @@ public class SimpleGUI : LSMonoBehaviour {
 	}
 
 	private void StartQuickTest() {
-		Debug.Log ("Loading MainMap.unity...");
+//		Debug.Log ("Loading MainMap.unity...");
+//		guiStage = GuiStage.inGame;
+//		networkManager.mode = NetMode.quick; 
+//		Application.LoadLevel ("MainMap");
+
+		networkManager.lobbyName = this.lobbyName;
 		guiStage = GuiStage.inGame;
-		networkManager.mode = NetMode.quick; 
-		Application.LoadLevel ("MainMap");
+		networkManager.mode = NetMode.quick;
+		networkManager.playerName = "Quicktest Player";
+		networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
 	}
 
 	private void OnGUI () {
@@ -131,9 +138,13 @@ public class SimpleGUI : LSMonoBehaviour {
 			GUILayout.Label("ID: "+player.ID+" Name: "+player.name);
 		}
 
+
+		GUILayout.Label("Scene To Load:");
+		this.sceneName = GUILayout.TextField(this.sceneName);
+
 		if (GUILayout.Button("Start game"))
 		{
-			networkManager.startNetworkedGame();
+			networkManager.startNetworkedGame(this.sceneName);
 		}
 
 		if (GUILayout.Button("Leave room"))

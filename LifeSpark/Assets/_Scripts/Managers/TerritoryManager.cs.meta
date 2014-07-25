@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: ba1778c8be98a974592ef6f17a443ccd
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - OriginalLane: {fileID: 2100000, guid: e3b4575e07c3ad24883f3becbec33965, type: 2}
+  - BrokenLane: {fileID: 2100000, guid: 1585ed61acc2643408838eaf996a231f, type: 2}
+  - Team1Lane: {fileID: 2100000, guid: 2e408f7f7b39af34494bfa0e7fb027c4, type: 2}
+  - Team2Lane: {fileID: 2100000, guid: 61fe3efce228d1c43837984fe1ff4982, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

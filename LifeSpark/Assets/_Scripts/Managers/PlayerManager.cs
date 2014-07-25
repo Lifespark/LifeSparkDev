@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MasterManager : LSMonoBehaviour {
-	public Material OriginalLine;
-	public Material BrokenLine;
-	public Material Team1Line;
-	public Material Team2Line;
+public class PlayerManager : LSMonoBehaviour {
+	public Material OriginalLane;
+	public Material BrokenLane;
+	public Material Team1Lane;
+	public Material Team2Lane;
 
 	
 	GameObject tempPlayer;
@@ -22,11 +22,11 @@ public class MasterManager : LSMonoBehaviour {
 				masterPlayer = forMP;
 			}
 		}
-		Debug.Log ("The MasterPlayer is " + masterPlayer.name);
+		//Debug.Log ("The MasterPlayer is " + masterPlayer.name);
 		
 		// if this is the masterPlayer, manage and set each client to 1 player (only has 1 masterPlayer)
 		if (tempNM.playerName.Equals (masterPlayer.name)) {
-			Debug.Log ("I'm the MasterPlayer.");
+			//Debug.Log ("I'm the MasterPlayer.");
 			// 
 			int playerNum = 1;
 			
@@ -36,9 +36,9 @@ public class MasterManager : LSMonoBehaviour {
 				playerNum = playerNum + 1;
 			}
 			// check
-			for (int i=1; i<=4; i++){
+			/*for (int i=1; i<=4; i++){
 				Debug.Log ("Player" + i + ":" + GameObject.Find("Players/Player"+i).GetComponent<Player>().playerName);
-			}
+			}*/
 		}
 	}
 	

@@ -83,10 +83,9 @@ public class NetworkManager : LSMonoBehaviour {
 	void Update () {
 	}
 
-	public void startNetworkedGame() {
+	public void startNetworkedGame(string scene) {
 		photonView.RPC("RPC_setGUIStage", PhotonTargets.All, (int)GuiStage.inGame);
-		PhotonNetwork.LoadLevel ("MainMap");
-		//photonView.RPC("RPC_startGame", PhotonTargets.All, null);
+		PhotonNetwork.LoadLevel (scene);
 
 	}
 
@@ -144,5 +143,11 @@ public class NetworkManager : LSMonoBehaviour {
 	private void OnFailedToConnectToPhoton(object parameters) {
 		connectFailed = true;
 		Debug.Log("OnFailedToConnectToPhoton. StatusCode: " + parameters);
+	}
+
+	void OnJoinedRoom() {
+		if (mode == NetMode.quick) {
+			startNetworkedGame ("MainMap");
+		}
 	}
 }
