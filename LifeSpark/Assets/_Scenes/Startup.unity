@@ -111,6 +111,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: fc0dced410bc50a4698c3fcf34993e9a, type: 2}
+    - {fileID: 11400004, guid: fc0dced410bc50a4698c3fcf34993e9a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: fc0dced410bc50a4698c3fcf34993e9a, type: 2}
   m_RootGameObject: {fileID: 1057508047}
   m_IsPrefabParent: 0
@@ -182,8 +183,11 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
   m_HDR: 0
   m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: .0219999999
 --- !u!4 &950757547
 Transform:
   m_ObjectHideFlags: 0
@@ -195,6 +199,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &1057508047
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,11 +212,11 @@ GameObject:
   - 64: {fileID: 1057508054}
   - 23: {fileID: 1057508053}
   - 114: {fileID: 1057508052}
-  - 114: {fileID: 1057508050}
   - 114: {fileID: 1057508049}
   - 114: {fileID: 1057508048}
   - 114: {fileID: 1057508057}
   - 114: {fileID: 1057508051}
+  - 114: {fileID: 1057508050}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Manager
@@ -246,15 +251,18 @@ MonoBehaviour:
 --- !u!114 &1057508050
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: fc0dced410bc50a4698c3fcf34993e9a,
-    type: 2}
-  m_PrefabInternal: {fileID: 856096837}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1057508047}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7806e47ff13c3e74bb3e99921cc7321f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creepPrefab: {fileID: 100000, guid: d9e245018d380a04690935bbfadf71f2, type: 2}
+  maximumCreepNum: 3
+  menuOn: 0
+  selectingTarget: 0
 --- !u!114 &1057508051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,9 +309,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!64 &1057508054
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -337,6 +344,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 1
 --- !u!114 &1057508057
 MonoBehaviour:
   m_ObjectHideFlags: 0

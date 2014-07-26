@@ -24,7 +24,7 @@ public class PlayerInput : UnitMovement {
 	// PC input
 	void KeyBoardMouseInput () {
 		// mouse left button down
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && GUIUtility.hotControl==0) {
 			Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			// check if hit, the length(1000.0f) can set to other value
