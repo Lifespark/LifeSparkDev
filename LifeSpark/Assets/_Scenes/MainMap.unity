@@ -86,6 +86,7 @@ GameObject:
   - 136: {fileID: 282778118}
   - 23: {fileID: 282778117}
   - 114: {fileID: 282778116}
+  - 54: {fileID: 282778120}
   m_Layer: 0
   m_Name: BossCage
   m_TagString: BossCage
@@ -160,6 +161,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1615879516}
   m_GameObject: {fileID: 282778114}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &282778120
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: ba14836c2179eaa4da4981f5ba9ef62e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1615879516}
+  m_GameObject: {fileID: 282778114}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &472274809
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +189,7 @@ GameObject:
   - 136: {fileID: 472274813}
   - 23: {fileID: 472274812}
   - 114: {fileID: 472274811}
+  - 54: {fileID: 472274815}
   m_Layer: 0
   m_Name: SparkPointD
   m_TagString: SparkPoint
@@ -249,6 +267,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 2092606612}
   m_GameObject: {fileID: 472274809}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &472274815
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 314f402167e6ff44184df22c57c9312b,
+    type: 2}
+  m_PrefabInternal: {fileID: 2092606612}
+  m_GameObject: {fileID: 472274809}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &587455065
 Prefab:
   m_ObjectHideFlags: 0
@@ -344,6 +378,7 @@ GameObject:
   - 23: {fileID: 622257730}
   - 114: {fileID: 622257729}
   - 114: {fileID: 622257728}
+  - 54: {fileID: 622257733}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Player
@@ -437,6 +472,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 587455065}
   m_GameObject: {fileID: 622257726}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &622257733
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 998b8f43728561844897188d52f7758d,
+    type: 2}
+  m_PrefabInternal: {fileID: 587455065}
+  m_GameObject: {fileID: 622257726}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &718303303
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +589,7 @@ GameObject:
   - 23: {fileID: 826583818}
   - 114: {fileID: 826583817}
   - 114: {fileID: 826583816}
+  - 54: {fileID: 826583822}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -631,6 +683,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 617715527}
+--- !u!54 &826583822
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 998b8f43728561844897188d52f7758d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1603336706}
+  m_GameObject: {fileID: 826583815}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &947904202
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,6 +795,7 @@ GameObject:
   - 136: {fileID: 1055509251}
   - 23: {fileID: 1055509250}
   - 114: {fileID: 1055509249}
+  - 54: {fileID: 1055509253}
   m_Layer: 0
   m_Name: SparkPointC
   m_TagString: SparkPoint
@@ -804,6 +873,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1096185928}
   m_GameObject: {fileID: 1055509247}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1055509253
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 314f402167e6ff44184df22c57c9312b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1096185928}
+  m_GameObject: {fileID: 1055509247}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1096185928
 Prefab:
   m_ObjectHideFlags: 0
@@ -1164,6 +1249,7 @@ GameObject:
   - 23: {fileID: 1631433292}
   - 114: {fileID: 1631433291}
   - 114: {fileID: 1631433290}
+  - 54: {fileID: 1631433295}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -1257,6 +1343,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1028192842}
   m_GameObject: {fileID: 1631433288}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1631433295
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 998b8f43728561844897188d52f7758d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1028192842}
+  m_GameObject: {fileID: 1631433288}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1654555800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,6 +1371,7 @@ GameObject:
   - 136: {fileID: 1654555803}
   - 23: {fileID: 1654555802}
   - 114: {fileID: 1654555801}
+  - 54: {fileID: 1654555806}
   m_Layer: 0
   m_Name: SparkPointB
   m_TagString: SparkPoint
@@ -1346,6 +1449,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1514934161}
+--- !u!54 &1654555806
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 314f402167e6ff44184df22c57c9312b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1664019740}
+  m_GameObject: {fileID: 1654555800}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1664019740
 Prefab:
   m_ObjectHideFlags: 0
@@ -1574,6 +1693,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1778c8be98a974592ef6f17a443ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OriginalLane: {fileID: 0}
+  BrokenLane: {fileID: 0}
+  Team1Lane: {fileID: 0}
+  Team2Lane: {fileID: 0}
 --- !u!114 &1680029871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1727,6 +1850,7 @@ GameObject:
   - 23: {fileID: 1989543779}
   - 114: {fileID: 1989543778}
   - 114: {fileID: 1989543777}
+  - 54: {fileID: 1989543782}
   m_Layer: 0
   m_Name: Player4
   m_TagString: Player
@@ -1820,6 +1944,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1131158712}
   m_GameObject: {fileID: 1989543775}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1989543782
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: 998b8f43728561844897188d52f7758d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1131158712}
+  m_GameObject: {fileID: 1989543775}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1001 &2092606612
 Prefab:
   m_ObjectHideFlags: 0
