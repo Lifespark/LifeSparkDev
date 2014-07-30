@@ -18,7 +18,8 @@ public class Player : UnitObject {
 	enum PlayerState {
 		Idle,
 		Moving,
-		Capturing
+		Capturing,
+		Attacking
 	};
 	PlayerState playerState;
 	
@@ -28,11 +29,18 @@ public class Player : UnitObject {
 		target = this.transform.position;
 		target.y = 0;
 		playerState = PlayerState.Idle;
+		this.unitHealth = 50;
+		this.baseAttack = 5;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		movePlayer ();
+
+		this.UnitUpdate ();
+
+
 	}
 	
 	void OnGUI () {
@@ -54,14 +62,29 @@ public class Player : UnitObject {
 				tempValue = target - tempPosition;
 				totalSqrLength = tempValue.sqrMagnitude;
 				tempValue = Vector3.Normalize(tempValue) * speed * Time.deltaTime;
-				if (totalSqrLength <= 10.0f && targetName.Contains("SparkPoint")) {
-					GameObject.Find("Ground").GetPhotonView().RPC("RPC_setSparkPointCapture",
-					                                              PhotonTargets.All,
-					                                              targetName,
-					                                              this.name,
-					                                              team,
-					                                              true);
-					playerState = PlayerState.Capturing;
+				if (totalSqrLength <= 10.0f /*&& targetName.Contains("SparkPoint")*/) {
+
+					if (targetName.Contains("SparkPoint"))
+					{
+						GameObject.Find("Ground").GetPhotonView().RPC("RPC_setSparkPointCapture",
+						                                              PhotonTargets.All,
+						                                              targetName,
+						                                              this.name,
+						                                              team,
+						                                              true);
+						playerState = PlayerState.Capturing;
+					}
+					else if (targetName.Contains("Player"))
+					{
+						GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerAttack",
+						                                              PhotonTargets.All,
+						                                              targetName,
+						                                              this.name,
+						                                              true
+						                                              );
+						playerState = PlayerState.Attacking;
+
+					}
 				}
 				else if(tempValue.sqrMagnitude > totalSqrLength) {
 					this.transform.position.Set(target.x, this.transform.position.y, target.z);
@@ -74,17 +97,45 @@ public class Player : UnitObject {
 			break;
 		case PlayerState.Capturing:
 			break;
+		case PlayerState.Attacking:
+			tempPosition = this.transform.position;
+			tempPosition.y = 0;
+			if (!tempPosition.Equals(target)) {
+				tempValue = target - tempPosition;
+				totalSqrLength = tempValue.sqrMagnitude;
+				if (totalSqrLength > 10.0f ) {//Our target ran away/became distant,we can no longer deal DPS
+					GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+					                                                 PhotonTargets.All,
+					                                                 this.targetName,
+					                                                 this.name,
+					                                                 false);
+					playerState = PlayerState.Moving;//Chase the target
+
+				}
+
+
+
+			}
+			break;
 		}
+
 	}
 	
 	public void UpdateTarget(Vector3 target, string targetName) {
 		if (playerState == PlayerState.Capturing) {
-			GameObject.Find("Ground").GetPhotonView().RPC("RPC_setSparkPointCapture",
-			                                              PhotonTargets.All,
-			                                              this.targetName,
-			                                              this.name,
-			                                              team,
-			                                              false);
+				GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setSparkPointCapture",
+	                                              PhotonTargets.All,
+	                                              this.targetName,
+	                                              this.name,
+	                                              team,
+	                                              false);
+		}
+		else if (playerState == PlayerState.Attacking) {
+				GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+	                                              PhotonTargets.All,
+	                                              this.targetName,
+	                                              this.name,
+	                                              false);
 		}
 		this.target = target;
 		this.targetName = targetName;

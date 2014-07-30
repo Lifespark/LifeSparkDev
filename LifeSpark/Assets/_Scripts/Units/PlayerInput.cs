@@ -55,6 +55,18 @@ public class PlayerInput : UnitMovement {
 						                                              hit.collider.name);
 					}
 				}
+				else if (hit.collider.name.Contains ("Player")) {//Going to attack some other dude
+					if (GameObject.Find (hit.collider.name).GetComponent<Player>().GetTeam()
+					    != this.GetComponent<Player>().GetTeam ()){
+						tempHit = hit.point;
+						tempHit.y = 0;
+						GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerTarget",
+						                                                 PhotonTargets.All,
+						                                                 this.name,
+						                                                 tempHit,
+						                                                 hit.collider.name);
+					}
+				}
 			}
 		}
 	}
