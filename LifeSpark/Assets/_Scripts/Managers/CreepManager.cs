@@ -69,7 +69,7 @@ public class CreepManager : LSMonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit)) {
                 if (type == 1) {
-					Debug.Log(hit.collider.GetComponent<SparkPoint>().GetOwner());
+					//Debug.Log(hit.collider.GetComponent<SparkPoint>().GetOwner());
 					if (hit.collider.GetComponent<SparkPoint>() != null && 
 					    hit.collider.GetComponent<SparkPoint>().GetOwner() == player.team) {
 						source = hit.collider.gameObject;
@@ -96,27 +96,20 @@ public class CreepManager : LSMonoBehaviour {
 		}
 
         for (int i = creepDict[source].Count; i < maximumCreepNum; i++) {
-            //TODO: make it networked later
-			/*
-			GameObject creep = Instantiate(creepPrefab, source.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
-            LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
-            thisCreep.target = target;
-			thisCreep.owner = source.GetComponent<SparkPoint>().GetOwner();
-			thisCreep.renderer.material = source.renderer.material;
-			*/
-			photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, source.GetComponent<SparkPoint>().GetOwner());
+			photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
 
 			yield return new WaitForSeconds(2.0f);
         }
     }
 
 	[RPC]
-	void RPC_dispatchCreep (string source, string target, int team) {
+	void RPC_dispatchCreep (string source, string target, string playerName, int team) {
 		GameObject sourceObj = GameObject.Find(source);
 		GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
 		LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
 		thisCreep.target = GameObject.Find(target).transform;
 		thisCreep.owner = team;
+		thisCreep.playerName = playerName;
 		if (team == 1)
 			thisCreep.renderer.material.color = Color.red;
 		else if (team == 2)

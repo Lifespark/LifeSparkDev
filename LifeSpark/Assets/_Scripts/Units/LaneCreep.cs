@@ -13,13 +13,16 @@ public class LaneCreep : UnitObject {
     }
 
     public float maxSpeed = 5.0f;
-
+	public string playerName;
     public Transform target;
     public CreepManager creepManager;
 
     private CreepStateBase creepState;
     private CreepStateIdle creepStateIdle;
     private CreepStateMove creepStateMove;
+
+	private GameObject sparkPointGroup;
+
 
     public int owner;
 
@@ -28,6 +31,7 @@ public class LaneCreep : UnitObject {
         creepStateIdle = new CreepStateIdle(this);
         creepStateMove = new CreepStateMove(this);
 
+		sparkPointGroup = GameObject.Find("SparkPoints");
         creepState = creepStateIdle;
 	}
 	
@@ -82,7 +86,7 @@ public class LaneCreep : UnitObject {
         }
 
         public override void OnUpdate() {
-            if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) > 0.1) {
+            if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) > 2.0) {
 				laneCreep.SwitchState(CreepState.Moving);
 			}
         }
@@ -105,14 +109,22 @@ public class LaneCreep : UnitObject {
 
         public override void OnUpdate() {
             if (laneCreep.target != null) {
-                Vector3 targetPos = laneCreep.target.position;
-                Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
+				if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) > 2.0) {
+					laneCreep.SwitchState(CreepState.Moving);
+				
+                	Vector3 targetPos = laneCreep.target.position;
+                	Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
 
-                laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
-                //laneCreep.rigidbody.MovePosition(laneCreep.rigidbody.position + direction * laneCreep.maxSpeed * Time.deltaTime);
-                //laneCreep.transform.position = laneCreep.rigidbody.position; 
-				laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
-            }
+                	laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
+					laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
+				}
+				else {
+					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
+						laneCreep.target.GetComponent<SparkPoint>().SetSparkPointCapture(laneCreep.playerName, laneCreep.owner, true);
+						Destroy(laneCreep.gameObject);
+					}
+				}
+			}
             else {
                 // what if the target has been destroyed?
                 laneCreep.SwitchState(CreepState.Idle);
