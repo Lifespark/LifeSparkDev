@@ -79,7 +79,7 @@ public class PlayerManager : LSMonoBehaviour {
 	[RPC]
 	void RPC_setPlayerAttack(string attackedName, string attackerName, bool b){
 		tempPlayer = GameObject.Find ("Players/" + attackedName);
-		tempPlayer.GetComponent<Player>().setUnitBeingAttacked(GameObject.Find ("Players/" + attackerName).GetComponent<Player>().baseAttack,b);
+		//tempPlayer.GetComponent<Player>().setUnitBeingAttacked(GameObject.Find ("Players/" + attackerName).GetComponent<Player>().baseAttack,b);
 
 	}
 
