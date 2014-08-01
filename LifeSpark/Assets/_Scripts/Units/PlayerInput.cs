@@ -24,7 +24,7 @@ public class PlayerInput : UnitMovement {
 	// PC input
 	void KeyBoardMouseInput () {
 		// mouse left button down
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && GUIUtility.hotControl==0) {
 			Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			// check if hit, the length(1000.0f) can set to other value
@@ -53,6 +53,18 @@ public class PlayerInput : UnitMovement {
 						                                              this.name,
 						                                              tempHit,
 						                                              hit.collider.name);
+					}
+				}
+				else if (hit.collider.name.Contains ("Player")) {//Going to attack some other dude
+					if (GameObject.Find (hit.collider.name).GetComponent<Player>().GetTeam()
+					    != this.GetComponent<Player>().GetTeam ()){
+						tempHit = hit.point;
+						tempHit.y = 0;
+						GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerTarget",
+						                                                 PhotonTargets.All,
+						                                                 this.name,
+						                                                 tempHit,
+						                                                 hit.collider.name);
 					}
 				}
 			}

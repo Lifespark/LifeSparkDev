@@ -68,7 +68,7 @@ public class Player : UnitObject {
 					playerState = PlayerState.Idle;
 				}
 				else {
-					this.transform.position = this.transform.position + tempValue;
+					//this.transform.position = this.transform.position + tempValue;
 				}
 			}
 			break;

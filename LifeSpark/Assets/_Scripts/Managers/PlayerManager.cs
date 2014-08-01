@@ -61,7 +61,8 @@ public class PlayerManager : LSMonoBehaviour {
 	[RPC]
 	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName) {
 		tempPlayer = GameObject.Find ("Players/" + playerObject);
-		tempPlayer.GetComponent<Player>().UpdateTarget(target,targetName);
+		tempPlayer.GetComponent<Player>().UpdateTarget(target,targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
+		tempPlayer.GetComponent<NavMeshAgent> ().SetDestination (target);
 	}
 	
 	[RPC]
@@ -75,4 +76,12 @@ public class PlayerManager : LSMonoBehaviour {
 		tempPlayer = GameObject.Find("Players/"+playerName);
 		tempPlayer.GetComponent<Player>().CapturedObjective();
 	}
+
+	[RPC]
+	void RPC_setPlayerAttack(string attackedName, string attackerName, bool b){
+		tempPlayer = GameObject.Find ("Players/" + attackedName);
+		//tempPlayer.GetComponent<Player>().setUnitBeingAttacked(GameObject.Find ("Players/" + attackerName).GetComponent<Player>().baseAttack,b);
+
+	}
+
 }
