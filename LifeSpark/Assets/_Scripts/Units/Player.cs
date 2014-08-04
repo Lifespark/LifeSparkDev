@@ -28,11 +28,26 @@ public class Player : UnitObject {
 		target = this.transform.position;
 		target.y = 0;
 		playerState = PlayerState.Idle;
+
+        // initialize line renderer for drawing path to false
+        GetComponent<LineRenderer>().enabled = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		movePlayer ();
+
+        // Draw Path
+        if (GetComponent<NavMeshAgent>().hasPath)
+        {
+            DrawPath(GetComponent<NavMeshAgent>().path);
+            GetComponent<LineRenderer>().enabled = true;
+        }
+        else 
+        {
+            GetComponent<LineRenderer>().enabled = false;
+        }
 	}
 	
 	void OnGUI () {
@@ -98,4 +113,22 @@ public class Player : UnitObject {
 	public int GetTeam() {
 		return team;
 	}
+
+
+    public void DrawPath(NavMeshPath path)
+    {
+        LineRenderer LR = GetComponent<LineRenderer>();
+        
+
+        LR.SetVertexCount(path.corners.Length);
+
+        int i = 0;
+        foreach (Vector3 v in path.corners)
+        {
+            LR.SetPosition(i, v);
+            i++;
+        }
+     
+
+    }
 }
