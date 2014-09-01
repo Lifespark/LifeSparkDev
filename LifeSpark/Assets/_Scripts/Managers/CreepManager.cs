@@ -6,7 +6,7 @@ public class CreepManager : LSMonoBehaviour {
     public GameObject creepPrefab;
     public int maximumCreepNum = 1;
 
-	private Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
+	public Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
     //private List<LaneCreep> creepList = new List<LaneCreep>();
 	private GameObject source;
     private Transform target;
@@ -15,6 +15,8 @@ public class CreepManager : LSMonoBehaviour {
 
 	private SparkPoint sparkPoint;
 	private Player player;
+
+
 
 	// Use this for initialization
 	void Awake () {
@@ -96,10 +98,30 @@ public class CreepManager : LSMonoBehaviour {
 		}
 
         for (int i = creepDict[source].Count; i < maximumCreepNum; i++) {
-			photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
-
+			//photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
+            DispatchCreepAlternative(source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
 			yield return new WaitForSeconds(2.0f);
         }
+    }
+
+    void DispatchCreepAlternative(string source, string target, string playerName, int team) {
+        GameObject sourceObj = GameObject.Find(source);
+        //GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
+        GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0) as GameObject;
+        LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
+        thisCreep.target = GameObject.Find(target).transform;
+        thisCreep.owner = team;
+        thisCreep.playerName = playerName;
+        if (team == 1)
+            thisCreep.renderer.material.color = Color.red;
+        else if (team == 2)
+            thisCreep.renderer.material.color = Color.blue;
+        //thisCreep.renderer.material = source.renderer.material;
+        if (!creepDict.ContainsKey(sourceObj)) {
+            creepDict.Add(sourceObj, new List<LaneCreep>());
+        }
+        creepDict[sourceObj].Add(thisCreep);
+
     }
 
 	[RPC]
