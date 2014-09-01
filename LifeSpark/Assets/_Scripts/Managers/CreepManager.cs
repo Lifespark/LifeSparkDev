@@ -110,21 +110,21 @@ public class CreepManager : LSMonoBehaviour {
     }
 
     void DispatchCreepAlternative(string source, string target, string playerName, int team) {
+
+        Color creepColor = team == 1 ? Color.red : Color.blue;
+        object[] instantiateData = { target, team, playerName, creepColor.r, creepColor.g, creepColor.b, creepColor.a };
+
         GameObject sourceObj = GameObject.Find(source);
         //GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
-        GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0) as GameObject;
+        //GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0) as GameObject;
+        GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
+        
         LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
-        thisCreep.target = GameObject.Find(target).transform;
-        thisCreep.owner = team;
-        thisCreep.playerName = playerName;
-        if (team == 1)
-            thisCreep.renderer.material.color = Color.red;
-        else if (team == 2)
-            thisCreep.renderer.material.color = Color.blue;
-        //thisCreep.renderer.material = source.renderer.material;
+
         if (!creepDict.ContainsKey(sourceObj)) {
             creepDict.Add(sourceObj, new List<LaneCreep>());
         }
+        
         creepDict[sourceObj].Add(thisCreep);
 
     }
