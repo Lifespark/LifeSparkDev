@@ -16,6 +16,8 @@ public class CreepManager : LSMonoBehaviour {
 	private SparkPoint sparkPoint;
 	private Player player;
 
+    Vector3 originalPos;
+    Quaternion originalRot;
 
 
 	// Use this for initialization
@@ -39,11 +41,13 @@ public class CreepManager : LSMonoBehaviour {
         if (!selectingTarget) {
             if (GetTarget(1)) {
                 menuOn = true;
+                StartCoroutine(FlyCamera());
             }
         }
         else {
             if (GetTarget(0)) {
                 StartCoroutine(DispatchCreep());
+                StartCoroutine(FlyCameraBack());
                 selectingTarget = false;
                 menuOn = false;
             }
@@ -59,6 +63,7 @@ public class CreepManager : LSMonoBehaviour {
             }
             if (GUI.Button(new Rect(screenPos.x, Screen.height - screenPos.y + 50, 100, 50), "Cancel")) {
                 menuOn = false;
+                StartCoroutine(FlyCameraBack());
             }
         }
     }
@@ -142,4 +147,36 @@ public class CreepManager : LSMonoBehaviour {
 		}
 		creepDict[sourceObj].Add(thisCreep);
 	}
+
+    IEnumerator FlyCamera() {
+        originalPos = Camera.main.transform.position;
+        Vector3 targetPos = new Vector3(0, 130, 0);
+        originalRot = Camera.main.transform.rotation;
+        Quaternion lookDownRot = Quaternion.Euler(90, 0, 0);
+        float percent = 0;
+        while (percent < 1) {
+            percent += Time.deltaTime * 2;
+            Camera.main.transform.rotation = Quaternion.Slerp(originalRot, lookDownRot, percent);
+            Camera.main.transform.position = Vector3.Lerp(originalPos, targetPos, percent);
+            yield return null;
+        }
+        Camera.main.transform.rotation = lookDownRot;
+        Camera.main.transform.position = targetPos;
+        yield return null;
+    }
+
+    IEnumerator FlyCameraBack() {
+        Vector3 targetPos = Camera.main.transform.position;
+        Quaternion lookDownRot = Camera.main.transform.rotation;
+        float percent = 0;
+        while (percent < 1) {
+            percent += Time.deltaTime * 2;
+            Camera.main.transform.rotation = Quaternion.Slerp(lookDownRot, originalRot, percent);
+            Camera.main.transform.position = Vector3.Lerp(targetPos, originalPos, percent);
+            yield return null;
+        }
+        Camera.main.transform.rotation = originalRot;
+        Camera.main.transform.position = originalPos;
+        yield return null;
+    }
 }
