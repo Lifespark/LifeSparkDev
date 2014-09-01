@@ -23,6 +23,11 @@ public class LaneCreep : UnitObject {
 
 	private GameObject sparkPointGroup;
 
+    Vector3 correctPlayerPos;
+    Quaternion correctPlayerRot;
+
+    bool appliedInitialUpdate = false;
+    bool syncedInitialState = false;
 
     public int owner;
 
@@ -37,8 +42,14 @@ public class LaneCreep : UnitObject {
 	
 	// Update is called once per frame
 	void Update () {
-        if (creepState != null)
-            creepState.OnUpdate();
+        if (!photonView.isMine) {
+            transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
+            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+        }
+        else {
+            if (creepState != null)
+                creepState.OnUpdate();
+        }
 	}
 
     private void SwitchState(CreepState toState) {
@@ -58,6 +69,53 @@ public class LaneCreep : UnitObject {
         }
 
         creepState.OnEnter();
+    }
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.isWriting) {
+            //We own this player: send the others our data
+            // stream.SendNext((int)controllerScript._characterState);
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+            stream.SendNext(rigidbody.velocity);
+            if (!syncedInitialState) {
+                //stream.SendNext(target);
+                stream.SendNext(owner);
+                stream.SendNext(playerName);
+                stream.SendNext(renderer.material.color.r);
+                stream.SendNext(renderer.material.color.g);
+                stream.SendNext(renderer.material.color.b);
+                stream.SendNext(renderer.material.color.a);
+                syncedInitialState = true;
+            }
+        }
+        else {
+            //Network player, receive data
+            //controllerScript._characterState = (CharacterState)(int)stream.ReceiveNext();
+            correctPlayerPos = (Vector3)stream.ReceiveNext();
+            correctPlayerRot = (Quaternion)stream.ReceiveNext();
+            rigidbody.velocity = (Vector3)stream.ReceiveNext();
+
+            if (!appliedInitialUpdate) {
+                appliedInitialUpdate = true;
+                transform.position = correctPlayerPos;
+                transform.rotation = correctPlayerRot;
+                rigidbody.velocity = Vector3.zero;
+            }
+
+            if (!syncedInitialState) {
+                syncedInitialState = true;
+                //target = (Transform)stream.ReceiveNext();
+                owner = (int)stream.ReceiveNext();
+                playerName = (string)stream.ReceiveNext();
+                float r = (float)stream.ReceiveNext();
+                float g = (float)stream.ReceiveNext();
+                float b = (float)stream.ReceiveNext();
+                float a = (float)stream.ReceiveNext();
+                renderer.material.color = new Color(r, g, b, a);
+                syncedInitialState = true;
+            }
+        }
     }
 
     abstract class CreepStateBase {
@@ -121,7 +179,9 @@ public class LaneCreep : UnitObject {
 				else {
 					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
 						laneCreep.target.GetComponent<SparkPoint>().SetSparkPointCapture(laneCreep.playerName, laneCreep.owner, true);
-						Destroy(laneCreep.gameObject);
+                        //laneCreep.creepManager.creepDict[laneCreep.target.gameObject].Remove(laneCreep); // should sync on server
+						//Destroy(laneCreep.gameObject);
+                        PhotonNetwork.Destroy(laneCreep.photonView);
 					}
 				}
 			}
