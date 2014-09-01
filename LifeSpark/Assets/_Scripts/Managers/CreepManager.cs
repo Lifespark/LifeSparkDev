@@ -126,7 +126,6 @@ public class CreepManager : LSMonoBehaviour {
         }
         
         creepDict[sourceObj].Add(thisCreep);
-
     }
 
 	[RPC]
