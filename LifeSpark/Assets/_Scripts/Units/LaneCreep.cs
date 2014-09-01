@@ -38,6 +38,15 @@ public class LaneCreep : UnitObject {
 
 		sparkPointGroup = GameObject.Find("SparkPoints");
         creepState = creepStateIdle;
+
+        target = GameObject.Find((string)photonView.instantiationData[0]).transform;
+        owner = (int)photonView.instantiationData[1];
+        playerName = (string)photonView.instantiationData[2];
+        renderer.material.color = new Color ((float)photonView.instantiationData[3], 
+                                             (float)photonView.instantiationData[4], 
+                                             (float)photonView.instantiationData[5], 
+                                             (float)photonView.instantiationData[6]);
+
 	}
 	
 	// Update is called once per frame
@@ -78,6 +87,7 @@ public class LaneCreep : UnitObject {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
             stream.SendNext(rigidbody.velocity);
+            /*
             if (!syncedInitialState) {
                 //stream.SendNext(target);
                 stream.SendNext(owner);
@@ -88,6 +98,7 @@ public class LaneCreep : UnitObject {
                 stream.SendNext(renderer.material.color.a);
                 syncedInitialState = true;
             }
+            */
         }
         else {
             //Network player, receive data
@@ -102,7 +113,7 @@ public class LaneCreep : UnitObject {
                 transform.rotation = correctPlayerRot;
                 rigidbody.velocity = Vector3.zero;
             }
-
+            /*
             if (!syncedInitialState) {
                 syncedInitialState = true;
                 //target = (Transform)stream.ReceiveNext();
@@ -115,6 +126,7 @@ public class LaneCreep : UnitObject {
                 renderer.material.color = new Color(r, g, b, a);
                 syncedInitialState = true;
             }
+            */
         }
     }
 
