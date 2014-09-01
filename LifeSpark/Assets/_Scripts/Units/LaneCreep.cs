@@ -12,29 +12,31 @@ public class LaneCreep : UnitObject {
         Default
     }
 
+    public int owner;
+
     public float maxSpeed = 5.0f;
 	public string playerName;
     public Transform target;
     public CreepManager creepManager;
+    public PlayerManager playerManager;
 
     private CreepStateBase creepState;
     private CreepStateIdle creepStateIdle;
     private CreepStateMove creepStateMove;
 
 	private GameObject sparkPointGroup;
+    private Vector3 correctPlayerPos;
+    private Quaternion correctPlayerRot;
 
-    Vector3 correctPlayerPos;
-    Quaternion correctPlayerRot;
-
-    bool appliedInitialUpdate = false;
-    bool syncedInitialState = false;
-
-    public int owner;
+    private bool appliedInitialUpdate = false;
+    private bool syncedInitialState = false;
 
 	// Use this for initialization
 	void Awake () {
         creepStateIdle = new CreepStateIdle(this);
         creepStateMove = new CreepStateMove(this);
+
+        playerManager = GameObject.FindWithTag("Ground").GetComponent<PlayerManager>();
 
 		sparkPointGroup = GameObject.Find("SparkPoints");
         creepState = creepStateIdle;
@@ -190,7 +192,8 @@ public class LaneCreep : UnitObject {
 				}
 				else {
 					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
-						laneCreep.target.GetComponent<SparkPoint>().SetSparkPointCapture(laneCreep.playerName, laneCreep.owner, true);
+						//laneCreep.target.GetComponent<SparkPoint>().SetSparkPointCapture(laneCreep.playerName, laneCreep.owner, true);
+                        laneCreep.playerManager.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, true);
                         //laneCreep.creepManager.creepDict[laneCreep.target.gameObject].Remove(laneCreep); // should sync on server
 						//Destroy(laneCreep.gameObject);
                         PhotonNetwork.Destroy(laneCreep.photonView);
@@ -205,6 +208,12 @@ public class LaneCreep : UnitObject {
 
         public override void OnExit() {
 
+        }
+
+        [RPC]
+        void RPC_setSparkPointCapture(string sparkPointName, string playerName, int team, bool b) {
+            GameObject tempSparkPoint = GameObject.Find("SparkPoints/" + sparkPointName);
+            tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName, team, b);
         }
     }
 }
