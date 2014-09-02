@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creepPrefab: {fileID: 100000, guid: 34c4eb8e95933a842a0efe4f0f244a5d, type: 2}
+  highlightPrefab: {fileID: 100006, guid: f911aac284f923f44b9052fa93479e15, type: 2}
   maximumCreepNum: 3
   menuOn: 0
   selectingTarget: 0

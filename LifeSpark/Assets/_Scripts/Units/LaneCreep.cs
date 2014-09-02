@@ -25,8 +25,8 @@ public class LaneCreep : UnitObject {
     private CreepStateMove creepStateMove;
 
 	private GameObject sparkPointGroup;
-    private Vector3 correctPlayerPos;
-    private Quaternion correctPlayerRot;
+    private Vector3 correctCreepPos;
+    private Quaternion correctCreepRot;
 
     private bool appliedInitialUpdate = false;
     private bool syncedInitialState = false;
@@ -54,8 +54,8 @@ public class LaneCreep : UnitObject {
 	// Update is called once per frame
 	void Update () {
         if (!photonView.isMine) {
-            transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+            transform.position = Vector3.Lerp(transform.position, this.correctCreepPos, Time.deltaTime * 5);
+            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctCreepRot, Time.deltaTime * 5);
         }
         else {
             if (creepState != null)
@@ -84,51 +84,21 @@ public class LaneCreep : UnitObject {
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) {
-            //We own this player: send the others our data
-            // stream.SendNext((int)controllerScript._characterState);
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
             stream.SendNext(rigidbody.velocity);
-            /*
-            if (!syncedInitialState) {
-                //stream.SendNext(target);
-                stream.SendNext(owner);
-                stream.SendNext(playerName);
-                stream.SendNext(renderer.material.color.r);
-                stream.SendNext(renderer.material.color.g);
-                stream.SendNext(renderer.material.color.b);
-                stream.SendNext(renderer.material.color.a);
-                syncedInitialState = true;
-            }
-            */
         }
         else {
-            //Network player, receive data
-            //controllerScript._characterState = (CharacterState)(int)stream.ReceiveNext();
-            correctPlayerPos = (Vector3)stream.ReceiveNext();
-            correctPlayerRot = (Quaternion)stream.ReceiveNext();
+            correctCreepPos = (Vector3)stream.ReceiveNext();
+            correctCreepRot = (Quaternion)stream.ReceiveNext();
             rigidbody.velocity = (Vector3)stream.ReceiveNext();
 
             if (!appliedInitialUpdate) {
                 appliedInitialUpdate = true;
-                transform.position = correctPlayerPos;
-                transform.rotation = correctPlayerRot;
+                transform.position = correctCreepPos;
+                transform.rotation = correctCreepRot;
                 rigidbody.velocity = Vector3.zero;
             }
-            /*
-            if (!syncedInitialState) {
-                syncedInitialState = true;
-                //target = (Transform)stream.ReceiveNext();
-                owner = (int)stream.ReceiveNext();
-                playerName = (string)stream.ReceiveNext();
-                float r = (float)stream.ReceiveNext();
-                float g = (float)stream.ReceiveNext();
-                float b = (float)stream.ReceiveNext();
-                float a = (float)stream.ReceiveNext();
-                renderer.material.color = new Color(r, g, b, a);
-                syncedInitialState = true;
-            }
-            */
         }
     }
 

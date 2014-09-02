@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class CreepManager : LSMonoBehaviour {
     public GameObject creepPrefab;
+    public GameObject highlightPrefab;
     public int maximumCreepNum = 1;
 
 	public Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
@@ -19,6 +20,7 @@ public class CreepManager : LSMonoBehaviour {
     Vector3 originalPos;
     Quaternion originalRot;
 
+    List<GameObject> highLighting = new List<GameObject>();
 
 	// Use this for initialization
 	void Awake () {
@@ -42,6 +44,14 @@ public class CreepManager : LSMonoBehaviour {
             if (GetTarget(1)) {
                 menuOn = true;
                 StartCoroutine(FlyCamera());
+                highLighting.Clear();
+                GameObject[] sparkPoints = GameObject.FindGameObjectsWithTag("SparkPoint");
+                foreach (var sp in sparkPoints) {
+                    if (sp.GetComponent<SparkPoint>().GetOwner() != player.team) {
+                        GameObject hl = Instantiate(highlightPrefab, sp.transform.position, Quaternion.identity) as GameObject;
+                        highLighting.Add(hl);                    
+                    }
+                }
             }
         }
         else {
@@ -50,6 +60,8 @@ public class CreepManager : LSMonoBehaviour {
                 StartCoroutine(FlyCameraBack());
                 selectingTarget = false;
                 menuOn = false;
+                foreach (var hl in highLighting)
+                    Destroy(hl);
             }
         }
 

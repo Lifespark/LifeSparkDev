@@ -412,6 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 2
   playerID: 0
   playerName: 
@@ -698,6 +702,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 1
   playerID: 0
   playerName: 
@@ -754,7 +762,7 @@ Transform:
   m_PrefabInternal: {fileID: 1603336706}
   m_GameObject: {fileID: 826583815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.6178474, y: 1, z: -.793931484}
+  m_LocalPosition: {x: 33.4315834, y: 1, z: 15.3460636}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 617715527}
@@ -1357,7 +1365,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 39.6178474
+      value: 33.4315834
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1365,7 +1373,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -.793931484
+      value: 15.3460636
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1398,6 +1406,10 @@ Prefab:
     - target: {fileID: 100000, guid: 998b8f43728561844897188d52f7758d, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 998b8f43728561844897188d52f7758d, type: 2}
@@ -1507,6 +1519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 1
   playerID: 0
   playerName: 
@@ -2156,6 +2172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 2
   playerID: 0
   playerName: 
