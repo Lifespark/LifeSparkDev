@@ -500,9 +500,18 @@ MonoBehaviour:
   owner: 0
   maxSpeed: 5
   playerName: 
+  detectRadius: 10
+  attackRadius: 2
   target: {fileID: 0}
   creepManager: {fileID: 0}
   playerManager: {fileID: 0}
+  lockOnEnemy: {fileID: 0}
+  curState: 0
+  creepStateAttack:
+    attackIntervial: 0
+  creepStateChase:
+    chasingDistance: 0
+  enemyPlayers: []
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

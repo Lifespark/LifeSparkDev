@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LaneCreep : UnitObject {
 
     public enum CreepState {
         Idle,
         Moving,
+        Chasing,
         Attacking,
         Attacked,
         Dead,
@@ -16,14 +19,21 @@ public class LaneCreep : UnitObject {
 
     public float maxSpeed = 5.0f;
 	public string playerName;
+    public float detectRadius = 10;
+    public float attackRadius = 2;
     public Transform target;
     public CreepManager creepManager;
     public PlayerManager playerManager;
+    public GameObject lockOnEnemy;
+    public CreepState curState;
+
+    public CreepStateIdle creepStateIdle;
+    public CreepStateMove creepStateMove;
+    public CreepStateAttack creepStateAttack;
+    public CreepStateChase creepStateChase;
 
     private CreepStateBase creepState;
-    private CreepStateIdle creepStateIdle;
-    private CreepStateMove creepStateMove;
-
+    
 	private GameObject sparkPointGroup;
     private Vector3 correctCreepPos;
     private Quaternion correctCreepRot;
@@ -32,10 +42,15 @@ public class LaneCreep : UnitObject {
     private bool appliedInitialUpdate = false;
     private bool syncedInitialState = false;
 
+    // store the enemy so we do not search them during game
+    public List<Player> enemyPlayers = new List<Player>();
+
 	// Use this for initialization
 	void Awake () {
         creepStateIdle = new CreepStateIdle(this);
         creepStateMove = new CreepStateMove(this);
+        creepStateAttack = new CreepStateAttack(this);
+        creepStateChase = new CreepStateChase(this);
 
         playerManager = GameObject.FindWithTag("Ground").GetComponent<PlayerManager>();
 
@@ -43,6 +58,9 @@ public class LaneCreep : UnitObject {
         creepState = creepStateIdle;
 
         target = GameObject.Find((string)photonView.instantiationData[0]).transform;
+
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+
         owner = (int)photonView.instantiationData[1];
         playerName = (string)photonView.instantiationData[2];
         /*
@@ -51,12 +69,20 @@ public class LaneCreep : UnitObject {
                                              (float)photonView.instantiationData[5], 
                                              (float)photonView.instantiationData[6]);
         */
+        anim = GetComponent<Animator>();
         GetComponentInChildren<SkinnedMeshRenderer>().material.color 
             = new Color((float)photonView.instantiationData[3],
                         (float)photonView.instantiationData[4],
                         (float)photonView.instantiationData[5],
                         (float)photonView.instantiationData[6]);
-        anim = GetComponent<Animator>();
+
+
+        foreach (var p in allPlayers) {
+            Player playerScript = p.GetComponent<Player>();
+            if (playerScript.team != owner) {
+                enemyPlayers.Add(playerScript);
+            }
+        }
 	}
 	
 	// Update is called once per frame
@@ -74,7 +100,7 @@ public class LaneCreep : UnitObject {
     private void SwitchState(CreepState toState) {
         if (creepState.State == toState)
             return;
-
+        curState = toState;
         if (creepState != null)
             creepState.OnExit();
 
@@ -84,6 +110,12 @@ public class LaneCreep : UnitObject {
                 break;
             case CreepState.Moving:
                 creepState = creepStateMove;
+                break;
+            case CreepState.Attacking:
+                creepState = creepStateAttack;
+                break;
+            case CreepState.Chasing:
+                creepState = creepStateChase;
                 break;
         }
 
@@ -110,7 +142,8 @@ public class LaneCreep : UnitObject {
         }
     }
 
-    abstract class CreepStateBase {
+    [Serializable]
+    public abstract class CreepStateBase {
         protected CreepState state;
         protected LaneCreep laneCreep;
         protected float startTime;
@@ -124,7 +157,8 @@ public class LaneCreep : UnitObject {
         public CreepStateBase() { startTime = Time.time; }
     }
 
-    class CreepStateIdle : CreepStateBase {
+    [Serializable]
+    public class CreepStateIdle : CreepStateBase {
         public CreepStateIdle(LaneCreep pLaneCreep) {
             startTime = Time.time;
             state = CreepState.Idle;
@@ -140,6 +174,7 @@ public class LaneCreep : UnitObject {
         public override void OnUpdate() {
             if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) > 2.0) {
 				laneCreep.SwitchState(CreepState.Moving);
+                return;
 			}
         }
 
@@ -148,7 +183,8 @@ public class LaneCreep : UnitObject {
         }
     }
 
-    class CreepStateMove : CreepStateBase {
+    [Serializable]
+    public class CreepStateMove : CreepStateBase {
         public CreepStateMove(LaneCreep pLaneCreep) {
             startTime = Time.time;
             state = CreepState.Moving;
@@ -162,12 +198,24 @@ public class LaneCreep : UnitObject {
         }
 
         public override void OnUpdate() {
+
+            foreach (var enemy in laneCreep.enemyPlayers) {
+                if (Vector3.SqrMagnitude(laneCreep.transform.position - enemy.transform.position) < laneCreep.detectRadius * laneCreep.detectRadius) {
+                    Debug.Log("found enemy!");
+                    laneCreep.lockOnEnemy = enemy.gameObject;
+                    laneCreep.SwitchState(CreepState.Chasing);
+                    return;
+                }
+            }
+
             if (laneCreep.target != null) {
 				if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) > 2.0) {
-					laneCreep.SwitchState(CreepState.Moving);
+					//laneCreep.SwitchState(CreepState.Moving);
+                    //return;
 				
                 	Vector3 targetPos = laneCreep.target.position;
                 	Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
+                    direction.y = 0;
 
                 	laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
 					laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
@@ -185,6 +233,7 @@ public class LaneCreep : UnitObject {
             else {
                 // what if the target has been destroyed?
                 laneCreep.SwitchState(CreepState.Idle);
+                return;
             }
         }
 
@@ -196,6 +245,90 @@ public class LaneCreep : UnitObject {
         void RPC_setSparkPointCapture(string sparkPointName, string playerName, int team, bool b) {
             GameObject tempSparkPoint = GameObject.Find("SparkPoints/" + sparkPointName);
             tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName, team, b);
+        }
+    }
+
+    [Serializable]
+    public class CreepStateAttack : CreepStateBase {
+        public float attackIntervial = 2;
+
+        private float lastAttackTime = -2;
+
+        public CreepStateAttack(LaneCreep pLaneCreep) {
+            startTime = Time.time;
+            state = CreepState.Attacking;
+            laneCreep = pLaneCreep;
+        }
+
+        public override void OnEnter() {
+            startTime = Time.time;
+            
+        }
+
+        public override void OnUpdate() {
+            float sqrDistance = Vector3.SqrMagnitude(laneCreep.lockOnEnemy.transform.position - laneCreep.transform.position);
+
+            if ( sqrDistance > laneCreep.attackRadius * laneCreep.attackRadius ) {
+                laneCreep.SwitchState(CreepState.Chasing);
+                return;
+            }
+
+            if (Time.time - lastAttackTime > attackIntervial) {
+                if (laneCreep.anim)
+                    laneCreep.anim.SetTrigger("goAttack");
+            }
+        }
+
+        public override void OnExit() {
+
+        }
+    }
+
+    [Serializable]
+    public class CreepStateChase : CreepStateBase {
+        public float chasingDistance = 10;
+
+        private Vector3 deviatePosition;
+
+        public CreepStateChase(LaneCreep pLaneCreep) {
+            startTime = Time.time;
+            state = CreepState.Chasing;
+            laneCreep = pLaneCreep;
+        }
+
+        public override void OnEnter() {
+            startTime = Time.time;
+            if (laneCreep.anim)
+                laneCreep.anim.SetTrigger("goWalk");
+            deviatePosition = laneCreep.transform.position;
+        }
+
+        public override void OnUpdate() {
+            float sqrDistance = Vector3.SqrMagnitude(laneCreep.lockOnEnemy.transform.position - laneCreep.transform.position);
+            if (laneCreep.lockOnEnemy && sqrDistance < chasingDistance * chasingDistance && sqrDistance < laneCreep.detectRadius * laneCreep.detectRadius) {
+                if (Vector3.SqrMagnitude(laneCreep.lockOnEnemy.transform.position - laneCreep.transform.position) > laneCreep.attackRadius * laneCreep.attackRadius) {
+
+                    Vector3 targetPos = laneCreep.lockOnEnemy.transform.position;
+                    Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
+                    direction.y = 0;
+
+                    laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
+                    laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
+                }
+                else {
+                    laneCreep.SwitchState(CreepState.Attacking);
+                    return;
+                }
+            }
+            else {
+                // no!!! should return to deviate position then resume moving? or not?
+                laneCreep.SwitchState(CreepState.Moving);
+                return;
+            }
+        }
+
+        public override void OnExit() {
+
         }
     }
 }
