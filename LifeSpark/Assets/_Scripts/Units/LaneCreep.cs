@@ -27,6 +27,7 @@ public class LaneCreep : UnitObject {
 	private GameObject sparkPointGroup;
     private Vector3 correctCreepPos;
     private Quaternion correctCreepRot;
+    private Animator anim;
 
     private bool appliedInitialUpdate = false;
     private bool syncedInitialState = false;
@@ -44,11 +45,18 @@ public class LaneCreep : UnitObject {
         target = GameObject.Find((string)photonView.instantiationData[0]).transform;
         owner = (int)photonView.instantiationData[1];
         playerName = (string)photonView.instantiationData[2];
+        /*
         renderer.material.color = new Color ((float)photonView.instantiationData[3], 
                                              (float)photonView.instantiationData[4], 
                                              (float)photonView.instantiationData[5], 
                                              (float)photonView.instantiationData[6]);
-
+        */
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color 
+            = new Color((float)photonView.instantiationData[3],
+                        (float)photonView.instantiationData[4],
+                        (float)photonView.instantiationData[5],
+                        (float)photonView.instantiationData[6]);
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -125,6 +133,8 @@ public class LaneCreep : UnitObject {
 
         public override void OnEnter() {
             startTime = Time.time;
+            if (laneCreep.anim)
+                laneCreep.anim.SetTrigger("goIdle");
         }
 
         public override void OnUpdate() {
@@ -147,6 +157,8 @@ public class LaneCreep : UnitObject {
 
         public override void OnEnter() {
             startTime = Time.time;
+            if (laneCreep.anim)
+                laneCreep.anim.SetTrigger("goWalk");
         }
 
         public override void OnUpdate() {

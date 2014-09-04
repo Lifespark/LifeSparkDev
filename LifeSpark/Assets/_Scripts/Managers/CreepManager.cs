@@ -129,7 +129,7 @@ public class CreepManager : LSMonoBehaviour {
         GameObject sourceObj = GameObject.Find(source);
         //GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
         //GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0) as GameObject;
-        GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
+        GameObject creep = PhotonNetwork.Instantiate("LaneCreepProto", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
         
         LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
 
