@@ -13,6 +13,12 @@ public class LaneCreep : UnitObject {
         Dead,
         Default
     }
+    public enum AnimatorType {
+        BOOL = 1,
+        INT = 2,
+        FLOAT = 3,
+        TRIGGER = 4
+    }
 
     #region CREEP_ATTRIBUTE
     public int owner;
@@ -90,7 +96,7 @@ public class LaneCreep : UnitObject {
 	// Update is called once per frame
 	void Update () {
         // if I'm not in control, sync position from network
-        if (!photonView.isMine) {
+        if (!PhotonNetwork.isMasterClient) {
             transform.position = Vector3.Lerp(transform.position, this.correctCreepPos, Time.deltaTime * 5);
             transform.rotation = Quaternion.Lerp(transform.rotation, this.correctCreepRot, Time.deltaTime * 5);
         }
@@ -155,6 +161,30 @@ public class LaneCreep : UnitObject {
     }
 
     /// <summary>
+    /// change animator parameter over network. must cast animType to int and value to float when calling
+    /// </summary>
+    /// <param name="animType"></param>
+    /// <param name="param"></param>
+    /// <param name="value"></param>
+    [RPC]
+    void RPC_setAnimParam(int animType, string param, float value = 0) {
+        switch ((AnimatorType)animType) {
+            case AnimatorType.BOOL:
+                anim.SetBool(param, value == 1);
+                break;
+            case AnimatorType.INT:
+                anim.SetInteger(param, (int)value);
+                break;
+            case AnimatorType.FLOAT:
+                anim.SetFloat(param, value);
+                break;
+            case AnimatorType.TRIGGER:
+                anim.SetTrigger(param);
+                break;
+        }
+    }
+
+    /// <summary>
     /// Base state class. Can only be inherited
     /// </summary>
     [Serializable]
@@ -200,7 +230,8 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                laneCreep.anim.SetTrigger("goIdle");
+                //laneCreep.anim.SetTrigger("goIdle");
+                laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goIdle", 0f);
         }
 
         public override void OnUpdate() {
@@ -226,7 +257,8 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                laneCreep.anim.SetTrigger("goWalk");
+                //laneCreep.anim.SetTrigger("goWalk");
+                laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
         }
 
         public override void OnUpdate() {
@@ -296,7 +328,8 @@ public class LaneCreep : UnitObject {
             // attack enemy
             if (Time.time - lastAttackTime > attackIntervial) {
                 if (laneCreep.anim)
-                    laneCreep.anim.SetTrigger("goAttack");
+                    //laneCreep.anim.SetTrigger("goAttack");
+                    laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goAttack", 0f);
             }
         }
 
@@ -322,7 +355,8 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                laneCreep.anim.SetTrigger("goWalk");
+                //laneCreep.anim.SetTrigger("goWalk");
+                laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
             deviatePosition = laneCreep.transform.position;
         }
 
