@@ -125,10 +125,25 @@ public class CreepManager : LSMonoBehaviour {
         }
     }
 
+    IEnumerator DispatchCreep(string pSource, string pTarget, string pPlayerName, int team) {
+        source = GameObject.Find(pSource);
+        target = GameObject.Find(pTarget).transform;
+
+        if (!creepDict.ContainsKey(source)) {
+            creepDict.Add(source, new List<LaneCreep>());
+        }
+
+        for (int i = creepDict[source].Count; i < maximumCreepNum; i++) {
+            //photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
+            DispatchCreepAlternative(source.name, target.name, pPlayerName, team);
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
     void DispatchCreepAlternative(string source, string target, string playerName, int team) {
 
         Color creepColor = team == 1 ? Color.red : Color.blue;
-        object[] instantiateData = { target, team, playerName, creepColor.r, creepColor.g, creepColor.b, creepColor.a };
+        object[] instantiateData = { target, team, playerName, creepColor.r, creepColor.g, creepColor.b, creepColor.a, source };
 
         GameObject sourceObj = GameObject.Find(source);
         //GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
@@ -153,8 +168,8 @@ public class CreepManager : LSMonoBehaviour {
     /// <param name="playerName">who's creep's owner</param>
     /// <param name="team">what's creep's team</param>
 	[RPC]
-	void RPC_dispatchCreep (string source, string target, string playerName, int team) {
-        StartCoroutine(DispatchCreep());
+	void RPC_dispatchCreep (string pSource, string pTarget, string pPlayerName, int pTeam) {
+        StartCoroutine(DispatchCreep(pSource, pTarget, pPlayerName, pTeam));
 	}
 
     IEnumerator FlyCamera() {

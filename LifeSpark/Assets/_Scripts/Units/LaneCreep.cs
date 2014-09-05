@@ -27,6 +27,7 @@ public class LaneCreep : UnitObject {
     public float detectRadius = 10;
     public float attackRadius = 2;
     public Transform target;
+    public Transform source;
     public CreepManager creepManager;
     public PlayerManager playerManager;
     public GameObject lockOnEnemy;
@@ -63,6 +64,7 @@ public class LaneCreep : UnitObject {
 
         // initialize Findable stuff
         playerManager = GameObject.FindWithTag("Ground").GetComponent<PlayerManager>();
+        creepManager = GameObject.FindWithTag("Manager").GetComponent<CreepManager>();
 		sparkPointGroup = GameObject.Find("SparkPoints");
         SwitchState(CreepState.Idle);
         target = GameObject.Find((string)photonView.instantiationData[0]).transform;
@@ -83,7 +85,7 @@ public class LaneCreep : UnitObject {
                         (float)photonView.instantiationData[4],
                         (float)photonView.instantiationData[5],
                         (float)photonView.instantiationData[6]);
-
+        source = GameObject.Find((string)photonView.instantiationData[7]).transform;
         // initialize enemy list
         foreach (var p in allPlayers) {
             Player playerScript = p.GetComponent<Player>();
@@ -285,7 +287,7 @@ public class LaneCreep : UnitObject {
                     // start capturing sparkpoint
 					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
                         laneCreep.playerManager.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, true);
-                        //laneCreep.creepManager.creepDict[laneCreep.target.gameObject].Remove(laneCreep); // should sync on server
+                        laneCreep.creepManager.creepDict[laneCreep.source.gameObject].Remove(laneCreep); // should sync on server
                         PhotonNetwork.Destroy(laneCreep.photonView);
 					}
 				}
