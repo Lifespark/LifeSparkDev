@@ -64,7 +64,7 @@ public class LaneCreep : UnitObject {
         // initialize Findable stuff
         playerManager = GameObject.FindWithTag("Ground").GetComponent<PlayerManager>();
 		sparkPointGroup = GameObject.Find("SparkPoints");
-        creepState = creepStateIdle;
+        SwitchState(CreepState.Idle);
         target = GameObject.Find((string)photonView.instantiationData[0]).transform;
         GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
@@ -112,7 +112,7 @@ public class LaneCreep : UnitObject {
     /// </summary>
     /// <param name="toState">destination state</param>
     private void SwitchState(CreepState toState) {
-        if (creepState.State == toState)
+        if (creepState != null && creepState.State == toState)
             return;
         curState = toState;
         if (creepState != null)

@@ -14,7 +14,7 @@ public class CreepManager : LSMonoBehaviour {
     public bool menuOn = false;
 	public bool selectingTarget = false;
 
-	private SparkPoint sparkPoint;
+	private SparkPoint[] sparkPoints;
 	private Player player;
 
     Vector3 originalPos;
@@ -24,7 +24,7 @@ public class CreepManager : LSMonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		sparkPoint = gameObject.GetComponent<SparkPoint> ();
+		//sparkPoint = gameObject.GetComponent<SparkPoint> ();
 	}
 	
 	// Update is called once per frame
