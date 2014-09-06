@@ -15,6 +15,9 @@ public class Player : UnitObject {
 	Vector3 tempValue;
 	float totalSqrLength;
 	
+	public float lineAttackDist;
+	public float areaAttackRadius;
+
 	enum PlayerState {
 		Idle,
 		Moving,
@@ -32,6 +35,9 @@ public class Player : UnitObject {
 		this.unitHealth = 50;
 		this.baseAttack = 5;
 
+		lineAttackDist = 30.0f;
+		areaAttackRadius = 10.0f;
+
         // initialize line renderer for drawing path to false
         GetComponent<LineRenderer>().enabled = false;
 
@@ -39,6 +45,8 @@ public class Player : UnitObject {
 	
 	// Update is called once per frame
 	void Update () {
+		UnitUpdate ();
+
 		movePlayer ();
 
         // Draw Path
@@ -57,6 +65,8 @@ public class Player : UnitObject {
 		if (this.GetComponent<PlayerInput> ().isMine) {
 			GUI.TextArea (new Rect (10, 10, 200, 20), "Position:" + this.transform.position.x + ":" + this.transform.position.y + ":" + this.transform.position.z);
 			GUI.TextArea (new Rect (10, 30, 200, 20), "Target:" + target.x + ":0:" + target.z);
+			GUI.TextArea (new Rect (10, 50, 220, 20), "A for area attack, S for line attack");
+
 			//
 		}
 	}
@@ -86,12 +96,12 @@ public class Player : UnitObject {
 					}
 					else if (targetName.Contains("Player"))
 					{
-						GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerAttack",
-						                                              PhotonTargets.All,
-						                                              targetName,
-						                                              this.name,
-						                                              true
-						                                              );
+						GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+						                                                 PhotonTargets.All,
+						                                                 targetName,
+						                                                 this.name,
+						                                                 this.baseAttack,
+						                                                 0);
 						playerState = PlayerState.Attacking;
 						
 					}
@@ -114,11 +124,6 @@ public class Player : UnitObject {
 				tempValue = target - tempPosition;
 				totalSqrLength = tempValue.sqrMagnitude;
 				if (totalSqrLength > 10.0f ) {//Our target ran away/became distant,we can no longer deal DPS
-					GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
-					                                                 PhotonTargets.All,
-					                                                 this.targetName,
-					                                                 this.name,
-					                                                 false);
 					playerState = PlayerState.Moving;//Chase the target
 					
 				}
@@ -129,22 +134,23 @@ public class Player : UnitObject {
 			break;
 		}
 	}
-	
+
+	//Sends the call for combat off to the combat manager
+	//Input: Type of attack (area or line) and where the combat is located
+	public void EngageCombat(PlayerInput.TargetType combatType, Vector3 location) {
+		//Combat manager was null so I get it here for now
+		GameObject manager = GameObject.Find ("Manager");
+		combatManager = (CombatManager) manager.GetComponent ("CombatManager");
+		combatManager.startCombat (this.name, combatType, location);
+	}
+
 	public void UpdateTarget(Vector3 target, string targetName) {
 		if (playerState == PlayerState.Capturing) {
-			GameObject.Find("Ground").GetPhotonView().RPC("RPC_setSparkPointCapture",
-			                                              PhotonTargets.All,
+			GameObject.Find("Ground").GetPhotonView().RPC("RPC_setSparkPointCapture", PhotonTargets.All,
 			                                              this.targetName,
 			                                              this.name,
 			                                              team,
 			                                              false);
-		}
-		else if (playerState == PlayerState.Attacking) {
-			GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
-			                                                 PhotonTargets.All,
-			                                                 this.targetName,
-			                                                 this.name,
-			                                                 false);
 		}
 		this.target = target;
 		this.targetName = targetName;

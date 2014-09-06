@@ -59,10 +59,15 @@ public class PlayerManager : LSMonoBehaviour {
 	}
 	
 	[RPC]
-	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName) {
+	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName, PlayerInput.TargetType type) {
+		Debug.Log ("Getting type of " + type);
 		tempPlayer = GameObject.Find ("Players/" + playerObject);
-		tempPlayer.GetComponent<Player>().UpdateTarget(target,targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
-		tempPlayer.GetComponent<NavMeshAgent> ().SetDestination (target);
+		if (type == PlayerInput.TargetType.Position) {
+			tempPlayer.GetComponent<Player> ().UpdateTarget (target, targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
+			tempPlayer.GetComponent<NavMeshAgent> ().SetDestination (target);
+		} else {
+			tempPlayer.GetComponent<Player> ().EngageCombat(type, target);
+		}
 	}
 	
 	[RPC]
@@ -77,10 +82,13 @@ public class PlayerManager : LSMonoBehaviour {
 		tempPlayer.GetComponent<Player>().CapturedObjective();
 	}
 
+
+	//Sends signal to the unit object to dish out damage for a specified player
+	//Input: Who's attacking, who's being attacked, how much damage to deal, how long it should take for damage to be taken completely
 	[RPC]
-	void RPC_setPlayerAttack(string attackedName, string attackerName, bool b){
+	void RPC_setPlayerAttack(string attackedName, string attackerName, int damageAmount, int duration){
 		tempPlayer = GameObject.Find ("Players/" + attackedName);
-		tempPlayer.GetComponent<Player>().setUnitBeingAttacked(GameObject.Find ("Players/" + attackerName).GetComponent<Player>().baseAttack,b);
+		tempPlayer.GetComponent<Player>().receiveAttack(damageAmount,duration);
 
 	}
 
