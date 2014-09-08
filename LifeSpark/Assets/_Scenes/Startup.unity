@@ -1205,6 +1205,7 @@ GameObject:
   - 114: {fileID: 1057508051}
   - 114: {fileID: 1057508050}
   - 114: {fileID: 1057508058}
+  - 114: {fileID: 1057508059}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Manager
@@ -1367,6 +1368,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiroot: {fileID: 0}
   uiCamera: {fileID: 0}
+--- !u!114 &1057508059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1057508047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be405dee0dafe74492ff3f0106d314a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1104411716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1534,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 6cf0f3a545df275408018a81896772e0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cf0f3a545df275408018a81896772e0, type: 2}
   m_RootGameObject: {fileID: 547886936}
@@ -1650,7 +1666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1665121664
 MonoBehaviour:
   m_ObjectHideFlags: 0
