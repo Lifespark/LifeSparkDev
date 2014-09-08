@@ -5,8 +5,9 @@ using System.Collections;
 public class SparkPoint : LSMonoBehaviour {
 	
 	public SparkPoint[] _connections;
+    private List<string> initConnected = new List<string>();
 
-	int owner;
+    public int owner;
 	enum SparkPointState {
 		Free,
 		Freeing,
@@ -17,13 +18,14 @@ public class SparkPoint : LSMonoBehaviour {
 	};
 	SparkPointState sparkPointState;
 	List<string> capturers;
-	int capturingTeam;
+	public int capturingTeam;
 	int captureTimer;
 	int captureTime;
 	Color sparkPointColor;
+
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		owner = -1;
 		sparkPointState = SparkPointState.Free;
 		capturers = new List<string>();
@@ -32,8 +34,29 @@ public class SparkPoint : LSMonoBehaviour {
 		captureTime = 200;
 		sparkPointColor = new Color(0.5f,0.5f,0.5f);
 		renderer.material.color = sparkPointColor;
+        if (photonView != null && photonView.instantiationData != null) {
+            gameObject.name = (string)photonView.instantiationData[0] + "_net";
+            gameObject.tag = (string)photonView.instantiationData[1];
+
+            for (int i = 2; i < photonView.instantiationData.Length; i++) {
+                initConnected.Add((string)photonView.instantiationData[i]);
+            }
+
+            // should never use this function. need replacement later
+            FindObjectOfType<SparkPointManager>().OnSparkPointInstantiated();
+        }
 	}
-	
+
+    public void InitNetworkPassedData() {
+        
+        List<SparkPoint> spconnect = new List<SparkPoint>();
+        foreach (var spName in initConnected) {
+            spconnect.Add(GameObject.Find(spName).GetComponent<SparkPoint>());
+        }
+        _connections = spconnect.ToArray();
+        Debug.Log("initSparkPoint");
+    }
+
 	// Update is called once per frame
 	void Update () {
 		/*foreach(SparkPoint sp in _connections) {
@@ -47,7 +70,7 @@ public class SparkPoint : LSMonoBehaviour {
 				//-----------------------------------------------------------------------------------------
 				//// captured, check connection sparkpoint owner to build new line (MasterClient only)
 				//Debug.Log(PhotonNetwork.isMasterClient);
-				if(PhotonNetwork.isMasterClient){
+				if (PhotonNetwork.isMasterClient){
 					int tempSize = _connections.Length;
 					for (int i=0; i<tempSize; i++) {
 						if(_connections[i].owner == capturingTeam) {

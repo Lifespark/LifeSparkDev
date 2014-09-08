@@ -40,7 +40,6 @@ public class Player : UnitObject {
 	// Update is called once per frame
 	void Update () {
 		movePlayer ();
-
         // Draw Path
         if (GetComponent<NavMeshAgent>().hasPath)
         {

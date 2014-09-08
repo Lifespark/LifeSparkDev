@@ -40,4 +40,5 @@ MonoBehaviour:
   - RPC_setLaneMaterial
   - RPC_setPlayerAttack
   - RPC_dispatchCreep
+  - RPC_setAnimParam
   DisableAutoOpenWizard: 0

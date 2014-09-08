@@ -13,6 +13,12 @@ public class LaneCreep : UnitObject {
         Dead,
         Default
     }
+    public enum AnimatorType {
+        BOOL = 1,
+        INT = 2,
+        FLOAT = 3,
+        TRIGGER = 4
+    }
 
     #region CREEP_ATTRIBUTE
     public int owner;
@@ -21,6 +27,7 @@ public class LaneCreep : UnitObject {
     public float detectRadius = 10;
     public float attackRadius = 2;
     public Transform target;
+    public Transform source;
     public CreepManager creepManager;
     public PlayerManager playerManager;
     public GameObject lockOnEnemy;
@@ -57,8 +64,9 @@ public class LaneCreep : UnitObject {
 
         // initialize Findable stuff
         playerManager = GameObject.FindWithTag("Ground").GetComponent<PlayerManager>();
+        creepManager = GameObject.FindWithTag("Manager").GetComponent<CreepManager>();
 		sparkPointGroup = GameObject.Find("SparkPoints");
-        creepState = creepStateIdle;
+        SwitchState(CreepState.Idle);
         target = GameObject.Find((string)photonView.instantiationData[0]).transform;
         GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
@@ -77,7 +85,7 @@ public class LaneCreep : UnitObject {
                         (float)photonView.instantiationData[4],
                         (float)photonView.instantiationData[5],
                         (float)photonView.instantiationData[6]);
-
+        source = GameObject.Find((string)photonView.instantiationData[7]).transform;
         // initialize enemy list
         foreach (var p in allPlayers) {
             Player playerScript = p.GetComponent<Player>();
@@ -90,7 +98,7 @@ public class LaneCreep : UnitObject {
 	// Update is called once per frame
 	void Update () {
         // if I'm not in control, sync position from network
-        if (!photonView.isMine) {
+        if (!PhotonNetwork.isMasterClient) {
             transform.position = Vector3.Lerp(transform.position, this.correctCreepPos, Time.deltaTime * 5);
             transform.rotation = Quaternion.Lerp(transform.rotation, this.correctCreepRot, Time.deltaTime * 5);
         }
@@ -106,7 +114,7 @@ public class LaneCreep : UnitObject {
     /// </summary>
     /// <param name="toState">destination state</param>
     private void SwitchState(CreepState toState) {
-        if (creepState.State == toState)
+        if (creepState != null && creepState.State == toState)
             return;
         curState = toState;
         if (creepState != null)
@@ -151,6 +159,30 @@ public class LaneCreep : UnitObject {
                 transform.rotation = correctCreepRot;
                 rigidbody.velocity = Vector3.zero;
             }
+        }
+    }
+
+    /// <summary>
+    /// change animator parameter over network. must cast animType to int and value to float when calling
+    /// </summary>
+    /// <param name="animType"></param>
+    /// <param name="param"></param>
+    /// <param name="value"></param>
+    [RPC]
+    void RPC_setAnimParam(int animType, string param, float value = 0) {
+        switch ((AnimatorType)animType) {
+            case AnimatorType.BOOL:
+                anim.SetBool(param, value == 1);
+                break;
+            case AnimatorType.INT:
+                anim.SetInteger(param, (int)value);
+                break;
+            case AnimatorType.FLOAT:
+                anim.SetFloat(param, value);
+                break;
+            case AnimatorType.TRIGGER:
+                anim.SetTrigger(param);
+                break;
         }
     }
 
@@ -200,7 +232,8 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                laneCreep.anim.SetTrigger("goIdle");
+                //laneCreep.anim.SetTrigger("goIdle");
+                laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goIdle", 0f);
         }
 
         public override void OnUpdate() {
@@ -226,7 +259,8 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                laneCreep.anim.SetTrigger("goWalk");
+                //laneCreep.anim.SetTrigger("goWalk");
+                laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
         }
 
         public override void OnUpdate() {
@@ -253,7 +287,7 @@ public class LaneCreep : UnitObject {
                     // start capturing sparkpoint
 					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
                         laneCreep.playerManager.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, true);
-                        //laneCreep.creepManager.creepDict[laneCreep.target.gameObject].Remove(laneCreep); // should sync on server
+                        laneCreep.creepManager.creepDict[laneCreep.source.gameObject].Remove(laneCreep); // should sync on server
                         PhotonNetwork.Destroy(laneCreep.photonView);
 					}
 				}
@@ -296,7 +330,8 @@ public class LaneCreep : UnitObject {
             // attack enemy
             if (Time.time - lastAttackTime > attackIntervial) {
                 if (laneCreep.anim)
-                    laneCreep.anim.SetTrigger("goAttack");
+                    //laneCreep.anim.SetTrigger("goAttack");
+                    laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goAttack", 0f);
             }
         }
 
@@ -322,7 +357,8 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                laneCreep.anim.SetTrigger("goWalk");
+                //laneCreep.anim.SetTrigger("goWalk");
+                laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
             deviatePosition = laneCreep.transform.position;
         }
 
