@@ -8,7 +8,7 @@ public class SparkPoint : LSMonoBehaviour {
     private List<string> initConnected = new List<string>();
 
     public int owner;
-	enum SparkPointState {
+	public enum SparkPointState {
 		Free,
 		Freeing,
 		Capturing,
@@ -16,7 +16,7 @@ public class SparkPoint : LSMonoBehaviour {
 		Destroying,
 		Destroyed
 	};
-	SparkPointState sparkPointState;
+	public SparkPointState sparkPointState;
 	List<string> capturers;
 	public int capturingTeam;
 	int captureTimer;
@@ -42,8 +42,7 @@ public class SparkPoint : LSMonoBehaviour {
                 initConnected.Add((string)photonView.instantiationData[i]);
             }
 
-            // should never use this function. need replacement later
-            FindObjectOfType<SparkPointManager>().OnSparkPointInstantiated();
+            SparkPointManager.Instance.OnSparkPointInstantiated();
         }
 	}
 
@@ -132,13 +131,12 @@ public class SparkPoint : LSMonoBehaviour {
 			//Debug.Log ("Broke the capture for "+this.name);
 			capturers.Clear();
 			capturingTeam = -1;
-			sparkPointState = SparkPointState.Free;
+			sparkPointState = SparkPointState.Destroyed;
 			captureTimer = 0;
-			sparkPointColor.r = 0.5f;
-			sparkPointColor.g = 0.5f;
-			sparkPointColor.b = 0.5f;
+			sparkPointColor.r = 0.0f;
+			sparkPointColor.g = 0.0f;
+			sparkPointColor.b = 0.0f;
 			renderer.material.color = sparkPointColor;
 		}
 	}
-	
 }

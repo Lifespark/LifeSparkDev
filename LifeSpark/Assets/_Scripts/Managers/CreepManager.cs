@@ -3,6 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CreepManager : LSMonoBehaviour {
+
+    static private CreepManager _instance;
+    static public CreepManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(CreepManager)) as CreepManager;
+            return _instance;
+        }
+    }
+
     public GameObject creepPrefab;
     public GameObject highlightPrefab;
     public int maximumCreepNum = 1;
@@ -24,7 +34,7 @@ public class CreepManager : LSMonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		//sparkPoint = gameObject.GetComponent<SparkPoint> ();
+        _instance = this;
 	}
 	
 	// Update is called once per frame
@@ -39,7 +49,6 @@ public class CreepManager : LSMonoBehaviour {
 			return;
 		}
 
-
         if (!selectingTarget) {
             if (GetTarget(1)) {
                 menuOn = true;
@@ -47,7 +56,8 @@ public class CreepManager : LSMonoBehaviour {
                 highLighting.Clear();
                 GameObject[] sparkPoints = GameObject.FindGameObjectsWithTag("SparkPoint");
                 foreach (var sp in sparkPoints) {
-                    if (sp.GetComponent<SparkPoint>().GetOwner() != player.team) {
+                    if (sp.GetComponent<SparkPoint>().GetOwner() != player.team &&
+                        sp.GetComponent<SparkPoint>().sparkPointState != SparkPoint.SparkPointState.Destroyed) {
                         GameObject hl = Instantiate(highlightPrefab, sp.transform.position, Quaternion.identity) as GameObject;
                         highLighting.Add(hl);                    
                     }
@@ -80,6 +90,8 @@ public class CreepManager : LSMonoBehaviour {
             if (GUI.Button(new Rect(screenPos.x, Screen.height - screenPos.y + 50, 100, 50), "Cancel")) {
                 menuOn = false;
                 StartCoroutine(FlyCameraBack());
+                foreach (var hl in highLighting)
+                    Destroy(hl);
             }
         }
     }

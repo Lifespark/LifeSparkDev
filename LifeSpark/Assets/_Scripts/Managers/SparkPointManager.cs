@@ -5,15 +5,26 @@ using System.Linq;
 
 public class SparkPointManager : LSMonoBehaviour {
 
-    // should be called after level loaded
-    // any callback for this?
-    List<SparkPoint> sparkPoints = new List<SparkPoint>();
+    static private SparkPointManager _instance;
+    static public SparkPointManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(SparkPointManager)) as SparkPointManager;
+            return _instance;
+        }
+    }
 
-    int sparkPointCount = 0;
-    bool loaded = false;
-    List<GameObject> sparkPointPlaceHolders;
+    public Dictionary<string, GameObject> sparkPointsDict = new Dictionary<string, GameObject>();
 
-    List<Region> regions = new List<Region>();
+    private int sparkPointCount = 0;
+    private bool loaded = false;
+    private List<GameObject> sparkPointPlaceHolders;
+
+    private List<Region> regions = new List<Region>();
+
+    void Awake() {
+        _instance = this;
+    }
 
     void OnLevelWasLoaded(int level) {
         if (level == 1) {
@@ -53,6 +64,7 @@ public class SparkPointManager : LSMonoBehaviour {
             netSps.RemoveAll(sparkPointPlaceHolders.Contains);
             foreach (var netSp in netSps) {
                 netSp.name = netSp.name.Substring(0, 11);
+                sparkPointsDict.Add(netSp.name, netSp);
                 netSp.transform.parent = spParent;
                 foreach (var region in regions) {
                     for (int i = 0; i < region.regionPoints.Length; i++) {
