@@ -5,18 +5,12 @@ public class UnitObject : LSMonoBehaviour {
 	
 	protected CombatManager combatManager;
 	
-	public int unitHealth;
+	public float unitHealth;
 	public int baseAttack;
-	public int DPSReceived;
-	
-	public int DPSTimer;
-	const int DPSTime = 100;
 
 	// Use this for initialization
 	void Start () {
 		combatManager = (CombatManager) GameObject.Find ("Manager").GetComponent ("CombatManager");
-		DPSReceived = 0;
-		DPSTimer = 0;
 	}
 	
 	// Update is called once per frame
@@ -25,29 +19,29 @@ public class UnitObject : LSMonoBehaviour {
 	}
 	
 	public void UnitUpdate () {
-		DPSTimer++;
-		
-		if (DPSTimer >= DPSTime) {//Time to inflict 'em damages
-			DPSTimer = 0;
-			
-			unitHealth -= DPSReceived;
-		}
-		
 		if (unitHealth <= 0) {
 			this.enabled = false;
 			
 			Debug.Log ("Player died!");
-			
 		}
-		
 	}
-	
-	public void setUnitBeingAttacked(int attackValue, bool incoming)
-	{
-		if (incoming)
-			DPSReceived += attackValue;
-		else
-			DPSReceived -= attackValue;
-		
+
+	//Distributes damage evenly over a duration of time. It keeps looping untill there is no time left.
+	//Input: The amount of damage to distribute and how long it should run
+	IEnumerator DamageOverTime(int damageRemaining, int timeRemaining) {
+		if (timeRemaining>0) {
+			float damageToInflict = damageRemaining / timeRemaining;
+			unitHealth -= damageToInflict;
+			yield return new WaitForSeconds (1);
+			StartCoroutine (DamageOverTime((int)(damageRemaining-damageToInflict),(int)(timeRemaining-1)));
+		} else {
+			unitHealth -= damageRemaining;
+		}
+	}
+
+	//Starts distributing damage over time
+	//Input: Origional amount of damage to be done and origional amount of time to deal it in
+	public void receiveAttack(int attackValue, int timeDelt) {
+		StartCoroutine (DamageOverTime(attackValue,timeDelt));
 	}
 }
