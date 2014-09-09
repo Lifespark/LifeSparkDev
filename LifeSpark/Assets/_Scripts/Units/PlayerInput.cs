@@ -9,7 +9,8 @@ public class PlayerInput : UnitMovement {
 	public enum TargetType {
 		Position,
 		LineAttack,
-		AreaAttack
+        TargetAreaAttack,
+		SelfAreaAttack
 	};
 
 	public TargetType targetType;
@@ -38,8 +39,21 @@ public class PlayerInput : UnitMovement {
 			targetType = TargetType.LineAttack;
 		}
 		if (Input.GetKeyDown ("a")) {
-			targetType = TargetType.AreaAttack;
+			targetType = TargetType.TargetAreaAttack;
 		}
+        if (Input.GetKeyDown("d"))
+        {
+            targetType = TargetType.SelfAreaAttack;
+            // Making the aoe around player a quick cast (no mouse involved.)
+            GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget",
+                                                             PhotonTargets.All,
+                                                             this.name,
+                                                             this.transform.position,
+                                                             this.name,
+                                                             targetType);
+            targetType = TargetType.Position;
+            return;
+        }
 		// mouse left button down
 		if (Input.GetMouseButtonDown(0) && GUIUtility.hotControl==0) {
 			Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);

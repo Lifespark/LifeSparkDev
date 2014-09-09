@@ -3,6 +3,9 @@ using System.Collections;
 
 public class CombatManager : LSMonoBehaviour {
 
+    private GameObject tempPlayer;
+    private GameObject tempTarget;
+
 	// Use this for initialization
 	void Start () {
 		NetworkManager tempNM = GameObject.Find ("Manager").GetComponent<NetworkManager>();
@@ -68,7 +71,6 @@ public class CombatManager : LSMonoBehaviour {
 	}
 
 	public void startCombat (string attackerName, PlayerInput.TargetType combatType, Vector3 location) {
-		GameObject tempPlayer;
 		tempPlayer = GameObject.Find ("Players/" + attackerName);
 		//Makes sure the ray doesnt hit the ground
 		location.y = tempPlayer.transform.position.y;
