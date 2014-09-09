@@ -3,25 +3,24 @@ using System.Collections;
 
 public class CameraManager : MonoBehaviour {
 
-    public int scrollSpeed = 50;
-    public int scrollThreshold = 30; // how close to the edge of the screen cursor must be to move camera
+    public int m_scrollSpeed = 50;
+    public int m_scrollThreshold = 30; // how close to the edge of the screen cursor must be to move camera
     
     // Camera's boundaries in each direction
-    public int boundary_North = 25;
-    public int boundary_East = 50;
-    public int boundary_South = 75;
-    public int boundary_West = 50;
+    public int m_boundary_North = 25;
+    public int m_boundary_East = 50;
+    public int m_boundary_South = 75;
+    public int m_boundary_West = 50;
 
-    public int zoomSpeed = 40;
-    public int zoomMin = 10;
-    public int zoomMax = 60;
+    public int m_zoomSpeed = 40;
+    public int m_zoomMin = 10;
+    public int m_zoomMax = 60;
 
-	// Use this for initialization
-	void Start () {
-        
-	}
+	// For use when running on iPad
+	private int t_prevTouchCount = 0;
 	
-	// Update is called once per frame
+
+	/// Update is called once per frame
 	void Update () {
 
 
@@ -30,46 +29,51 @@ public class CameraManager : MonoBehaviour {
 
 
         // Zoom in or out
-        var zoomDelta = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime;
+        var zoomDelta = Input.GetAxis("Mouse ScrollWheel") * m_zoomSpeed * Time.deltaTime;
         {
-            translation += camera.transform.forward * zoomSpeed * zoomDelta;
+            translation += camera.transform.forward * m_zoomSpeed * zoomDelta;
         }
 
 
         // Move Camera if player's mouse cursor reaches screen borders
-        if (Input.mousePosition.x < scrollThreshold)
-        {
-            translation += Vector3.right * -scrollSpeed * Time.deltaTime;
-        }
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
 
-        if (Input.mousePosition.x >= Screen.width - scrollThreshold)
-        {
-            translation += Vector3.right * scrollSpeed * Time.deltaTime;
-        }
+			// if on iPad, use 2 finger swipe to move camera
+			if (Input.touchCount == 2 && t_prevTouchCount == 2) {
+				translation -= Vector3.right * Input.touches[0].deltaPosition.x; 
+				translation -= Vector3.forward * Input.touches[0].deltaPosition.y;
+			}
 
-        if (Input.mousePosition.y < scrollThreshold)
-        {
-            translation += Vector3.forward * -scrollSpeed * Time.deltaTime;
-        }
+			t_prevTouchCount = Input.touchCount;
 
-        if (Input.mousePosition.y > Screen.height - scrollThreshold)
-        {
-            translation += Vector3.forward * scrollSpeed * Time.deltaTime;
-        }
+		} 
+        else {
+			// otherwise (i.e. on PC/Mac) use traditional RTS camera controls
+			if (Input.mousePosition.x < m_scrollThreshold) {
+				translation += Vector3.right * -m_scrollSpeed * Time.deltaTime;
+			}
+			if (Input.mousePosition.x >= Screen.width - m_scrollThreshold) {
+				translation += Vector3.right * m_scrollSpeed * Time.deltaTime;
+			}
 
+			if (Input.mousePosition.y < m_scrollThreshold) {
+				translation += Vector3.forward * -m_scrollSpeed * Time.deltaTime;
+			}
+
+			if (Input.mousePosition.y > Screen.height - m_scrollThreshold) {
+				translation += Vector3.forward * m_scrollSpeed * Time.deltaTime;
+			}
+		}
 
         // Keep camera within level and zoom area
         Vector3 desiredPosition = camera.transform.position + translation;
-        if (desiredPosition.x < -boundary_West || desiredPosition.x > boundary_East)
-        {
+        if (desiredPosition.x < -m_boundary_West || desiredPosition.x > m_boundary_East) {
             translation.x = 0;
         }
-        if (desiredPosition.z < -boundary_South || desiredPosition.z > boundary_North)
-        {
+        if (desiredPosition.z < -m_boundary_South || desiredPosition.z > m_boundary_North) {
             translation.z = 0;
         }
-        if (desiredPosition.y < zoomMin || desiredPosition.y > zoomMax)
-        {
+        if (desiredPosition.y < m_zoomMin || desiredPosition.y > m_zoomMax) {
             translation.y = 0;
         }
 

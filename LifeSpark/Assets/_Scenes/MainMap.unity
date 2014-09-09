@@ -412,6 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 2
   playerID: 0
   playerName: 
@@ -698,6 +702,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 1
   playerID: 0
   playerName: 
@@ -1507,6 +1515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 1
   playerID: 0
   playerName: 
@@ -2156,6 +2168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitHealth: 0
+  baseAttack: 0
+  DPSReceived: 0
+  DPSTimer: 0
   team: 2
   playerID: 0
   playerName: 
