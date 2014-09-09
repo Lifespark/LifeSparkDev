@@ -96,12 +96,17 @@ public class Player : UnitObject {
 					}
 					else if (targetName.Contains("Player"))
 					{
-						GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+						/*GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
 						                                                 PhotonTargets.All,
 						                                                 targetName,
 						                                                 this.name,
 						                                                 this.baseAttack,
-						                                                 0);
+						                                                 0);*/
+						GameObject.Find("Ground").GetPhotonView().RPC("RPC_ShootMissile",
+						                                              PhotonTargets.All,
+						                                              this.playerName,
+						                                              targetName,
+						                                              this.baseAttack);
 						playerState = PlayerState.Attacking;
 						
 					}
