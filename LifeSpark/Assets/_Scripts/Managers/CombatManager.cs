@@ -73,13 +73,15 @@ public class CombatManager : LSMonoBehaviour {
 	/// <summary>
 	/// Visualization of line attack
 	/// </summary>
-	/// <param name="attacker">Attacker, where we retrieve position, prefab to use, and attack distance .</param>
+	/// <param name="attackerName">Attacker, where we retrieve position, prefab to use, and attack distance .</param>
 	/// <param name="targetDir">Target direction to cast attack.</param>
 	/// <param name="targetSrc">Target source - for now the attack originates from the attacker, but this may change in the future.</param>
-	private void LineAttackVisualization (GameObject attacker, Vector3 targetSrc, Vector3 targetDir) {
+	[RPC]
+	public void RPC_lineAttackVisualization (string attackerName, Vector3 targetSrc, Vector3 targetDir) {
 
 		//now uses prefabs for visual effect
 		//consider using projections to handle irregular terrain?
+		GameObject attacker = GameObject.Find ("Players/" + attackerName);
 		Player attackerPlayer = attacker.GetComponent<Player>();
 
 		//player pos is 1.2 units above ground, reset prefab y value to zero
@@ -88,25 +90,39 @@ public class CombatManager : LSMonoBehaviour {
 
 		//instantiate, scales, and kills the effect - scaling needs to be moved to update for animated effects (eg. growing)
 		//would not be necessary if prefab itself is an animated object
-		GameObject lineAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.lineAttackPrefab.name, realPos, Quaternion.LookRotation(targetDir), 0);
+		//GameObject lineAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.lineAttackPrefab.name, realPos, Quaternion.LookRotation(targetDir), 0);
+		GameObject lineAttack = (GameObject)Instantiate(attackerPlayer.lineAttackPrefab, realPos, Quaternion.LookRotation(targetDir));
 		lineAttack.transform.localScale = (new Vector3(1,1,attackerPlayer.lineAttackDist));
+
+		//temporary coloring mechanic
+		lineAttack.GetComponentInChildren<Renderer>().material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
 
 		//lifetime is temporary set to 1 second - should set a value either in Player component or an attackType Object
 		Destroy(lineAttack, 1.0f);
+		//PhotonNetwork.Destroy(lineAttack.GetPhotonView());
 
 	}
 
 	/// <summary>
 	/// Visualization of Area Attacks
 	/// </summary>
-	/// <param name="attacker">Attacker - radius of AOE is retrieved.</param>
+	/// <param name="attackerName">Attacker - radius of AOE is retrieved.</param>
 	/// <param name="targetPt">Target location.</param>
-	private void AreaAttackVisualization(GameObject attacker, Vector3 targetPt) {
+	[RPC]
+	public void RPC_areaAttackVisualization(string attackerName, Vector3 targetPt) {
 
+		GameObject attacker = GameObject.Find ("Players/" + attackerName);
 		Player attackerPlayer = attacker.GetComponent<Player>();
 
-		GameObject areaAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.areaAttackPrefab.name, targetPt, Quaternion.identity, 0);
-		areaAttack.transform.localScale = (new Vector3(attackerPlayer.areaAttackRadius, 1, attackerPlayer.areaAttackRadius));
+		Vector3 realPos = targetPt; 
+		realPos.y = 0.0f;	
+
+		//GameObject areaAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.areaAttackPrefab.name, realPos, Quaternion.identity, 0);
+		GameObject areaAttack = (GameObject)Instantiate(attackerPlayer.areaAttackPrefab, realPos, Quaternion.identity);
+		areaAttack.transform.localScale = (new Vector3(attackerPlayer.areaAttackRadius, 0.01f, attackerPlayer.areaAttackRadius));
+
+		//temporary coloring mechanic
+		areaAttack.renderer.material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
 
 		Destroy(areaAttack, 1.0f);
 
@@ -125,7 +141,11 @@ public class CombatManager : LSMonoBehaviour {
 			//Just to show how far the attack reaches for now
 			Debug.DrawRay (tempPlayer.transform.position, direction * tempPlayer.GetComponent<Player>().lineAttackDist, Color.black);
 
-			LineAttackVisualization(tempPlayer, tempPlayer.transform.position, direction);
+			photonView.RPC ("RPC_lineAttackVisualization",
+			                 PhotonTargets.All,
+                             attackerName,
+                             tempPlayer.transform.position,
+                             direction);
 
 			hits = Physics.RaycastAll (tempPlayer.transform.position, direction, tempPlayer.GetComponent<Player>().lineAttackDist);
 
@@ -146,7 +166,10 @@ public class CombatManager : LSMonoBehaviour {
 			Debug.DrawRay (location, Vector3.back * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.red);
 			Debug.DrawRay (location, Vector3.right * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.black);
 
-			AreaAttackVisualization(tempPlayer, location);
+			photonView.RPC ("RPC_areaAttackVisualization",
+			                PhotonTargets.All,
+			                attackerName,
+			                location);
 
 			for (int x=0; x<entities.Length; x++) {
 				float dist = Vector3.Distance(location,entities[x].transform.position);
