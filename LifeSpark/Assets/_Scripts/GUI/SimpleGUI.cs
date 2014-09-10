@@ -54,8 +54,9 @@ public class SimpleGUI : LSMonoBehaviour {
 	public void StartMultiPlayer ()
 	{
 		guiStage = GuiStage.multiMenu;
-		GUI_MultiMenu();
+		//GUI_MultiMenu();
 	}
+	
 
 	private void OnGUI () {
 		if (networkManager.hasLobby() && guiStage != GuiStage.inGame) {
@@ -74,6 +75,8 @@ public class SimpleGUI : LSMonoBehaviour {
 		{
 			m_startUI.DisplayPing("Ping to server: " + PhotonNetwork.GetPing());
 		}
+
+
 		GUILayout.EndArea ();
 	}
 	
