@@ -4,11 +4,12 @@
 /// </summary>
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class UIManager : MonoBehaviour {
 
 	public UIRoot uiroot;
 	public UICamera uiCamera;
+	private bool needInit = true;
 	// Use this for initialization
 	void Start () {
 		init();
@@ -23,22 +24,29 @@ public class UIManager : MonoBehaviour {
 	/// Init this this class, load prefabs (ui root) in to scene;
 	/// 
 	/// </summary>
-	public void init()
+	void init()
 	{
 	
-
-		if(GameObject.Find("UI Root")) // already there;
+		needInit = false;
+		if(!GameObject.Find("UI Root")) // already there;
 		{
-			return;
+			uiroot =  Resources.Load<GameObject>("Root/UI Root").GetComponent<UIRoot>();
+			uiroot = (Instantiate(uiroot) as GameObject).GetComponent<UIRoot>();
 		}
 
-		uiroot =  Resources.Load<GameObject>("Root/UI Root").GetComponent<UIRoot>();
-		Instantiate(uiroot.gameObject).name = "UI Root";
+		uiroot = GameObject.Find("UI Root").gameObject.GetComponent<UIRoot>();
+		//Instantiate(uiroot.gameObject).name = "UI Root";
 		uiCamera = uiroot.GetComponentInChildren<UICamera>();
+		uiCamera.gameObject.SetActive(true);
+		Object.DontDestroyOnLoad (uiroot.gameObject);
 	}
 
-	static void displayGuiPrefab (Transform t)
+	void displayGuiPrefab (Transform t)
 	{
+		if(needInit)
+		{
+			init();
+		}
 		t.gameObject.SetActive (true);
 	}
 
@@ -49,12 +57,17 @@ public class UIManager : MonoBehaviour {
 	/// <returns>return the gameobject of the prefab</returns>
 	public GameObject AddGui(string GUIName)
 	{
+		if(needInit)
+		{
+			init();
+		}
+		// this is for check Weather the ui is alreadly loaded. need to be changed for the low efficiency
 		foreach(Transform t in uiCamera.transform)
 		{
 			if(t.name == GUIName) // when it alreadly loaded into scene
 			{
 				displayGuiPrefab (t);
-
+				t.gameObject.SetActive(true);
 				t.SendMessage("OnDisplay",SendMessageOptions.DontRequireReceiver);
 				return t.gameObject;
 			}
@@ -63,6 +76,7 @@ public class UIManager : MonoBehaviour {
 		GameObject go = Resources.Load<GameObject>("Root/" + GUIName);
 		go = Instantiate(go) as GameObject;
 		go.name = GUIName;
+		go.SendMessage("OnDisplay",SendMessageOptions.DontRequireReceiver);
 		return go;
 	}
 }

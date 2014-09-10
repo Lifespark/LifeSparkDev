@@ -11,17 +11,19 @@ public enum GuiStage {
 public class SimpleGUI : LSMonoBehaviour {
 	private GuiStage guiStage = GuiStage.mainMenu; 
 	private NetworkManager networkManager;
-
+	private GameObject m_startUpUIObject;
 	private Vector2 scrollPos = Vector2.zero;
 	private string lobbyName = "default";
 	private string sceneName = "MainMap";
+	private StartUpUI m_startUI;
 
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("SimpleGUI.cs start");
 		GameObject manager = GameObject.Find ("Manager");
 		Object.DontDestroyOnLoad (manager);
-
+		m_startUI = GetComponent<UIManager>().AddGui("StartAndLobby").GetComponent<StartUpUI>();
+		m_startUI.SetSimpleGuiObejct(this);
 		networkManager = (NetworkManager) manager.GetComponent("NetworkManager");
 	}
 	
@@ -60,11 +62,17 @@ public class SimpleGUI : LSMonoBehaviour {
 		}
 		GUILayout.BeginArea(new Rect(0, Screen.height-20, 400, 300));
 		//GUILayout.BeginArea(new Rect(Screen.width, Screen.height + 50, 50, 50));
-		GUILayout.Label("Ping to server: " + PhotonNetwork.GetPing());
+		//GUILayout.Label("Ping to server: " + PhotonNetwork.GetPing());
+		if(m_startUI!=null)
+		{
+			m_startUI.DisplayPing("Ping to server: " + PhotonNetwork.GetPing());
+		}
 		GUILayout.EndArea ();
 	}
 	
 	private void GUI_MainMenu () {
+		m_startUI.reset();
+		return;
 		int buttonWidth = 250;
 		int buttonHeight = 100;
 		int space = 10;
@@ -79,6 +87,9 @@ public class SimpleGUI : LSMonoBehaviour {
 	}
 
 	private void GUI_MultiMenu() {
+		m_startUI.MultiMenu();
+
+		return;
 		int menuWidth = 400;
 		int menuHeight = 300;
 
