@@ -25,6 +25,8 @@ public class StartUpUI : MonoBehaviour {
 	void OnMulti()
 	{
 
+		m_sGui.StartMultiPlayer();
+		start.SetActive(false);
 	}
 
 	void OnQuickTest()

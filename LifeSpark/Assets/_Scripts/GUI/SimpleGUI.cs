@@ -25,6 +25,7 @@ public class SimpleGUI : LSMonoBehaviour {
 		m_startUI = GetComponent<UIManager>().AddGui("StartAndLobby").GetComponent<StartUpUI>();
 		m_startUI.SetSimpleGuiObejct(this);
 		networkManager = (NetworkManager) manager.GetComponent("NetworkManager");
+		m_startUI.reset();
 	}
 	
 	// Update is called once per frame
@@ -50,6 +51,12 @@ public class SimpleGUI : LSMonoBehaviour {
 		networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
 	}
 
+	public void StartMultiPlayer ()
+	{
+		guiStage = GuiStage.multiMenu;
+		GUI_MultiMenu();
+	}
+
 	private void OnGUI () {
 		if (networkManager.hasLobby() && guiStage != GuiStage.inGame) {
 			GUI_InLobby();
@@ -71,7 +78,7 @@ public class SimpleGUI : LSMonoBehaviour {
 	}
 	
 	private void GUI_MainMenu () {
-		m_startUI.reset();
+
 		return;
 		int buttonWidth = 250;
 		int buttonHeight = 100;
@@ -87,9 +94,9 @@ public class SimpleGUI : LSMonoBehaviour {
 	}
 
 	private void GUI_MultiMenu() {
-		m_startUI.MultiMenu();
+		//m_startUI.MultiMenu();
 
-		return;
+		//return;
 		int menuWidth = 400;
 		int menuHeight = 300;
 
