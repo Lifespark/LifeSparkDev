@@ -17,6 +17,8 @@ public class Player : UnitObject {
 	
 	public float lineAttackDist;
 	public float areaAttackRadius;
+	public Object lineAttackPrefab;
+	public Object areaAttackPrefab;
 
 	enum PlayerState {
 		Idle,

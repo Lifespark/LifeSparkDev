@@ -70,6 +70,48 @@ public class CombatManager : LSMonoBehaviour {
 		
 	}
 
+	/// <summary>
+	/// Visualization of line attack
+	/// </summary>
+	/// <param name="attacker">Attacker, where we retrieve position, prefab to use, and attack distance .</param>
+	/// <param name="targetDir">Target direction to cast attack.</param>
+	/// <param name="targetSrc">Target source - for now the attack originates from the attacker, but this may change in the future.</param>
+	private void LineAttackVisualization (GameObject attacker, Vector3 targetSrc, Vector3 targetDir) {
+
+		//now uses prefabs for visual effect
+		//consider using projections to handle irregular terrain?
+		Player attackerPlayer = attacker.GetComponent<Player>();
+
+		//player pos is 1.2 units above ground, reset prefab y value to zero
+		Vector3 realPos = targetSrc; 
+		realPos.y = 0.0f;	
+
+		//instantiate, scales, and kills the effect - scaling needs to be moved to update for animated effects (eg. growing)
+		//would not be necessary if prefab itself is an animated object
+		GameObject lineAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.lineAttackPrefab.name, realPos, Quaternion.LookRotation(targetDir), 0);
+		lineAttack.transform.localScale = (new Vector3(1,1,attackerPlayer.lineAttackDist));
+
+		//lifetime is temporary set to 1 second - should set a value either in Player component or an attackType Object
+		Destroy(lineAttack, 1.0f);
+
+	}
+
+	/// <summary>
+	/// Visualization of Area Attacks
+	/// </summary>
+	/// <param name="attacker">Attacker - radius of AOE is retrieved.</param>
+	/// <param name="targetPt">Target location.</param>
+	private void AreaAttackVisualization(GameObject attacker, Vector3 targetPt) {
+
+		Player attackerPlayer = attacker.GetComponent<Player>();
+
+		GameObject areaAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.areaAttackPrefab.name, targetPt, Quaternion.identity, 0);
+		areaAttack.transform.localScale = (new Vector3(attackerPlayer.areaAttackRadius, 1, attackerPlayer.areaAttackRadius));
+
+		Destroy(areaAttack, 1.0f);
+
+	}
+
 	public void startCombat (string attackerName, PlayerInput.TargetType combatType, Vector3 location) {
 		tempPlayer = GameObject.Find ("Players/" + attackerName);
 		//Makes sure the ray doesnt hit the ground
@@ -79,9 +121,11 @@ public class CombatManager : LSMonoBehaviour {
 			RaycastHit[] hits;
 
 			Vector3 heading = location - tempPlayer.transform.position;
-			Vector3 direction = heading / heading.magnitude;
+			Vector3 direction = (heading / heading.magnitude);//*tempPlayer.GetComponent<Player>().lineAttackDist;
 			//Just to show how far the attack reaches for now
 			Debug.DrawRay (tempPlayer.transform.position, direction * tempPlayer.GetComponent<Player>().lineAttackDist, Color.black);
+
+			LineAttackVisualization(tempPlayer, tempPlayer.transform.position, direction);
 
 			hits = Physics.RaycastAll (tempPlayer.transform.position, direction, tempPlayer.GetComponent<Player>().lineAttackDist);
 
@@ -101,6 +145,8 @@ public class CombatManager : LSMonoBehaviour {
 			Debug.DrawRay (location, Vector3.left * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.red);
 			Debug.DrawRay (location, Vector3.back * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.red);
 			Debug.DrawRay (location, Vector3.right * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.black);
+
+			AreaAttackVisualization(tempPlayer, location);
 
 			for (int x=0; x<entities.Length; x++) {
 				float dist = Vector3.Distance(location,entities[x].transform.position);
