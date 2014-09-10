@@ -1244,15 +1244,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be27f0f2d0bba7b4faee67d7fb182537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 40
-  scrollThreshold: 25
-  boundary_North: 25
-  boundary_East: 50
-  boundary_South: 75
-  boundary_West: 50
-  zoomSpeed: 40
-  zoomMin: 10
-  zoomMax: 60
+  m_scrollSpeed: 50
+  m_scrollThreshold: 30
+  m_boundary_North: 25
+  m_boundary_East: 50
+  m_boundary_South: 75
+  m_boundary_West: 50
+  m_zoomSpeed: 40
+  m_zoomMin: 10
+  m_zoomMax: 60
 --- !u!1 &1441660267
 GameObject:
   m_ObjectHideFlags: 0
