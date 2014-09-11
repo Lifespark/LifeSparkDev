@@ -41,4 +41,5 @@ MonoBehaviour:
   - RPC_setPlayerAttack
   - RPC_dispatchCreep
   - RPC_setAnimParam
+  - RPC_switchState
   DisableAutoOpenWizard: 0
