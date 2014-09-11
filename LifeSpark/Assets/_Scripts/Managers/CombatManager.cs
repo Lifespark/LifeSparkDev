@@ -70,6 +70,21 @@ public class CombatManager : LSMonoBehaviour {
 		
 	}
 
+	[RPC]
+	private void RPC_projectileAttackVisualization (string attackerName, string targetName) {
+
+		GameObject attacker = GameObject.Find("Players/" + attackerName);
+		GameObject target = GameObject.Find("Players/" + targetName);
+
+		Player attackerPlayer = attacker.GetComponent<Player>();
+
+		//missile prefab stored in player or missile itself?
+		//GameObject missile = (GameObject)Instantiate(attackerPlayer.missilePrefab, attackerPlayer.transform.position, 
+		//                                             Quaternion.LookRotation(targetPlayer.transform.position - attackerPlayer.transform.position));
+
+		//send missile flying to target, destroy on impact
+	}
+
 	/// <summary>
 	/// Visualization of line attack
 	/// </summary>
