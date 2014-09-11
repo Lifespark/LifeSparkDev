@@ -79,6 +79,7 @@ public class StartUpUI : MonoBehaviour {
 		clossAll();
 		m_sGui.StartMultiPlayer();
 		start.SetActive(false);
+		m_lobbyName.text = "default";
 		lobbyList = m_sGui.GetLobbyList();
 		for(int i =0;i< m_lobbyCell.Length;i++)
 		{
