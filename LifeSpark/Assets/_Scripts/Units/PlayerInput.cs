@@ -24,7 +24,7 @@ public class PlayerInput : UnitMovement {
 	
 	// Update is called once per frame
 	void Update () {
-		if (isMine) {
+		if (isMine && this.GetComponent<Player>().GetState() != Player.PlayerState.Dead) {
 			KeyBoardMouseInput ();
 		}
 	}
@@ -41,8 +41,7 @@ public class PlayerInput : UnitMovement {
 		if (Input.GetKeyDown ("a")) {
 			targetType = TargetType.TargetAreaAttack;
 		}
-        if (Input.GetKeyDown("d"))
-        {
+        if (Input.GetKeyDown("d")) {
             targetType = TargetType.SelfAreaAttack;
             // Making the aoe around player a quick cast (no mouse involved.)
             GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget",
@@ -53,6 +52,9 @@ public class PlayerInput : UnitMovement {
                                                              targetType);
             targetType = TargetType.Position;
             return;
+        }
+        if (Input.GetKeyDown("f")) {
+            this.GetComponent<Player>().KillPlayer();
         }
 		// mouse left button down
 		if (Input.GetMouseButtonDown(0) && GUIUtility.hotControl==0) {

@@ -92,4 +92,17 @@ public class PlayerManager : LSMonoBehaviour {
 
 	}
 
+    [RPC]
+    void RPC_setPlayerDeath(string playerName, int team) {
+        tempPlayer = GameObject.Find("Players/" + playerName);
+        tempPlayer.GetComponent<Player>().KillPlayer();
+    }
+
+    [RPC]
+    void RPC_setPlayerRespawn(string playerName, Vector3 location) {
+        Debug.Log("respawning " + playerName);
+        tempPlayer = GameObject.Find("Players/" + playerName);
+        tempPlayer.GetComponent<Player>().RespawnPlayer(location);
+    }
+
 }

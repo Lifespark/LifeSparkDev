@@ -5,28 +5,34 @@ public class Player : UnitObject {
 	
 	public int team;
 	public int playerID;
+    int spawnPoint;
 	public string playerName;
 	////
 	public Vector3 target;
 	public string targetName;
 	public float speed;
+    public float totalRespawnTime;
+    public float remainingRespawnTime;
 	
 	Vector3 tempPosition;
 	Vector3 tempValue;
 	float totalSqrLength;
+    ArrayList teamSparkPoints;
+    SparkPoint[] sparkPoints;
 	
 	public float lineAttackDist;
 	public float areaAttackRadius;
 	public Object lineAttackPrefab;
 	public Object areaAttackPrefab;
 
-	enum PlayerState {
+	public enum PlayerState {
 		Idle,
 		Moving,
 		Capturing,
-		Attacking
+		Attacking,
+        Dead
 	};
-	PlayerState playerState;
+	public PlayerState playerState;
 	
 	// Use this for initialization
 	void Start () {
@@ -34,8 +40,12 @@ public class Player : UnitObject {
 		target = this.transform.position;
 		target.y = 0;
 		playerState = PlayerState.Idle;
+        this.maxHealth = 50;
 		this.unitHealth = 50;
 		this.baseAttack = 5;
+        totalRespawnTime = 5;
+        sparkPoints = FindObjectsOfType<SparkPoint>();
+        teamSparkPoints = new ArrayList();
 
 		lineAttackDist = 30.0f;
 		areaAttackRadius = 10.0f;
@@ -48,11 +58,20 @@ public class Player : UnitObject {
 	// Update is called once per frame
 	void Update () {
 		UnitUpdate ();
+        // Health calculation is currently inside UnitUpdate() so I'll be using a second check for now
+        if (unitHealth <= 0 && playerState != PlayerState.Dead) {
+
+            GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerDeath",
+                                                           PhotonTargets.All,
+                                                           this.name, 
+                                                           team);
+            playerState = PlayerState.Dead;
+        }
 
 		movePlayer ();
 
         // Draw Path
-        if (GetComponent<NavMeshAgent>().hasPath)
+        if (GetComponent<NavMeshAgent>().hasPath && playerState != PlayerState.Dead)
         {
             DrawPath(GetComponent<NavMeshAgent>().path);
             GetComponent<LineRenderer>().enabled = true;
@@ -67,7 +86,8 @@ public class Player : UnitObject {
 		if (this.GetComponent<PlayerInput> ().isMine) {
 			GUI.TextArea (new Rect (10, 10, 200, 20), "Position:" + this.transform.position.x + ":" + this.transform.position.y + ":" + this.transform.position.z);
 			GUI.TextArea (new Rect (10, 30, 200, 20), "Target:" + target.x + ":0:" + target.z);
-			GUI.TextArea (new Rect (10, 50, 220, 20), "A for area attack, S for line attack");
+			GUI.TextArea (new Rect (10, 50, 220, 20), "A for area attack, S for line attack, D for self area attack");
+            GUI.TextArea(new Rect(10, 70, 200, 20), "F to kill yourself");
 
 			//
 		}
@@ -139,7 +159,37 @@ public class Player : UnitObject {
 				
 			}
 			break;
+        case PlayerState.Dead:
+            if (remainingRespawnTime <= 0.0f) {
+                // Grab all sparkpoints on your team
+                for (int i = 0; i < sparkPoints.Length; i++) {
+                    if (sparkPoints[i].GetOwner() == team) {
+                        teamSparkPoints.Add(sparkPoints[i]);
+                    }
+                }
+                // Select random spawn point from list of team spark points
+                if (teamSparkPoints.Count > 0) {
+                    spawnPoint = Random.Range(0, teamSparkPoints.Count);
+                    tempPosition = ((SparkPoint)teamSparkPoints[spawnPoint]).transform.position;
+                    tempPosition.y = 1.2f;
+                    tempPosition.z -= 2.0f;
+                }
+                else {
+                    tempPosition = new Vector3(32.0f, 1.2f, 0.0f); // arbitrary value
+                }
+                
+                GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerRespawn",
+                                                              PhotonTargets.All,
+                                                              this.name,
+                                                              tempPosition);
+                playerState = PlayerState.Idle;
+            }
+            else {
+                remainingRespawnTime -= Time.deltaTime;
+            }
+            break;
 		}
+
 	}
 
 	//Sends the call for combat off to the combat manager
@@ -163,6 +213,25 @@ public class Player : UnitObject {
 		this.targetName = targetName;
 		playerState = PlayerState.Moving;
 	}
+
+    // Turn player invisible and disable their input and start their respawn timer 
+    public void KillPlayer() {
+        playerState = PlayerState.Dead;
+        target = this.transform.position;
+        renderer.enabled = false;
+        unitHealth = 0;
+        remainingRespawnTime = totalRespawnTime;
+    }
+
+    // Turn player visible again, heal them, spawn them at a sparkpoint, and reenable their input.
+    public void RespawnPlayer(Vector3 location) {
+        playerState = PlayerState.Idle;
+        this.transform.position = location;
+        target = location;
+        this.enabled = true;
+        renderer.enabled = true;
+        unitHealth = maxHealth;
+    }
 	
 	public void CapturedObjective() {
 		playerState = PlayerState.Idle;
@@ -172,6 +241,9 @@ public class Player : UnitObject {
 		return team;
 	}
 
+    public PlayerState GetState() {
+        return playerState;
+    }
 
     public void DrawPath(NavMeshPath path)
     {

@@ -4,7 +4,8 @@ using System.Collections;
 public class UnitObject : LSMonoBehaviour {
 	
 	protected CombatManager combatManager;
-	
+
+    public float maxHealth;
 	public float unitHealth;
 	public int baseAttack;
 
@@ -20,7 +21,8 @@ public class UnitObject : LSMonoBehaviour {
 	
 	public void UnitUpdate () {
 		if (unitHealth <= 0) {
-			this.enabled = false;
+            // Commented this out so that the respawn timer on Player.cs will work
+			//this.enabled = false;
 			
 			Debug.Log ("Player died!");
 		}
