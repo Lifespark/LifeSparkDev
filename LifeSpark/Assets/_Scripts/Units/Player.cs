@@ -71,7 +71,7 @@ public class Player : UnitObject {
 		movePlayer ();
 
         // Draw Path
-        if (GetComponent<NavMeshAgent>().hasPath && playerState != PlayerState.Dead)
+        /*if (GetComponent<NavMeshAgent>().hasPath && playerState != PlayerState.Dead)
         {
             DrawPath(GetComponent<NavMeshAgent>().path);
             GetComponent<LineRenderer>().enabled = true;
@@ -79,7 +79,7 @@ public class Player : UnitObject {
         else 
         {
             GetComponent<LineRenderer>().enabled = false;
-        }
+        }*/
 	}
 	
 	void OnGUI () {
@@ -94,6 +94,12 @@ public class Player : UnitObject {
 	}
 	
 	void movePlayer () {
+
+		//Stop NavMeshAgent, if Player should actually move will be enables in the Moving PlayerState
+		GetComponent<NavMeshAgent>().Stop();
+		GetComponent<LineRenderer>().enabled = false;
+
+
 		switch (playerState) {
 		case PlayerState.Idle:
 			break;
@@ -104,7 +110,7 @@ public class Player : UnitObject {
 				tempValue = target - tempPosition;
 				totalSqrLength = tempValue.sqrMagnitude;
 				tempValue = Vector3.Normalize(tempValue) * speed * Time.deltaTime;
-				if (totalSqrLength <= 10.0f /*&& targetName.Contains("SparkPoint")*/) {
+				if (totalSqrLength <= 10.0f) {
 					
 					if (targetName.Contains("SparkPoint"))
 					{
@@ -118,12 +124,6 @@ public class Player : UnitObject {
 					}
 					else if (targetName.Contains("Player"))
 					{
-						/*GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
-						                                                 PhotonTargets.All,
-						                                                 targetName,
-						                                                 this.name,
-						                                                 this.baseAttack,
-						                                                 0);*/
 						GameObject.Find("Ground").GetPhotonView().RPC("RPC_ShootMissile",
 						                                              PhotonTargets.All,
 						                                              this.playerName,
@@ -139,6 +139,12 @@ public class Player : UnitObject {
 				}
 				else {
 					//this.transform.position = this.transform.position + tempValue;
+					// Draw Path
+					GetComponent<NavMeshAgent>().Move(tempValue);
+					if (GetComponent<NavMeshAgent>().hasPath){
+						DrawPath(GetComponent<NavMeshAgent>().path);
+						GetComponent<LineRenderer>().enabled = true;
+					}
 				}
 			}
 			break;

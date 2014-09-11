@@ -42,6 +42,9 @@ public class CombatManager : LSMonoBehaviour {
 
 	}
 
+	/// <summary>
+	/// Create missile targeted at player with targetName shot by attacker Name
+	/// </summary>
 	[RPC]
 	void RPC_ShootMissile(string attackerName, string targetName){
 		
@@ -49,9 +52,11 @@ public class CombatManager : LSMonoBehaviour {
 		
 		
 	}
-	
-	void MissileHit()
-	{
+
+	/// <summary>
+	/// projectile hits, target of the projectile takes damage based on the attack
+	/// </summary>
+	void MissileHit(){
 		string attackerName = "";
 		string targetName = "";
 		
