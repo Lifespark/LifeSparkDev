@@ -43,7 +43,7 @@ public class StartUpUI : MonoBehaviour {
 	void Update () {
 	//	if(m_lobbyCell==null)
 //		{
-//			m_lobbyCell = m_cellObject.GetComponentsInChildren<LobbyCell>();
+//		m_lobbyCell = m_cellObject.GetComponentsInChildren<LobbyCell>();
 //		}
 	}
 
