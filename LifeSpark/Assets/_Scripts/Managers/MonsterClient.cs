@@ -11,7 +11,7 @@ public class MonsterClient : LSMonoBehaviour
 	// Use this for initialization
 	void Start () {
         System.Random ra = new System.Random();
-        for (int i = 0; i < CAMPPOSITION.Length; i++)
+        for (int i = 0; i < 7; i++)
         {
             int rand = ra.Next(0, 2);
             Vector3 position = new Vector3(CAMPPOSITION[i, 0], 3, CAMPPOSITION[i, 1]);
