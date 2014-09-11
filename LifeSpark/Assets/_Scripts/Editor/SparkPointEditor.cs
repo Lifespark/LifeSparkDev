@@ -2,7 +2,7 @@
 using UnityEditor;
 using System.Collections;
 	
-//[CustomEditor (typeof(SparkPoint)), CanEditMultipleObjects]
+[CustomEditor (typeof(SparkPoint)), CanEditMultipleObjects]
 public class SparkPointEditor : Editor {
 
 	SerializedProperty connectedSparkPoints;
