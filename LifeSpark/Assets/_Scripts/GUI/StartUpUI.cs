@@ -15,6 +15,7 @@ public class StartUpUI : MonoBehaviour {
 	public UILabel[] m_playerLabelList;
 	public GameObject m_room;
 	public UILabel m_sceneName;
+
 	public void SetSimpleGuiObejct(SimpleGUI sgui){
 		m_sGui = sgui;
 
@@ -31,6 +32,11 @@ public class StartUpUI : MonoBehaviour {
 		m_room.SetActive(false);
 //		start.SetActive(false);
 //		start.SetActive(false);
+	}
+
+	public void close ()
+	{
+		this.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -129,6 +135,8 @@ public class StartUpUI : MonoBehaviour {
 
 	public void MultiMenu()
 	{
+		if(lobby.activeSelf)
+			return;
 		clossAll();
 		start.SetActive(false);
 		lobby.SetActive(true);
@@ -165,6 +173,8 @@ public class StartUpUI : MonoBehaviour {
 
 	public void InLobby (string lobbyName, MetaPlayer[] mplayer,string scenename)
 	{
+		if(m_room.activeSelf)
+			return;
 		clossAll();
 		m_room .gameObject.SetActive(true);
 		Showplayer(mplayer);

@@ -80,7 +80,8 @@ public class SimpleGUI : LSMonoBehaviour {
 		{
 			if(m_startUI!=null)
 			{
-				m_startUI.clossAll();
+				m_startUI.close();
+
 			}
 		}
 		GUILayout.EndArea ();
