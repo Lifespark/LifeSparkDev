@@ -41,6 +41,8 @@ MonoBehaviour:
   - RPC_setPlayerAttack
   - RPC_dispatchCreep
   - RPC_ShootMissile
+  - RPC_setPlayerDeath
+  - RPC_setPlayerRespawn
   - LineAttackVisualization
   - AreaAttackVisualization
   - RPC_lineAttackVisualization
