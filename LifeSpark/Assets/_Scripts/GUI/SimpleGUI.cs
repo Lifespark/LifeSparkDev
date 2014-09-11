@@ -76,7 +76,13 @@ public class SimpleGUI : LSMonoBehaviour {
 			m_startUI.DisplayPing("Ping to server: " + PhotonNetwork.GetPing());
 		}
 
-
+		if(guiStage == GuiStage.inGame)
+		{
+			if(m_startUI!=null)
+			{
+				m_startUI.clossAll();
+			}
+		}
 		GUILayout.EndArea ();
 	}
 	
@@ -96,10 +102,50 @@ public class SimpleGUI : LSMonoBehaviour {
 		}
 	}
 
-	private void GUI_MultiMenu() {
-		//m_startUI.MultiMenu();
+	private void OnPlayerNameChanged()
+	{
+		PlayerPrefs.SetString("playerName", networkManager.playerName);
+	}
 
-		//return;
+	public string NetworkPlayerName
+	{
+		get{
+		return networkManager.playerName;
+		}
+		set{
+			networkManager.playerName = value;
+		}
+	}
+
+
+
+	void CreateLobby ()
+	{
+		networkManager.lobbyName = this.lobbyName;
+		networkManager.CreateLobby (lobbyName, new RoomOptions () {
+			maxPlayers = 4
+		});
+	}
+
+	public void CreateLobby (string lobbyName)
+	{
+		networkManager.lobbyName = lobbyName;
+		networkManager.CreateLobby (lobbyName, new RoomOptions () {
+			maxPlayers = 4
+		});
+	}
+
+	public void join (string lobbyName)
+	{
+		guiStage = GuiStage.joiningLobby;
+		networkManager.lobbyName = lobbyName;
+		networkManager.JoinRoom (lobbyName);
+	}
+
+	private void GUI_MultiMenu() {
+		m_startUI.MultiMenu();
+
+		return;
 		int menuWidth = 400;
 		int menuHeight = 300;
 
@@ -110,7 +156,7 @@ public class SimpleGUI : LSMonoBehaviour {
 		GUILayout.Label("Player name:", GUILayout.Width((2 * menuWidth) / 5));
 		networkManager.playerName = (GUILayout.TextField (networkManager.playerName));
 		if (GUI.changed) {
-			PlayerPrefs.SetString("playerName", networkManager.playerName);
+			 OnPlayerNameChanged();
 		}
 		GUILayout.EndHorizontal();
 		GUILayout.Space(15);
@@ -119,8 +165,7 @@ public class SimpleGUI : LSMonoBehaviour {
 		GUILayout.BeginHorizontal();
 		this.lobbyName = GUILayout.TextField(this.lobbyName);
 		if (GUILayout.Button("CREATE")) {
-			networkManager.lobbyName = this.lobbyName;
-			networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
+			CreateLobby ();
 		}
 		GUILayout.EndHorizontal();
 		GUILayout.Space(25);
@@ -140,9 +185,7 @@ public class SimpleGUI : LSMonoBehaviour {
 				GUILayout.Label(lobby.name + " " + lobby.playerCount + "/" + lobby.maxPlayers);
 				if (GUILayout.Button("JOIN"))
 				{
-					guiStage = GuiStage.joiningLobby;
-					networkManager.lobbyName = lobby.name;
-					networkManager.JoinRoom(lobby.name);
+					join (lobby.name);
 				}
 				GUILayout.EndHorizontal();
 			}
@@ -151,7 +194,16 @@ public class SimpleGUI : LSMonoBehaviour {
 		GUILayout.EndArea();
 	}
 
+	public Lobby[] GetLobbyList()
+	{
+		return networkManager.GetLobbies();
+	}
+
 	private void GUI_InLobby() {
+		//
+
+		m_startUI.InLobby(networkManager.lobbyName,networkManager.GetMetaPlayers (),this.sceneName);
+		return;
 		GUILayout.Label("We are connected to room: "+networkManager.lobbyName);
 		GUILayout.Label("Players: ");
 		foreach (MetaPlayer player in networkManager.GetMetaPlayers ())
@@ -173,6 +225,18 @@ public class SimpleGUI : LSMonoBehaviour {
 			guiStage = GuiStage.multiMenu;
 			PhotonNetwork.LeaveRoom();
 		}
+	}
+
+	public void startGame(string sceneName)
+	{
+		networkManager.startNetworkedGame(sceneName);
+	}
+
+
+	public void leavelRoom()
+	{
+		guiStage = GuiStage.multiMenu;
+		PhotonNetwork.LeaveRoom();
 	}
 
 	private void GUI_JoiningLobby() {
