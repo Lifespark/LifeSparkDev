@@ -123,7 +123,7 @@ public class Player : UnitObject {
 					}
 					else if (targetName.Contains("Player"))
 					{
-						GameObject.Find("Ground").GetPhotonView().RPC("RPC_ShootMissile",
+						GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
 						                                              PhotonTargets.All,
 						                                              this.playerName,
 						                                              targetName,

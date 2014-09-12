@@ -11,76 +11,19 @@ public class CombatManager : LSMonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Moved from here (Kaleb)
-		m_networkManager = GameObject.Find ("Manager").GetComponent<NetworkManager>();
-//		MetaPlayer[] tempMPs = tempNM.GetMetaPlayers ();
-//		MetaPlayer masterPlayer = tempMPs [0];
-//		// decide masterPlayer by smallest ID, he manage other players like MasterClient
-//		foreach (MetaPlayer forMP in tempMPs) {
-//			if(forMP.ID < masterPlayer.ID) {
-//				masterPlayer = forMP;
-//			}
-//		}
-//		//Debug.Log ("The MasterPlayer is " + masterPlayer.name);
-//		
-//		// if this is the masterPlayer, manage and set each client to 1 player (only has 1 masterPlayer)
-//		if (tempNM.playerName.Equals (masterPlayer.name)) {
-//			//Debug.Log ("I'm the MasterPlayer.");
-//			// 
-//			int playerNum = 1;
-//			
-//			foreach (MetaPlayer forMP in tempMPs) {
-//				photonView.RPC ("RPC_setMine", PhotonTargets.All, "Player"+playerNum, forMP.name);
-//				//
-//				playerNum = playerNum + 1;
-//			}
-//			// check
-//			/*for (int i=1; i<=4; i++){
-//				Debug.Log ("Player" + i + ":" + GameObject.Find("Players/Player"+i).GetComponent<Player>().playerName);
-//			}*/
-//		}	
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//Moved to here and added additional check for hotfix (Kaleb)
-		if (!m_handledGameStartup && m_networkManager.connected) {
-			m_handledGameStartup = true;
 
-			MetaPlayer[] tempMPs = m_networkManager.GetMetaPlayers ();
-			MetaPlayer masterPlayer = tempMPs [0];
-			// decide masterPlayer by smallest ID, he manage other players like MasterClient
-			foreach (MetaPlayer forMP in tempMPs) {
-				if(forMP.ID < masterPlayer.ID) {
-					masterPlayer = forMP;
-				}
-			}
-			//Debug.Log ("The MasterPlayer is " + masterPlayer.name);
-			
-			// if this is the masterPlayer, manage and set each client to 1 player (only has 1 masterPlayer)
-			if (m_networkManager.playerName.Equals (masterPlayer.name)) {
-				//Debug.Log ("I'm the MasterPlayer.");
-				// 
-				int playerNum = 1;
-				
-				foreach (MetaPlayer forMP in tempMPs) {
-					photonView.RPC ("RPC_setMine", PhotonTargets.All, "Player"+playerNum, forMP.name);
-					//
-					playerNum = playerNum + 1;
-				}
-				// check
-				/*for (int i=1; i<=4; i++){
-					Debug.Log ("Player" + i + ":" + GameObject.Find("Players/Player"+i).GetComponent<Player>().playerName);
-				}*/
-			}
-		}
 	}
 
 	/// <summary>
 	/// Create missile targeted at player with targetName shot by attacker Name
 	/// </summary>
 	[RPC]
-	void RPC_ShootMissile(string attackerName, string targetName){
+	void RPC_ShootMissile(string attackerName, string targetName, int baseAttack){
 		
 		//Create missile targeted at player with targetName, store attacking player name in the missile
 		
