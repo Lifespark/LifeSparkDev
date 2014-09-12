@@ -43,7 +43,7 @@ public class BossCageManager : LSMonoBehaviour {
 				initData.Add(bossCage.m_breakValue);
 
 				List<object> connectedSparkPoints = new List<object>();
-				for(int i = 0; i < bossCage.m_connections.GetLength(0); i++){
+				for(int i = 0; i < bossCage.m_connectionNames.GetLength(0); i++){
 					connectedSparkPoints.Add(bossCage.m_connectionNames[i]);
 				}
 				/*for(int i = 0; i < connectedSparkPoints.Count; i++){
