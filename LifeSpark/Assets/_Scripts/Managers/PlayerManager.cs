@@ -72,7 +72,8 @@ public class PlayerManager : LSMonoBehaviour {
 	
 	[RPC]
 	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b) {
-		tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+		//tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+        tempSparkPoint = SparkPointManager.Instance.sparkPointsDict[sparkPointName];
 		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName,team,b);
 	}
 	

@@ -3,7 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CreepManager : LSMonoBehaviour {
+
+    static private CreepManager _instance;
+    static public CreepManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(CreepManager)) as CreepManager;
+            return _instance;
+        }
+    }
+
     public GameObject creepPrefab;
+    public GameObject highlightPrefab;
     public int maximumCreepNum = 1;
 
 	public Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
@@ -13,16 +24,17 @@ public class CreepManager : LSMonoBehaviour {
     public bool menuOn = false;
 	public bool selectingTarget = false;
 
-	private SparkPoint sparkPoint;
+	private SparkPoint[] sparkPoints;
 	private Player player;
 
     Vector3 originalPos;
     Quaternion originalRot;
 
+    List<GameObject> highLighting = new List<GameObject>();
 
 	// Use this for initialization
 	void Awake () {
-		sparkPoint = gameObject.GetComponent<SparkPoint> ();
+        _instance = this;
 	}
 	
 	// Update is called once per frame
@@ -37,19 +49,33 @@ public class CreepManager : LSMonoBehaviour {
 			return;
 		}
 
-
         if (!selectingTarget) {
             if (GetTarget(1)) {
                 menuOn = true;
                 StartCoroutine(FlyCamera());
+                highLighting.Clear();
+                GameObject[] sparkPoints = GameObject.FindGameObjectsWithTag("SparkPoint");
+                foreach (var sp in sparkPoints) {
+                    if (sp.GetComponent<SparkPoint>().GetOwner() != player.team &&
+                        sp.GetComponent<SparkPoint>().sparkPointState != SparkPoint.SparkPointState.Destroyed) {
+                        GameObject hl = Instantiate(highlightPrefab, sp.transform.position, Quaternion.identity) as GameObject;
+                        highLighting.Add(hl);                    
+                    }
+                }
             }
         }
         else {
             if (GetTarget(0)) {
-                StartCoroutine(DispatchCreep());
+                //StartCoroutine(DispatchCreep());
+                if (PhotonNetwork.isMasterClient)
+                    StartCoroutine(DispatchCreep());
+                else
+                    photonView.RPC("RPC_dispatchCreep", PhotonTargets.MasterClient, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
                 StartCoroutine(FlyCameraBack());
                 selectingTarget = false;
                 menuOn = false;
+                foreach (var hl in highLighting)
+                    Destroy(hl);
             }
         }
 
@@ -64,6 +90,8 @@ public class CreepManager : LSMonoBehaviour {
             if (GUI.Button(new Rect(screenPos.x, Screen.height - screenPos.y + 50, 100, 50), "Cancel")) {
                 menuOn = false;
                 StartCoroutine(FlyCameraBack());
+                foreach (var hl in highLighting)
+                    Destroy(hl);
             }
         }
     }
@@ -109,16 +137,32 @@ public class CreepManager : LSMonoBehaviour {
         }
     }
 
+    IEnumerator DispatchCreep(string pSource, string pTarget, string pPlayerName, int team) {
+        source = GameObject.Find(pSource);
+        target = GameObject.Find(pTarget).transform;
+
+        if (!creepDict.ContainsKey(source)) {
+            creepDict.Add(source, new List<LaneCreep>());
+        }
+
+        for (int i = creepDict[source].Count; i < maximumCreepNum; i++) {
+            //photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
+            DispatchCreepAlternative(source.name, target.name, pPlayerName, team);
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
     void DispatchCreepAlternative(string source, string target, string playerName, int team) {
 
         Color creepColor = team == 1 ? Color.red : Color.blue;
-        object[] instantiateData = { target, team, playerName, creepColor.r, creepColor.g, creepColor.b, creepColor.a };
+        object[] instantiateData = { target, team, playerName, creepColor.r, creepColor.g, creepColor.b, creepColor.a, source };
 
         GameObject sourceObj = GameObject.Find(source);
         //GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
         //GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0) as GameObject;
-        GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
-        
+        //GameObject creep = PhotonNetwork.Instantiate("LaneCreepProto", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
+        GameObject creep = PhotonNetwork.InstantiateSceneObject("LaneCreepProto", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
+
         LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
 
         if (!creepDict.ContainsKey(sourceObj)) {
@@ -128,23 +172,16 @@ public class CreepManager : LSMonoBehaviour {
         creepDict[sourceObj].Add(thisCreep);
     }
 
+    /// <summary>
+    /// if Player is not MasterClient, call this RPC and MasterClient will instantiate the creeps
+    /// </summary>
+    /// <param name="source">where creep from</param>
+    /// <param name="target">where creep to</param>
+    /// <param name="playerName">who's creep's owner</param>
+    /// <param name="team">what's creep's team</param>
 	[RPC]
-	void RPC_dispatchCreep (string source, string target, string playerName, int team) {
-		GameObject sourceObj = GameObject.Find(source);
-		GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
-		LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
-		thisCreep.target = GameObject.Find(target).transform;
-		thisCreep.owner = team;
-		thisCreep.playerName = playerName;
-		if (team == 1)
-			thisCreep.renderer.material.color = Color.red;
-		else if (team == 2)
-			thisCreep.renderer.material.color = Color.blue;
-		//thisCreep.renderer.material = source.renderer.material;
-		if (!creepDict.ContainsKey (sourceObj)) {
-			creepDict.Add(sourceObj, new List<LaneCreep>());
-		}
-		creepDict[sourceObj].Add(thisCreep);
+	void RPC_dispatchCreep (string pSource, string pTarget, string pPlayerName, int pTeam) {
+        StartCoroutine(DispatchCreep(pSource, pTarget, pPlayerName, pTeam));
 	}
 
     IEnumerator FlyCamera() {

@@ -23,7 +23,7 @@ public class Region : MonoBehaviour
         Team2Color = Color.Lerp(Color.blue, Color.clear, 0.75f);
         
         // Setup regionPolygon
-        PrepareRegionPolygon();
+        //PrepareRegionPolygon();
 
         // Print Debug Warning if region is not triangular
         if (regionPoints.Length != 3)
@@ -36,7 +36,7 @@ public class Region : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (regionPoints[0] == null || regionPoints[1] == null || regionPoints[2] == null) return;
         
         if (regionPoints[0].gameObject == null || regionPoints[1].gameObject == null || regionPoints[2].gameObject == null)
         {
@@ -58,7 +58,7 @@ public class Region : MonoBehaviour
 
 
     // Instnatiates and sets up the regionPolygon gameobject/mesh
-    private void PrepareRegionPolygon()
+    public void PrepareRegionPolygon()
     {
         // Instantiate new game object
         regionPolygon = new GameObject();

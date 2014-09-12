@@ -40,11 +40,6 @@ MonoBehaviour:
   - RPC_setLaneMaterial
   - RPC_setPlayerAttack
   - RPC_dispatchCreep
-  - RPC_ShootMissile
-  - RPC_setPlayerDeath
-  - RPC_setPlayerRespawn
-  - LineAttackVisualization
-  - AreaAttackVisualization
-  - RPC_lineAttackVisualization
-  - RPC_areaAttackVisualization
+  - RPC_setAnimParam
+  - RPC_switchState
   DisableAutoOpenWizard: 0
