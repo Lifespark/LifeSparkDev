@@ -188,6 +188,7 @@ GameObject:
   - 136: {fileID: 282778118}
   - 23: {fileID: 282778117}
   - 114: {fileID: 282778116}
+  - 114: {fileID: 282778120}
   m_Layer: 0
   m_Name: BossCage
   m_TagString: BossCage
@@ -274,6 +275,27 @@ MeshFilter:
   m_PrefabInternal: {fileID: 779783264}
   m_GameObject: {fileID: 282778114}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &282778120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: ba14836c2179eaa4da4981f5ba9ef62e,
+    type: 2}
+  m_PrefabInternal: {fileID: 779783264}
+  m_GameObject: {fileID: 282778114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subId: 900
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 0}
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  instantiationId: -1
 --- !u!1 &472274809
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,20 +740,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
-  DPSReceived: 0
-  DPSTimer: 0
   team: 2
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  playerState: 0
 --- !u!23 &622257730
 Renderer:
   m_ObjectHideFlags: 0
@@ -1097,6 +1121,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: ba14836c2179eaa4da4981f5ba9ef62e, type: 2}
+      propertyPath: subId
+      value: 900
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba14836c2179eaa4da4981f5ba9ef62e, type: 2}
   m_RootGameObject: {fileID: 282778114}
@@ -1252,20 +1280,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
-  DPSReceived: 0
-  DPSTimer: 0
   team: 1
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  playerState: 0
 --- !u!23 &826583818
 Renderer:
   m_ObjectHideFlags: 0
@@ -1982,15 +2012,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be27f0f2d0bba7b4faee67d7fb182537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 40
-  scrollThreshold: 25
-  boundary_North: 25
-  boundary_East: 50
-  boundary_South: 75
-  boundary_West: 50
-  zoomSpeed: 40
-  zoomMin: 10
-  zoomMax: 60
+  m_scrollSpeed: 50
+  m_scrollThreshold: 30
+  m_iPadScrollSpeed: 1
+  m_boundary_North: 25
+  m_boundary_East: 50
+  m_boundary_South: 75
+  m_boundary_West: 50
+  m_zoomSpeed: 40
+  m_zoomMin: 5
+  m_zoomMax: 50
+  m_vDefaultRotation: {x: 45, y: 0, z: 0}
+  m_vScoopedRotation: {x: 10, y: 0, z: 0}
+  m_scoopHeight: 20
 --- !u!1 &1292138142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,20 +2615,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
-  DPSReceived: 0
-  DPSTimer: 0
   team: 1
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  playerState: 0
 --- !u!23 &1631433292
 Renderer:
   m_ObjectHideFlags: 0
@@ -3536,20 +3572,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
-  DPSReceived: 0
-  DPSTimer: 0
   team: 2
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  playerState: 0
 --- !u!23 &1989543779
 Renderer:
   m_ObjectHideFlags: 0

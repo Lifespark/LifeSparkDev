@@ -149,4 +149,8 @@ public class NetworkManager : LSMonoBehaviour {
 			startNetworkedGame ("MainMap");
 		}
 	}
+
+	public bool IsMasterClient() {
+		return PhotonNetwork.isMasterClient;
+	}
 }

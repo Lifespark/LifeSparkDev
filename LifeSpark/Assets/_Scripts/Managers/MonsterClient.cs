@@ -11,16 +11,18 @@ public class MonsterClient : LSMonoBehaviour
 	// Use this for initialization
 	void Start () {
         System.Random ra = new System.Random();
-        for (int i = 0; i < 7; i++)
-        {
-            int rand = ra.Next(0, 2);
-            Vector3 position = new Vector3(CAMPPOSITION[i, 0], 3, CAMPPOSITION[i, 1]);
-            GameObject monster;
-            if (rand == 1)
-                monster = PhotonNetwork.InstantiateSceneObject("JungleMonster1", position, new Quaternion(), 0, null) as GameObject;
-            else
-                monster = PhotonNetwork.InstantiateSceneObject("JungleMonster2", position, new Quaternion(), 0, null) as GameObject;
-        }
+		NetworkManager tempNM = GameObject.Find("Manager").GetComponent<NetworkManager>();
+		if (tempNM.IsMasterClient()) {
+	        for (int i = 0; i < 7; i++) {
+	            int rand = ra.Next(0, 2);
+	            Vector3 position = new Vector3(CAMPPOSITION[i, 0], 3, CAMPPOSITION[i, 1]);
+	            GameObject monster;
+	            if (rand == 1)
+	                monster = PhotonNetwork.InstantiateSceneObject("JungleMonster1", position, new Quaternion(), 0, null) as GameObject;
+	            else
+	                monster = PhotonNetwork.InstantiateSceneObject("JungleMonster2", position, new Quaternion(), 0, null) as GameObject;
+	        }
+		}
 	}
 	
 	// Update is called once per frame
