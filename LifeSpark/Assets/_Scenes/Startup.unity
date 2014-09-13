@@ -109,6 +109,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fc0dced410bc50a4698c3fcf34993e9a, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: fc0dced410bc50a4698c3fcf34993e9a, type: 2}
     - {fileID: 11400004, guid: fc0dced410bc50a4698c3fcf34993e9a, type: 2}

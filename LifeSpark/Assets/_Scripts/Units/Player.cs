@@ -24,6 +24,7 @@ public class Player : UnitObject {
 	public float areaAttackRadius;
 	public Object lineAttackPrefab;
 	public Object areaAttackPrefab;
+	public Object missilePrefab;
 
 	public enum PlayerState {
 		Idle,
@@ -124,11 +125,11 @@ public class Player : UnitObject {
 					}
 					else if (targetName.Contains("Player"))
 					{
-						GameObject.Find("Ground").GetPhotonView().RPC("RPC_ShootMissile",
+						GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
 						                                              PhotonTargets.All,
-						                                              this.playerName,
-						                                              targetName,
-						                                              this.baseAttack);
+						                                              this.name,
+						                                              targetName
+						                                              );
 						playerState = PlayerState.Attacking;
 						
 					}

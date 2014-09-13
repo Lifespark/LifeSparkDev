@@ -47,4 +47,5 @@ MonoBehaviour:
   - AreaAttackVisualization
   - RPC_lineAttackVisualization
   - RPC_areaAttackVisualization
+  - RPC_projectileAttackVisualization
   DisableAutoOpenWizard: 0

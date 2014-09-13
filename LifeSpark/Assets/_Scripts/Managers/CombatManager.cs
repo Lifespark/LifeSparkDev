@@ -49,8 +49,20 @@ public class CombatManager : LSMonoBehaviour {
 	void RPC_ShootMissile(string attackerName, string targetName){
 		
 		//Create missile targeted at player with targetName, store attacking player name in the missile
+		GameObject attacker = GameObject.Find("Players/" + attackerName);
+		GameObject target = GameObject.Find("Players/" + targetName);
+
+		Player attackerPlayer = attacker.GetComponent<Player>();
 		
-		
+		//missile prefab stored in player or missile itself?
+		GameObject missile = (GameObject)Instantiate(attackerPlayer.missilePrefab, attackerPlayer.transform.position, 
+		                                            Quaternion.LookRotation(target.transform.position - attackerPlayer.transform.position));
+		missile.GetComponent<Renderer>().material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
+
+		Projectile missileProjectile = missile.GetComponent<Projectile>();
+		missileProjectile.m_owner = attacker;
+		missileProjectile.m_target = target;
+		//other properties set according to attacker properties
 	}
 
 	/// <summary>
@@ -73,21 +85,6 @@ public class CombatManager : LSMonoBehaviour {
 		                                                 tempPlayer.GetComponent<Player>().baseAttack,
 		                                                 0);
 		
-	}
-
-	[RPC]
-	private void RPC_projectileAttackVisualization (string attackerName, string targetName) {
-
-		GameObject attacker = GameObject.Find("Players/" + attackerName);
-		GameObject target = GameObject.Find("Players/" + targetName);
-
-		Player attackerPlayer = attacker.GetComponent<Player>();
-
-		//missile prefab stored in player or missile itself?
-		//GameObject missile = (GameObject)Instantiate(attackerPlayer.missilePrefab, attackerPlayer.transform.position, 
-		//                                             Quaternion.LookRotation(targetPlayer.transform.position - attackerPlayer.transform.position));
-
-		//send missile flying to target, destroy on impact
 	}
 
 	/// <summary>

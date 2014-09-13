@@ -325,6 +325,10 @@ Prefab:
       propertyPath: areaAttackPrefab
       value: 
       objectReference: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+    - target: {fileID: 11400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 998b8f43728561844897188d52f7758d, type: 2}
   m_RootGameObject: {fileID: 622257726}
@@ -421,6 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
   team: 2
@@ -429,10 +434,14 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  missilePrefab: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
+  playerState: 0
 --- !u!23 &622257730
 Renderer:
   m_ObjectHideFlags: 0
@@ -714,6 +723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
   team: 1
@@ -722,10 +732,14 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  missilePrefab: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
+  playerState: 0
 --- !u!23 &826583818
 Renderer:
   m_ObjectHideFlags: 0
@@ -935,6 +949,10 @@ Prefab:
       propertyPath: areaAttackPrefab
       value: 
       objectReference: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+    - target: {fileID: 11400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 998b8f43728561844897188d52f7758d, type: 2}
   m_RootGameObject: {fileID: 1631433288}
@@ -1181,6 +1199,10 @@ Prefab:
       propertyPath: areaAttackPrefab
       value: 
       objectReference: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+    - target: {fileID: 11400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 998b8f43728561844897188d52f7758d, type: 2}
   m_RootGameObject: {fileID: 1989543775}
@@ -1461,6 +1483,10 @@ Prefab:
       propertyPath: areaAttackPrefab
       value: 
       objectReference: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+    - target: {fileID: 11400000, guid: 998b8f43728561844897188d52f7758d, type: 2}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 998b8f43728561844897188d52f7758d, type: 2}
   m_RootGameObject: {fileID: 826583815}
@@ -1570,6 +1596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
   team: 1
@@ -1578,10 +1605,14 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  missilePrefab: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
+  playerState: 0
 --- !u!23 &1631433292
 Renderer:
   m_ObjectHideFlags: 0
@@ -2226,6 +2257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740aba294e7e98146bb2fd4e76d80f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
   team: 2
@@ -2234,10 +2266,14 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   targetName: 
   speed: 0
+  totalRespawnTime: 0
+  remainingRespawnTime: 0
   lineAttackDist: 0
   areaAttackRadius: 0
   lineAttackPrefab: {fileID: 100000, guid: 63a2b2fa68eddc04384b9d6cc98f00f6, type: 2}
   areaAttackPrefab: {fileID: 100000, guid: 26dd2eb28a7058b4ba8a552e130c137c, type: 2}
+  missilePrefab: {fileID: 100000, guid: 75a49a78e39c9be438cc7cc75e165067, type: 2}
+  playerState: 0
 --- !u!23 &1989543779
 Renderer:
   m_ObjectHideFlags: 0
