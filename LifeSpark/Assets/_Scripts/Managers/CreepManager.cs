@@ -6,7 +6,7 @@ public class CreepManager : LSMonoBehaviour {
     public GameObject creepPrefab;
     public int maximumCreepNum = 1;
 
-	private Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
+	public Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
     //private List<LaneCreep> creepList = new List<LaneCreep>();
 	private GameObject source;
     private Transform target;
@@ -15,6 +15,10 @@ public class CreepManager : LSMonoBehaviour {
 
 	private SparkPoint sparkPoint;
 	private Player player;
+
+    Vector3 originalPos;
+    Quaternion originalRot;
+
 
 	// Use this for initialization
 	void Awake () {
@@ -37,11 +41,13 @@ public class CreepManager : LSMonoBehaviour {
         if (!selectingTarget) {
             if (GetTarget(1)) {
                 menuOn = true;
+                StartCoroutine(FlyCamera());
             }
         }
         else {
             if (GetTarget(0)) {
                 StartCoroutine(DispatchCreep());
+                StartCoroutine(FlyCameraBack());
                 selectingTarget = false;
                 menuOn = false;
             }
@@ -57,6 +63,7 @@ public class CreepManager : LSMonoBehaviour {
             }
             if (GUI.Button(new Rect(screenPos.x, Screen.height - screenPos.y + 50, 100, 50), "Cancel")) {
                 menuOn = false;
+                StartCoroutine(FlyCameraBack());
             }
         }
     }
@@ -96,10 +103,29 @@ public class CreepManager : LSMonoBehaviour {
 		}
 
         for (int i = creepDict[source].Count; i < maximumCreepNum; i++) {
-			photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
-
+			//photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
+            DispatchCreepAlternative(source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
 			yield return new WaitForSeconds(2.0f);
         }
+    }
+
+    void DispatchCreepAlternative(string source, string target, string playerName, int team) {
+
+        Color creepColor = team == 1 ? Color.red : Color.blue;
+        object[] instantiateData = { target, team, playerName, creepColor.r, creepColor.g, creepColor.b, creepColor.a };
+
+        GameObject sourceObj = GameObject.Find(source);
+        //GameObject creep = Instantiate(creepPrefab, sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity) as GameObject;
+        //GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0) as GameObject;
+        GameObject creep = PhotonNetwork.Instantiate("LaneCreep", sourceObj.transform.position + Vector3.up * 0.5f, Quaternion.identity, 0, instantiateData) as GameObject;
+        
+        LaneCreep thisCreep = creep.GetComponent<LaneCreep>();
+
+        if (!creepDict.ContainsKey(sourceObj)) {
+            creepDict.Add(sourceObj, new List<LaneCreep>());
+        }
+        
+        creepDict[sourceObj].Add(thisCreep);
     }
 
 	[RPC]
@@ -120,4 +146,36 @@ public class CreepManager : LSMonoBehaviour {
 		}
 		creepDict[sourceObj].Add(thisCreep);
 	}
+
+    IEnumerator FlyCamera() {
+        originalPos = Camera.main.transform.position;
+        Vector3 targetPos = new Vector3(0, 130, 0);
+        originalRot = Camera.main.transform.rotation;
+        Quaternion lookDownRot = Quaternion.Euler(90, 0, 0);
+        float percent = 0;
+        while (percent < 1) {
+            percent += Time.deltaTime * 2;
+            Camera.main.transform.rotation = Quaternion.Slerp(originalRot, lookDownRot, percent);
+            Camera.main.transform.position = Vector3.Lerp(originalPos, targetPos, percent);
+            yield return null;
+        }
+        Camera.main.transform.rotation = lookDownRot;
+        Camera.main.transform.position = targetPos;
+        yield return null;
+    }
+
+    IEnumerator FlyCameraBack() {
+        Vector3 targetPos = Camera.main.transform.position;
+        Quaternion lookDownRot = Camera.main.transform.rotation;
+        float percent = 0;
+        while (percent < 1) {
+            percent += Time.deltaTime * 2;
+            Camera.main.transform.rotation = Quaternion.Slerp(lookDownRot, originalRot, percent);
+            Camera.main.transform.position = Vector3.Lerp(targetPos, originalPos, percent);
+            yield return null;
+        }
+        Camera.main.transform.rotation = originalRot;
+        Camera.main.transform.position = originalPos;
+        yield return null;
+    }
 }
