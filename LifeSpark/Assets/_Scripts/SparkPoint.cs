@@ -7,6 +7,8 @@ public class SparkPoint : LSMonoBehaviour {
 	public SparkPoint[] _connections;
     private List<string> initConnected = new List<string>();
 
+    public List<GameObject> associatedLanes = new List<GameObject>();
+
     public int owner;
 	public enum SparkPointState {
 		Free,
@@ -82,6 +84,9 @@ public class SparkPoint : LSMonoBehaviour {
 							tempLane.photonView.RPC("RPC_setLaneMaterial", PhotonTargets.All, capturingTeam);
 							//// set line position, location and scale
 							tempLane.photonView.RPC("RPC_setInitialTransform", PhotonTargets.All, this.transform.position, _connections[i].transform.position);
+
+                            associatedLanes.Add(tempObject);
+                            _connections[i].associatedLanes.Add(tempObject);
 						}
 					}
 				}
@@ -131,12 +136,32 @@ public class SparkPoint : LSMonoBehaviour {
 			//Debug.Log ("Broke the capture for "+this.name);
 			capturers.Clear();
 			capturingTeam = -1;
-			sparkPointState = SparkPointState.Destroyed;
+			sparkPointState = SparkPointState.Free;
 			captureTimer = 0;
-			sparkPointColor.r = 0.0f;
-			sparkPointColor.g = 0.0f;
-			sparkPointColor.b = 0.0f;
+			sparkPointColor.r = 0.5f;
+			sparkPointColor.g = 0.5f;
+			sparkPointColor.b = 0.5f;
 			renderer.material.color = sparkPointColor;
 		}
 	}
+
+    public void SetSparkPointDestroy(string playerName, int team) {
+        owner = -2;
+        capturers.Clear();
+        capturingTeam = -1;
+        sparkPointState = SparkPointState.Destroyed;
+        captureTimer = 0;
+        sparkPointColor.r = 0.0f;
+        sparkPointColor.g = 0.0f;
+        sparkPointColor.b = 0.0f;
+        renderer.material.color = sparkPointColor;
+
+        if (PhotonNetwork.isMasterClient) {
+            for (int i = 0; i < associatedLanes.Count; i++) {
+                PhotonNetwork.Destroy(associatedLanes[i]);
+            }
+        }
+
+        associatedLanes.Clear();
+    }
 }

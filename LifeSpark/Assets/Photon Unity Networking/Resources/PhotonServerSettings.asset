@@ -47,4 +47,5 @@ MonoBehaviour:
   - RPC_areaAttackVisualization
   - RPC_setPlayerDeath
   - RPC_setPlayerRespawn
+  - RPC_setSparkPointDestroy
   DisableAutoOpenWizard: 0

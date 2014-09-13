@@ -285,7 +285,10 @@ public class LaneCreep : UnitObject {
                     // start capturing sparkpoint
 					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
                         if (laneCreep.target.GetComponent<SparkPoint>().owner != laneCreep.owner) {
-                            laneCreep.playerManager.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, laneCreep.target.GetComponent<SparkPoint>().owner == -1);
+                            if (laneCreep.target.GetComponent<SparkPoint>().owner == -1)
+                                laneCreep.playerManager.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, true);
+                            else
+                                laneCreep.playerManager.photonView.RPC("RPC_setSparkPointDestroy", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner);
                         }
                         CreepManager.Instance.creepDict[laneCreep.source.gameObject].Remove(laneCreep); // should sync on server
                         PhotonNetwork.Destroy(laneCreep.photonView);
