@@ -173,6 +173,7 @@ public class SparkPoint : LSMonoBehaviour {
 		}
 	}
 
+
     public void SetSparkPointDestroy(string playerName, int team) {
         owner = -2;
         capturers.Clear();

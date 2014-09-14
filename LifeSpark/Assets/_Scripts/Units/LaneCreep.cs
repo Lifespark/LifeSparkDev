@@ -53,7 +53,8 @@ public class LaneCreep : UnitObject {
     private Vector3 correctCreepPos;
     private Quaternion correctCreepRot;
     private Animator anim;
-    
+    private NavMeshAgent navAgent;
+    private NavMeshPath mainNavPath = new NavMeshPath();
 
     private bool appliedInitialUpdate = false;
 
@@ -84,6 +85,9 @@ public class LaneCreep : UnitObject {
         playerName = (string)photonView.instantiationData[2];
 
         anim = GetComponent<Animator>();
+        navAgent = GetComponent<NavMeshAgent>();
+        
+
         GetComponentInChildren<SkinnedMeshRenderer>().material.color 
             = new Color((float)photonView.instantiationData[3],
                         (float)photonView.instantiationData[4],
@@ -91,6 +95,9 @@ public class LaneCreep : UnitObject {
                         (float)photonView.instantiationData[6]);
         source = GameObject.Find((string)photonView.instantiationData[7]).transform;
         spreadDir = (Vector3)photonView.instantiationData[8];
+
+        navAgent.CalculatePath(target.position + spreadDir * 2.0f, mainNavPath);
+
         // initialize enemy list
         foreach (var p in allPlayers) {
             Player playerScript = p.GetComponent<Player>();
@@ -279,6 +286,8 @@ public class LaneCreep : UnitObject {
             if (laneCreep.anim)
                 //laneCreep.anim.SetTrigger("goWalk");
                 laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
+            laneCreep.navAgent.Resume();
+            laneCreep.navAgent.SetPath(laneCreep.mainNavPath);
         }
 
         public override void OnUpdate() {
@@ -296,6 +305,7 @@ public class LaneCreep : UnitObject {
                 Vector3 distVector = laneCreep.target.position + laneCreep.spreadDir * 2.0f - laneCreep.transform.position;
                 distVector.y = 0;
                 if (Vector3.SqrMagnitude(distVector) > 0.01) {
+                    /*
                     Debug.Log(laneCreep.target.position + laneCreep.spreadDir * 2.0f - laneCreep.transform.position);
                     Vector3 targetPos = laneCreep.target.position + laneCreep.spreadDir * 2.0f;
                 	Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
@@ -303,6 +313,7 @@ public class LaneCreep : UnitObject {
 
                 	laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
 					laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
+                    */
 				}
 				else {
                     // start capturing sparkpoint
@@ -318,7 +329,7 @@ public class LaneCreep : UnitObject {
         }
 
         public override void OnExit() {
-
+            laneCreep.navAgent.Stop();
         }
     }
 
@@ -378,6 +389,8 @@ public class LaneCreep : UnitObject {
                 //laneCreep.anim.SetTrigger("goWalk");
                 laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
             deviatePosition = laneCreep.transform.position;
+            laneCreep.navAgent.Resume();
+            laneCreep.navAgent.SetDestination(laneCreep.lockOnEnemy.transform.position);
         }
 
         public override void OnUpdate() {
@@ -388,12 +401,13 @@ public class LaneCreep : UnitObject {
                 // still too far away to attack
                 if (Vector3.SqrMagnitude(laneCreep.lockOnEnemy.transform.position - laneCreep.transform.position) > laneCreep.attackRadius * laneCreep.attackRadius) {
 
-                    Vector3 targetPos = laneCreep.lockOnEnemy.transform.position;
-                    Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
-                    direction.y = 0;
-
-                    laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
-                    laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
+//                     Vector3 targetPos = laneCreep.lockOnEnemy.transform.position;
+//                     Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
+//                     direction.y = 0;
+// 
+//                     laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
+//                     laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
+                    laneCreep.navAgent.SetDestination(laneCreep.lockOnEnemy.transform.position);
                 }
                 else {
                     laneCreep.SwitchState(CreepState.ATTACKING);
@@ -407,7 +421,7 @@ public class LaneCreep : UnitObject {
         }
 
         public override void OnExit() {
-
+            laneCreep.navAgent.Stop();
         }
     }
 
@@ -428,9 +442,27 @@ public class LaneCreep : UnitObject {
                 //laneCreep.anim.SetTrigger("goWalk");
                 laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
 
-            Vector3 laneDir = (laneCreep.target.position - laneCreep.source.position).normalized;
-            Vector3 creepPos = laneCreep.transform.position - laneCreep.source.position;
-            returnTarget = Vector3.Dot(creepPos, laneDir) * laneDir + laneCreep.source.position;
+            float nearestSqrtDist = float.MaxValue;
+            Vector3[] corners = laneCreep.mainNavPath.corners;
+            for (int i = 0; i < corners.Length - 1; i++) {
+                Vector3 laneDir = (corners[i + 1] - corners[i]).normalized;
+                Vector3 creepPos = laneCreep.transform.position - corners[i];
+                Vector3 creepPosRev = laneCreep.transform.position - corners[i + 1];
+                float dot1 = Vector3.Dot(creepPos, laneDir);
+                float dot2 = Vector3.Dot(creepPosRev, -laneDir);
+                if (Vector3.Dot(creepPos, laneDir) > 0 && Vector3.Dot(creepPosRev, -laneDir) > 0) {
+                    Vector3 pos = Vector3.Dot(creepPos, laneDir) * laneDir + corners[i];
+                    float sqrtDist = Vector3.SqrMagnitude(laneCreep.transform.position - pos);
+                    if (sqrtDist < nearestSqrtDist) {
+                        nearestSqrtDist = sqrtDist;
+                        returnTarget = pos;
+                    }
+                }
+            }
+
+
+            laneCreep.navAgent.Resume();
+            laneCreep.navAgent.SetDestination(returnTarget);
         }
 
         public override void OnUpdate() {
@@ -447,12 +479,12 @@ public class LaneCreep : UnitObject {
 
             if (true) {
                 if (Vector3.SqrMagnitude(returnTarget - laneCreep.transform.position) > 2) {
-                    Vector3 targetPos = returnTarget;
-                    Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
-                    direction.y = 0;
-
-                    laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
-                    laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
+//                     Vector3 targetPos = returnTarget;
+//                     Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
+//                     direction.y = 0;
+// 
+//                     laneCreep.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
+//                     laneCreep.transform.position += direction * laneCreep.maxSpeed * Time.deltaTime;
                 }
                 else {
                     laneCreep.SwitchState(CreepState.MOVING);
@@ -467,7 +499,7 @@ public class LaneCreep : UnitObject {
         }
 
         public override void OnExit() {
-
+            laneCreep.navAgent.Stop();
         }
     }
 
