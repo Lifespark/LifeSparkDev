@@ -23,7 +23,7 @@ public class CombatManager : LSMonoBehaviour {
 	/// Create missile targeted at player with targetName shot by attacker Name
 	/// </summary>
 	[RPC]
-	void RPC_ShootMissile(string attackerName, string targetName, int baseAttack){
+	void RPC_ShootMissile(string attackerName, string targetName){
 		
 		//Create missile targeted at player with targetName, store attacking player name in the missile
 		GameObject attacker = GameObject.Find("Players/" + attackerName);

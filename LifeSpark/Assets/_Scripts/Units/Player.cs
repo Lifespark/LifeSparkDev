@@ -74,6 +74,7 @@ public class Player : UnitObject {
         }
 
 		movePlayer ();
+
         // Draw Path
         /*if (GetComponent<NavMeshAgent>().hasPath && playerState != PlayerState.Dead)
         {
@@ -120,7 +121,9 @@ public class Player : UnitObject {
 				if(totalSqrLength <= m_attackRange) {
 					if (targetName.Contains("Player"))
 					{
-						playerState = PlayerState.Attacking;	
+						if(GameObject.Find(targetName).GetComponent<Player>().playerState != PlayerState.Dead)
+							playerState = PlayerState.Attacking;	
+						else playerState = PlayerState.Idle;
 					}
 				}
 
@@ -160,33 +163,40 @@ public class Player : UnitObject {
 		case PlayerState.Capturing:
 			break;
 		case PlayerState.Attacking:
-			tempPosition = this.transform.position;
-			tempPosition.y = 0;
-			if (!tempPosition.Equals(target)) {
-				tempValue = target - tempPosition;
-				totalSqrLength = tempValue.sqrMagnitude;
 
-				if (totalSqrLength > m_attackRange ) {//Our target ran away/became distant,we can no longer deal DPS
-					playerState = PlayerState.Moving;//Chase the target
-				}
-				else {
-//					if(name == "Player1")
-//						Debug.Log("Time = " + Time.time + " , nextAttack at = " + m_nextAttackTime);
-					if(Time.time > m_nextAttackTime) {
-						GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
-					                                               PhotonTargets.All,
-					                                               this.name,
-					                                               targetName
-					                                               );
-						m_nextAttackTime = Time.time + m_attackDelay;
+			//if target is alive, attack
+			if(GameObject.Find(targetName).GetComponent<Player>().playerState != PlayerState.Dead) {
+
+				tempPosition = this.transform.position;
+				tempPosition.y = 0;
+				if (!tempPosition.Equals(target)) {
+					tempValue = target - tempPosition;
+					totalSqrLength = tempValue.sqrMagnitude;
+
+					if (totalSqrLength > m_attackRange ) {//Our target ran away/became distant,we can no longer deal DPS
+						playerState = PlayerState.Moving;//Chase the target
 					}
+					else {
+	//					if(name == "Player1")
+	//						Debug.Log("Time = " + Time.time + " , nextAttack at = " + m_nextAttackTime);
+						if(Time.time > m_nextAttackTime) {
+							GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
+						                                               PhotonTargets.All,
+						                                               this.name,
+						                                               targetName
+						                                               );
+							m_nextAttackTime = Time.time + m_attackDelay;
+						}
 
 
-					//playerState = PlayerState.Attacking;
+						//playerState = PlayerState.Attacking;
+					}
 				}
-				
-				
 			}
+			else {
+				playerState = PlayerState.Idle;
+			}
+
 			break;
         case PlayerState.Dead:
             if (remainingRespawnTime <= 0.0f) {
@@ -248,6 +258,7 @@ public class Player : UnitObject {
         playerState = PlayerState.Dead;
         target = this.transform.position;
         renderer.enabled = false;
+		collider.enabled = false;
         unitHealth = 0;
         remainingRespawnTime = totalRespawnTime;
     }
@@ -258,6 +269,7 @@ public class Player : UnitObject {
         this.transform.position = location;
         target = location;
         this.enabled = true;
+		collider.enabled = true;
         renderer.enabled = true;
         unitHealth = maxHealth;
     }
