@@ -11,18 +11,21 @@ public enum GuiStage {
 public class SimpleGUI : LSMonoBehaviour {
 	private GuiStage guiStage = GuiStage.mainMenu; 
 	private NetworkManager networkManager;
-
+	private GameObject m_startUpUIObject;
 	private Vector2 scrollPos = Vector2.zero;
 	private string lobbyName = "default";
 	private string sceneName = "MainMap";
+	private StartUpUI m_startUI;
 
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("SimpleGUI.cs start");
 		GameObject manager = GameObject.Find ("Manager");
 		Object.DontDestroyOnLoad (manager);
-
+		m_startUI = GetComponent<UIManager>().AddGui("StartAndLobby").GetComponent<StartUpUI>();
+		m_startUI.SetSimpleGuiObejct(this);
 		networkManager = (NetworkManager) manager.GetComponent("NetworkManager");
+		m_startUI.reset();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +51,13 @@ public class SimpleGUI : LSMonoBehaviour {
 		networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
 	}
 
+	public void StartMultiPlayer ()
+	{
+		guiStage = GuiStage.multiMenu;
+		//GUI_MultiMenu();
+	}
+	
+
 	private void OnGUI () {
 		if (networkManager.hasLobby() && guiStage != GuiStage.inGame) {
 			GUI_InLobby();
@@ -60,11 +70,26 @@ public class SimpleGUI : LSMonoBehaviour {
 		}
 		GUILayout.BeginArea(new Rect(0, Screen.height-20, 400, 300));
 		//GUILayout.BeginArea(new Rect(Screen.width, Screen.height + 50, 50, 50));
-		GUILayout.Label("Ping to server: " + PhotonNetwork.GetPing());
+		//GUILayout.Label("Ping to server: " + PhotonNetwork.GetPing());
+		if(m_startUI!=null)
+		{
+			m_startUI.DisplayPing("Ping to server: " + PhotonNetwork.GetPing());
+		}
+
+		if(guiStage == GuiStage.inGame)
+		{
+			if(m_startUI!=null)
+			{
+				m_startUI.close();
+
+			}
+		}
 		GUILayout.EndArea ();
 	}
 	
 	private void GUI_MainMenu () {
+
+		return;
 		int buttonWidth = 250;
 		int buttonHeight = 100;
 		int space = 10;
@@ -78,7 +103,50 @@ public class SimpleGUI : LSMonoBehaviour {
 		}
 	}
 
+	private void OnPlayerNameChanged()
+	{
+		PlayerPrefs.SetString("playerName", networkManager.playerName);
+	}
+
+	public string NetworkPlayerName
+	{
+		get{
+		return networkManager.playerName;
+		}
+		set{
+			networkManager.playerName = value;
+		}
+	}
+
+
+
+	void CreateLobby ()
+	{
+		networkManager.lobbyName = this.lobbyName;
+		networkManager.CreateLobby (lobbyName, new RoomOptions () {
+			maxPlayers = 4
+		});
+	}
+
+	public void CreateLobby (string lobbyName)
+	{
+		networkManager.lobbyName = lobbyName;
+		networkManager.CreateLobby (lobbyName, new RoomOptions () {
+			maxPlayers = 4
+		});
+	}
+
+	public void join (string lobbyName)
+	{
+		guiStage = GuiStage.joiningLobby;
+		networkManager.lobbyName = lobbyName;
+		networkManager.JoinRoom (lobbyName);
+	}
+
 	private void GUI_MultiMenu() {
+		m_startUI.MultiMenu();
+
+		return;
 		int menuWidth = 400;
 		int menuHeight = 300;
 
@@ -89,7 +157,7 @@ public class SimpleGUI : LSMonoBehaviour {
 		GUILayout.Label("Player name:", GUILayout.Width((2 * menuWidth) / 5));
 		networkManager.playerName = (GUILayout.TextField (networkManager.playerName));
 		if (GUI.changed) {
-			PlayerPrefs.SetString("playerName", networkManager.playerName);
+			 OnPlayerNameChanged();
 		}
 		GUILayout.EndHorizontal();
 		GUILayout.Space(15);
@@ -98,8 +166,7 @@ public class SimpleGUI : LSMonoBehaviour {
 		GUILayout.BeginHorizontal();
 		this.lobbyName = GUILayout.TextField(this.lobbyName);
 		if (GUILayout.Button("CREATE")) {
-			networkManager.lobbyName = this.lobbyName;
-			networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
+			CreateLobby ();
 		}
 		GUILayout.EndHorizontal();
 		GUILayout.Space(25);
@@ -119,9 +186,7 @@ public class SimpleGUI : LSMonoBehaviour {
 				GUILayout.Label(lobby.name + " " + lobby.playerCount + "/" + lobby.maxPlayers);
 				if (GUILayout.Button("JOIN"))
 				{
-					guiStage = GuiStage.joiningLobby;
-					networkManager.lobbyName = lobby.name;
-					networkManager.JoinRoom(lobby.name);
+					join (lobby.name);
 				}
 				GUILayout.EndHorizontal();
 			}
@@ -130,7 +195,16 @@ public class SimpleGUI : LSMonoBehaviour {
 		GUILayout.EndArea();
 	}
 
+	public Lobby[] GetLobbyList()
+	{
+		return networkManager.GetLobbies();
+	}
+
 	private void GUI_InLobby() {
+		//
+
+		m_startUI.InLobby(networkManager.lobbyName,networkManager.GetMetaPlayers (),this.sceneName);
+		return;
 		GUILayout.Label("We are connected to room: "+networkManager.lobbyName);
 		GUILayout.Label("Players: ");
 		foreach (MetaPlayer player in networkManager.GetMetaPlayers ())
@@ -152,6 +226,18 @@ public class SimpleGUI : LSMonoBehaviour {
 			guiStage = GuiStage.multiMenu;
 			PhotonNetwork.LeaveRoom();
 		}
+	}
+
+	public void startGame(string sceneName)
+	{
+		networkManager.startNetworkedGame(sceneName);
+	}
+
+
+	public void leavelRoom()
+	{
+		guiStage = GuiStage.multiMenu;
+		PhotonNetwork.LeaveRoom();
 	}
 
 	private void GUI_JoiningLobby() {

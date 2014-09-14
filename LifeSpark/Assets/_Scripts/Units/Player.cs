@@ -74,7 +74,6 @@ public class Player : UnitObject {
         }
 
 		movePlayer ();
-
         // Draw Path
         /*if (GetComponent<NavMeshAgent>().hasPath && playerState != PlayerState.Dead)
         {
