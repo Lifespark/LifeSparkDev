@@ -28,11 +28,13 @@ public class LaneCreep : UnitObject {
 	public string playerName;
     public float detectRadius = 10;
     public float attackRadius = 2;
+    public float captureSpeed = 0.05f;
     public Transform target;
+    public SparkPoint targetSparkPoint;
     public Transform source;
-    public PlayerManager playerManager;
     public GameObject lockOnEnemy;
     public CreepState curState;
+    public Vector3 spreadDir;
     #endregion
 
     #region CREEP_STATE
@@ -51,6 +53,7 @@ public class LaneCreep : UnitObject {
     private Vector3 correctCreepPos;
     private Quaternion correctCreepRot;
     private Animator anim;
+    
 
     private bool appliedInitialUpdate = false;
 
@@ -70,10 +73,10 @@ public class LaneCreep : UnitObject {
         creepStateDead = new CreepStateDead(this);
 
         // initialize Findable stuff
-        playerManager = GameObject.FindWithTag("Ground").GetComponent<PlayerManager>();
 		sparkPointGroup = GameObject.Find("SparkPoints");
         SwitchState(CreepState.IDLE);
         target = GameObject.Find((string)photonView.instantiationData[0]).transform;
+        targetSparkPoint = target.GetComponent<SparkPoint>();
         GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
         // initialize creep property passed in by photon network instantiation 
@@ -87,6 +90,7 @@ public class LaneCreep : UnitObject {
                         (float)photonView.instantiationData[5],
                         (float)photonView.instantiationData[6]);
         source = GameObject.Find((string)photonView.instantiationData[7]).transform;
+        spreadDir = (Vector3)photonView.instantiationData[8];
         // initialize enemy list
         foreach (var p in allPlayers) {
             Player playerScript = p.GetComponent<Player>();
@@ -289,8 +293,11 @@ public class LaneCreep : UnitObject {
 
             if (laneCreep.target != null) {
                 // target not reached, continue approaching
-				if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) > 2.0) {
-                	Vector3 targetPos = laneCreep.target.position;
+                Vector3 distVector = laneCreep.target.position + laneCreep.spreadDir * 2.0f - laneCreep.transform.position;
+                distVector.y = 0;
+                if (Vector3.SqrMagnitude(distVector) > 0.01) {
+                    Debug.Log(laneCreep.target.position + laneCreep.spreadDir * 2.0f - laneCreep.transform.position);
+                    Vector3 targetPos = laneCreep.target.position + laneCreep.spreadDir * 2.0f;
                 	Vector3 direction = (targetPos - laneCreep.transform.position).normalized;
                     direction.y = 0;
 
@@ -299,10 +306,8 @@ public class LaneCreep : UnitObject {
 				}
 				else {
                     // start capturing sparkpoint
-					if (Vector3.SqrMagnitude(laneCreep.target.position - laneCreep.transform.position) <= 2.0) {
-                        laneCreep.SwitchState(CreepState.CAPTURING);
-                        return;
-					}
+                    laneCreep.SwitchState(CreepState.CAPTURING);
+                    return;
 				}
 			}
             else {
@@ -481,16 +486,20 @@ public class LaneCreep : UnitObject {
             startTime = Time.time;
             laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goCapture", 0f);
 
-            if (laneCreep.target.GetComponent<SparkPoint>().owner != laneCreep.owner) {
-                if (laneCreep.target.GetComponent<SparkPoint>().owner == -1)
-                    laneCreep.playerManager.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, true, 0.05f);
+            Vector3 lookDir = laneCreep.target.position - laneCreep.transform.position;
+            lookDir.y = 0;
+            laneCreep.transform.rotation = Quaternion.LookRotation(lookDir); // maybe use a slerp to limit angular speed
+
+            if (laneCreep.targetSparkPoint.owner != laneCreep.owner) {
+                if (laneCreep.targetSparkPoint.owner == -1)
+                    PlayerManager.Instance.photonView.RPC("RPC_setSparkPointCapture", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner, true, laneCreep.captureSpeed);
                 else
-                    laneCreep.playerManager.photonView.RPC("RPC_setSparkPointDestroy", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner);
+                    PlayerManager.Instance.photonView.RPC("RPC_setSparkPointDestroy", PhotonTargets.All, laneCreep.target.name, laneCreep.playerName, laneCreep.owner);
             }
         }
 
         public override void OnUpdate() {
-            if (laneCreep.target.GetComponent<SparkPoint>().owner == laneCreep.owner) {
+            if (laneCreep.targetSparkPoint.owner == laneCreep.owner) {
                 CreepManager.Instance.creepDict[laneCreep.source.gameObject].Remove(laneCreep); // should sync on server
                 PhotonNetwork.Destroy(laneCreep.gameObject);
             }      
@@ -514,11 +523,17 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goDead", 0f);
+
+            if (laneCreep.targetSparkPoint.owner == -1) {
+                laneCreep.targetSparkPoint.capturersInfo[laneCreep.owner].energyInjectionSpeed -= laneCreep.captureSpeed;
+            }
         }
 
         public override void OnUpdate() {
-            if (Time.time - startTime >= corpseRemainTime)
+            if (Time.time - startTime >= corpseRemainTime) {
+                CreepManager.Instance.creepDict[laneCreep.source.gameObject].Remove(laneCreep);
                 PhotonNetwork.Destroy(laneCreep.gameObject);
+            }
         }
 
         public override void OnExit() {
