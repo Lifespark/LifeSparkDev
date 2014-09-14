@@ -68,15 +68,15 @@ public class CombatManager : LSMonoBehaviour {
 	/// <summary>
 	/// projectile hits, target of the projectile takes damage based on the attack
 	/// </summary>
-	void MissileHit(){
-		string attackerName = "";
-		string targetName = "";
-		
+	public void MissileHit(string attackerName, string targetName){
+
+		Debug.Log(attackerName + " hit " + targetName);
+
 		GameObject tempPlayer;
-		tempPlayer = GameObject.Find ("Players/" + "***attackerName to be passed from the projectile***");
+		tempPlayer = GameObject.Find ("Players/" + attackerName);
 		
-		GameObject tempTarget;
-		tempTarget = GameObject.Find("Players/" + "***targetName to be determined from the missile hit***");
+		//GameObject tempTarget;
+		//tempTarget = GameObject.Find("Players/" + "***targetName to be determined from the missile hit***");
 		
 		GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
 		                                                 PhotonTargets.All,

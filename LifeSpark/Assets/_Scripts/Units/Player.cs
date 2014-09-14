@@ -25,6 +25,10 @@ public class Player : UnitObject {
 	public Object lineAttackPrefab;
 	public Object areaAttackPrefab;
 	public Object missilePrefab;
+	
+	public float m_attackDelay = 0.5f;
+	public float m_nextAttackTime = 0.0f;
+	public float m_attackRange = 100.0f;
 
 	public enum PlayerState {
 		Idle,
@@ -100,6 +104,8 @@ public class Player : UnitObject {
 		GetComponent<NavMeshAgent>().Stop();
 		GetComponent<LineRenderer>().enabled = false;
 
+		if(name == "Player1")
+			Debug.Log("Current player state: " + playerState);
 
 		switch (playerState) {
 		case PlayerState.Idle:
@@ -111,6 +117,14 @@ public class Player : UnitObject {
 				tempValue = target - tempPosition;
 				totalSqrLength = tempValue.sqrMagnitude;
 				tempValue = Vector3.Normalize(tempValue) * speed * Time.deltaTime;
+
+				if(totalSqrLength <= m_attackRange) {
+					if (targetName.Contains("Player"))
+					{
+						playerState = PlayerState.Attacking;	
+					}
+				}
+
 				if (totalSqrLength <= 10.0f) {
 					
 					if (targetName.Contains("SparkPoint"))
@@ -123,16 +137,11 @@ public class Player : UnitObject {
 						                                              true);
 						playerState = PlayerState.Capturing;
 					}
-					else if (targetName.Contains("Player"))
-					{
-						GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
-						                                              PhotonTargets.All,
-						                                              this.name,
-						                                              targetName
-						                                              );
-						playerState = PlayerState.Attacking;
-						
-					}
+//					else if (targetName.Contains("Player"))
+//					{
+//						playerState = PlayerState.Attacking;
+//						
+//					}
 				}
 				else if(tempValue.sqrMagnitude > totalSqrLength) {
 					this.transform.position.Set(target.x, this.transform.position.y, target.z);
@@ -157,11 +166,25 @@ public class Player : UnitObject {
 			if (!tempPosition.Equals(target)) {
 				tempValue = target - tempPosition;
 				totalSqrLength = tempValue.sqrMagnitude;
-				if (totalSqrLength > 10.0f ) {//Our target ran away/became distant,we can no longer deal DPS
+
+				if (totalSqrLength > m_attackRange ) {//Our target ran away/became distant,we can no longer deal DPS
 					playerState = PlayerState.Moving;//Chase the target
-					
 				}
-				
+				else {
+//					if(name == "Player1")
+//						Debug.Log("Time = " + Time.time + " , nextAttack at = " + m_nextAttackTime);
+					if(Time.time > m_nextAttackTime) {
+						GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
+					                                               PhotonTargets.All,
+					                                               this.name,
+					                                               targetName
+					                                               );
+						m_nextAttackTime = Time.time + m_attackDelay;
+					}
+
+
+					//playerState = PlayerState.Attacking;
+				}
 				
 				
 			}

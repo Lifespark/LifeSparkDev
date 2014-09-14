@@ -16,18 +16,20 @@ public class Projectile : LSMonoBehaviour {
 		GameObject manager = GameObject.Find ("Manager");
 		combatManager = (CombatManager) manager.GetComponent ("CombatManager");
 
-		rigidbody.AddForce(Vector3.up * 20.0f);
+		rigidbody.AddForce(Vector3.up * 100.0f);
 
 		//Destroy(this, 5.0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		rigidbody.velocity = (m_target.transform.position - m_owner.transform.position).normalized * m_projectileSpeed;
+		rigidbody.velocity = (m_target.transform.position - m_owner.transform.position).normalized * 
+			m_projectileSpeed;
 	}
 
 	void OnTriggerEnter(Collider other) {
 		if(other.gameObject.name != m_owner.name) {
+			combatManager.MissileHit(m_owner.name, m_target.name);
 			Destroy(this.gameObject);
 		}
 	}
