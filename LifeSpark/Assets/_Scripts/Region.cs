@@ -12,8 +12,8 @@ public class Region : MonoBehaviour
     private Color Team2Color;
     private GameObject regionPolygon;
     private Mesh regionPolygonMesh;
-        
-
+	private bool activated = false;
+	private int team = -1;
 
     // Use this for initialization
     void Start()
@@ -36,23 +36,6 @@ public class Region : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (regionPoints[0] == null || regionPoints[1] == null || regionPoints[2] == null) return;
-        
-        if (regionPoints[0].gameObject == null || regionPoints[1].gameObject == null || regionPoints[2].gameObject == null)
-        {
-            // remove polygon
-            regionPolygonMesh.Clear();
-        }
-        else if (regionPoints[0].GetOwner() == 1 && regionPoints[1].GetOwner() == 1 && regionPoints[2].GetOwner() == 1)
-        {
-            // draw polygon with team 1 color
-            DrawRegionPolygon(Team1Color);
-        }
-        else if (regionPoints[0].GetOwner() == 2 && regionPoints[1].GetOwner() == 2 && regionPoints[2].GetOwner() == 2)
-        {
-            // draw polygon with team 2 color
-            DrawRegionPolygon(Team2Color);
-        }
 
     }
 
@@ -62,6 +45,7 @@ public class Region : MonoBehaviour
     {
         // Instantiate new game object
         regionPolygon = new GameObject();
+		regionPolygon.name = "Region";
 
         // Add Mesh Filter and Mesh Renderer components
         var meshFilter = (MeshFilter)regionPolygon.AddComponent("MeshFilter");
@@ -138,6 +122,37 @@ public class Region : MonoBehaviour
         regionPolygonMesh.Optimize();
     }
 
-
+	public bool GetActivated() {
+		return activated;
+	}
+	
+	public int GetTeam() {
+		return team;
+	}
+	
+	/* Checks if region should be drawn or destroyed. -jk */
+	public void CheckActivation() {
+		if (regionPoints[0].gameObject == null || regionPoints[1].gameObject == null || regionPoints[2].gameObject == null)
+		{
+			// remove polygon
+			activated = false;
+			team = -1;
+			regionPolygonMesh.Clear();
+		}
+		else if (regionPoints[0].GetOwner() == 1 && regionPoints[1].GetOwner() == 1 && regionPoints[2].GetOwner() == 1)
+		{
+			// draw polygon with team 1 color
+			activated = true;
+			team = 1;
+			DrawRegionPolygon(Team1Color);
+		}
+		else if (regionPoints[0].GetOwner() == 2 && regionPoints[1].GetOwner() == 2 && regionPoints[2].GetOwner() == 2)
+		{
+			// draw polygon with team 2 color
+			activated = true;
+			team = 2;
+			DrawRegionPolygon(Team2Color);
+		}
+	}
 
 }

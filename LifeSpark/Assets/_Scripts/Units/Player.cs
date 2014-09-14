@@ -33,6 +33,19 @@ public class Player : UnitObject {
         Dead
 	};
 	public PlayerState playerState;
+
+	/* Calculating Player and Region Variables. -jk */
+	Region[] region;
+	float regionArea;
+	float regionSign;
+	float regionBarS;
+	float regionBarT;
+	float regionPointOffset;
+	Vector3 regionPoint0;
+	Vector3 regionPoint1;
+	Vector3 regionPoint2;
+	Vector3 regionTempPos;
+	Vector3 tempVector;
 	
 	// Use this for initialization
 	void Start () {
@@ -53,6 +66,18 @@ public class Player : UnitObject {
         // initialize line renderer for drawing path to false
         GetComponent<LineRenderer>().enabled = false;
 
+		/* initialize region variables. -jk */
+		region = GameObject.FindGameObjectWithTag("Ground").GetComponents<Region>();
+		regionArea = 0;
+		regionSign = 0;
+		regionBarS = 0;
+		regionBarT = 0;
+		regionPointOffset = 100.0f;
+		regionPoint0 = Vector3.zero;
+		regionPoint1 = Vector3.zero;
+		regionPoint2 = Vector3.zero;
+		regionTempPos = Vector3.zero;
+		tempVector = new Vector3(100.0f,0.0f,100.0f);
 	}
 	
 	// Update is called once per frame
@@ -238,8 +263,9 @@ public class Player : UnitObject {
         unitHealth = maxHealth;
     }
 	
-	public void CapturedObjective() {
+	public void CapturedObjective(string sparkPointName) {
 		playerState = PlayerState.Idle;
+		TriangulatePosition(sparkPointName,null);
 	}
 	
 	public int GetTeam() {
@@ -266,4 +292,100 @@ public class Player : UnitObject {
      
 
     }
+
+	/* Fired when stepping into or out of a region. -jk */
+	private void OnTriggerExit(Collider collider) {
+		if (collider.name.Contains("Lane")) {
+			TriangulatePosition(null,collider);
+		}
+	}
+	
+	/* Turns on player's health regen when in own region. -jk */
+	private void TriangulatePosition(string sparkPointName, Collider collider) {
+		/* called when stepping across lane into region. -jk */
+		if (sparkPointName == null) {
+			for (int i = 0; i < region.Length; i++) {
+				if (region[i].GetActivated() && region[i].GetTeam() == team) {
+					for (int j = 0; j < region[i].regionPoints.Length; j++) {
+						if (!collider.name.Contains(region[i].regionPoints[j].name)) {
+							continue;
+						}
+						else {
+							regionPoint0 = region[i].regionPoints[0].transform.position;
+							regionPoint0 += tempVector;
+							regionPoint1 = region[i].regionPoints[1].transform.position;
+							regionPoint1 += tempVector;
+							regionPoint2 = region[i].regionPoints[2].transform.position;
+							regionPoint2 += tempVector;
+							regionTempPos = transform.position + tempVector;
+							regionArea = 0.5f * (-regionPoint1.z * regionPoint2.x + regionPoint0.z * 
+							                     (-regionPoint1.x + regionPoint2.x) + regionPoint0.x *
+							                     (regionPoint1.z - regionPoint2.z) + regionPoint1.x * 
+							                     regionPoint2.z);
+							regionSign = regionArea < 0 ? -1 : 1;
+							regionBarS = (regionPoint0.z * regionPoint2.x - regionPoint0.x * 
+							              regionPoint2.z + (regionPoint2.z - regionPoint0.z) *
+							              regionTempPos.x + (regionPoint0.x - regionPoint2.x) * 
+							              regionTempPos.z) * regionSign;
+							regionBarT = (regionPoint0.x * regionPoint1.z - regionPoint0.z * 
+							              regionPoint1.x + (regionPoint0.z - regionPoint1.z) * 
+							              regionTempPos.x + (regionPoint1.x - regionPoint0.x) * 
+							              regionTempPos.z) * regionSign;
+							if (regionBarS > 0 && regionBarT > 0 && 
+							    (regionBarS + regionBarT) < 2 * regionArea * regionSign) {
+								particleSystem.Play();
+							}
+							else {
+								particleSystem.Stop();
+							}
+							return;
+						}
+					}
+				}
+			}
+		}
+		/* called when in region and capturing. -jk */
+		else {
+			for (int i = 0; i < region.Length; i++) {
+				if (region[i].GetActivated() && region[i].GetTeam() == team) {
+					for (int j = 0; j < region[i].regionPoints.Length; j++) {
+						if (!region[i].regionPoints[j].name.Contains(sparkPointName)) {
+							Debug.Log (region[i].regionPoints[j].name + " " +sparkPointName);
+							continue;
+						}
+						else {
+							regionPoint0 = region[i].regionPoints[0].transform.position;
+							regionPoint0 += tempVector;
+							regionPoint1 = region[i].regionPoints[1].transform.position;
+							regionPoint1 += tempVector;
+							regionPoint2 = region[i].regionPoints[2].transform.position;
+							regionPoint2 += tempVector;
+							regionTempPos = transform.position + tempVector;
+							regionArea = 0.5f * (-regionPoint1.z * regionPoint2.x + regionPoint0.z * 
+							                     (-regionPoint1.x + regionPoint2.x) + regionPoint0.x *
+							                     (regionPoint1.z - regionPoint2.z) + regionPoint1.x * 
+							                     regionPoint2.z);
+							regionSign = regionArea < 0 ? -1 : 1;
+							regionBarS = (regionPoint0.z * regionPoint2.x - regionPoint0.x * 
+							              regionPoint2.z + (regionPoint2.z - regionPoint0.z) *
+							              regionTempPos.x + (regionPoint0.x - regionPoint2.x) * 
+							              regionTempPos.z) * regionSign;
+							regionBarT = (regionPoint0.x * regionPoint1.z - regionPoint0.z * 
+							              regionPoint1.x + (regionPoint0.z - regionPoint1.z) * 
+							              regionTempPos.x + (regionPoint1.x - regionPoint0.x) * 
+							              regionTempPos.z) * regionSign;
+							if (regionBarS > 0 && regionBarT > 0 && 
+							    (regionBarS + regionBarT) < 2 * regionArea * regionSign) {
+								particleSystem.Play();
+							}
+							else {
+								particleSystem.Stop();
+							}
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
 }
