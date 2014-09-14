@@ -59,7 +59,9 @@ public class PlayerManager : LSMonoBehaviour {
 	}
 	
 	[RPC]
-	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName, PlayerInput.TargetType type) {
+	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName, int typeAsInt) {
+		//Note: Enums are sent as ints in RPCs, so we actually need to receive the PlayerInput.TargetType as an int and then cast it
+		PlayerInput.TargetType type = (PlayerInput.TargetType)typeAsInt;
 		Debug.Log ("Getting type of " + type);
 		tempPlayer = GameObject.Find ("Players/" + playerObject);
 		if (type == PlayerInput.TargetType.Position) {
@@ -72,7 +74,8 @@ public class PlayerManager : LSMonoBehaviour {
 	
 	[RPC]
 	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b) {
-		tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+		//tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+        tempSparkPoint = SparkPointManager.Instance.sparkPointsDict[sparkPointName];
 		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName,team,b);
 	}
 	

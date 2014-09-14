@@ -86,7 +86,6 @@ public class NetworkManager : LSMonoBehaviour {
 	public void startNetworkedGame(string scene) {
 		photonView.RPC("RPC_setGUIStage", PhotonTargets.All, (int)GuiStage.inGame);
 		PhotonNetwork.LoadLevel (scene);
-
 	}
 
 
@@ -149,5 +148,9 @@ public class NetworkManager : LSMonoBehaviour {
 		if (mode == NetMode.quick) {
 			startNetworkedGame ("MainMap");
 		}
+	}
+
+	public bool IsMasterClient() {
+		return PhotonNetwork.isMasterClient;
 	}
 }

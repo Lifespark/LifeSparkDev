@@ -49,7 +49,7 @@ public class PlayerInput : UnitMovement {
                                                              this.name,
                                                              this.transform.position,
                                                              this.name,
-                                                             targetType);
+                                                             (int)targetType);
             targetType = TargetType.Position;
             return;
         }
@@ -77,7 +77,7 @@ public class PlayerInput : UnitMovement {
 						                                              this.name,
 						                                              tempHit,
 						                                              hit.collider.name,
-						                                              targetType);
+						                                              (int)targetType);
 					}
 					else if (hit.collider.name.Contains("SparkPoint")) {
 						if (GameObject.Find(hit.collider.name).GetComponent<SparkPoint>().GetOwner()
@@ -89,7 +89,7 @@ public class PlayerInput : UnitMovement {
 							                                              this.name,
 							                                              tempHit,
 							                                              hit.collider.name,
-							                                              targetType);
+							                                              (int)targetType);
 						}
 					}
 					else if (hit.collider.name.Contains ("Player")) {//Going to attack some other dude
@@ -102,7 +102,7 @@ public class PlayerInput : UnitMovement {
 							                                                 this.name,
 							                                                 tempHit,
 							                                                 hit.collider.name,
-							                                                 targetType);
+							                                                 (int)targetType);
 						}
 					}
 				} else {
@@ -113,7 +113,7 @@ public class PlayerInput : UnitMovement {
 					                                                 this.name,
 					                                                 tempHit,
 					                                                 hit.collider.name,
-					                                                 targetType);
+					                                                 (int)targetType);
 				}
 				targetType = TargetType.Position;
 			}
