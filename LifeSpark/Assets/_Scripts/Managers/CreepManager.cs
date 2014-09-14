@@ -155,7 +155,7 @@ public class CreepManager : LSMonoBehaviour {
         for (int i = creepDict[source].Count; i < maximumCreepNum; i++) {
             //photonView.RPC ("RPC_dispatchCreep", PhotonTargets.All, source.name, target.name, player.name, source.GetComponent<SparkPoint>().GetOwner());
             Vector3 spreadVect;
-            Quaternion rot = Quaternion.AngleAxis(i * 360 / creepDict[source].Count, Vector3.up);
+            Quaternion rot = Quaternion.AngleAxis(i * 360 / maximumCreepNum, Vector3.up);
             spreadVect = rot * forwardDir;
 
             DispatchCreepAlternative(source.name, target.name, pPlayerName, team, spreadVect);

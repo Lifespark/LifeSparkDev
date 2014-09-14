@@ -109,7 +109,7 @@ public class LaneCreep : UnitObject {
         }
         // otherwise process current state's update
         else {
-            if (target.GetComponent<SparkPoint>().owner != -1 && curState != CreepState.DEAD) {
+            if (target.GetComponent<SparkPoint>().owner == owner && curState != CreepState.DEAD) {
                 SwitchState(CreepState.DEAD);
                 return;
             }
