@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LaneCreep : UnitObject {
+    #region ENUM_FIELD
     public enum CreepState {
         IDLE,
         MOVING,
@@ -15,6 +16,7 @@ public class LaneCreep : UnitObject {
         DEAD,
         DEFAULT
     }
+
     public enum AnimatorType {
         BOOL = 1,
         INT = 2,
@@ -22,39 +24,51 @@ public class LaneCreep : UnitObject {
         TRIGGER = 4
     }
 
+    [Flags]
+    public enum PacketMask {
+        NONE = 0,
+        POSITION = 1,
+        ROTATION = 2,
+        VELOCITY = 4,
+    }
+    #endregion
+
     #region CREEP_ATTRIBUTE
-    public int owner;
-    public float maxSpeed = 5.0f;
-	public string playerName;
-    public float detectRadius = 10;
-    public float attackRadius = 2;
-    public float captureSpeed = 0.05f;
-    public Transform target;
-    public SparkPoint targetSparkPoint;
-    public Transform source;
-    public GameObject lockOnEnemy;
-    public CreepState curState;
-    public Vector3 spreadDir;
+    public int          owner;
+    public float        maxSpeed = 5.0f;
+	public string       playerName;
+    public float        detectRadius = 10;
+    public float        attackRadius = 2;
+    public float        captureSpeed = 0.05f;
+    public Transform    target;
+    public SparkPoint   targetSparkPoint;
+    public Transform    source;
+    public GameObject   lockOnEnemy;
+    public CreepState   curState;
+    public Vector3      spreadDir;
     #endregion
 
     #region CREEP_STATE
-    public CreepStateIdle creepStateIdle;
-    public CreepStateMove creepStateMove;
-    public CreepStateAttack creepStateAttack;
-    public CreepStateChase creepStateChase;
-    public CreepStateReturn creepStateReturn;
-    public CreepStateCapture creepStateCapture;
-    public CreepStateDead creepStateDead;
+    public CreepStateIdle       creepStateIdle;
+    public CreepStateMove       creepStateMove;
+    public CreepStateAttack     creepStateAttack;
+    public CreepStateChase      creepStateChase;
+    public CreepStateReturn     creepStateReturn;
+    public CreepStateCapture    creepStateCapture;
+    public CreepStateDead       creepStateDead;
 
-    private CreepStateBase creepState;
+    private CreepStateBase      creepState;
     #endregion
     
-    private GameObject sparkPointGroup;
-    private Vector3 correctCreepPos;
-    private Quaternion correctCreepRot;
-    private Animator anim;
-    private NavMeshAgent navAgent;
-    private NavMeshPath mainNavPath = new NavMeshPath();
+    private Vector3         correctCreepPos;
+    private Quaternion      correctCreepRot;
+    private Animator        anim;
+    private NavMeshAgent    navAgent;
+    private NavMeshPath     mainNavPath = new NavMeshPath();
+
+    private Vector3         lastSentPosition;
+    private Quaternion      lastSentOrientation;
+    private Vector3         lastSentVelocity;
 
     private bool appliedInitialUpdate = false;
 
@@ -65,18 +79,17 @@ public class LaneCreep : UnitObject {
 	// Use this for initialization
 	void Awake () {
         // initialize all states
-        creepStateIdle = new CreepStateIdle(this);
-        creepStateMove = new CreepStateMove(this);
-        creepStateAttack = new CreepStateAttack(this);
-        creepStateChase = new CreepStateChase(this);
-        creepStateReturn = new CreepStateReturn(this);
-        creepStateCapture = new CreepStateCapture(this);
-        creepStateDead = new CreepStateDead(this);
+        creepStateIdle      = new CreepStateIdle(this);
+        creepStateMove      = new CreepStateMove(this);
+        creepStateAttack    = new CreepStateAttack(this);
+        creepStateChase     = new CreepStateChase(this);
+        creepStateReturn    = new CreepStateReturn(this);
+        creepStateCapture   = new CreepStateCapture(this);
+        creepStateDead      = new CreepStateDead(this);
 
         // initialize Findable stuff
-		sparkPointGroup = GameObject.Find("SparkPoints");
         SwitchState(CreepState.IDLE);
-        target = GameObject.Find((string)photonView.instantiationData[0]).transform;
+        target = SparkPointManager.Instance.sparkPointsDict[(string)photonView.instantiationData[0]].transform;
         targetSparkPoint = target.GetComponent<SparkPoint>();
         GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
@@ -87,15 +100,15 @@ public class LaneCreep : UnitObject {
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         
-
         GetComponentInChildren<SkinnedMeshRenderer>().material.color 
             = new Color((float)photonView.instantiationData[3],
                         (float)photonView.instantiationData[4],
                         (float)photonView.instantiationData[5],
                         (float)photonView.instantiationData[6]);
-        source = GameObject.Find((string)photonView.instantiationData[7]).transform;
+        source = SparkPointManager.Instance.sparkPointsDict[(string)photonView.instantiationData[7]].transform;
         spreadDir = (Vector3)photonView.instantiationData[8];
 
+        // calculate and store the nav path from source to target
         navAgent.CalculatePath(target.position + spreadDir * 2.0f, mainNavPath);
 
         // initialize enemy list
@@ -116,7 +129,8 @@ public class LaneCreep : UnitObject {
         }
         // otherwise process current state's update
         else {
-            if (target.GetComponent<SparkPoint>().owner == owner && curState != CreepState.DEAD) {
+            if (targetSparkPoint.owner == owner && curState != CreepState.DEAD 
+                || targetSparkPoint.sparkPointState == SparkPoint.SparkPointState.DESTROYED) {
                 SwitchState(CreepState.DEAD);
                 return;
             }
@@ -169,14 +183,38 @@ public class LaneCreep : UnitObject {
     /// <param name="info"></param>
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-            stream.SendNext(rigidbody.velocity);
+
+            // reduce network traffic
+            PacketMask mask = PacketMask.NONE;
+
+            if (transform.position != lastSentPosition) {
+                lastSentPosition = transform.position;
+                mask |= PacketMask.POSITION;
+            }
+
+            if (transform.rotation != lastSentOrientation) {
+                lastSentOrientation = transform.rotation;
+                mask |= PacketMask.ROTATION;
+            }
+
+            if (rigidbody.velocity != lastSentVelocity) {
+                lastSentVelocity = rigidbody.velocity;
+                mask |= PacketMask.VELOCITY;
+            }
+
+            stream.SendNext(mask);
+
+            // only send changed attributes
+            if ((mask & PacketMask.POSITION) != PacketMask.NONE) stream.SendNext(transform.position);
+            if ((mask & PacketMask.ROTATION) != PacketMask.NONE) stream.SendNext(transform.rotation);
+            if ((mask & PacketMask.VELOCITY) != PacketMask.NONE) stream.SendNext(rigidbody.velocity);
         }
         else {
-            correctCreepPos = (Vector3)stream.ReceiveNext();
-            correctCreepRot = (Quaternion)stream.ReceiveNext();
-            rigidbody.velocity = (Vector3)stream.ReceiveNext();
+            PacketMask mask = (PacketMask)stream.ReceiveNext();
+
+            if ((mask & PacketMask.POSITION) != PacketMask.NONE) correctCreepPos = (Vector3)stream.ReceiveNext();
+            if ((mask & PacketMask.ROTATION) != PacketMask.NONE) correctCreepRot = (Quaternion)stream.ReceiveNext();
+            if ((mask & PacketMask.VELOCITY) != PacketMask.NONE) rigidbody.velocity = (Vector3)stream.ReceiveNext();
 
             if (!appliedInitialUpdate) {
                 appliedInitialUpdate = true;
@@ -439,7 +477,6 @@ public class LaneCreep : UnitObject {
         public override void OnEnter() {
             startTime = Time.time;
             if (laneCreep.anim)
-                //laneCreep.anim.SetTrigger("goWalk");
                 laneCreep.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)LaneCreep.AnimatorType.TRIGGER, "goWalk", 0f);
 
             float nearestSqrtDist = float.MaxValue;
@@ -459,7 +496,6 @@ public class LaneCreep : UnitObject {
                     }
                 }
             }
-
 
             laneCreep.navAgent.Resume();
             laneCreep.navAgent.SetDestination(returnTarget);
