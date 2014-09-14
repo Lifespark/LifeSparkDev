@@ -2,6 +2,17 @@
 using System.Collections;
 
 public class PlayerManager : LSMonoBehaviour {
+
+    static private PlayerManager _instance;
+    static public PlayerManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(PlayerManager)) as PlayerManager;
+            return _instance;
+        }
+    }
+
+
 	public Material OriginalLane;
 	public Material BrokenLane;
 	public Material Team1Lane;
@@ -10,7 +21,11 @@ public class PlayerManager : LSMonoBehaviour {
 	
 	GameObject tempPlayer;
 	GameObject tempSparkPoint;
-	
+
+    void Awake() {
+        _instance = this;
+    }
+
 	// Use this for initialization
 	void Start () {
 		NetworkManager tempNM = GameObject.Find ("Manager").GetComponent<NetworkManager>();
@@ -73,10 +88,10 @@ public class PlayerManager : LSMonoBehaviour {
 	}
 	
 	[RPC]
-	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b) {
+	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b, float rate) {
 		//tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
         tempSparkPoint = SparkPointManager.Instance.sparkPointsDict[sparkPointName];
-		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName,team,b);
+		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName, team, b, rate);
 	}
 
     [RPC]

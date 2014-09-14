@@ -39,6 +39,8 @@ ModelImporter:
     7400000: idle
     7400002: walk
     7400004: attack
+    7400006: capture
+    7400008: dead
     9500000: //RootNode
     13700000: pCube1
   materials:
@@ -178,6 +180,122 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 31
       lastFrame: 55
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint7
+        weight: 1
+      - path: joint1/joint2/joint7/joint8 1
+        weight: 1
+      - path: joint1/joint2/joint7/joint8 1/joint9 1
+        weight: 1
+      - path: joint1/joint2/joint16
+        weight: 1
+      - path: joint1/joint2/joint16/joint8
+        weight: 1
+      - path: joint1/joint2/joint16/joint8/joint9
+        weight: 1
+      - path: joint1/joint5
+        weight: 1
+      - path: joint1/joint5/joint6 1
+        weight: 1
+      - path: joint1/joint12
+        weight: 1
+      - path: joint1/joint12/joint6
+        weight: 1
+      - path: pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: capture
+      takeName: Take 001
+      firstFrame: 56
+      lastFrame: 74
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint7
+        weight: 1
+      - path: joint1/joint2/joint7/joint8 1
+        weight: 1
+      - path: joint1/joint2/joint7/joint8 1/joint9 1
+        weight: 1
+      - path: joint1/joint2/joint16
+        weight: 1
+      - path: joint1/joint2/joint16/joint8
+        weight: 1
+      - path: joint1/joint2/joint16/joint8/joint9
+        weight: 1
+      - path: joint1/joint5
+        weight: 1
+      - path: joint1/joint5/joint6 1
+        weight: 1
+      - path: joint1/joint12
+        weight: 1
+      - path: joint1/joint12/joint6
+        weight: 1
+      - path: pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: dead
+      takeName: Take 001
+      firstFrame: 75
+      lastFrame: 92
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

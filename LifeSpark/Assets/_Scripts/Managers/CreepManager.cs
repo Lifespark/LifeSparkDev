@@ -57,7 +57,7 @@ public class CreepManager : LSMonoBehaviour {
                 GameObject[] sparkPoints = GameObject.FindGameObjectsWithTag("SparkPoint");
                 foreach (var sp in sparkPoints) {
                     if (sp.GetComponent<SparkPoint>().GetOwner() != player.team &&
-                        sp.GetComponent<SparkPoint>().sparkPointState != SparkPoint.SparkPointState.Destroyed) {
+                        sp.GetComponent<SparkPoint>().sparkPointState != SparkPoint.SparkPointState.DESTROYED) {
                         GameObject hl = Instantiate(highlightPrefab, sp.transform.position, Quaternion.identity) as GameObject;
                         highLighting.Add(hl);                    
                     }
