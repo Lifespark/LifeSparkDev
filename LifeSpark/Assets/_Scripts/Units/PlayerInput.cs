@@ -5,6 +5,7 @@ public class PlayerInput : UnitMovement {
 	
 	Vector3 tempHit;
 	public bool isMine;
+	private UIManager uiManager;
 
 	public enum TargetType {
 		Position,
@@ -53,6 +54,48 @@ public class PlayerInput : UnitMovement {
             targetType = TargetType.Position;
             return;
         }
+
+		/// Get the UI action
+		/// This is a temp method
+		if(uiManager == null)
+		{
+			uiManager = GameObject.Find ("Manager").GetComponent<UIManager>();
+			if(uiManager == null)
+			{
+				Debug.LogError("Cannot find the UI Manager");
+			}else{
+
+			}
+		}
+		if(uiManager.T_skillUIForm.IsValidAction)
+		{
+			switch(uiManager.T_skillUIForm.ClickedSkill)
+			{
+			case 0:
+				targetType = TargetType.TargetAreaAttack;
+				return;
+			case 1:
+				targetType = TargetType.LineAttack;
+				return;
+			case 2:
+				targetType = TargetType.SelfAreaAttack;
+				// Making the aoe around player a quick cast (no mouse involved.)
+				GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget",
+				                                              PhotonTargets.All,
+				                                              this.name,
+				                                              this.transform.position,
+				                                              this.name,
+				                                              (int)targetType);
+				targetType = TargetType.Position;
+				return;
+			case 3:
+				this.GetComponent<Player>().KillPlayer();
+				return;
+			}
+		}
+
+
+
         if (Input.GetKeyDown("f")) {
             this.GetComponent<Player>().KillPlayer();
         }
