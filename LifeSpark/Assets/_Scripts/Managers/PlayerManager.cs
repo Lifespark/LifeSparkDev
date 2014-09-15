@@ -59,15 +59,23 @@ public class PlayerManager : LSMonoBehaviour {
 	}
 	
 	[RPC]
-	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName) {
+	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName, int typeAsInt) {
+		//Note: Enums are sent as ints in RPCs, so we actually need to receive the PlayerInput.TargetType as an int and then cast it
+		PlayerInput.TargetType type = (PlayerInput.TargetType)typeAsInt;
+		Debug.Log ("Getting type of " + type);
 		tempPlayer = GameObject.Find ("Players/" + playerObject);
-		tempPlayer.GetComponent<Player>().UpdateTarget(target,targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
-		tempPlayer.GetComponent<NavMeshAgent> ().SetDestination (target);
+		if (type == PlayerInput.TargetType.Position) {
+			tempPlayer.GetComponent<Player> ().UpdateTarget (target, targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
+			tempPlayer.GetComponent<NavMeshAgent> ().SetDestination (target);
+		} else {
+			tempPlayer.GetComponent<Player> ().EngageCombat(type, target);
+		}
 	}
 	
 	[RPC]
 	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b) {
-		tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+		//tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+        tempSparkPoint = SparkPointManager.Instance.sparkPointsDict[sparkPointName];
 		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName,team,b);
 	}
 	
@@ -77,11 +85,27 @@ public class PlayerManager : LSMonoBehaviour {
 		tempPlayer.GetComponent<Player>().CapturedObjective();
 	}
 
+
+	//Sends signal to the unit object to dish out damage for a specified player
+	//Input: Who's attacking, who's being attacked, how much damage to deal, how long it should take for damage to be taken completely
 	[RPC]
-	void RPC_setPlayerAttack(string attackedName, string attackerName, bool b){
+	void RPC_setPlayerAttack(string attackedName, string attackerName, int damageAmount, int duration){
 		tempPlayer = GameObject.Find ("Players/" + attackedName);
-		//tempPlayer.GetComponent<Player>().setUnitBeingAttacked(GameObject.Find ("Players/" + attackerName).GetComponent<Player>().baseAttack,b);
+		tempPlayer.GetComponent<Player>().receiveAttack(damageAmount,duration);
 
 	}
+
+    [RPC]
+    void RPC_setPlayerDeath(string playerName, int team) {
+        tempPlayer = GameObject.Find("Players/" + playerName);
+        tempPlayer.GetComponent<Player>().KillPlayer();
+    }
+
+    [RPC]
+    void RPC_setPlayerRespawn(string playerName, Vector3 location) {
+        Debug.Log("respawning " + playerName);
+        tempPlayer = GameObject.Find("Players/" + playerName);
+        tempPlayer.GetComponent<Player>().RespawnPlayer(location);
+    }
 
 }

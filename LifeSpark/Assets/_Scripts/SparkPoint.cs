@@ -5,9 +5,10 @@ using System.Collections;
 public class SparkPoint : LSMonoBehaviour {
 	
 	public SparkPoint[] _connections;
+    private List<string> initConnected = new List<string>();
 
-	int owner;
-	enum SparkPointState {
+    public int owner;
+	public enum SparkPointState {
 		Free,
 		Freeing,
 		Capturing,
@@ -15,15 +16,16 @@ public class SparkPoint : LSMonoBehaviour {
 		Destroying,
 		Destroyed
 	};
-	SparkPointState sparkPointState;
+	public SparkPointState sparkPointState;
 	List<string> capturers;
-	int capturingTeam;
+	public int capturingTeam;
 	int captureTimer;
 	int captureTime;
 	Color sparkPointColor;
+
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		owner = -1;
 		sparkPointState = SparkPointState.Free;
 		capturers = new List<string>();
@@ -32,8 +34,28 @@ public class SparkPoint : LSMonoBehaviour {
 		captureTime = 200;
 		sparkPointColor = new Color(0.5f,0.5f,0.5f);
 		renderer.material.color = sparkPointColor;
+        if (photonView != null && photonView.instantiationData != null) {
+            gameObject.name = (string)photonView.instantiationData[0] + "_net";
+            gameObject.tag = (string)photonView.instantiationData[1];
+
+            for (int i = 2; i < photonView.instantiationData.Length; i++) {
+                initConnected.Add((string)photonView.instantiationData[i]);
+            }
+
+            SparkPointManager.Instance.OnSparkPointInstantiated();
+        }
 	}
-	
+
+    public void InitNetworkPassedData() {
+        
+        List<SparkPoint> spconnect = new List<SparkPoint>();
+        foreach (var spName in initConnected) {
+            spconnect.Add(GameObject.Find(spName).GetComponent<SparkPoint>());
+        }
+        _connections = spconnect.ToArray();
+        Debug.Log("initSparkPoint");
+    }
+
 	// Update is called once per frame
 	void Update () {
 		/*foreach(SparkPoint sp in _connections) {
@@ -47,7 +69,7 @@ public class SparkPoint : LSMonoBehaviour {
 				//-----------------------------------------------------------------------------------------
 				//// captured, check connection sparkpoint owner to build new line (MasterClient only)
 				//Debug.Log(PhotonNetwork.isMasterClient);
-				if(PhotonNetwork.isMasterClient){
+				if (PhotonNetwork.isMasterClient){
 					int tempSize = _connections.Length;
 					for (int i=0; i<tempSize; i++) {
 						if(_connections[i].owner == capturingTeam) {
@@ -109,13 +131,12 @@ public class SparkPoint : LSMonoBehaviour {
 			//Debug.Log ("Broke the capture for "+this.name);
 			capturers.Clear();
 			capturingTeam = -1;
-			sparkPointState = SparkPointState.Free;
+			sparkPointState = SparkPointState.Destroyed;
 			captureTimer = 0;
-			sparkPointColor.r = 0.5f;
-			sparkPointColor.g = 0.5f;
-			sparkPointColor.b = 0.5f;
+			sparkPointColor.r = 0.0f;
+			sparkPointColor.g = 0.0f;
+			sparkPointColor.b = 0.0f;
 			renderer.material.color = sparkPointColor;
 		}
 	}
-	
 }
