@@ -53,6 +53,9 @@ public class Region : MonoBehaviour
             // draw polygon with team 2 color
             DrawRegionPolygon(Team2Color);
         }
+        else {
+            regionPolygon.renderer.enabled = false;
+        }
 
     }
 
@@ -128,6 +131,7 @@ public class Region : MonoBehaviour
     // Redraws regionPolygon with the passed in color
     private void DrawRegionPolygon(Color teamColor)
     {
+        regionPolygon.renderer.enabled = true;
         // Set regionPolygon color
         regionPolygon.renderer.material.color = teamColor;
 
@@ -136,6 +140,7 @@ public class Region : MonoBehaviour
         regionPolygonMesh.RecalculateNormals();
         regionPolygonMesh.RecalculateBounds();
         regionPolygonMesh.Optimize();
+
     }
 
 

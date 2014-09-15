@@ -87,7 +87,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &59073482
 Transform:
@@ -120,7 +120,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &254561167
 Transform:
@@ -343,6 +343,7 @@ MonoBehaviour:
   _connections:
   - {fileID: 718303310}
   - {fileID: 1055509249}
+  associatedLanes: []
   owner: 0
   sparkPointState: 0
   capturingTeam: 0
@@ -418,7 +419,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &482182813
 Transform:
@@ -448,7 +449,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &538518668
 Transform:
@@ -481,7 +482,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &558462816
 Transform:
@@ -674,6 +675,22 @@ Prefab:
     - target: {fileID: 100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
       propertyPath: m_Name
       value: JungleCamp2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
@@ -869,7 +886,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &680752058
 Transform:
@@ -943,7 +960,7 @@ GameObject:
   m_TagString: SparkPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &718303304
 Transform:
@@ -1031,6 +1048,7 @@ MonoBehaviour:
   _connections:
   - {fileID: 1654555801}
   - {fileID: 472274811}
+  associatedLanes: []
   owner: 0
   sparkPointState: 0
   capturingTeam: 0
@@ -1146,7 +1164,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &792501833
 Transform:
@@ -1215,7 +1233,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &817107582
 Transform:
@@ -1421,7 +1439,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &881733872
 Transform:
@@ -1633,6 +1651,7 @@ MonoBehaviour:
   _connections:
   - {fileID: 1654555801}
   - {fileID: 472274811}
+  associatedLanes: []
   owner: 0
   sparkPointState: 0
   capturingTeam: 0
@@ -1796,7 +1815,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1119350603
 Transform:
@@ -2041,7 +2060,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1292138143
 Transform:
@@ -2113,7 +2132,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1370524813
 Transform:
@@ -2212,6 +2231,22 @@ Prefab:
       propertyPath: m_Name
       value: JungleCamp3
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
   m_RootGameObject: {fileID: 482182812}
@@ -2264,6 +2299,22 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 100004, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
   m_RootGameObject: {fileID: 538518667}
@@ -2396,7 +2447,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1463322014
 Transform:
@@ -2763,6 +2814,7 @@ MonoBehaviour:
   _connections:
   - {fileID: 1055509249}
   - {fileID: 718303310}
+  associatedLanes: []
   owner: 0
   sparkPointState: 0
   capturingTeam: 0
@@ -2938,7 +2990,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1678060153
 Transform:
@@ -3200,7 +3252,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1697986236
 Transform:
@@ -3315,6 +3367,10 @@ Prefab:
       propertyPath: _connections.Array.data[1]
       value: 
       objectReference: {fileID: 472274811}
+    - target: {fileID: 100000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 314f402167e6ff44184df22c57c9312b, type: 2}
@@ -3400,7 +3456,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1825922782
 Transform:
@@ -3727,6 +3783,22 @@ Prefab:
     - target: {fileID: 100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
       propertyPath: m_Name
       value: JungleCamp4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c51cda2760c4de8458d4ebb5c801624d, type: 2}

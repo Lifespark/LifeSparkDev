@@ -118,7 +118,8 @@ public class Player : UnitObject {
 						                                              targetName,
 						                                              this.name,
 						                                              team,
-						                                              true);
+						                                              true,
+                                                                      0.2f);
 						playerState = PlayerState.Capturing;
 					}
 					else if (targetName.Contains("Player"))
@@ -212,7 +213,8 @@ public class Player : UnitObject {
 			                                              this.targetName,
 			                                              this.name,
 			                                              team,
-			                                              false);
+			                                              false,
+                                                          0f);
 		}
 		this.target = target;
 		this.targetName = targetName;

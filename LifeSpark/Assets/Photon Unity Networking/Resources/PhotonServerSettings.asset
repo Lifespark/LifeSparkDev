@@ -42,4 +42,10 @@ MonoBehaviour:
   - RPC_dispatchCreep
   - RPC_setAnimParam
   - RPC_switchState
+  - RPC_ShootMissile
+  - RPC_lineAttackVisualization
+  - RPC_areaAttackVisualization
+  - RPC_setPlayerDeath
+  - RPC_setPlayerRespawn
+  - RPC_setSparkPointDestroy
   DisableAutoOpenWizard: 0

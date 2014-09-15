@@ -247,7 +247,8 @@ public class BossCage : LSMonoBehaviour {
 					if (m_bossCage.m_lineCreatedMemo [i]) {
 						m_bossCage.m_lineCreatedMemo [i] = false;
 						GameObject temp = GameObject.Find ("Terrain/LaneBossCage" + m_bossCage.m_connectionNames [i]);
-						DestroyImmediate (temp);
+						PhotonNetwork.Destroy(temp.GetPhotonView());
+						//DestroyImmediate (temp);
 					}
 				}
 			}
