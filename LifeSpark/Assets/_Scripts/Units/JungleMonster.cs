@@ -49,7 +49,6 @@ public class JungleMonster : UnitObject
 
     #region JungleMonster_STATE
     public JungleMonsterStateIdle jungleMonsterStateIdle;
-    public JungleMonsterStateMove jungleMonsterStateMove;
     public JungleMonsterStateAttack jungleMonsterStateAttack;
     public JungleMonsterStateChase jungleMonsterStateChase;
     public JungleMonsterStateReturn jungleMonsterStateReturn;
@@ -58,8 +57,8 @@ public class JungleMonster : UnitObject
     private JungleMonsterStateBase jungleMonsterState;
     #endregion
 
-    private Vector3 correctjungleMonsterPos;
-    private Quaternion correctjungleMonsterRot;
+    private Vector3 correctJungleMonsterPos;
+    private Quaternion correctJungleMonsterRot;
     private Animator anim;
     private NavMeshAgent navAgent;
     private NavMeshPath mainNavPath = new NavMeshPath();
@@ -79,7 +78,6 @@ public class JungleMonster : UnitObject
     {
         // initialize all states
         jungleMonsterStateIdle = new JungleMonsterStateIdle(this);
-        jungleMonsterStateMove = new JungleMonsterStateMove(this);
         jungleMonsterStateAttack = new JungleMonsterStateAttack(this);
         jungleMonsterStateChase = new JungleMonsterStateChase(this);
         jungleMonsterStateReturn = new JungleMonsterStateReturn(this);
@@ -110,8 +108,8 @@ public class JungleMonster : UnitObject
         // if I'm not in control, sync position from network
         if (!PhotonNetwork.isMasterClient)
         {
-            transform.position = Vector3.Lerp(transform.position, this.correctjungleMonsterPos, Time.deltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctjungleMonsterRot, Time.deltaTime * 5);
+            transform.position = Vector3.Lerp(transform.position, this.correctJungleMonsterPos, Time.deltaTime * 5);
+            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctJungleMonsterRot, Time.deltaTime * 5);
         }
         // otherwise process current state's update
         else
@@ -143,9 +141,6 @@ public class JungleMonster : UnitObject
         {
             case JungleMonsterState.IDLE:
                 jungleMonsterState = jungleMonsterStateIdle;
-                break;
-            case JungleMonsterState.MOVING:
-                jungleMonsterState = jungleMonsterStateMove;
                 break;
             case JungleMonsterState.ATTACKING:
                 jungleMonsterState = jungleMonsterStateAttack;
@@ -181,7 +176,6 @@ public class JungleMonster : UnitObject
                 lastSentPosition = transform.position;
                 mask |= PacketMask.POSITION;
             }
-
             if (transform.rotation != lastSentOrientation)
             {
                 lastSentOrientation = transform.rotation;
@@ -205,15 +199,15 @@ public class JungleMonster : UnitObject
         {
             PacketMask mask = (PacketMask)stream.ReceiveNext();
 
-            if ((mask & PacketMask.POSITION) != PacketMask.NONE) correctjungleMonsterPos = (Vector3)stream.ReceiveNext();
-            if ((mask & PacketMask.ROTATION) != PacketMask.NONE) correctjungleMonsterRot = (Quaternion)stream.ReceiveNext();
+            if ((mask & PacketMask.POSITION) != PacketMask.NONE) correctJungleMonsterPos = (Vector3)stream.ReceiveNext();
+            if ((mask & PacketMask.ROTATION) != PacketMask.NONE) correctJungleMonsterRot = (Quaternion)stream.ReceiveNext();
             if ((mask & PacketMask.VELOCITY) != PacketMask.NONE) rigidbody.velocity = (Vector3)stream.ReceiveNext();
 
             if (!appliedInitialUpdate)
             {
                 appliedInitialUpdate = true;
-                transform.position = correctjungleMonsterPos;
-                transform.rotation = correctjungleMonsterRot;
+                transform.position = correctJungleMonsterPos;
+                transform.rotation = correctJungleMonsterRot;
                 rigidbody.velocity = Vector3.zero;
             }
         }
@@ -316,78 +310,6 @@ public class JungleMonster : UnitObject
     }
 
     [Serializable]
-    public class JungleMonsterStateMove : JungleMonsterStateBase
-    {
-        public JungleMonsterStateMove(JungleMonster pjungleMonster)
-        {
-            startTime = Time.time;
-            state = JungleMonsterState.MOVING;
-            jungleMonster = pjungleMonster;
-        }
-
-        public override void OnEnter()
-        {
-            Debug.Log("Move");
-            startTime = Time.time;
-            if (jungleMonster.anim)
-                //jungleMonster.anim.SetTrigger("goWalk");
-                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
-            jungleMonster.navAgent.Resume();
-            jungleMonster.navAgent.SetPath(jungleMonster.mainNavPath);
-        }
-
-        public override void OnUpdate()
-        {
-            //foreach (var enemy in jungleMonster.enemyPlayers)
-            //{
-            //    // if enemy in sight, start chasing it
-            //    if (Vector3.SqrMagnitude(jungleMonster.transform.position - enemy.transform.position) < jungleMonster.detectRadius * jungleMonster.detectRadius)
-            //    {
-            //        jungleMonster.lockOnEnemy = enemy.gameObject;
-            //        jungleMonster.SwitchState(JungleMonsterState.CHASING);
-            //        return;
-            //    }
-            //}
-
-            //if (jungleMonster.target != null)
-            //{
-            //    // target not reached, continue approaching
-            //    Vector3 distVector = jungleMonster.target.position + jungleMonster.spreadDir * 2.0f - jungleMonster.transform.position;
-            //    distVector.y = 0;
-            //    if (Vector3.SqrMagnitude(distVector) > 0.01)
-            //    {
-            //        /*
-            //        Debug.Log(jungleMonster.target.position + jungleMonster.spreadDir * 2.0f - jungleMonster.transform.position);
-            //        Vector3 targetPos = jungleMonster.target.position + jungleMonster.spreadDir * 2.0f;
-            //        Vector3 direction = (targetPos - jungleMonster.transform.position).normalized;
-            //        direction.y = 0;
-
-            //        jungleMonster.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
-            //        jungleMonster.transform.position += direction * jungleMonster.maxSpeed * Time.deltaTime;
-            //        */
-            //    }
-            //    else
-            //    {
-            //        // start capturing sparkpoint
-            //        jungleMonster.SwitchState(JungleMonsterState.CAPTURING);
-            //        return;
-            //    }
-            //}
-            //else
-            //{
-            //    // what if the target has been destroyed?
-            //    jungleMonster.SwitchState(jungleMonsterState.IDLE);
-            //    return;
-            //}
-        }
-
-        public override void OnExit()
-        {
-            jungleMonster.navAgent.Stop();
-        }
-    }
-
-    [Serializable]
     public class JungleMonsterStateAttack : JungleMonsterStateBase
     {
         public float attackIntervial = 2;
@@ -406,10 +328,10 @@ public class JungleMonster : UnitObject
             startTime = Time.time;
             GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
             int index = -1;
+            float minDistance = 0;
 
             for(int i = 0; i < allPlayers.Length;i++)
             {
-                float minDistance = 0;
                 float currentDistance = Vector3.SqrMagnitude(jungleMonster.transform.position - allPlayers[i].transform.position);
                 if (index == -1 ||
                     currentDistance < minDistance)
@@ -528,13 +450,12 @@ public class JungleMonster : UnitObject
         {
             if (true)
             {
-                if (Vector3.SqrMagnitude(jungleMonster.source - jungleMonster.transform.position) > 0.3)
+                if (Vector3.SqrMagnitude(jungleMonster.source - jungleMonster.transform.position) > 0.1)
                 {
                     jungleMonster.navAgent.SetDestination(jungleMonster.source);
                 }
                 else
                 {
-                    Debug.Log("LLL");
                     jungleMonster.SwitchState(JungleMonsterState.IDLE);
                     return;
                 }

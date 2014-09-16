@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 95: {fileID: 9500000}
+  - 114: {fileID: 11400000}
   - 54: {fileID: 5400000}
   - 136: {fileID: 13600000}
   - 114: {fileID: 11400002}
   - 195: {fileID: 19500000}
-  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: JungleMonsterProto1
   m_TagString: Untagged
@@ -502,14 +502,12 @@ MonoBehaviour:
   detectRadius: 10
   attackRadius: 2
   target: {fileID: 0}
-  source: {fileID: 0}
+  source: {x: 0, y: 0, z: 0}
   lockOnEnemy: {fileID: 0}
   curState: 0
   spreadDir: {x: 0, y: 0, z: 0}
   jungleMonsterStateAttack:
     attackIntervial: 0
-  jungleMonsterStateChase:
-    chasingDistance: 0
   jungleMonsterStateDead:
     corpseRemainTime: 0
   enemyPlayers: []
@@ -528,7 +526,7 @@ MonoBehaviour:
   ownerId: 0
   group: 0
   prefixBackup: -1
-  observed: {fileID: 0}
+  observed: {fileID: 11400000}
   synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2

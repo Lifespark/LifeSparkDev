@@ -499,7 +499,7 @@ MonoBehaviour:
   ownerId: 0
   group: 0
   prefixBackup: -1
-  observed: {fileID: 0}
+  observed: {fileID: 11400002}
   synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
@@ -522,14 +522,12 @@ MonoBehaviour:
   detectRadius: 10
   attackRadius: 2
   target: {fileID: 0}
-  source: {fileID: 0}
+  source: {x: 0, y: 0, z: 0}
   lockOnEnemy: {fileID: 0}
   curState: 0
   spreadDir: {x: 0, y: 0, z: 0}
   jungleMonsterStateAttack:
     attackIntervial: 0
-  jungleMonsterStateChase:
-    chasingDistance: 0
   jungleMonsterStateDead:
     corpseRemainTime: 0
   enemyPlayers: []
