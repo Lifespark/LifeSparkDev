@@ -102,7 +102,7 @@ public class CameraManager : MonoBehaviour {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
 
 			// if on iPad, use 2 finger swipe to move camera
-			if (Input.touchCount == 2 && t_prevTouchCount == 2) {
+			if (Input.touchCount == 3 && t_prevTouchCount == 3) {
 				translation -= Vector3.right * Input.touches[0].deltaPosition.x * Time.deltaTime * m_iPadScrollSpeed; 
 				translation -= Vector3.forward * Input.touches[0].deltaPosition.y * Time.deltaTime * m_iPadScrollSpeed;
 			}
