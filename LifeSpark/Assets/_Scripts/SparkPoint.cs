@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 
 public class SparkPoint : LSMonoBehaviour {
-    class CapturerData {
+    public class CapturerData {
         public float energyInjectionSpeed = 0;
         public float totalEnergyInjected = 0;
     }
@@ -27,7 +27,7 @@ public class SparkPoint : LSMonoBehaviour {
 	public SparkPointState sparkPointState;
 	List<string> capturers;
 
-    Dictionary<int, CapturerData> capturersInfo = new Dictionary<int, CapturerData>();
+    public Dictionary<int, CapturerData> capturersInfo = new Dictionary<int, CapturerData>();
 
 	public int capturingTeam;
 	int captureTimer;
@@ -172,6 +172,7 @@ public class SparkPoint : LSMonoBehaviour {
             renderer.material.color = sparkPointColor;
 		}
 	}
+
 
     public void SetSparkPointDestroy(string playerName, int team) {
         owner = -2;
