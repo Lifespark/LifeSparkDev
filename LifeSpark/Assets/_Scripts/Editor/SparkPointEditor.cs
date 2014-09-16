@@ -17,6 +17,8 @@ public class SparkPointEditor : Editor {
 	}
 
 	public override void OnInspectorGUI () {
+		DrawDefaultInspector();
+
 		serializedObject.Update();
 
 		//these buttons adds spark point entries

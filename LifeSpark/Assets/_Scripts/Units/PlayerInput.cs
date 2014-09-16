@@ -62,7 +62,7 @@ public class PlayerInput : UnitMovement {
 			RaycastHit hit;
 			// check if hit, the length(1000.0f) can set to other value
 			if (Physics.Raycast(cameraRay, out hit, 1000.0f)) {
-				Debug.Log(hit.collider.name);
+				//Debug.Log(hit.collider.name);
 
 				if (targetType == TargetType.Position) {
 					if (hit.collider.name.Equals("Ground")) {

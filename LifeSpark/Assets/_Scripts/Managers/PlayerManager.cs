@@ -77,7 +77,7 @@ public class PlayerManager : LSMonoBehaviour {
 	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName, int typeAsInt) {
 		//Note: Enums are sent as ints in RPCs, so we actually need to receive the PlayerInput.TargetType as an int and then cast it
 		PlayerInput.TargetType type = (PlayerInput.TargetType)typeAsInt;
-		Debug.Log ("Getting type of " + type);
+		//Debug.Log ("Getting type of " + type);
 		tempPlayer = GameObject.Find ("Players/" + playerObject);
 		if (type == PlayerInput.TargetType.Position) {
 			tempPlayer.GetComponent<Player> ().UpdateTarget (target, targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
