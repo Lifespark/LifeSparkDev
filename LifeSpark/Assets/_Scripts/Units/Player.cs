@@ -19,6 +19,7 @@ public class Player : UnitObject {
 	float totalSqrLength;
     ArrayList teamSparkPoints;
     SparkPoint[] sparkPoints;
+	Player[] otherPlayers;
 	
 	public float lineAttackDist;
 	public float areaAttackRadius;
@@ -33,7 +34,14 @@ public class Player : UnitObject {
         Dead
 	};
 	public PlayerState playerState;
-
+	
+	public enum GameState {
+		InGame,
+		Victory,
+		Defeat
+	};
+	public GameState gameState;
+	
 	/* Calculating Player and Region Variables. -jk */
 	Region[] region;
 	float regionArea;
@@ -53,6 +61,7 @@ public class Player : UnitObject {
 		target = this.transform.position;
 		target.y = 0;
 		playerState = PlayerState.Idle;
+		gameState = GameState.inGame;
         this.maxHealth = 50;
 		this.unitHealth = 50;
 		this.baseAttack = 5;
@@ -112,8 +121,18 @@ public class Player : UnitObject {
 			GUI.TextArea (new Rect (10, 30, 200, 20), "Target:" + target.x + ":0:" + target.z);
 			GUI.TextArea (new Rect (10, 50, 220, 20), "A for area attack, S for line attack, D for self area attack");
             GUI.TextArea(new Rect(10, 70, 200, 20), "F to kill yourself");
-
-			//
+			
+			//Gui debug message for state of player in-game/post-game - BR
+			switch(gameState) {
+			case GameState.InGame:
+				GUI.TextArea(new Rect(10, 90, 200, 20), "Game in Progress."); 
+				break;
+			case GameState.Victory:
+				GUI.TextArea(new Rect(10, 90, 200, 20), "Victory!");
+				break;
+			case GameState.Defeat:
+				GUI.TextArea(new Rect(10, 90, 200, 20), "Defeat...");
+			}
 		}
 	}
 	
@@ -185,8 +204,6 @@ public class Player : UnitObject {
 					
 				}
 				
-				
-				
 			}
 			break;
         case PlayerState.Dead:
@@ -204,7 +221,20 @@ public class Player : UnitObject {
                     tempPosition.y = 1.2f;
                     tempPosition.z -= 2.0f;
                 }
+				// Dying with no sparkpoints currently causes a loss - Should change in the future
                 else {
+					gameState = GameState.Defeat;
+					otherPlayers = GameObject.FindGameObjectsWithTag("player");
+					
+					for(int a = 0; a < otherPlayers.Length; a++) {
+						if(!otherPlayers[a].playerName.Equals (playerName))	{
+							if(otherPlayers[a].team == team)
+								otherPlayers[a].SetVictorious(false);
+							else
+								otherPlayers[a].SetVictorious(true);
+						}
+					}
+					
                     tempPosition = new Vector3(32.0f, 1.2f, 0.0f); // arbitrary value
                 }
                 
@@ -275,7 +305,17 @@ public class Player : UnitObject {
     public PlayerState GetState() {
         return playerState;
     }
-
+	
+	/* Called when game is over and 
+	public void SetVictorious(bool isVictorious) {
+		if(isVictorious) {
+			gameState = GameState.Victory;
+		}
+		else {
+			gameState = GameState.Defeat;	
+		}
+	}
+	
     public void DrawPath(NavMeshPath path)
     {
         LineRenderer LR = GetComponent<LineRenderer>();
