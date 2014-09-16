@@ -3584,19 +3584,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400216, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
       propertyPath: m_LocalScale.x
-      value: .00625000009
+      value: .00416666688
       objectReference: {fileID: 0}
     - target: {fileID: 400216, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
       propertyPath: m_LocalScale.y
-      value: .00625000009
+      value: .00416666688
       objectReference: {fileID: 0}
     - target: {fileID: 400216, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
       propertyPath: m_LocalScale.z
-      value: .00625000009
+      value: .00416666688
       objectReference: {fileID: 0}
     - target: {fileID: 400214, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .758285522
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 100216, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
       propertyPath: m_Name
@@ -3604,7 +3604,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400214, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3863aaff2a98c8e4384b8d87ff66d8c6, type: 2}
@@ -3933,7 +3933,7 @@ Transform:
   m_GameObject: {fileID: 772368214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00625000009, y: .00625000009, z: .00625000009}
+  m_LocalScale: {x: .00416666688, y: .00416666688, z: .00416666688}
   m_Children:
   - {fileID: 509010390}
   m_Father: {fileID: 0}
@@ -4421,17 +4421,17 @@ MonoBehaviour:
   widgetsAreStatic: 0
   cullWhileDragging: 0
   worldToLocal:
-    e00: 160
+    e00: 239.999985
     e01: 0
     e02: 0
-    e03: 0
+    e03: .5
     e10: 0
-    e11: 160
+    e11: 239.999985
     e12: 0
-    e13: 97.796875
+    e13: 98.0551605
     e20: 0
     e21: 0
-    e22: 160
+    e22: 239.999985
     e23: 0
     e30: 0
     e31: 0
@@ -5097,6 +5097,7 @@ GameObject:
   - 114: {fileID: 1057508058}
   - 114: {fileID: 1057508059}
   - 114: {fileID: 1057508060}
+  - 114: {fileID: 1057508061}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Manager
@@ -5287,6 +5288,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c7338e06a740e42b01ccec41b3f1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1057508061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1057508047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d61047cb4b27f4d9df74b7b8042a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loreItems:
+  - name: Example Lore Item
+    text: Copy paste lore text here!!!
+  - name: Another Example Lore Item
+    text: MORE LORE TEXT GOES HERE BLAH blah blah ladfhasj hsadgas j fantasy stuff
+      story emotions yayyyyyy.
 --- !u!1 &1060353424
 GameObject:
   m_ObjectHideFlags: 0
@@ -5993,17 +6011,17 @@ MonoBehaviour:
   widgetsAreStatic: 0
   cullWhileDragging: 0
   worldToLocal:
-    e00: 160
+    e00: 239.999985
     e01: 0
     e02: 0
-    e03: 0
+    e03: .5
     e10: 0
-    e11: 160
+    e11: 239.999985
     e12: 0
-    e13: -117.758286
+    e13: -117.5
     e20: 0
     e21: 0
-    e22: 160
+    e22: 239.999985
     e23: 0
     e30: 0
     e31: 0
@@ -9873,7 +9891,7 @@ Transform:
   m_PrefabInternal: {fileID: 683911199}
   m_GameObject: {fileID: 1919150497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .758285522, z: 0}
+  m_LocalPosition: {x: -.5, y: .5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1125076490}

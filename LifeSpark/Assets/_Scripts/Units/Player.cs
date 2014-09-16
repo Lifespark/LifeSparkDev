@@ -113,6 +113,14 @@ public class Player : UnitObject {
         {
             GetComponent<LineRenderer>().enabled = false;
         }*/
+
+
+		// TEMPORARY, used to test players ability to acquire a piece of lore
+		if (Input.GetKeyDown("l")) {
+			AcquireLoreItem("Temp Lore Title");
+		}
+
+
 	}
 	
 	void OnGUI () {
@@ -333,6 +341,13 @@ public class Player : UnitObject {
      
 
     }
+
+	/* Used to give player access to a piece of lore */
+	public void AcquireLoreItem(string loreTitle) {
+
+		// Until we figure out how to have persistent player data, just display a debug message
+		Debug.Log ("New Lore Acquired: " + loreTitle);
+	}
 
 	/* Fired when stepping into or out of a region. -jk */
 	private void OnTriggerExit(Collider collider) {
