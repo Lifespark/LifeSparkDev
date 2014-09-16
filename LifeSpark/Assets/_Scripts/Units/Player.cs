@@ -19,7 +19,7 @@ public class Player : UnitObject {
 	float totalSqrLength;
     ArrayList teamSparkPoints;
     SparkPoint[] sparkPoints;
-	Player[] otherPlayers;
+	GameObject[] otherPlayers;
 	
 	public float lineAttackDist;
 	public float areaAttackRadius;
@@ -61,7 +61,7 @@ public class Player : UnitObject {
 		target = this.transform.position;
 		target.y = 0;
 		playerState = PlayerState.Idle;
-		gameState = GameState.inGame;
+		gameState = GameState.InGame;
         this.maxHealth = 50;
 		this.unitHealth = 50;
 		this.baseAttack = 5;
@@ -132,6 +132,7 @@ public class Player : UnitObject {
 				break;
 			case GameState.Defeat:
 				GUI.TextArea(new Rect(10, 90, 200, 20), "Defeat...");
+				break;
 			}
 		}
 	}
@@ -227,11 +228,11 @@ public class Player : UnitObject {
 					otherPlayers = GameObject.FindGameObjectsWithTag("player");
 					
 					for(int a = 0; a < otherPlayers.Length; a++) {
-						if(!otherPlayers[a].playerName.Equals (playerName))	{
-							if(otherPlayers[a].team == team)
-								otherPlayers[a].SetVictorious(false);
+						if(!otherPlayers[a].GetComponent<Player>().playerName.Equals (playerName))	{
+							if(otherPlayers[a].GetComponent<Player>().team == team)
+								otherPlayers[a].GetComponent<Player>().SetVictorious(false);
 							else
-								otherPlayers[a].SetVictorious(true);
+								otherPlayers[a].GetComponent<Player>().SetVictorious(true);
 						}
 					}
 					
@@ -306,7 +307,7 @@ public class Player : UnitObject {
         return playerState;
     }
 	
-	/* Called when game is over and 
+	/* Called when game is over and Victory gameState is determined*/
 	public void SetVictorious(bool isVictorious) {
 		if(isVictorious) {
 			gameState = GameState.Victory;
