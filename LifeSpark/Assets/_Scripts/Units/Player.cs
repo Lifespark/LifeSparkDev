@@ -30,6 +30,11 @@ public class Player : UnitObject {
 	public float m_nextAttackTime = 0.0f;
 	public float m_attackRange = 100.0f;
 
+
+	public Attack.AttackType m_baseAttackType = Attack.AttackType.Ranged;
+	public Attack[] m_specialAttacks;
+
+
 	public enum PlayerState {
 		Idle,
 		Moving,
@@ -57,6 +62,25 @@ public class Player : UnitObject {
 
         // initialize line renderer for drawing path to false
         GetComponent<LineRenderer>().enabled = false;
+
+		//MeleeAttack tempMelee;
+		//tempMelee = new MeleeAttack ();
+
+		//Set player's basic attack
+
+		HitObject tempHit = new HitObject();
+
+		if (m_baseAttackType == Attack.AttackType.Melee) {
+			m_basicAttack = new MeleeAttack (Attack.AttackType.Melee, tempHit, 5);
+		}
+		else {
+			m_basicAttack = new RangedAttack(Attack.AttackType.Ranged, tempHit, 3, 8);
+		}
+
+		//set player's special attacks
+		m_specialAttacks.SetValue(new LineAttack(Attack.AttackType.Line, tempHit, 1, 2, 4), 0);
+		m_specialAttacks.SetValue(new AreaAttack(Attack.AttackType.Area, tempHit, 1, 2, 3, true), 1);
+		m_specialAttacks.SetValue(new AreaAttack(Attack.AttackType.Area, tempHit, 1, 2, 3, false), 2);
 
 	}
 	

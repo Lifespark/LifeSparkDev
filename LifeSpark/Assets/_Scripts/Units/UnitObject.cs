@@ -9,6 +9,8 @@ public class UnitObject : LSMonoBehaviour {
 	public float unitHealth;
 	public int baseAttack;
 
+	public Attack m_basicAttack;
+
 	// Use this for initialization
 	void Start () {
 		combatManager = (CombatManager) GameObject.Find ("Manager").GetComponent ("CombatManager");
