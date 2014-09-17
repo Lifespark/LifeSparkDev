@@ -16,6 +16,7 @@ public class CreepManager : LSMonoBehaviour {
     public GameObject creepPrefab;
     public GameObject highlightPrefab;
     public int maximumCreepNum = 1;
+    public bool sparkPointSetUp = false;
 
 	public Dictionary<GameObject, List<LaneCreep>> creepDict = new Dictionary<GameObject, List<LaneCreep>>();
     //private List<LaneCreep> creepList = new List<LaneCreep>();
@@ -39,6 +40,9 @@ public class CreepManager : LSMonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!sparkPointSetUp)
+            return;
+
 		if (player == null) {
 			PlayerInput[] playerInputs = FindObjectsOfType<PlayerInput> ();
 			foreach(PlayerInput p in playerInputs) {
@@ -54,8 +58,7 @@ public class CreepManager : LSMonoBehaviour {
                 menuOn = true;
                 StartCoroutine(FlyCamera());
                 highLighting.Clear();
-                GameObject[] sparkPoints = GameObject.FindGameObjectsWithTag("SparkPoint");
-                foreach (var sp in sparkPoints) {
+                foreach (var sp in SparkPointManager.Instance.netSps) {
                     if (sp.GetComponent<SparkPoint>().GetOwner() != player.team &&
                         sp.GetComponent<SparkPoint>().sparkPointState != SparkPoint.SparkPointState.DESTROYED) {
                         GameObject hl = Instantiate(highlightPrefab, sp.transform.position, Quaternion.identity) as GameObject;
@@ -89,6 +92,7 @@ public class CreepManager : LSMonoBehaviour {
             }
             if (GUI.Button(new Rect(screenPos.x, Screen.height - screenPos.y + 50, 100, 50), "Cancel")) {
                 menuOn = false;
+                selectingTarget = false;
                 StartCoroutine(FlyCameraBack());
                 foreach (var hl in highLighting)
                     Destroy(hl);

@@ -18,6 +18,7 @@ public class SparkPointManager : LSMonoBehaviour {
 
     // use this dict to look up sparkpoint by name. DO NOT USE FIND!
     public Dictionary<string, GameObject> sparkPointsDict = new Dictionary<string, GameObject>();
+    public List<GameObject> netSps;
 
     private int sparkPointCount = 0;
     private bool loaded = false;
@@ -67,7 +68,7 @@ public class SparkPointManager : LSMonoBehaviour {
         if (sparkPointCount == 0) {
             Transform spParent = sparkPointPlaceHolders[0].transform.parent;
 
-            List<GameObject> netSps = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
+            netSps = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
             netSps.RemoveAll(sparkPointPlaceHolders.Contains);
             for (int i = 0; i < netSps.Count; i++) {
                 netSps[i].name = netSps[i].name.Substring(0, 11);
@@ -90,6 +91,7 @@ public class SparkPointManager : LSMonoBehaviour {
             for (int i = 0; i < regions.Count; i++ ) {
                 regions[i].PrepareRegionPolygon();
             }
+            CreepManager.Instance.sparkPointSetUp = true;
         }
     }
 }
