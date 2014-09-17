@@ -17,10 +17,13 @@ public class MonsterClient : LSMonoBehaviour
 	            int rand = ra.Next(0, 2);
 	            Vector3 position = new Vector3(CAMPPOSITION[i, 0], 0, CAMPPOSITION[i, 1]);
 	            GameObject monster;
+
+                object[] instantiateData = { position };
+
 	            if (rand == 1)
-                    monster = PhotonNetwork.InstantiateSceneObject("JungleMonsterProto1", position, new Quaternion(), 0, null) as GameObject;
+                    monster = PhotonNetwork.InstantiateSceneObject("JungleMonsterProto1", position, new Quaternion(), 0, instantiateData) as GameObject;
 	            else
-                    monster = PhotonNetwork.InstantiateSceneObject("JungleMonsterProto2", position, new Quaternion(), 0, null) as GameObject;
+                    monster = PhotonNetwork.InstantiateSceneObject("JungleMonsterProto2", position, new Quaternion(), 0, instantiateData) as GameObject;
 	        }
 		}
 	}

@@ -89,7 +89,7 @@ public class JungleMonster : UnitObject
 
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-        source = gameObject.transform.position;
+        source = (Vector3)photonView.instantiationData[0];
 
         //GetComponentInChildren<SkinnedMeshRenderer>().material.color
         //    = new Color((float)photonView.instantiationData[3],
