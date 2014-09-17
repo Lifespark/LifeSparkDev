@@ -13,7 +13,7 @@ public class Player : UnitObject {
 	public float speed;
     public float totalRespawnTime;
     public float remainingRespawnTime;
-	
+
 	Vector3 tempPosition;
 	Vector3 tempValue;
 	float totalSqrLength;
@@ -29,7 +29,9 @@ public class Player : UnitObject {
 	public float m_attackDelay = 0.5f;
 	public float m_nextAttackTime = 0.0f;
 	public float m_attackRange = 100.0f;
-
+	public float m_meleeRange;
+	public float m_totalMeleeTime;
+	public float m_remainingMeleeTime;
 
 	public Attack.AttackType m_baseAttackType = Attack.AttackType.Ranged;
 	public Attack[] m_specialAttacks;
@@ -59,6 +61,9 @@ public class Player : UnitObject {
 
 		lineAttackDist = 30.0f;
 		areaAttackRadius = 10.0f;
+
+		m_meleeRange = 15.0f;
+		m_totalMeleeTime = 2;
 
         // initialize line renderer for drawing path to false
         GetComponent<LineRenderer>().enabled = false;
@@ -131,6 +136,14 @@ public class Player : UnitObject {
 		if(name == "Player1")
 			Debug.Log("Current player state: " + playerState);
 
+		float attackRange=0;
+		if (m_baseAttackType == Attack.AttackType.Ranged) {
+			attackRange=m_attackRange;
+		}
+		if (m_baseAttackType == Attack.AttackType.Melee) {
+			attackRange=m_meleeRange;
+		}
+
 		switch (playerState) {
 		case PlayerState.Idle:
 			break;
@@ -142,7 +155,7 @@ public class Player : UnitObject {
 				totalSqrLength = tempValue.sqrMagnitude;
 				tempValue = Vector3.Normalize(tempValue) * speed * Time.deltaTime;
 
-				if(totalSqrLength <= m_attackRange) {
+				if(totalSqrLength <= attackRange) {
 					if (targetName.Contains("Player"))
 					{
 						if(GameObject.Find(targetName).GetComponent<Player>().playerState != PlayerState.Dead)
@@ -197,23 +210,31 @@ public class Player : UnitObject {
 					tempValue = target - tempPosition;
 					totalSqrLength = tempValue.sqrMagnitude;
 
-					if (totalSqrLength > m_attackRange ) {//Our target ran away/became distant,we can no longer deal DPS
+					if (totalSqrLength > attackRange) {//Our target ran away/became distant,we can no longer deal DPS
 						playerState = PlayerState.Moving;//Chase the target
-					}
-					else {
-	//					if(name == "Player1")
-	//						Debug.Log("Time = " + Time.time + " , nextAttack at = " + m_nextAttackTime);
+						//Reset melee time
+						m_remainingMeleeTime=0;
+					} else if (m_baseAttackType == Attack.AttackType.Ranged) {
 						if(Time.time > m_nextAttackTime) {
 							GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
-						                                               PhotonTargets.All,
-						                                               this.name,
-						                                               targetName
-						                                               );
+							                                               PhotonTargets.All,
+							                                               this.name,
+							                                               targetName
+							                                               );
 							m_nextAttackTime = Time.time + m_attackDelay;
 						}
-
-
-						//playerState = PlayerState.Attacking;
+					} else {
+						if (m_remainingMeleeTime <= 0.0f) {
+							GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+							                                                 PhotonTargets.All,
+							                                                 targetName,
+							                                                 name,
+							                                                 baseAttack,
+							                                                 0);
+							m_remainingMeleeTime = m_totalMeleeTime;
+						} else {
+							m_remainingMeleeTime -= Time.deltaTime;
+						}
 					}
 				}
 			}
