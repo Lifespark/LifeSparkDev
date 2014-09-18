@@ -21,12 +21,12 @@ public class CameraManager : MonoBehaviour {
     public float m_zoomSpeed = 40.0f;
     public float m_zoomMin = 5.0f;
     public float m_zoomMax = 50.0f;
+	public float m_iPadZoomSpeed = 1.0f;
 
 	// Scoop parameters
 	public Vector3 m_vDefaultRotation = new Vector3(45.0f, 0.0f, 0.0f); // as euler angles
 	public Vector3 m_vScoopedRotation = new Vector3(10.0f, 0.0f, 0.0f); // as euler angles
 	public float m_scoopHeight = 20.0f;	//Camera will start rotating upwards when zooming below y=20
-
 
 
 
@@ -37,6 +37,7 @@ public class CameraManager : MonoBehaviour {
 
 	// For use when running on iPad
 	private int t_prevTouchCount = 0;
+
 
 
 	void Start() {
@@ -53,8 +54,30 @@ public class CameraManager : MonoBehaviour {
         Vector3 translation = Vector3.zero;
 
 
+
+
         // Zoom in or out
-        float zoomDelta = Input.GetAxis("Mouse ScrollWheel") * m_zoomSpeed * Time.deltaTime;
+		float zoomDelta = 0.0f;
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			// if on iPad pinch to zoom
+			Touch touchZero = Input.GetTouch(0);
+			Touch touchOne = Input.GetTouch (1);
+
+			Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+			Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+			float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+			float touchDeltaMag = (touchZeroPrevPos - touchOne.position).magnitude;
+
+			float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+			zoomDelta = deltaMagnitudeDiff * m_iPadZoomSpeed * Time.deltaTime;
+
+		} 
+		else {
+			zoomDelta = Input.GetAxis("Mouse ScrollWheel") * m_zoomSpeed * Time.deltaTime;
+		}
+        
         translation += camera.transform.forward * m_zoomSpeed * zoomDelta;
 		Vector3 desiredZoomPosition = camera.transform.position + translation;
 
@@ -79,7 +102,7 @@ public class CameraManager : MonoBehaviour {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
 
 			// if on iPad, use 2 finger swipe to move camera
-			if (Input.touchCount == 2 && t_prevTouchCount == 2) {
+			if (Input.touchCount == 3 && t_prevTouchCount == 3) {
 				translation -= Vector3.right * Input.touches[0].deltaPosition.x * Time.deltaTime * m_iPadScrollSpeed; 
 				translation -= Vector3.forward * Input.touches[0].deltaPosition.y * Time.deltaTime * m_iPadScrollSpeed;
 			}

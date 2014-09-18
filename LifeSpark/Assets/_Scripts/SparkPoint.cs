@@ -22,7 +22,7 @@ public class SparkPoint : LSMonoBehaviour {
 	int captureTimer;
 	int captureTime;
 	Color sparkPointColor;
-
+	Region[] regions;
 	
 	// Use this for initialization
 	void Awake () {
@@ -44,6 +44,7 @@ public class SparkPoint : LSMonoBehaviour {
 
             SparkPointManager.Instance.OnSparkPointInstantiated();
         }
+		regions = GameObject.FindGameObjectWithTag("Ground").GetComponents<Region>();
 	}
 
     public void InitNetworkPassedData() {
@@ -88,10 +89,14 @@ public class SparkPoint : LSMonoBehaviour {
 				//-----------------------------------------------------------------------------------------
 				owner = capturingTeam;
 				capturingTeam = -1;
+				for (int i = 0; i < regions.Length; i++) {
+					regions[i].CheckActivation();
+				}
 				for (int i = 0; i < capturers.Count; i++) {
 					GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerSparkPointCaptured",
 					                                              PhotonTargets.All,
-					                                              capturers[i]);
+					                                              capturers[i],
+					                                              this.name);
 				}
 				capturers.Clear();
 				//Debug.Log ("Team "+owner+" has successfully captured: "+this.name);
@@ -133,9 +138,9 @@ public class SparkPoint : LSMonoBehaviour {
 			capturingTeam = -1;
 			sparkPointState = SparkPointState.Destroyed;
 			captureTimer = 0;
-			sparkPointColor.r = 0.0f;
-			sparkPointColor.g = 0.0f;
-			sparkPointColor.b = 0.0f;
+			sparkPointColor.r = 0.5f;
+			sparkPointColor.g = 0.5f;
+			sparkPointColor.b = 0.5f;
 			renderer.material.color = sparkPointColor;
 		}
 	}

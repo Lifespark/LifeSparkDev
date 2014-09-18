@@ -80,9 +80,9 @@ public class PlayerManager : LSMonoBehaviour {
 	}
 	
 	[RPC]
-	void RPC_setPlayerSparkPointCaptured (string playerName) {
+	void RPC_setPlayerSparkPointCaptured (string playerName, string sparkPointName) {
 		tempPlayer = GameObject.Find("Players/"+playerName);
-		tempPlayer.GetComponent<Player>().CapturedObjective();
+		tempPlayer.GetComponent<Player>().CapturedObjective(sparkPointName);
 	}
 
 
