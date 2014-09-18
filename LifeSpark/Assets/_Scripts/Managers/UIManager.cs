@@ -77,6 +77,37 @@ public class UIManager : MonoBehaviour {
 		go = Instantiate(go) as GameObject;
 		go.name = GUIName;
 		go.SendMessage("OnDisplay",SendMessageOptions.DontRequireReceiver);
+        
 		return go;
 	}
+
+	private SkillUIForm t_skillUIForm;
+
+	/// <summary>
+	/// Gets the skill form.
+	/// </summary>
+	/// <value>Get the KillUIForm class.</value>
+	public SkillUIForm T_skillUIForm {
+		get {
+			if(t_skillUIForm==null)
+			{
+				foreach(Transform t in uiCamera.transform)
+				{
+					if(t.name == "SkillUIForm") // when it alreadly loaded into scene
+					{
+
+						t_skillUIForm = t.GetComponent<SkillUIForm>();
+					}
+					
+				}
+			}
+			return this.t_skillUIForm;
+		}
+	}
+
+	void OnLevelWasLoaded(int level) {
+		AddGui("SkillUIForm");
+	}
+
+
 }

@@ -171,7 +171,8 @@ public class Player : UnitObject {
 						                                              targetName,
 						                                              this.name,
 						                                              team,
-						                                              true);
+						                                              true,
+                                                                      0.2f);
 						playerState = PlayerState.Capturing;
 					}
 					else if (targetName.Contains("Player"))
@@ -233,7 +234,7 @@ public class Player : UnitObject {
 				// Dying with no sparkpoints currently causes a loss - Should change in the future
                 else {
 					gameState = GameState.Defeat;
-					otherPlayers = GameObject.FindGameObjectsWithTag("player");
+					otherPlayers = GameObject.FindGameObjectsWithTag("Player");
 					
 					for(int a = 0; a < otherPlayers.Length; a++) {
 						if(!otherPlayers[a].GetComponent<Player>().playerName.Equals (playerName))	{
@@ -276,7 +277,8 @@ public class Player : UnitObject {
 			                                              this.targetName,
 			                                              this.name,
 			                                              team,
-			                                              false);
+			                                              false,
+                                                          0f);
 		}
 		this.target = target;
 		this.targetName = targetName;

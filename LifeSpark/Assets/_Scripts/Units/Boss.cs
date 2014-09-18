@@ -8,8 +8,10 @@ public class Boss : UnitObject {
 	public enum BossState {
 		IDLE,
 		MOVING,
+		CHASING,
 		ATTACKING,
 		ATTACKED,
+		RETURNING,
 		DEAD,
 		DEFAULT
 	}
@@ -17,22 +19,42 @@ public class Boss : UnitObject {
 	#region BOSS_STATE
 	private BossStateIdle m_bossStateIdle;
 	private BossStateMove m_bossStateMove;
+	private BossStateChase m_bossStateChase;
+	private BossStateAttack m_bossStateAttack;
+	private BossStateReturn m_bossStateReturn;
 
 	private BossStateBase m_bossState;
 	#endregion
 
-	public float maxSpeed = 5.0f;
+	public Vector3 m_bossIdlePosition;
+	public float m_IdleSearchRadius;
+	public float m_moveRange;
+
+
+	private float m_speed;
+	public float m_chaseSpeed;
+	public float m_returnSpeed;
 	public Transform m_target;
 	private Vector3 m_correctBossPos;
 	private Quaternion m_correctBossRot;
 	
 	private bool m_appliedInitialUpdate = false;
+
+
+	private float t_float;
+	private Transform t_transform;
+	private Vector3 t_vector3;
 	
 	// Use this for initialization
 	void Awake() {
 		m_bossStateIdle = new BossStateIdle(this);
 		m_bossStateMove = new BossStateMove(this);
+		m_bossStateChase = new BossStateChase(this);
+		m_bossStateAttack = new BossStateAttack(this);
+		m_bossStateReturn = new BossStateReturn(this);
 		SwitchState(BossState.IDLE);
+
+		m_bossIdlePosition = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -63,9 +85,44 @@ public class Boss : UnitObject {
 		case BossState.MOVING:
 			m_bossState = m_bossStateMove;
 			break;
+		case BossState.CHASING:
+			m_bossState = m_bossStateChase;
+			break;
+		case BossState.ATTACKING:
+			m_bossState = m_bossStateAttack;
+			break;
+		case BossState.RETURNING:
+			m_bossState = m_bossStateReturn;
+			break;
 		}
 		
 		m_bossState.OnEnter();
+	}
+
+	public bool InMoveRange(){
+		if(Vector3.SqrMagnitude(transform.position - m_bossIdlePosition) > (m_moveRange * m_moveRange)){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public bool SearchAround(){
+		t_float = m_IdleSearchRadius * m_IdleSearchRadius;
+		for(int i = 1; i <= 4; i++) {
+			t_transform = GameObject.Find("Players/Player" + i).transform;
+			t_vector3 = t_transform.position - transform.position;
+			t_vector3.y = 0;
+			if(Vector3.SqrMagnitude(t_vector3) < t_float){
+				t_float = Vector3.SqrMagnitude(t_vector3);
+				m_target = t_transform;
+			}
+		}
+		if(t_float < (m_IdleSearchRadius * m_IdleSearchRadius)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/// <summary>
@@ -139,12 +196,12 @@ public class Boss : UnitObject {
 		
 		public override void OnEnter() {
 			m_startTime = Time.time;
+			Debug.Log("Boss Idle.");
 		}
 		
 		public override void OnUpdate() {
-			// Now just for temp.
-			if(PhotonNetwork.isMasterClient) {
-				m_boss.photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossState.MOVING);
+			if(m_boss.SearchAround()) {
+				m_boss.photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossState.CHASING);
 			}
 		}
 		
@@ -167,23 +224,107 @@ public class Boss : UnitObject {
 		
 		public override void OnEnter() {
 			m_startTime = Time.time;
-			Debug.Log("Boss:Moving.");
+			Debug.Log("Boss Move.");
 		}
 		
 		public override void OnUpdate() {
-			// target not reached, continue approaching
-			if (Vector3.SqrMagnitude(m_boss.m_target.position - m_boss.transform.position) > 2.0) {
-				Vector3 targetPos = m_boss.m_target.position;
+
+		}
+		
+		public override void OnExit() {
+			
+		}
+	}
+
+	[Serializable]
+	class BossStateChase : BossStateBase {
+		public BossStateChase(Boss boss) {
+			m_startTime = Time.time;
+			m_state = BossState.CHASING;
+			m_boss = boss;
+		}
+		
+		public override void OnEnter() {
+			m_startTime = Time.time;
+			Debug.Log("Boss Chase.");
+			m_boss.m_speed = m_boss.m_chaseSpeed;
+		}
+		
+		public override void OnUpdate() {
+			if(m_boss.InMoveRange()){
+				if(m_boss.SearchAround()){
+					if (Vector3.SqrMagnitude(m_boss.m_target.position - m_boss.transform.position) > 6.0) {
+						Vector3 targetPos = m_boss.m_target.position;
+						Vector3 direction = (targetPos - m_boss.transform.position).normalized;
+						direction.y = 0;
+						
+						m_boss.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
+						m_boss.transform.position += direction * m_boss.m_speed * Time.deltaTime;
+					} else {
+						m_boss.photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossState.ATTACKING);
+					}
+				}
+			} else {
+				m_boss.photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossState.RETURNING);
+			}
+		}
+		
+		public override void OnExit() {
+			
+		}
+	}
+
+	[Serializable]
+	class BossStateAttack : BossStateBase {
+		public BossStateAttack(Boss boss) {
+			m_startTime = Time.time;
+			m_state = BossState.ATTACKING;
+			m_boss = boss;
+		}
+		
+		public override void OnEnter() {
+			m_startTime = Time.time;
+			Debug.Log("Boss Attack.");
+		}
+		
+		public override void OnUpdate() {
+			// do attack
+
+			//
+			if(Time.time - m_startTime > 1){
+				m_boss.photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossState.CHASING);
+			}
+		}
+		
+		public override void OnExit() {
+
+		}
+	}
+
+	[Serializable]
+	class BossStateReturn : BossStateBase {
+		public BossStateReturn(Boss boss) {
+			m_startTime = Time.time;
+			m_state = BossState.RETURNING;
+			m_boss = boss;
+		}
+		
+		public override void OnEnter() {
+			m_startTime = Time.time;
+			Debug.Log("Boss Return.");
+			m_boss.m_speed = m_boss.m_returnSpeed;
+		}
+		
+		public override void OnUpdate() {
+			if (Vector3.SqrMagnitude(m_boss.m_bossIdlePosition - m_boss.transform.position) > 4.0) {
+				Vector3 targetPos = m_boss.m_bossIdlePosition;
 				Vector3 direction = (targetPos - m_boss.transform.position).normalized;
 				direction.y = 0;
 				
 				m_boss.transform.rotation = Quaternion.LookRotation(direction); // maybe use a slerp to limit angular speed
-				m_boss.transform.position += direction * m_boss.maxSpeed * Time.deltaTime;
-			}
-			else {
-				// Re get target.
-				// OPT need.
-				m_boss.m_target = GameObject.Find("Players/Player1").transform;
+				m_boss.transform.position += direction * m_boss.m_speed * Time.deltaTime;
+			} else {
+				m_boss.photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossState.IDLE);
 			}
 		}
 		

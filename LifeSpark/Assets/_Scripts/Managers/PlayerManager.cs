@@ -2,6 +2,17 @@
 using System.Collections;
 
 public class PlayerManager : LSMonoBehaviour {
+
+    static private PlayerManager _instance;
+    static public PlayerManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(PlayerManager)) as PlayerManager;
+            return _instance;
+        }
+    }
+
+
 	public Material OriginalLane;
 	public Material BrokenLane;
 	public Material Team1Lane;
@@ -10,7 +21,11 @@ public class PlayerManager : LSMonoBehaviour {
 	
 	GameObject tempPlayer;
 	GameObject tempSparkPoint;
-	
+
+    void Awake() {
+        _instance = this;
+    }
+
 	// Use this for initialization
 	void Start () {
 		NetworkManager tempNM = GameObject.Find ("Manager").GetComponent<NetworkManager>();
@@ -62,7 +77,7 @@ public class PlayerManager : LSMonoBehaviour {
 	void RPC_setPlayerTarget (string playerObject, Vector3 target, string targetName, int typeAsInt) {
 		//Note: Enums are sent as ints in RPCs, so we actually need to receive the PlayerInput.TargetType as an int and then cast it
 		PlayerInput.TargetType type = (PlayerInput.TargetType)typeAsInt;
-		Debug.Log ("Getting type of " + type);
+		//Debug.Log ("Getting type of " + type);
 		tempPlayer = GameObject.Find ("Players/" + playerObject);
 		if (type == PlayerInput.TargetType.Position) {
 			tempPlayer.GetComponent<Player> ().UpdateTarget (target, targetName);//This may not be necessary now that we're using navmesh. Will leave in for now.
@@ -73,11 +88,18 @@ public class PlayerManager : LSMonoBehaviour {
 	}
 	
 	[RPC]
-	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b) {
+	void RPC_setSparkPointCapture (string sparkPointName, string playerName, int team, bool b, float rate) {
 		//tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
         tempSparkPoint = SparkPointManager.Instance.sparkPointsDict[sparkPointName];
-		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName,team,b);
+		tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointCapture(playerName, team, b, rate);
 	}
+
+    [RPC]
+    void RPC_setSparkPointDestroy(string sparkPointName, string playerName, int team) {
+        //tempSparkPoint = GameObject.Find("SparkPoints/"+sparkPointName);
+        tempSparkPoint = SparkPointManager.Instance.sparkPointsDict[sparkPointName];
+        tempSparkPoint.GetComponent<SparkPoint>().SetSparkPointDestroy(playerName, team);
+    }
 	
 	[RPC]
 	void RPC_setPlayerSparkPointCaptured (string playerName, string sparkPointName) {
