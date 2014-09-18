@@ -13,7 +13,7 @@ public class Player : UnitObject {
 	public float speed;
     public float totalRespawnTime;
     public float remainingRespawnTime;
-	
+
 	Vector3 tempPosition;
 	Vector3 tempValue;
 	float totalSqrLength;
@@ -25,6 +25,18 @@ public class Player : UnitObject {
 	public float areaAttackRadius;
 	public Object lineAttackPrefab;
 	public Object areaAttackPrefab;
+	public Object missilePrefab;
+	
+	public float m_attackDelay = 0.5f;
+	public float m_nextAttackTime = 0.0f;
+	public float m_attackRange = 100.0f;
+	public float m_meleeRange;
+	public float m_totalMeleeTime;
+	public float m_remainingMeleeTime;
+
+	public Attack.AttackType m_baseAttackType = Attack.AttackType.Ranged;
+	public Attack[] m_specialAttacks;
+
 
 	public enum PlayerState {
 		Idle,
@@ -72,6 +84,9 @@ public class Player : UnitObject {
 		lineAttackDist = 30.0f;
 		areaAttackRadius = 10.0f;
 
+		m_meleeRange = 15.0f;
+		m_totalMeleeTime = 2;
+
         // initialize line renderer for drawing path to false
         GetComponent<LineRenderer>().enabled = false;
 
@@ -87,6 +102,25 @@ public class Player : UnitObject {
 		regionPoint2 = Vector3.zero;
 		regionTempPos = Vector3.zero;
 		tempVector = new Vector3(100.0f,0.0f,100.0f);
+		//MeleeAttack tempMelee;
+		//tempMelee = new MeleeAttack ();
+
+		//Set player's basic attack
+
+		HitObject tempHit = new HitObject();
+
+		if (m_baseAttackType == Attack.AttackType.Melee) {
+			m_basicAttack = new MeleeAttack (Attack.AttackType.Melee, tempHit, 5);
+		}
+		else {
+			m_basicAttack = new RangedAttack(Attack.AttackType.Ranged, tempHit, 3, 8);
+		}
+
+		//set player's special attacks
+		m_specialAttacks.SetValue(new LineAttack(Attack.AttackType.Line, tempHit, 1, 2, 4), 0);
+		m_specialAttacks.SetValue(new AreaAttack(Attack.AttackType.Area, tempHit, 1, 2, 3, true), 1);
+		m_specialAttacks.SetValue(new AreaAttack(Attack.AttackType.Area, tempHit, 1, 2, 3, false), 2);
+
 	}
 	
 	// Update is called once per frame
@@ -103,6 +137,7 @@ public class Player : UnitObject {
         }
 
 		movePlayer ();
+
         // Draw Path
         /*if (GetComponent<NavMeshAgent>().hasPath && playerState != PlayerState.Dead)
         {
@@ -151,6 +186,16 @@ public class Player : UnitObject {
 		GetComponent<NavMeshAgent>().Stop();
 		GetComponent<LineRenderer>().enabled = false;
 
+		if(name == "Player1")
+			Debug.Log("Current player state: " + playerState);
+
+		float attackRange=0;
+		if (m_baseAttackType == Attack.AttackType.Ranged) {
+			attackRange=m_attackRange;
+		}
+		if (m_baseAttackType == Attack.AttackType.Melee) {
+			attackRange=m_meleeRange;
+		}
 
 		switch (playerState) {
 		case PlayerState.Idle:
@@ -162,6 +207,16 @@ public class Player : UnitObject {
 				tempValue = target - tempPosition;
 				totalSqrLength = tempValue.sqrMagnitude;
 				tempValue = Vector3.Normalize(tempValue) * speed * Time.deltaTime;
+
+				if(totalSqrLength <= attackRange) {
+					if (targetName.Contains("Player"))
+					{
+						if(GameObject.Find(targetName).GetComponent<Player>().playerState != PlayerState.Dead)
+							playerState = PlayerState.Attacking;	
+						else playerState = PlayerState.Idle;
+					}
+				}
+
 				if (totalSqrLength <= 10.0f) {
 					
 					if (targetName.Contains("SparkPoint"))
@@ -175,16 +230,11 @@ public class Player : UnitObject {
                                                                       0.2f);
 						playerState = PlayerState.Capturing;
 					}
-					else if (targetName.Contains("Player"))
-					{
-						GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
-						                                              PhotonTargets.All,
-						                                              this.playerName,
-						                                              targetName,
-						                                              this.baseAttack);
-						playerState = PlayerState.Attacking;
-						
-					}
+//					else if (targetName.Contains("Player"))
+//					{
+//						playerState = PlayerState.Attacking;
+//						
+//					}
 				}
 				else if(tempValue.sqrMagnitude > totalSqrLength) {
 					this.transform.position.Set(target.x, this.transform.position.y, target.z);
@@ -204,17 +254,48 @@ public class Player : UnitObject {
 		case PlayerState.Capturing:
 			break;
 		case PlayerState.Attacking:
-			tempPosition = this.transform.position;
-			tempPosition.y = 0;
-			if (!tempPosition.Equals(target)) {
-				tempValue = target - tempPosition;
-				totalSqrLength = tempValue.sqrMagnitude;
-				if (totalSqrLength > 10.0f ) {//Our target ran away/became distant,we can no longer deal DPS
-					playerState = PlayerState.Moving;//Chase the target
-					
+
+			//if target is alive, attack
+			if(GameObject.Find(targetName).GetComponent<Player>().playerState != PlayerState.Dead) {
+
+				tempPosition = this.transform.position;
+				tempPosition.y = 0;
+				if (!tempPosition.Equals(target)) {
+					tempValue = target - tempPosition;
+					totalSqrLength = tempValue.sqrMagnitude;
+
+					if (totalSqrLength > attackRange) {//Our target ran away/became distant,we can no longer deal DPS
+						playerState = PlayerState.Moving;//Chase the target
+						//Reset melee time
+						m_remainingMeleeTime=0;
+					} else if (m_baseAttackType == Attack.AttackType.Ranged) {
+						if(Time.time > m_nextAttackTime) {
+							GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
+							                                               PhotonTargets.All,
+							                                               this.name,
+							                                               targetName
+							                                               );
+							m_nextAttackTime = Time.time + m_attackDelay;
+						}
+					} else {
+						if (m_remainingMeleeTime <= 0.0f) {
+							GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+							                                                 PhotonTargets.All,
+							                                                 targetName,
+							                                                 name,
+							                                                 baseAttack,
+							                                                 0);
+							m_remainingMeleeTime = m_totalMeleeTime;
+						} else {
+							m_remainingMeleeTime -= Time.deltaTime;
+						}
+					}
 				}
-				
 			}
+			else {
+				playerState = PlayerState.Idle;
+			}
+
 			break;
         case PlayerState.Dead:
             if (remainingRespawnTime <= 0.0f) {
@@ -290,6 +371,7 @@ public class Player : UnitObject {
         playerState = PlayerState.Dead;
         target = this.transform.position;
         renderer.enabled = false;
+		collider.enabled = false;
         unitHealth = 0;
         remainingRespawnTime = totalRespawnTime;
     }
@@ -300,6 +382,7 @@ public class Player : UnitObject {
         this.transform.position = location;
         target = location;
         this.enabled = true;
+		collider.enabled = true;
         renderer.enabled = true;
         unitHealth = maxHealth;
     }
