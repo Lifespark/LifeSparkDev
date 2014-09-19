@@ -23,25 +23,37 @@ public class CombatManager : LSMonoBehaviour {
 	/// Create missile targeted at player with targetName shot by attacker Name
 	/// </summary>
 	[RPC]
-	void RPC_ShootMissile(string attackerName, string targetName, int baseAttack){
+	void RPC_ShootMissile(string attackerName, string targetName){
 		
 		//Create missile targeted at player with targetName, store attacking player name in the missile
+		GameObject attacker = GameObject.Find("Players/" + attackerName);
+		GameObject target = GameObject.Find("Players/" + targetName);
+
+		Player attackerPlayer = attacker.GetComponent<Player>();
 		
-		
+		//missile prefab stored in player or missile itself?
+		GameObject missile = (GameObject)Instantiate(attackerPlayer.missilePrefab, attackerPlayer.transform.position, 
+		                                            Quaternion.LookRotation(target.transform.position - attackerPlayer.transform.position));
+		missile.GetComponent<Renderer>().material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
+
+		Projectile missileProjectile = missile.GetComponent<Projectile>();
+		missileProjectile.m_owner = attacker;
+		missileProjectile.m_target = target;
+		//other properties set according to attacker properties
 	}
 
 	/// <summary>
 	/// projectile hits, target of the projectile takes damage based on the attack
 	/// </summary>
-	void MissileHit(){
-		string attackerName = "";
-		string targetName = "";
-		
+	public void MissileHit(string attackerName, string targetName){
+
+		Debug.Log(attackerName + " hit " + targetName);
+
 		GameObject tempPlayer;
-		tempPlayer = GameObject.Find ("Players/" + "***attackerName to be passed from the projectile***");
+		tempPlayer = GameObject.Find ("Players/" + attackerName);
 		
-		GameObject tempTarget;
-		tempTarget = GameObject.Find("Players/" + "***targetName to be determined from the missile hit***");
+		//GameObject tempTarget;
+		//tempTarget = GameObject.Find("Players/" + "***targetName to be determined from the missile hit***");
 		
 		GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
 		                                                 PhotonTargets.All,

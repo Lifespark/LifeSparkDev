@@ -60,10 +60,14 @@ public class Lane : LSMonoBehaviour {
 	[RPC]
 	void RPC_setInitialTransform (Vector3 edge1, Vector3 edge2) {
 		this.transform.position = (edge1 + edge2 - new Vector3(0, edge1.y, 0)) / 2;
-		this.transform.localScale = new Vector3(Mathf.Sqrt((edge1 - edge2).sqrMagnitude) - 1, 0.1f, 1);
-		Vector3 direction = edge1 - edge2;
+		this.transform.localScale = new Vector3(1, 0.1f, Mathf.Sqrt((edge1 - edge2).sqrMagnitude) - 1);
+		Vector3 directionNorm = (edge1 - edge2);
+		directionNorm.y = 0.0f;
+		directionNorm.Normalize();
+		this.transform.rotation = Quaternion.LookRotation(directionNorm);
+		/*Vector3 direction = edge1 - edge2;
 		float angle = Vector3.Angle (direction, this.transform.right);
 		if (angle > 90) {angle = angle - (2*(angle - 90));}
-		this.transform.Rotate (new Vector3 (0, angle, 0));
+		this.transform.Rotate (new Vector3 (0, angle, 0));*/
 	}
 }

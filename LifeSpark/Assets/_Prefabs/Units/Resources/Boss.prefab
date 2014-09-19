@@ -71,11 +71,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc768e196a0bdf40a4ed1b8e24e0c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   unitHealth: 0
   baseAttack: 0
-  DPSReceived: 0
-  DPSTimer: 0
-  maxSpeed: 5
+  m_bossIdlePosition: {x: 0, y: 0, z: 0}
+  m_IdleSearchRadius: 20
+  m_moveRange: 25
+  m_chaseSpeed: 6
+  m_returnSpeed: 15
   m_target: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:

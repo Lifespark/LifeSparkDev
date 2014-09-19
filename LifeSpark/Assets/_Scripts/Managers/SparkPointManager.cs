@@ -6,6 +6,8 @@ using System.Linq;
 public class SparkPointManager : LSMonoBehaviour {
 
     static private SparkPointManager _instance;
+
+    // use this to access SparkPointManager
     static public SparkPointManager Instance {
         get {
             if (_instance == null)
@@ -14,7 +16,9 @@ public class SparkPointManager : LSMonoBehaviour {
         }
     }
 
+    // use this dict to look up sparkpoint by name. DO NOT USE FIND!
     public Dictionary<string, GameObject> sparkPointsDict = new Dictionary<string, GameObject>();
+    public List<GameObject> netSps;
 
     private int sparkPointCount = 0;
     private bool loaded = false;
@@ -28,20 +32,19 @@ public class SparkPointManager : LSMonoBehaviour {
 
     void OnLevelWasLoaded(int level) {
         if (level == 1) {
-            // never use FindObjectOfType!!
-            regions = new List<Region>(FindObjectsOfType<Region>());
+            regions = new List<Region>(GameObject.FindWithTag("Ground").GetComponents<Region>());
             sparkPointPlaceHolders = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
             sparkPointCount = sparkPointPlaceHolders.Count;
             if (PhotonNetwork.isMasterClient) {
-                foreach (var sp in sparkPointPlaceHolders) {
+                for (int i = 0; i < sparkPointPlaceHolders.Count; i++) {
                     List<object> connectedSparkPointNames = new List<object>();
-                    foreach (var spsript in sp.GetComponent<SparkPoint>()._connections) {
-                        if (spsript != null)
-                            connectedSparkPointNames.Add(spsript.gameObject.name);
+                    for (int j = 0; j < sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections.Length; j++) {
+                        if (sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections[j] != null)
+                            connectedSparkPointNames.Add(sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections[j].gameObject.name);
                     }
-                    List<object> initData = new List<object> { sp.name, sp.tag };
+                    List<object> initData = new List<object> { sparkPointPlaceHolders[i].name, sparkPointPlaceHolders[i].tag };
                     initData.AddRange(connectedSparkPointNames);
-                    GameObject netSp = PhotonNetwork.InstantiateSceneObject("SparkPoint", sp.transform.position, sp.transform.rotation, 0, initData.ToArray());
+                    GameObject netSp = PhotonNetwork.InstantiateSceneObject("SparkPoint", sparkPointPlaceHolders[i].transform.position, sparkPointPlaceHolders[i].transform.rotation, 0, initData.ToArray());
                     //sparkPoints.Add(netSp.GetComponent<SparkPoint>());
                 }
             }
@@ -55,34 +58,40 @@ public class SparkPointManager : LSMonoBehaviour {
 	
 	}
 
+    /// <summary>
+    /// when a networked Sparkpint is fully prepared, it will call this function
+    /// </summary>
     public void OnSparkPointInstantiated() {
         sparkPointCount--;
+
+        // if all sparkpoints are replaced, clean up the scene
         if (sparkPointCount == 0) {
             Transform spParent = sparkPointPlaceHolders[0].transform.parent;
 
-            List<GameObject> netSps = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
+            netSps = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
             netSps.RemoveAll(sparkPointPlaceHolders.Contains);
-            foreach (var netSp in netSps) {
-                netSp.name = netSp.name.Substring(0, 11);
-                sparkPointsDict.Add(netSp.name, netSp);
-                netSp.transform.parent = spParent;
+            for (int i = 0; i < netSps.Count; i++) {
+                netSps[i].name = netSps[i].name.Substring(0, 11);
+                sparkPointsDict.Add(netSps[i].name, netSps[i]);
+                netSps[i].transform.parent = spParent;
                 foreach (var region in regions) {
-                    for (int i = 0; i < region.regionPoints.Length; i++) {
-                        if (region.regionPoints[i] != null && region.regionPoints[i].gameObject.name == netSp.name)
-                            region.regionPoints[i] = netSp.GetComponent<SparkPoint>();
+                    for (int j = 0; j < region.regionPoints.Length; j++) {
+                        if (region.regionPoints[j] != null && region.regionPoints[j].gameObject.name == netSps[i].name)
+                            region.regionPoints[j] = netSps[i].GetComponent<SparkPoint>();
                     }
                 }
             }
-            foreach (GameObject sp in sparkPointPlaceHolders) {
-                DestroyImmediate(sp);
+            for (int i = 0; i < sparkPointPlaceHolders.Count; i++) {
+                DestroyImmediate(sparkPointPlaceHolders[i]);
             }
-            foreach (GameObject netSp in netSps) {
-                if (netSp != null)
-                    netSp.GetComponent<SparkPoint>().InitNetworkPassedData();
+            for (int i = 0; i < netSps.Count; i++) {
+                if (netSps[i] != null)
+                    netSps[i].GetComponent<SparkPoint>().InitNetworkPassedData();
             }
-            foreach (var region in regions) {
-                region.PrepareRegionPolygon();
+            for (int i = 0; i < regions.Count; i++ ) {
+                regions[i].PrepareRegionPolygon();
             }
+            CreepManager.Instance.sparkPointSetUp = true;
         }
     }
 }

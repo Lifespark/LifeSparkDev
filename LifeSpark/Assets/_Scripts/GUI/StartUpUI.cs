@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// This Class is terrible!!!!!!!
+/// I will combie this class with SimpleGUI when doing the formal GUI
+/// Or I have spare time to do this
+/// </summary>
+
+
+using UnityEngine;
 using System.Collections;
 //[ExecuteInEditMode]
 public class StartUpUI : MonoBehaviour {
@@ -20,6 +27,10 @@ public class StartUpUI : MonoBehaviour {
 		m_sGui = sgui;
 
 	}
+
+	private bool t_needUpdate;
+	private float t_timer = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -30,6 +41,7 @@ public class StartUpUI : MonoBehaviour {
 		start.SetActive(false);
 		lobby.SetActive(false);
 		m_room.SetActive(false);
+		t_needUpdate = false;
 //		start.SetActive(false);
 //		start.SetActive(false);
 	}
@@ -45,6 +57,15 @@ public class StartUpUI : MonoBehaviour {
 //		{
 //		m_lobbyCell = m_cellObject.GetComponentsInChildren<LobbyCell>();
 //		}
+
+
+		if(t_timer > 1)
+		{
+			t_timer = 0;
+			UpdateLobby();
+		}else{
+			t_timer += Time.deltaTime;
+		}
 	}
 
 	public void joinLobby (string lobbyName)
@@ -77,6 +98,7 @@ public class StartUpUI : MonoBehaviour {
 	void OnMulti()
 	{
 		clossAll();
+		t_needUpdate = true;
 		m_sGui.StartMultiPlayer();
 		start.SetActive(false);
 		m_lobbyName.text = "default";
@@ -112,6 +134,37 @@ public class StartUpUI : MonoBehaviour {
 			}
 		}
 
+	}
+
+	void UpdateLobby ()
+	{
+		//Debug.Log("Lobby updated");
+		if(lobbyList == null)
+		{
+//			Debug.LogError("Cannot get the lobby list from network manager");
+		}else{
+			
+			if(lobbyList.Length == 0)
+			{
+				m_none.gameObject.SetActive(true);
+			}else{
+				m_none.gameObject.SetActive(false);
+				
+				for(int i =0 , j = lobbyList.Length;i<j;i++)
+				{
+					m_lobbyCell[i].gameObject.SetActive(true);
+					m_lobbyCell[i].lobbyName = lobbyList[i].name;
+					m_lobbyCell[i].m_label.text = lobbyList[i].name + 
+						" " + lobbyList[i].playerCount + "/" + lobbyList[i].maxPlayers;
+					
+				}
+				
+				
+				
+				
+				
+			}
+		}
 	}
 
 	void OnQuickTest()
