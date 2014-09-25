@@ -151,8 +151,12 @@ public class CombatManager : LSMonoBehaviour {
 				                                                 	attackerName,
 				                                                 	tempPlayer.GetComponent<Player>().baseAttack,
 				                                                 	0);
+
 				}
 			}
+
+			StartCoroutine(tempPlayer.GetComponent<Player>().coolLine());
+
 		} else {
 			GameObject[] entities = GameObject.FindGameObjectsWithTag("Player");
 			Debug.DrawRay (location, Vector3.forward * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.black);
@@ -174,11 +178,15 @@ public class CombatManager : LSMonoBehaviour {
 					                                                 attackerName,
 					                                                 tempPlayer.GetComponent<Player>().baseAttack,
 					                                                 0);
+
 				}
 			}
+
+			StartCoroutine(tempPlayer.GetComponent<Player>().coolArea());
+
 		}
-
-
+		
+		
 	}
 	
 }

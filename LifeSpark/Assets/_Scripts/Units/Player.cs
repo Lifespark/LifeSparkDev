@@ -25,15 +25,20 @@ public class Player : UnitObject {
 	public Object lineAttackPrefab;
 	public Object areaAttackPrefab;
 	public Object missilePrefab;
-	
-	public float m_attackDelay = 0.5f;
-	public float m_nextAttackTime = 0.0f;
+
 	public float m_attackRange = 100.0f;
 	public float m_meleeRange;
-	public float m_totalMeleeTime;
-	public float m_remainingMeleeTime;
 
-	public Attack.AttackType m_baseAttackType = Attack.AttackType.Ranged;
+	public float m_meleeCoolTime;
+	public float m_rangedCoolTime;
+	public float m_lineCoolTime;
+	public float m_areaCoolTime;
+	public bool isMeleeCool;
+	public bool isRangedCool;
+	public bool isLineCool;
+	public bool isAreaCool;
+
+	public Attack.AttackType m_baseAttackType = Attack.AttackType.Melee;
 	public Attack[] m_specialAttacks;
 
 
@@ -63,7 +68,16 @@ public class Player : UnitObject {
 		areaAttackRadius = 10.0f;
 
 		m_meleeRange = 15.0f;
-		m_totalMeleeTime = 2;
+
+		m_meleeCoolTime = 1.0f;
+		m_rangedCoolTime = 0.5f;
+		m_lineCoolTime = 3.0f;
+		m_areaCoolTime = 3.0f;
+
+		isMeleeCool = true;
+		isRangedCool = true;
+		isLineCool = true;
+		isAreaCool = true;
 
         // initialize line renderer for drawing path to false
         GetComponent<LineRenderer>().enabled = false;
@@ -212,28 +226,24 @@ public class Player : UnitObject {
 
 					if (totalSqrLength > attackRange) {//Our target ran away/became distant,we can no longer deal DPS
 						playerState = PlayerState.Moving;//Chase the target
-						//Reset melee time
-						m_remainingMeleeTime=0;
 					} else if (m_baseAttackType == Attack.AttackType.Ranged) {
-						if(Time.time > m_nextAttackTime) {
+						if(isRangedCool) {
 							GameObject.Find("Manager").GetPhotonView().RPC("RPC_ShootMissile",
 							                                               PhotonTargets.All,
 							                                               this.name,
 							                                               targetName
 							                                               );
-							m_nextAttackTime = Time.time + m_attackDelay;
+							StartCoroutine(coolRanged());
 						}
 					} else {
-						if (m_remainingMeleeTime <= 0.0f) {
+						if (isMeleeCool) {
 							GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
 							                                                 PhotonTargets.All,
 							                                                 targetName,
 							                                                 name,
 							                                                 baseAttack,
 							                                                 0);
-							m_remainingMeleeTime = m_totalMeleeTime;
-						} else {
-							m_remainingMeleeTime -= Time.deltaTime;
+							StartCoroutine(coolMelee());
 						}
 					}
 				}
@@ -274,6 +284,34 @@ public class Player : UnitObject {
             break;
 		}
 
+	}
+
+	// Don't let the player use melee attack until the timer has finished
+	public IEnumerator coolMelee () {
+		isMeleeCool = false;
+		yield return new WaitForSeconds (m_meleeCoolTime);
+		isMeleeCool = true;
+	}
+
+	// Don't let the player use ranged attack until the timer has finished
+	public IEnumerator coolRanged () {
+		isRangedCool = false;
+		yield return new WaitForSeconds (m_rangedCoolTime);
+		isRangedCool = true;
+	}
+
+	// Don't let the player use line attack until the timer has finished
+	public IEnumerator coolLine () {
+		isLineCool = false;
+		yield return new WaitForSeconds (m_lineCoolTime);
+		isLineCool = true;
+	}
+
+	// Don't let the player use area attack until the timer has finished
+	public IEnumerator coolArea () {
+		isAreaCool = false;
+		yield return new WaitForSeconds (m_areaCoolTime);
+		isAreaCool = true;
 	}
 
 	//Sends the call for combat off to the combat manager

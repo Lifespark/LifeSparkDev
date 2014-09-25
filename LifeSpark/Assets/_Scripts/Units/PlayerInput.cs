@@ -35,13 +35,13 @@ public class PlayerInput : UnitMovement {
 	//Uses 'S' for line attack and 'A' for area attack
 	//Defaults to normal movement after every click
 	void KeyBoardMouseInput () {
-		if (Input.GetKeyDown ("s")) {
+		if (Input.GetKeyDown ("s") && this.GetComponent<Player>().isLineCool) {
 			targetType = TargetType.LineAttack;
 		}
-		if (Input.GetKeyDown ("a")) {
+		if (Input.GetKeyDown ("a") && this.GetComponent<Player>().isAreaCool) {
 			targetType = TargetType.TargetAreaAttack;
 		}
-        if (Input.GetKeyDown("d")) {
+		if (Input.GetKeyDown("d") && this.GetComponent<Player>().isAreaCool) {
             targetType = TargetType.SelfAreaAttack;
             // Making the aoe around player a quick cast (no mouse involved.)
             GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerTarget",
