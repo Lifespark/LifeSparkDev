@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Levantis" id="0" isTemp="false"/>
+		<TemplateObject objectName="Target" id="1" isTemp="false"/>
+		<TemplateObject objectName="chain" id="2" isTemp="false"/>
+	</TemplateObjectList>
+	<RefParamList/>
+	<Action tag="" length="1.500" loop="false" hasFlowGraph="true">
+		<Track trackName="SetAnimatorParam0" eventType="SetAnimatorParam" guid="36fd91ae-b499-4d6c-adf4-10a53e307531" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.917" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="stateAttack" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="ac8d041d-a5ca-4522-ac71-b4de933c0f59" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.800" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.762" isDuration="false">
+				<TemplateObject name="targetId" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetAttackIndex" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="1" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="4" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="0.778" isDuration="false">
+				<TemplateObject name="targetId" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="receiveActionAttack" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="5" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="2" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod3" eventType="InvokeMethod" guid="a14162b1-7ea0-4410-8ae0-8ebe489a5826" x="100.000" y="50.000" enabled="false" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.350" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.178" isDuration="false">
+				<TemplateObject name="targetId" objectName="chain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="0.951" isDuration="false">
+				<TemplateObject name="targetId" objectName="chain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="TriggerAudioOneShot0" eventType="TriggerAudioOneShot" guid="e9932af3-5610-49e1-8ad0-73ed0122ac01" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.783" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerAudioOneShot" time="0.777" isDuration="false">
+				<bool name="mutilSource" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="targetId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="audioPath" value="audio/sfx/levantis/chain hit" refParamName="" useRefParam="false"/>
+				<float name="volume" value="1.000" refParamName="" useRefParam="false"/>
+				<int name="priority" value="255" refParamName="" useRefParam="false"/>
+				<bool name="enableRand" value="false" refParamName="" useRefParam="false"/>
+				<Array name="randPaths" refParamName="" useRefParam="false" type="String"/>
+				<Array name="probabilities" refParamName="" useRefParam="false" type="float"/>
+			</Event>
+		</Track>
+		<Track trackName="StopMultipleTracks0" eventType="StopMultipleTracks" guid="88548448-5873-4b8d-8a49-83049201acef" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.483" g="1.000" b="0.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="StopMultipleTracks" time="0.000" isDuration="false">
+				<Array name="trackIds" refParamName="" useRefParam="false" type="TrackObject">
+					<Guid id="0" guid="36fd91ae-b499-4d6c-adf4-10a53e307531"/>
+					<Guid id="1" guid="ac8d041d-a5ca-4522-ac71-b4de933c0f59"/>
+					<Guid id="2" guid="a14162b1-7ea0-4410-8ae0-8ebe489a5826"/>
+					<Guid id="3" guid="e9932af3-5610-49e1-8ad0-73ed0122ac01"/>
+				</Array>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod3" eventType="InvokeMethod" guid="f8b89ab2-3272-41d5-96c0-93640fa89d6d" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.800" g="0.000" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="chain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

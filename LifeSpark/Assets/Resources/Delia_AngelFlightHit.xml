@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Victim" id="0" isTemp="false"/>
+		<TemplateObject objectName="Attacker" id="1" isTemp="false"/>
+		<TemplateObject objectName="Trigger" id="2" isTemp="false"/>
+		<TemplateObject objectName="myPos" id="3" isTemp="true"/>
+		<TemplateObject objectName="dragPos" id="4" isTemp="true"/>
+	</TemplateObjectList>
+	<RefParamList>
+		<String name="testStr" value="" refParamName="" useRefParam="false"/>
+	</RefParamList>
+	<Action tag="" length="0.466" loop="false" hasFlowGraph="true">
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="28d5aa05-8bf0-434b-9c2c-381032c9516a" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.567" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetAttackIndex" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="1" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="1" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="0.039" isDuration="false">
+				<TemplateObject name="targetId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="receiveActionAttack" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="5" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="1" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Attacker" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

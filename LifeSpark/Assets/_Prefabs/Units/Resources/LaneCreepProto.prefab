@@ -242,7 +242,7 @@ GameObject:
   - 195: {fileID: 19500000}
   m_Layer: 0
   m_Name: LaneCreepProto
-  m_TagString: Untagged
+  m_TagString: LaneCreep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -483,6 +483,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -497,6 +498,15 @@ MonoBehaviour:
   maxHealth: 0
   unitHealth: 0
   baseAttack: 0
+  m_basicAttack: {fileID: 0}
+  slowAmount: 0
+  isFrozen: 0
+  isKnockedUp: 0
+  flockingRadius: 100
+  isLeader: 0
+  alignmentWeight: 1
+  cohesionWeight: 1
+  separationWeight: 1
   owner: 0
   maxSpeed: 5
   playerName: 
@@ -513,6 +523,9 @@ MonoBehaviour:
     attackIntervial: 0
   creepStateChase:
     chasingDistance: 0
+    flockingRadius: 0
+  creepStateReturn:
+    returnTarget: {x: 0, y: 0, z: 0}
   creepStateCapture:
     attackIntervial: 0
   creepStateDead:

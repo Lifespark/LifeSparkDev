@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 
 public class BossCage : LSMonoBehaviour {
+    //TODO: This feels more like a "BossBehavior" class now, almost. We may want to change its name. -Kaleb
+
+    #region OUTER_INTERFACE
+    // Warning, assume only have one boss on stage
+    public delegate void TierAction(int tier);
+    public static event TierAction OnTierChanged;
+    public delegate void PeriodicAction();
+    public static event PeriodicAction OnPeriodicEvent;
+    #endregion
 
 	public enum BossCageState {
 		IDLE,
@@ -11,15 +21,13 @@ public class BossCage : LSMonoBehaviour {
 		DEFAULT
 	}
 
-	public string[] m_connectionNames;
+	// public string[] m_connectionNames;
 	public SparkPoint[] m_connections;
+
 	public int[] m_lineCreatedMemo;
-	//public bool m_teamOneCharged;
-	//public bool m_teamTwoCharged;
-	public int m_teamOneCount;
-	public int m_teamTwoCount;
+	public int[] m_teamCounts = new int[2];
 
-
+    public GameObject tomb;
 
 	private List<string> initConnected = new List<string>();
 
@@ -27,10 +35,13 @@ public class BossCage : LSMonoBehaviour {
 	public float m_breakValue;
 
 	public float m_chargedValue;
-	
 
+    public Bosstype.Name m_BossName;
+    private Bosstype _BossType;
+    public Bosstype m_BossType { get { return _BossType; } }
 
-
+	public bool shouldDebugCageSize;
+	public float bossCageSize = 130.0f;
 
 	#region BOSSCAGE_STATE
 	private BossCageStateIdle m_bossCageStateIdle;
@@ -39,9 +50,21 @@ public class BossCage : LSMonoBehaviour {
 
 	private BossCageStateBase m_bossCageState;
 	#endregion
-	
-	public GameObject t_gameObject;
-	public SparkPoint t_sparkPoint;
+
+    // Time parameters
+    private int m_tier;
+    public float m_tierInterval = 5; // seconds
+    private float m_tierIntervalMS; // miliseconds
+    public int m_maxTier = 3;
+    private bool m_incTier = false;
+    private bool m_doPeriodicEvent = false;
+    public float m_periodicActionInterval = 3; // seconds
+    private float m_periodicActionIntervalMS; // miliseconds
+    private Timer m_tierTimer;
+    private Timer m_perTimer;
+
+	private GameObject t_gameObject;
+	private SparkPoint t_sparkPoint;
 	private float t_chargedValue;
 
 	void Awake() {
@@ -49,7 +72,11 @@ public class BossCage : LSMonoBehaviour {
 		m_bossCageStateCharging = new BossCageStateCharging(this);
 		m_bossCageStateBreaking = new BossCageStateBreaking(this);
 		SwitchState(BossCageState.IDLE);
-		if(photonView != null && photonView.instantiationData != null) {
+
+        m_tierIntervalMS = m_tierInterval * 1000;
+        m_periodicActionIntervalMS = m_periodicActionInterval * 1000;
+
+		/*if(photonView != null && photonView.instantiationData != null) {
 			gameObject.name = (string)photonView.instantiationData[0];
 			gameObject.tag = (string)photonView.instantiationData[1];
 			m_chargeRate = (float)photonView.instantiationData[2];
@@ -62,8 +89,43 @@ public class BossCage : LSMonoBehaviour {
 			m_connectionNames = initConnected.ToArray();
 			m_lineCreatedMemo = initLineCreatedMemo.ToArray();
 			BossCageManager.GetInstance().OnBossCageInstantiated();
-		}
+		}*/
 	}
+
+    public void Start() {
+        InitBosstype();
+        if (PhotonNetwork.isMasterClient) {
+            InitTierSystem();
+            OnPeriodicEvent += _BossType.OnPeriodicEvent;
+        }
+        OnTierChanged += _BossType.OnTierChange;
+    }
+
+    /// <summary>
+    /// Initialize all values relating to the tier system
+    /// </summary>
+    public void InitTierSystem() {
+        // Set time interval and tier, value from BossCage     
+        m_tier = 0;
+        TierInterval();
+        if (_BossType.m_hasPeriodicEvent) {
+            PeriodicInterval();
+        }
+    }
+
+    /// <summary>
+    /// Initialize Bosstype object according to m_BossName
+    /// </summary>
+    public void InitBosstype() {
+        switch (m_BossName) {
+            case Bosstype.Name.ZUTSU:
+                _BossType = new Zutsu();
+                _BossType.Initialize();
+                break;
+            default:
+                break;
+        }
+    }
 
 	/// <summary>
 	/// Initial network data.
@@ -75,12 +137,57 @@ public class BossCage : LSMonoBehaviour {
 	void Update() {
 		if(PhotonNetwork.isMasterClient) {
 			m_bossCageState.OnUpdate();
-		} else {
+
+            // for fast debug...
+            if (Input.GetKeyUp(KeyCode.P))
+                photonView.RPC("RPC_switchState", PhotonTargets.All, (int)BossCageState.BREAKING);
+		} 
+        else {
 			m_chargedValue = Mathf.Lerp(m_chargedValue, t_chargedValue, Time.deltaTime * 5);
 		}
+		// Show debug cage size lines
+		if (shouldDebugCageSize) {
+			Debug.DrawLine(gameObject.transform.position,gameObject.transform.position+Vector3.right*bossCageSize,Color.red);
+			Debug.DrawLine(gameObject.transform.position,gameObject.transform.position+Vector3.left*bossCageSize,Color.red);
+			Debug.DrawLine(gameObject.transform.position,gameObject.transform.position+Vector3.forward*bossCageSize,Color.red);
+			Debug.DrawLine(gameObject.transform.position,gameObject.transform.position+Vector3.back*bossCageSize,Color.red);
+		}
+
+        // Increment tier if the timer has ticked
+        if (m_incTier)
+        {
+            Debug.Log("A");
+            m_incTier = false;
+            if (m_tier <= m_maxTier)
+            {
+                Debug.Log("B: " + m_tier);
+                m_tier++;
+                if (OnTierChanged != null)
+                {
+                    Debug.Log("C");
+                    OnTierChanged(m_tier);
+                }
+                Debug.Log("D");
+            }
+        }
+
+        if (m_doPeriodicEvent) {
+            m_doPeriodicEvent = false;
+            if (PhotonNetwork.isMasterClient && _BossType.m_hasPeriodicEvent && OnPeriodicEvent != null) {
+                Debug.Log("OnPeriodicEvent");
+                OnPeriodicEvent();
+            }
+        }
 	}
 
+    public void DoPeriodicAction() {
+        photonView.RPC("RPC_DoPeriodicAction", PhotonTargets.AllBufferedViaServer);
+    }
 
+    [RPC]
+    public void RPC_DoPeriodicAction() {
+        _BossType.OnPeriodicEvent();
+    }
 	
 	private void SwitchState(BossCageState toState) {
 		if(m_bossCageState != null) {
@@ -98,6 +205,7 @@ public class BossCage : LSMonoBehaviour {
 				break;
 			case BossCageState.BREAKING:
 				m_bossCageState = m_bossCageStateBreaking;
+				shouldDebugCageSize = true;
 				break;
 		}
 		
@@ -124,7 +232,7 @@ public class BossCage : LSMonoBehaviour {
 	/// <returns>Bool for charge or not.</returns>
 	/// </summary>
 	private bool checkSparkPointState() {
-		for(int i = 0; i < m_connectionNames.GetLength(0); i++) {
+		/*for(int i = 0; i < m_connectionNames.GetLength(0); i++) {
 			t_gameObject = GameObject.Find("SparkPoints/"+m_connectionNames[i]);
 			t_sparkPoint = t_gameObject.GetComponent<SparkPoint>();
 			if(t_sparkPoint.GetOwner() > 0){
@@ -165,10 +273,63 @@ public class BossCage : LSMonoBehaviour {
 					PhotonNetwork.Destroy(tempLane.photonView);
 				}
 			}
+		}*/
+		//for(int i = 0; i < m_connectionNames.GetLength(0); i++) {
+		//	t_gameObject = GameObject.Find("SparkPoints/"+m_connectionNames[i]);
+		//	t_sparkPoint = t_gameObject.GetComponent<SparkPoint>();
+		for(int i = 0; i < m_connections.GetLength(0); i++) {
+			t_sparkPoint = m_connections[i];
+			if(t_sparkPoint.GetOwner() > 0){
+				if(m_lineCreatedMemo[i] == 0){
+                    int t_sharedConnections = 0;
+                    foreach(SparkPoint bossRegionPoint in t_sparkPoint.m_bossAreaConnections) {
+					    if(t_sparkPoint.GetOwner() == bossRegionPoint.GetOwner()){
+                            t_sharedConnections += 1;
+                        }
+                    }
+                    if (t_sharedConnections == t_sparkPoint.m_bossAreaConnections.Length) {
+						m_teamCounts[t_sparkPoint.GetOwner()-1] = m_teamCounts[t_sparkPoint.GetOwner()-1] + t_sparkPoint.GetOwner();
+                        m_lineCreatedMemo[i] = t_sparkPoint.GetOwner();
+
+
+                        // build lane
+//                         GameObject tempObject = PhotonNetwork.InstantiateSceneObject("Lane", new Vector3(), new Quaternion(), 0, null);
+//                         Lane tempLane = tempObject.GetComponent<Lane>();
+//                         tempObject.name = "Lane" + "BossCage" + m_connections[i].name;
+//                         tempLane.photonView.RPC("RPC_setLaneMaterial", PhotonTargets.All, 3);
+//                         tempLane.photonView.RPC("RPC_setInitialTransform", PhotonTargets.All, transform.position, t_sparkPoint.transform.position);
+                        object[] initData = { t_sparkPoint.owner };
+                        t_sparkPoint.m_bossCageConnectionLane = PhotonNetwork.InstantiateSceneObject("SparkPointLink", t_sparkPoint.m_sparkPointTip.transform.position, Quaternion.identity, 0, initData);
+                        //tempLine.AddComponent<LineRenderer>();
+                        //tempLine.GetComponent<LineRenderer>().material = m_sparkPointConnectionMaterial;
+                        //tempLine.AddComponent<SparkPointConnection>();
+                        t_sparkPoint.m_bossCageConnectionLane.transform.parent = t_sparkPoint.transform;
+                        //tempLine.GetComponent<SparkPointConnection>().startConnection(m_sparkPointTip.transform, 
+                        //_connections[i].m_sparkPointTip.transform);
+                        t_sparkPoint.m_bossCageConnectionLane.GetPhotonView().RPC("RPC_startSparkPointConnection", PhotonTargets.All, t_sparkPoint.m_sparkPointTip.transform.position, t_sparkPoint.m_bossCageConnectionPoint.position);
+								
+                    }
+				}
+			} 
+            else {
+				if(m_lineCreatedMemo[i] > 0){
+                    m_teamCounts[t_sparkPoint.GetOwner()-1] = m_teamCounts[t_sparkPoint.GetOwner()-1] - 1;
+					m_lineCreatedMemo[i] = 0;
+					
+					
+					t_gameObject = transform.parent.gameObject;
+					//Lane tempLane = GameObject.Find(t_gameObject.name + "/LaneBossCage" + m_connectionNames[i]).GetComponent<Lane>();
+					Lane tempLane = GameObject.Find(t_gameObject.name + "/LaneBossCage" + m_connections[i].name).GetComponent<Lane>();
+					if(tempLane != null){
+						PhotonNetwork.Destroy(tempLane.photonView);
+					}
+				}
+			}
 		}
-		if((m_teamOneCount > 0) && (m_teamTwoCount > 0)) {
+		if((m_teamCounts[0] > 0) && (m_teamCounts[1] > 0)) {
 			return true;
-		} else {
+		}
+        else {
 			return false;
 		}
 	}
@@ -271,6 +432,7 @@ public class BossCage : LSMonoBehaviour {
 	}
 
 	class BossCageStateBreaking : BossCageStateBase {
+        bool hasBoss = false;
 		public BossCageStateBreaking(BossCage bossCage) {
 			m_startTime = Time.time;
 			m_state = BossCageState.BREAKING;
@@ -279,35 +441,43 @@ public class BossCage : LSMonoBehaviour {
 		
 		public override void OnEnter() {
 			m_startTime = Time.time;
-			Debug.Log("Now breaking.");
+			// Debug.Log("Now breaking.");
 			// Create boss here.
-			if(PhotonNetwork.isMasterClient) {
-				// Need change to general way.
-				Vector3 tempVec = new Vector3(0f, -1.9f, 0f);
-				tempVec = tempVec + m_bossCage.transform.position;
-				PhotonNetwork.InstantiateSceneObject("Boss", 
-				                                     tempVec,
-				                                     m_bossCage.transform.rotation,
-				                                     0,
-				                                     null);
-			}
-			// Just for test, disable this gameobject.
-			m_bossCage.gameObject.GetComponent<MeshRenderer>().enabled = !m_bossCage.gameObject.GetComponent<MeshRenderer>().enabled;
-			// Deleted all lines conncted to bossCage.
-			if (PhotonNetwork.isMasterClient) {
-				for (int i = 0; i < m_bossCage.m_lineCreatedMemo.GetLength(0); i++) {
-					if (m_bossCage.m_lineCreatedMemo[i] > 0) {
-						m_bossCage.m_lineCreatedMemo [i] = 0;
-						GameObject temp = GameObject.Find ("Terrain/LaneBossCage" + m_bossCage.m_connectionNames [i]);
-						PhotonNetwork.Destroy(temp.GetPhotonView());
-						//DestroyImmediate (temp);
-					}
-				}
-			}
+            m_bossCage.tomb.GetComponent<TombSink>().Break();
+
+            if (PhotonNetwork.isMasterClient) {
+                for (int i = 0; i < m_bossCage.m_lineCreatedMemo.GetLength(0); i++) {
+                    if (m_bossCage.m_lineCreatedMemo[i] > 0) {
+                        m_bossCage.m_lineCreatedMemo[i] = 0;
+                        //GameObject temp = GameObject.Find ("Terrain/LaneBossCage" + m_bossCage.m_connectionNames [i]);
+                        //GameObject temp = GameObject.Find("LaneBossCage" + m_bossCage.m_connections[i].name);
+                        //PhotonNetwork.Destroy(temp.GetPhotonView());
+                        //DestroyImmediate (temp);
+                        Debug.Log("Destroy connection");
+                        PhotonNetwork.Destroy(m_bossCage.m_connections[i].m_bossCageConnectionLane);
+                    }
+                }
+            }
 		}
 		
 		public override void OnUpdate() {
+            if (!hasBoss && Time.time - m_startTime > 8) {
+                if (PhotonNetwork.isMasterClient) {
+                    hasBoss = true;
+                    // Need change to general way.
+                    Vector3 tempVec = new Vector3(0f, -1.9f, 0f);
+                    tempVec = tempVec + m_bossCage.transform.position;
+                    //Initial Data for Boss provided by Scene
+                    //Grab Boss specific Data
 
+                    List<object> initData = new List<object> { m_bossCage.m_BossName.ToString() };
+                    PhotonNetwork.InstantiateSceneObject("RealZutsu",
+                                                         new Vector3(-28.7f, 0, -25f),
+                                                         m_bossCage.transform.rotation,
+                                                         0,
+                                                         initData.ToArray());
+                }
+            }
 		}
 		
 		public override void OnExit() {
@@ -324,4 +494,41 @@ public class BossCage : LSMonoBehaviour {
 	}
 
 	#endregion
+    #region TIME_TIER_FUNCS
+    /// <summary>Initializes the timer that periodically increases the boss tier </summary>
+    private void TierInterval()
+    {
+        Debug.Log("TierInterval");
+        m_tierTimer = new Timer(m_tierIntervalMS);
+        m_tierTimer.AutoReset = true;
+        m_tierTimer.Elapsed += OnTimedEvent;
+        m_tierTimer.Enabled = true;
+    }
+
+    /// <summary>Handler for the Timer Event </summary>
+    /// <param name="source">unused</param>
+    /// <param name="e">unused</param>
+    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
+    {
+        Debug.Log("OnTimedEvent");
+        m_incTier = true;
+    }
+
+    /// <summary>
+    /// Initializes the timer that is used for periodical boss behavior (within tiers)
+    /// </summary>
+    private void PeriodicInterval() {
+        Debug.Log("PeriodicInterval");
+        m_perTimer = new Timer(m_periodicActionIntervalMS);
+        m_perTimer.AutoReset = true;
+        m_perTimer.Elapsed += QueuePeriodicEvent;
+        m_perTimer.Enabled = true;
+    }
+
+    private void QueuePeriodicEvent(System.Object source, ElapsedEventArgs e)
+    {
+        Debug.Log("QueuePeriodicEvent");
+        m_doPeriodicEvent = true;
+    }
+    #endregion 
 }

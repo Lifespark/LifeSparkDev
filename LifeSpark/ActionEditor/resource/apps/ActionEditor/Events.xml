@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EventGroup name="Unity">
+	<Event typeName="CameraProperty" category="Utility" isDuration="false" description="<b>Camera Attribute</b><br>Adjust Camera Attribute">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Need Specified Component"/>
+		<Enum name="Projection" value="0" displayname="Projection Type" description="Projection Type">
+			<Entry name="Perspective"/>
+			<Entry name="Orthographic"/>
+		</Enum>
+		<float name="Size" value="5" displayname="Size" description="Size">
+			<condition conditionEnumName="Projection" conditionEnumValName="Orthographic" />
+		</float>
+		<float name="FOV" value="60" displayname="Camera View" description="Camera View">
+			<condition conditionEnumName="Projection" conditionEnumValName="Perspective" />
+		</float>
+	</Event>
+	<Event typeName="ModifyTransform" category="Movement" isDuration="false" description="<b>Transform Operation</b><br>Operate on translate, rotate and scale as keyframe<br><i>Works on various coordinate">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="Virtual Parent Object" description="Virtual Parent Object Used for Relative Coordinate<br><i>If Specified use Coordinated Coordinate"/>
+		<TemplateObject name="fromId" id="-1" displayname="Start Point Object" description="Start Point Object in Relative Coordinate<br><i>Used with toId"/>
+		<TemplateObject name="toId" id="-1" displayname="End Point Object" description="End Point Object in Relative Coordinate<br><i>Used with fromId"/>
+		<bool name="enableTranslation" value="true" displayname="Enable Translation" description="Whether Enable Translation"/>
+		<bool name="normalizedRelative" value="false" displayname="Normalize Relative Coordinate" description="Whether Normalize Relative Coordinate">
+			<condition conditionBoolName="enableTranslation" conditionBoolValName="true"/>
+		</bool>
+		<bool name="currentTranslation" value="false" displayname="Use Current Translation Amount" description="Whether Use Current Translation Amount">
+			<condition conditionBoolName="enableTranslation" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="translation" x="0" y="0" z="0" displayname="Translation Amount" description="Translation Amount">
+			<condition conditionBoolName="enableTranslation" conditionBoolValName="true"/>
+			<condition conditionBoolName="currentTranslation" conditionBoolValName="false"/>
+		</Vector3>
+		<bool name="enableRotation" value="true" displayname="Enable Rotation" description="Whether Enable Rotation"/>
+		<bool name="currentRotation" value="false" displayname="Use Current Rotation Value" description="Whether Use Current Rotation Value">
+			<condition conditionBoolName="enableRotation" conditionBoolValName="true"/>
+		</bool>
+		<EulerAngle name="rotation" x="0" y="0" z="0" displayname="Rotation Amount" description="Rotation Amount">
+			<condition conditionBoolName="enableRotation" conditionBoolValName="true"/>
+			<condition conditionBoolName="currentRotation" conditionBoolValName="false"/>
+		</EulerAngle>
+		<bool name="enableScaling" value="false" displayname="Enable Scaling" description="Whether Enable Scaling"/>
+		<bool name="currentScaling" value="false" displayname="Use Current Scaling Value" description="Whether Use Current Scaling Value">
+			<condition conditionBoolName="enableScaling" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="Scaling Amount" description="Scaling Amount">
+			<condition conditionBoolName="enableScaling" conditionBoolValName="true"/>
+			<condition conditionBoolName="currentScaling" conditionBoolValName="false"/>
+		</Vector3>
+		<bool name="cubic" value="false" displayname="Use Cubic Spline" description="Whether Use Cubic Spline"/>
+	</Event>
+	<Event typeName="ComponentSwitch" category="Utility" isDuration="false" description="<b>Component Switch</b><br>Enable or Disable Specified Component">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Need Specified Component"/>
+		<bool name="enabled" value="true" displayname="Enable Component" description="Enable/Disable Component"/>
+		<string name="componentType" value="" displayname="Component Class Name" description="Component Class Name（e.g. MeshRenderer）"/>
+	</Event>
+	<Event typeName="SetVelocity" category="Physics" isDuration="false" description="<b>Set Velocity</b><br>Give a Rigidbody Velocity Instantly<br><i>Require Rigidbody">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Require Rigidbody Component"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="Virtual Parent Object" description="Virtual Parent Object Used for Relative Coordinate<br><i>If Specified use Coordinated Coordinate"/>
+		<TemplateObject name="fromId" id="-1" displayname="Starting Point Object" description="Start Point Object in Relative Coordinate<br><i>Used with toId"/>
+		<TemplateObject name="toId" id="-1" displayname="End Point Object" description="End Point Object in Relative Coordinate<br><i>Used With fromId"/>
+		<Vector3 name="velocity" x="0" y="0" z="0" displayname="Velocity" description="Velocity"/>
+		<Vector3 name="angularVelocity" x="0" y="0" z="0" displayname="Angular Velocity" description="Angular Velocity"/>
+		<bool name="additive" value="false" displayname="Override Current Velocity" description="Off：Override Current Velocity<br>On：Add To Current Velocity"/>
+	</Event>
+	<Event typeName="SetAnimatorParam" category="Animation" isDuration="false" description="<b>Set Animator Parameter</b>">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Require Animator Component"/>
+		<string name="paramName" value="" displayname="Parameter Name" description="Parameter Name"/>
+		<string name="paramType" value="float" displayname="Parameter Type" description="Parameter Type<br><i>如float"/>
+		<string name="paramValue" value="0" displayname="Parameter Value" description="Parameter Value"/>
+	</Event>
+	<Event typeName="CreateObjectTick" category="Utility" isDuration="false" description="<b>Create Object[Tick]</b><br>Instantiate Specified Prefab When Triggered<br><i>Can Be Destroyed After Action Ends<br><i>Can Play New Action On Created Object">
+		<TemplateObject name="targetId" id="-1" isTemp="true" displayname="Temp Handle" description="Assign Temp Handle For Newly Created Object For Later Operation On it<br>If Not Empty, This Object Will Be Destroyed After Action Ends"/>
+		<TemplateObject name="parentId" id="-1" displayname="Parent Object" description="Parent Object Of Newly Created Object"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="Virtual Parent Object" description="Virtual Parent Object Used For Coordinated Coordinate<br><i>If Specified use Coordinated Coordinate"/>
+		<TemplateObject name="fromId" id="-1" displayname="Starting Point Object" description="Start Point Object in Relative Coordinate<br><i>Used with toId"/>
+		<TemplateObject name="toId" id="-1" displayname="End Point Object" description="End Point Object in Relative Coordinate<br><i>Used With fromId"/>
+		<string name="prefabName" value="" displayname="Prefab Name" description="Prefab Name<br><i>Relative Path To Resources Directory"/>
+		<bool name="recreateExisting" value="true" displayname="Recreate Existing Object" description="If Object Specified by targetId Has Been Created, Whether Recreate Existing Object"/>
+		<bool name="modifyTranslation" value="true" displayname="Modify Translation" description="Whether Modify Translation"/>
+		<bool name="normalizedRelative" value="false" displayname="Normalize Relative Coordinate" description="Whether Normalize Relative Coordinate">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="translation" x="0" y="0" z="0" displayname="Translation Amount" description="Translation Amount">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</Vector3>
+		<bool name="modifyRotation" value="true" displayname="Modify Rotation" description="Whether Modify Rotation"/>
+		<EulerAngle name="rotation" x="0" y="0" z="0" displayname="Rotation Amount" description="Rotation Amount">
+			<condition conditionBoolName="modifyRotation" conditionBoolValName="true"/>
+		</EulerAngle>
+		<bool name="modifyScaling" value="false" displayname="Modify Scaling" description="Whether Modify Scaling"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="Scaling Amount" description="Scaling Amount">
+			<condition conditionBoolName="modifyScaling" conditionBoolValName="true"/>
+		</Vector3>
+		<string name="actionName" value="" displayname="Action Name" description="Name Of Action To Play On Newly Created Object<br><i>Relative Path To Resources Directory"/>
+		<Array type="TemplateObject" name="gameObjectIds" displayname="Action Reference Object" description="If actionName Is Not Empty, Specify Reference Object Here"/>
+		<bool name="enableLayer" value="false" displayname="Change Layer" description="Change Layer Of Created Object"/>
+		<int name="layer" value="0" displayname="Layer Value" description="Object Layer Value">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="Change Tag" description="Whether Change Tag Of Created Object"/>
+		<string name="tag" value="" displayname="Object Tag" description="Object Tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToAnimation" value="true" displayname="Apply Action Speed On Animation" description="Apply Action Speed On Animation"/>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Apply Action Speed On Effect" description="Apply Action Speed On Effect"/>
+	</Event>
+	<Event typeName="TriggerParticle" category="Effect" isDuration="true" description="<b>Trigger Effect[Duration]</b><br>Instantiate Effect Prefab When Event Starts. Destroy Particle Prefab When Event Ends.<i><br>If Prefab Has ParticleSystem It'll Play On Start<br>可以指定绑定点<br>可以指定特效缩放">
+		<TemplateObject name="targetId" id="0" displayname="Parent Object" description="Parent Object Of Effect<br><i>Use World Coordinate If Unspecified"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="Virtual Parent Object" description="Virtual Parent Object Used For Coordinated Coordinate<br><i>If Specified use Coordinated Coordinate"/>
+		<string name="resourceName" value="" displayname="Prefab Name" description="Effect Prefab Name<br><i>Relative Path To Resources Directory<br>Support ParticleSystem"/>
+		<string name="bindPointName" value="" displayname="Bind Point Name" description="Bind Point Name<br><i>Child Object Name Of Object Specified By targetId"/>
+		<Vector3 name="bindPosOffset" x="0" y="0" z="0" displayname="Relative Translation Amount" description="Translation Amount Relative To Bind Point"/>
+		<EulerAngle name="bindRotOffset" x="0" y="0" z="0" displayname="Relative Rotation Amount" description="Rotation Amount Relative To Bind Point"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="Effect Scaling Amount" description="Effect Scaling Amount"/>
+		<bool name="enableLayer" value="false" displayname="Change Layer" description="Change Layer Of Created Object"/>
+		<int name="layer" value="0" displayname="Layer Value" description="Object Layer Value">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="Change Tag" description="Whether Change Tag Of Created Object"/>
+		<string name="tag" value="" displayname="Object Tag" description="Object Tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Apply Action Speed On Effect" description="Apply Action Speed On Effect"/>
+	</Event>
+	<Event typeName="TriggerParticleTick" category="Effect" isDuration="false" description="<b>Trigger Effect[Tick]</b><br>Instantiate Effect Prefab When Event Starts. Destroy Particle Prefab When Action Or Effect Ends.<i><br>If Prefab Has ParticleSystem It'll Play On Start<br>可以指定绑定点<br>可以指定特效缩放">
+		<TemplateObject name="targetId" id="0" displayname="Parent Object" description="Parent Object Of Effect<br><i>Use World Coordinate If Unspecified"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="Virtual Parent Object" description="Virtual Parent Object Used For Coordinated Coordinate<br><i>If Specified use Coordinated Coordinate"/>
+		<string name="resourceName" value="" displayname="Prefab Name" description="Effect Prefab Name<br><i>Relative Path To Resources Directory<br>Support ParticleSystem"/>
+		<string name="bindPointName" value="" displayname="Bind Point Name" description="Bind Point Name<br><i>Child Object Name Of Object Specified By targetId"/>
+		<Vector3 name="bindPosOffset" x="0" y="0" z="0" displayname="Relative Translation Amount" description="Translation Amount Relative To Bind Point"/>
+		<EulerAngle name="bindRotOffset" x="0" y="0" z="0" displayname="Relative Rotation Amount" description="Rotation Amount Relative To Bind Point"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="Effect Scaling Amount" description="Effect Scaling Amount"/>
+		<bool name="enableLayer" value="false" displayname="Change Layer" description="Change Layer Of Created Object"/>
+		<int name="layer" value="0" displayname="Layer Value" description="Object Layer Value">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="Change Tag" description="Whether Change Tag Of Created Object"/>
+		<string name="tag" value="" displayname="Object Tag" description="Object Tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Apply Action Speed On Effect" description="Apply Action Speed On Effect"/>
+	</Event>
+	<Event typeName="PlayAnimation" category="Animation" isDuration="true" description="<b>Play Animation[Duration]</b><br>Play Animation Clip On Specified Object. Scale According To Event Length<br><i>事件相交区域会进行Crossfade">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Require Animation Component"/>
+		<string name="clipName" value="" displayname="Clip Name" description="Animation Clip Name<br><i>Must Exists On Animation Component Clip List"/>
+		<float name="startTime" value="0.0" displayname="Clip Start Time" description="Clip Start Time"/>
+		<float name="endTime" value="99999.0" displayname="Clip End Time" description="Clip End Time. If Greater Than Actual Length It'll Shrink To Fit"/>
+		<bool name="applyActionSpeed" value="false" displayname="Apply Action Speed" description="If Multiply Animation Playback Speed With Action Speed"/>
+	</Event>
+	<Event typeName="PlayAnimationTick" category="Animation" isDuration="false" description="<b>Play Animation[Tick]</b><br>Play Animation Clip On Objetc. Can Specify Playback Speed and Crossfade Duration">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Require Animation Component"/>
+		<string name="clipName" value="" displayname="Clip Name" description="Animation Clip Name<br><i>Must Exists On Animation Component Clip List"/>
+		<float name="crossFadeTime" value="0.0" displayname="Crossfade Duration" description="Crossfade Duration"/>
+		<float name="playSpeed" value="1.0" displayname="Animation Playback Speed" description="Animation Playback Speed"/>
+		<bool name="applyActionSpeed" value="false" displayname="Apply Action Speed" description="If Multiply Animation Playback Speed With Action Speed"/>
+	</Event>
+	<Event typeName="SampleVelocity" category="Physics" isDuration="true" description="<b>Sample Velocity</b><br>Sampe Object Displacement During Event, Transform To Velocity When Event Ends">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Require Rigidbody Component"/>
+	</Event>
+	<Event typeName="PlaySubAction" category="Action Control" isDuration="true" description="<b>Play Sub-Action</b><br>Play Specified Action As Sub-Action<br><i>Sub-Action Is Forced To Be Non-Loop, Event Length Is Equivalent To Action Length">
+		<string name="actionName" value="" displayname="Sub-Action Name" description="Sub-Action Name<br><i>Relative Path To Resources Directory"/>
+		<array type="TemplateObject" name="gameObjectIds" displayname="Sub-Action Reference Object" description="Sub-Action Reference Object"/>
+	</Event>
+	<Event typeName="CreateObjectDuration" category="Utility" isDuration="true" description="<b>Create Object[Duration]</b><br>Instantiate Prefab When Event Starts<br><i>Can Be Destroyed When Event Ends<br><i>Can Play New Action On Created Object">
+		<TemplateObject name="targetId" id="-1" isTemp="true" displayname="Temp Handle" description="Assign Temp Handle For Newly Created Object For Later Operation On it<br>If Not Empty, This Object Will Be Destroyed After Action Ends"/>
+		<TemplateObject name="parentId" id="-1" displayname="Parent Object" description="Parent Object Of Newly Created Object"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="Virtual Parent Object" description="Virtual Parent Object Used For Coordinated Coordinate<br><i>If Specified use Coordinated Coordinate"/>
+		<TemplateObject name="fromId" id="-1" displayname="Starting Point Object" description="Start Point Object in Relative Coordinate<br><i>Used with toId"/>
+		<TemplateObject name="toId" id="-1" displayname="End Point Object" description="End Point Object in Relative Coordinate<br><i>Used With fromId"/>
+		<string name="prefabName" value="" displayname="Prefab Name" description="Prefab Name<br><i>Relative Path To Resources Directory"/>
+		<bool name="recreateExisting" value="true" displayname="Recreate Existing Object" description="If Object Specified by targetId Has Been Created, Whether Recreate Existing Object"/>
+		<bool name="modifyTranslation" value="true" displayname="Modify Translation" description="Whether Modify Translation"/>
+		<bool name="normalizedRelative" value="false" displayname="Normalize Relative Coordinate" description="Whether Normalize Relative Coordinate">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="translation" x="0" y="0" z="0" displayname="Translation Amount" description="Translation Amount">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</Vector3>
+		<bool name="modifyRotation" value="true" displayname="Modify Rotation" description="Whether Modify Rotation"/>
+		<EulerAngle name="rotation" x="0" y="0" z="0" displayname="Rotation Amount" description="Rotation Amount">
+			<condition conditionBoolName="modifyRotation" conditionBoolValName="true"/>
+		</EulerAngle>
+		<bool name="modifyScaling" value="false" displayname="Modify Scaling" description="Whether Modify Scaling"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="Scaling Amount" description="Scaling Amount">
+			<condition conditionBoolName="modifyScaling" conditionBoolValName="true"/>
+		</Vector3>
+		<string name="actionName" value="" displayname="Action Name" description="Name Of Action To Play On Newly Created Object<br><i>Relative Path To Resources Directory"/>
+		<Array type="TemplateObject" name="gameObjectIds" displayname="Action Reference Object" description="If actionName Is Not Empty, Specify Reference Object Here"/>
+		<bool name="enableLayer" value="false" displayname="Change Layer" description="Change Layer Of Created Object"/>
+		<int name="layer" value="0" displayname="Layer Value" description="Object Layer Value">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="Change Tag" description="Whether Change Tag Of Created Object"/>
+		<string name="tag" value="" displayname="Object Tag" description="Object Tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToAnimation" value="true" displayname="Apply Action Speed On Animation" description="Apply Action Speed On Animation"/>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Apply Action Speed On Effect" description="Apply Action Speed On Effect"/>
+	</Event>
+	<Event typeName="DestroyObject" category="Utility" isDuration="false" description="<b>Destroy Object</b><br><i>Use With Caution">
+		<TemplateObject name="targetId" id="-1" displayname="Object To Be Destroyed" description="Object To Be Destroyed"/>
+	</Event>
+	<Event typeName="TriggerHit" category="Condition" isDuration="true" description="<b>Trigger Hit</b><br>Within Event Range, Play One-On-One Action On All Triggered Object By Some Give Trigger On Certain Condition">
+		<TemplateObject name="triggerId" id="0" displayname="Trigger Object" description="Used For Trigger Hit<br><i>Need Hit Determining Script"/>
+		<string name="scriptName" value="" displayname="Hit Determining Script Name" description="Specify Hit Determining Script Name"/>
+		<string name="methodName" value="" displayname="Hit Determining Function Name" description="Specify Hit Determining Function Name"/>
+		<TemplateObject name="attackerId" id="0" displayname="Attacker" description="Object Serves As Attacker In One-On-One Action"/>
+		<string name="actionName" value="" displayname="Action Name" description="Action Name Of The One-On-One Action On Triggered Object<br><i>Relative Path To Resources Directory<br>First Three Action Reference Objects In This Action Must Be Hitter, Attacker and Trigger"/>
+		<Array type="string" name="tags" displayname="Attackable Tag" description="Tag List For Attackable Object"/>
+		<float name="triggerInterval" value="0.5" displayname="Hit Interval" description="Time Interval Between Multiple Hit"/>
+	</Event>
+	<Event typeName="TriggerSingleHit" category="Condition" isDuration="true" description="<b>Trigger Single Hit</b><br>Within Event Range, Play One-On-One Action On One Triggered Object By Some Give Trigger On Certain Condition">
+		<TemplateObject name="triggerId" id="0" displayname="Trigger Hit Object" description="Used For Trigger Hit Object<br><i>Need Hit Determine Script"/>
+		<string name="scriptName" value="" displayname="Hit Determining Script Name" description="指定Hit Determining Script Name"/>
+		<string name="methodName" value="" displayname="Hit Determining Function Name" description="指定Hit Determining Function Name"/>
+		<TemplateObject name="attackerId" id="0" displayname="Attacker" description="Object Serves As Attacker In One-On-One Action"/>
+		<string name="actionName" value="" displayname="Action Name" description="Action Name Of The One-On-One Action On Triggered Object<br><i>Relative Path To Resources Directory<br>First Three Action Reference Objects In This Action Must Be Hitter, Attacker and Trigger"/>
+		<Array type="string" name="tags" displayname="Attackable Tag" description="Tag List For Attackable Object"/>
+	</Event>
+	<Event typeName="InvokeMethod" category="Utility" isDuration="false" description="<b>Invoke Method</b><br>Call Specified Function With Parameter When Event Happens">
+		<TemplateObject name="targetId" id="0" displayname="Object" description="Object With Specified Script"/>
+		<string name="scriptName" value="" displayname="Script Name" description="Specify Script Name"/>
+		<string name="methodName" value="" displayname="Function Name" description="Specify Function Name"/>
+		<Enum name="paramType" value="0" displayname="Parameter Type" description="Parameter Type">
+			<Entry name="NoParam"/>
+			<Entry name="IntParam"/>
+			<Entry name="FloatParam"/>
+			<Entry name="StringParam"/>
+			<Entry name="BoolParam"/>
+			<Entry name="GameObjectParam"/>
+		</Enum>
+		<int name="intParam" value="0" displayname="intParameter Value" description="int Parameter Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="IntParam"/>
+		</int>
+		<float name="floatParam" value="0.0" displayname="floatParameter Value" description="float Parameter Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="FloatParam"/>
+		</float>
+		<string name="stringParam" value="" displayname="stringParameter Value" description="string Parameter Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="StringParam"/>
+		</string>
+		<bool name="boolParam" value="false" displayname="boolParameter Value" description="bool Parameter Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="BoolParam"/>
+		</bool>
+		<TemplateObject name="gameObjectParam" id="-1" displayname="GameObject Parameter" description="GameObject Parameter Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="GameObjectParam"/>
+		</TemplateObject>
+	</Event>
+	<Event typeName="TriggerAudio" category="Effect" isDuration="true" description="Play Audio: Play Audio When Event Begins, Stop When Event Ends">
+		<bool name="mutilSource" value="false"  displayname="Multiply AudioSource" description="Object Has Multiple AudioSource"/>
+		<TemplateObject name="targetId" id="-1" displayname="AudioSource Object" description="AudioSource Object，Single AudioSouce requires AudioSource Component"/>
+		<string name="audioPath" value="" displayname="AudioClip Resource Path" description="AudioClip Resource Path，Relative To Resources Directory"/>
+		<bool name="loop" value="false"  displayname="Loop" description="If Loop"/>
+		<float name="volume" value="1.0" displayname="Volume" description="AudioSource VolumeSize，0.0~1.0"/>
+		<int name="priority" value="128" displayname="Priority" description="0~255, Priority 0 Is Highest, 255 Is Lowest"/>
+		<bool name="enableRand" value="false"  displayname="Random" description="Play Randomly On All AudioClips"/>
+		<Array type="string" name="randPaths" displayname="Random AudioClip List" description="Random AudioClip List">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+		<Array type="float" name="probabilities"  displayname="Random Probability List" description="Same Order As AudioClip List">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+	</Event>
+	<Event typeName="TriggerAudioOneShot" category="Effect" isDuration="false" description="Trigger Audio One Shot">
+		<bool name="mutilSource" value="false"  displayname="Multiply Source" description="Object Has Multiple AudioSource"/>
+		<TemplateObject name="targetId" id="-1" displayname="AudioSource Object" description="AudioSource Object，Single AudioSouce requires AudioSource Component"/>
+		<string name="audioPath" value="" displayname="AudioClip Resource Path" description="AudioClip Resource Path，Relative To Resources Directory"/>
+		<float name="volume" value="1.0" displayname="Volume" description="音源VolumeSize，0.0~1.0"/>
+		<int name="priority" value="128" displayname="Priority" description="0~255, Priority 0 Is Highest, 255 Is Lowest"/>
+		<bool name="enableRand" value="false"  displayname="Random" description="Play Randomly On All AudioClip"/>
+		<Array type="string" name="randPaths" displayname="Random AudioClip List" description="Random AudioClip List">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+		<Array type="float" name="probabilities"  displayname="Random Probability List" description="Same Order As AudioClip List">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+	</Event>
+	<Event typeName="TriggerPlaymakerEvent" category="PlayMaker" isDuration="false" description="<b>Trigger PlayMaker Event</b>">
+	    <TemplateObject name="targetId" id="0" displayname="Operating Object"/>
+		<string name="sendEvent" value="" displayname="Triggered Event"/>
+		<float name="delay" value="0.0" displayname="Delay"/>
+		<bool name="broadcast" value="false" displayname="Broadcast"/>
+	</Event>
+	<Event typeName="BreakPoint" category="Debug" isDuration="false" description="<b>Breakpoint</b><br>In Unity Editor, Breakpoint Event Will Pause Editor When Triggered">
+		<bool name="enabled" value="true" displayname="Enabled" description="Enabled"/>
+		<string name="info" value="" displayname="Log On Break" description="Log On Break"/>
+	</Event>
+	<Event typeName="CameraLookAt" category="Movement" idDuration="false" description="<b>Camera Look At</b><br>Specify A Target Object For Camera To Look At">
+		<TemplateObject name="cameraId" id="0" displayname="Camera" description="Specified Camera"/>
+		<TemplateObject name="targetId" id="-1" displayname="Look At Object" description="Look At Object<br><i>If Empty Target Will Be A Point On World Space"/>
+		<Vector3 name="worldOffset" x="0" y="0" z="0" displayname="World Space Offset" description="Offset Between Viewpoint And Observed Object In World Space "/>
+		<Vector3 name="localOffset" x="0" y="0" z="0" displayname="Local Space Offset" description="Offset Between Viewpoint And Observed Object In Object Space"/>
+		<Enum name="UpDirType" value="1" displayname="Up Direction" description="Up Direction">
+			<Entry name="NoOverrideUp"/>
+			<Entry name="RowAngleByZ"/>
+		</Enum>
+		<float name="rowAngleByZ" value="0" displayname="Rotate By Z Axis" description="Rotate By Z Axis">
+			<condition conditionEnumName="UpDirType" conditionEnumValName="RowAngleByZ" />
+		</float>
+		<!--bool name="overrideUpDir" value="false" displayname="覆盖相机的Up方向" description="Whether 覆盖相机的Up方向"/-->
+		<!--Vector3 name="upDir" x="0" y="1" z="0" displayname="相机的Up方向" description="如果overrideUpDir为真，则这里指定相机的Up方向"/-->
+	</Event>
+	<Event typeName="SetVisibility" category="Utility" isDuration="false" description="<b>Set Visibility</b><br>Switch For Renderers On Object And Its Children">
+		<TemplateObject name="targetId" id="0" displayname="Specify Object" description="Specify Object"/>
+		<bool name="enabled" value="true" displayname="Visible" description="Visible"/>
+		<Array type="string" name="excludeMeshes" displayname="Excluded Mesh" description="Excluded Mesh List"/>
+	</Event>	
+	<Event typeName="StopConflictActions" category="Action Control" isDuration="false" description="<b>Stop Conflict Actions</b><br>When Event Happens, Stop All Other Actions Referencing To Specified Object<br><i>Unless These Actions Are Unstoppable">
+		<Array type="TemplateObject" name="gameObjectIds" displayname="Object Referenced By Action" description="Specify Object Referenced By Action To Be Stopped"/>
+	</Event>
+	<Event typeName="Unstoppable" category="Action Control" isDuration="true" description="<b>Unstoppable</b><br>With Event Range, The Action Cannot Be Stopped By StopConflictActions">
+	</Event>
+	<Event typeName="OnTrigger" category="Condition" isDuration="true">
+		<TemplateObject name="targetId" id="0" displayname="Triggering Object"/>
+		<string name="scriptName" value="" displayname="Script Name" description="Specify Trigger Determining Script Name"/>
+		<string name="methodName" value="" displayname="Function Name" description="Specify Trigger Determining Function Name"/>
+		<Array type="string" name="tags"/>
+	</Event>
+	<Event typeName="StopTrack" category="Action Control" isDuration="false">
+		<TrackObject name="trackId"/>
+	</Event>
+	<Event typeName="StopMultipleTracks" category="Action Control" isDuration="false">
+		<Array type="trackobject" name="trackIds"/>
+	</Event>
+	<Event typeName="ChangeSpeed" category="Action Control" isDuration="true" description="<b>Change Action Playback Speed</b>">
+		<Enum name="mode" value="0" displayname="Mode" description="Mode">
+			<Entry name="Specified"/>
+			<Entry name="AverageSpeed"/>
+		</Enum>
+		<CurveContainer name="playSpeed" curveCount="1" displayname="Playback Speed" description="Specify Playback Speed Of Action Directly">
+			<condition conditionEnumName="mode" conditionEnumValName="Specified"/>
+		</CurveContainer>
+		<float name="averageSpeed" value="1.0" displayname="Average Speed" description="Expected Average Speed For Target Object">
+			<condition conditionEnumName="mode" conditionEnumValName="AverageSpeed"/>
+		</float>
+		<TemplateObject name="fromId" id="-1" displayname="Start Point Object">
+			<condition conditionEnumName="mode" conditionEnumValName="AverageSpeed"/>
+		</TemplateObject>
+		<TemplateObject name="toId" id="-1" displayname="End Point Object">
+			<condition conditionEnumName="mode" conditionEnumValName="AverageSpeed"/>
+		</TemplateObject>
+	</Event>
+	<Event typeName="SetMaterialColor" category="Utility" isDuration="true" description="<b>Set Material Color</b>">
+		<TemplateObject name="targetId" id="-1" isTemp="false" displayname="Target Object" description="Object Color To Be Changed"/>
+		<string name="colorName" value="" displayname="Color Name" description="What Kind Of Color"/>		
+		<CurveContainer name="color" curveCount="4" displayname="Color" description="Color Curve Editor (RGBA)"/>
+	</Event>
+	<Event typeName="GetSubObjectDuration" category="Utility" isDuration="true" description="Get Child Object From Parent Object And Specify To Child Object Reference">
+		<TemplateObject name="targetId" id="-1" isTemp="true" displayname="Child Object" description="Child Object Reference. The First Child Of Parent Object By Default"/>
+		<TemplateObject name="parentId" id="-1" displayname="Parent Object" description="e.g. positioning point"/>
+        <bool name="isGetByName" value="false" displayname="Get Child Object By Name" description="Whether Get Child Object By Name Mode"/>
+        <string name="subObjectName" value="" displayname="Child Object Name" description="Child Object Name"/>		
+	</Event>
+	<Event typeName="GetSubObjectTick" category="Utility" isDuration="false" description="Get Child Object From Parent Object And Specify To Child Object Reference">
+	    <TemplateObject name="targetId" id="-1" displayname="Child Object" description="Child Object Reference. The First Child Of Parent Object By Default"/>
+		<TemplateObject name="parentId" id="-1" displayname="Parent Object" description="e.g. positioning point"/>
+        <bool name="isGetByName" value="false" displayname="Get Child Object By Name" description="Whether Get Child Object By NameMode"/>
+        <string name="subObjectName" value="" displayname="Child Object Name" description="Child Object Name"/>		
+	</Event>
+	<Event typeName="SetTagLayer" category="Utility" isDuration="false" description="Change Tag and Layer Of Target Object">
+	    <TemplateObject name="targetId" id="-1" displayname="Operating Object" description="Target Object To Be Operated"/>
+		<bool name="enableLayer" value="false" displayname="Change Layer" description="If Change Layer"/>
+		<int name="layer" value="0" displayname="Layer Value" description="Object Layer Value">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="Change Tag" description="If Change Tag"/>
+		<string name="tag" value="" displayname="Object Tag" description="Object Tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+	</Event>
+	<Event typeName="SetPlaymakerParam" category="PlayMaker" isDuration="false" description="<b>Set Playmaker SM Param</b>">
+		<TemplateObject name="targetId" id="-1" isTemp="false" displayname="Target Object" description="Object With Playmaker State machine"/>
+		<bool name="specifyFSM" value="false" displayname="Specify FSM Name" description="If Selected, Need To Manually Specify Affected FSM, Otherwise All FSM Will Be Affected"/>
+		<Array type="string" name="fsmNames" displayname="FSM Name" description="Affected FSM List">
+			<condition conditionBoolName="specifyFSM" conditionBoolValName="true"/>
+		</Array>
+		<string name="paramName" value="" displayname="Parameter Name" description="Parameter Name"/>
+		<Enum name="paramType" value="0" displayname="Parameter Type" description="Parameter Type">
+			<Entry name="BoolType"/>
+			<Entry name="IntType"/>
+			<Entry name="FloatType"/>
+			<Entry name="StringType"/>
+			<Entry name="Vector3Type"/>
+			<Entry name="QuaternionType"/>
+			<Entry name="GameObjectType"/>
+			<Entry name="MaterialType"/>
+			<Entry name="TextureType"/>
+		</Enum>
+		<bool name="boolValue" value="false" displayname="Variable Value" description="Variable Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="BoolType"/>
+		</bool>
+		<int name="intValue" value="0" displayname="Variable Value" description="Variable Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="IntType"/>
+		</int>
+		<float name="floatValue" value="0" displayname="Variable Value" description="Variable Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="FloatType"/>
+		</float>
+		<string name="stringValue" value="" displayname="Variable Value" description="Variable Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="StringType"/>
+		</string>
+		<Vector3 name="vec3Value" x="0" y="0" z="0" displayname="Variable Value" description="Variable Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="Vector3Type"/>
+		</Vector3>
+		<EulerAngle name="quatValue" x="0" y="0" z="0" displayname="Variable Value" description="Variable Value">
+			<condition conditionEnumName="paramType" conditionEnumValName="QuaternionType"/>
+		</EulerAngle>
+		<TemplateObject name="gameObjectValue" value="-1" displayname="Variable Object" description="Referenced Object">
+			<condition conditionEnumName="paramType" conditionEnumValName="GameObjectType"/>
+		</TemplateObject>
+		<string name="materialValue" value="" displayname="Material Name" description="Material Resource Path">
+			<condition conditionEnumName="paramType" conditionEnumValName="MaterialType"/>
+		</string>
+		<string name="textureValue" value="" displayname="Texture Name" description="Texture Resource Path">
+			<condition conditionEnumName="paramType" conditionEnumValName="TextureType"/>
+		</string>
+	</Event>
+	<Event typeName="StopAction" category="Action Control" isDuration="false" description="<b>Stop Current Action</b><br>Can Continue To Play Other Action And Pass On Object Reference">
+		<bool name="transitAction" value="false" displayname="Play Other Action" description="Continue To Play Other Action"/>
+		<String name="actionName" value="" displayname="Action Name" description="Action Name To Be Played">
+			<condition conditionBoolName="transitAction" conditionBoolValName="true"/>
+		</String>
+		<Array name="gameObjectIds" type="TemplateObject" displayname="Object Reference" description="Reference Object Passed On To Succeeding Action">
+			<condition conditionBoolName="transitAction" conditionBoolValName="true"/>
+		</Array>
+	</Event>
+	
+</EventGroup>

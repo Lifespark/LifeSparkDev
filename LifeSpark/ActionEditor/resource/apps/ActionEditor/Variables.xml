@@ -1,0 +1,29 @@
+<DefaultInfo>
+	<Variables>
+		<Var name="_DefaultTypes"/>
+		<Var name="_SelfPlayer"/>
+		<Var name="_PrevPlayer"/>
+		<Var name="_NextPlayer"/>
+		<Var name="_Camera"/>
+		<Var name="_Table"/>
+		<Var name="_SelfChair"/>
+		<Var name="_PrevChair"/>
+		<Var name="_NextChair"/>
+		<Var name="_SelfFsm"/>
+		<Var name="_PrevFsm"/>
+		<Var name="_NextFsm"/>
+		<Var name="_LeftCards"/>
+		<Var name="_RightCards"/>
+		<Var name="_TableCards"/>
+		<Var name="_Scene"/>
+		<Var name="_SelfPlayer[SubObj]"/>
+	</Variables>
+	<RefParams>
+		<bool name="_LeftPlayer" value="false"/>
+		<bool name="_RightPlayer" value="false"/>
+		<bool name="_ExcludeSelf" value="false"/>
+		<bool name="_ExcludeWindow" value="false"/>
+		<int name="_LayerIndex" value="0"/>
+	</RefParams>
+</DefaultInfo>
+

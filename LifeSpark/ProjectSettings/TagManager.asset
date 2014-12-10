@@ -3,14 +3,17 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Manager
-  - Boss
+  - JungleCreep
   - LaneCreep
+  - Manager
+  - 
   - BossCage
-  - Ground
-  - Item
-  - Projectile
+  - PlayerPos
   - SparkPoint
+  - Ground
+  - Detour
+  - Boss
+  - ZutsuWeb
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

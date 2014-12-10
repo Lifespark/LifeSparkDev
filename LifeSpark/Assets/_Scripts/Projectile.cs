@@ -23,7 +23,7 @@ public class Projectile : LSMonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(m_target.GetComponent<Player>().playerState == Player.PlayerState.Dead)
+		if(m_target.GetComponent<Player>().getPlayerState() == Player.PlayerState.Dead)
 			Destroy(this.gameObject);
 
 		rigidbody.velocity = (m_target.transform.position - m_owner.transform.position).normalized * 

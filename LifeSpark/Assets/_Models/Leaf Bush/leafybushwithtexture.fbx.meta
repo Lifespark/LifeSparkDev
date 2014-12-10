@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: f9bf9b7cd8ecc43c4abdf766617040f2
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: group1
+    100002: group10
+    100004: group11
+    100006: group12
+    100008: group13
+    100010: group14
+    100012: group15
+    100014: group16
+    100016: group17
+    100018: group18
+    100020: group1_pPlane1
+    100022: group2
+    100024: group3
+    100026: group4
+    100028: group5
+    100030: group6
+    100032: group7
+    100034: group8
+    100036: group9
+    100038: //RootNode
+    100040: pPlane1
+    100042: pPlane1 1
+    100044: pPlane1 10
+    100046: pPlane1 11
+    100048: pPlane1 2
+    100050: pPlane1 3
+    100052: pPlane1 4
+    100054: pPlane1 5
+    100056: pPlane1 6
+    100058: pPlane1 7
+    100060: pPlane1 8
+    100062: pPlane1 9
+    100064: pPlane2
+    100066: pPlane2 1
+    100068: pPlane2 2
+    100070: pPlane2 3
+    100072: pPlane2 4
+    100074: pPlane3
+    100076: pPlane3 1
+    100078: pPlane3 10
+    100080: pPlane3 11
+    100082: pPlane3 12
+    100084: pPlane3 13
+    100086: pPlane3 14
+    100088: pPlane3 15
+    100090: pPlane3 16
+    100092: pPlane3 2
+    100094: pPlane3 3
+    100096: pPlane3 4
+    100098: pPlane3 5
+    100100: pPlane3 6
+    100102: pPlane3 7
+    100104: pPlane3 8
+    100106: pPlane3 9
+    100108: pPlane4
+    100110: pPlane4 1
+    100112: pPlane4 10
+    100114: pPlane4 11
+    100116: pPlane4 12
+    100118: pPlane4 13
+    100120: pPlane4 14
+    100122: pPlane4 2
+    100124: pPlane4 3
+    100126: pPlane4 4
+    100128: pPlane4 5
+    100130: pPlane4 6
+    100132: pPlane4 7
+    100134: pPlane4 8
+    100136: pPlane4 9
+    100138: pPlane5
+    100140: pPlane6
+    100142: pSphere1
+    100144: transform1
+    100146: transform10
+    100148: transform11
+    100150: transform12
+    100152: transform13
+    100154: transform14
+    100156: transform15
+    100158: transform16
+    100160: transform17
+    100162: transform18
+    100164: transform19
+    100166: transform2
+    100168: transform20
+    100170: transform21
+    100172: transform22
+    100174: transform23
+    100176: transform24
+    100178: transform25
+    100180: transform26
+    100182: transform27
+    100184: transform28
+    100186: transform29
+    100188: transform3
+    100190: transform30
+    100192: transform31
+    100194: transform32
+    100196: transform33
+    100198: transform34
+    100200: transform35
+    100202: transform36
+    100204: transform37
+    100206: transform38
+    100208: transform39
+    100210: transform4
+    100212: transform40
+    100214: transform41
+    100216: transform42
+    100218: transform43
+    100220: transform44
+    100222: transform45
+    100224: transform46
+    100226: transform47
+    100228: transform48
+    100230: transform49
+    100232: transform5
+    100234: transform50
+    100236: transform51
+    100238: transform52
+    100240: transform6
+    100242: transform7
+    100244: transform8
+    100246: transform9
+    400000: group1
+    400002: group10
+    400004: group11
+    400006: group12
+    400008: group13
+    400010: group14
+    400012: group15
+    400014: group16
+    400016: group17
+    400018: group18
+    400020: group1_pPlane1
+    400022: group2
+    400024: group3
+    400026: group4
+    400028: group5
+    400030: group6
+    400032: group7
+    400034: group8
+    400036: group9
+    400038: //RootNode
+    400040: pPlane1
+    400042: pPlane1 1
+    400044: pPlane1 10
+    400046: pPlane1 11
+    400048: pPlane1 2
+    400050: pPlane1 3
+    400052: pPlane1 4
+    400054: pPlane1 5
+    400056: pPlane1 6
+    400058: pPlane1 7
+    400060: pPlane1 8
+    400062: pPlane1 9
+    400064: pPlane2
+    400066: pPlane2 1
+    400068: pPlane2 2
+    400070: pPlane2 3
+    400072: pPlane2 4
+    400074: pPlane3
+    400076: pPlane3 1
+    400078: pPlane3 10
+    400080: pPlane3 11
+    400082: pPlane3 12
+    400084: pPlane3 13
+    400086: pPlane3 14
+    400088: pPlane3 15
+    400090: pPlane3 16
+    400092: pPlane3 2
+    400094: pPlane3 3
+    400096: pPlane3 4
+    400098: pPlane3 5
+    400100: pPlane3 6
+    400102: pPlane3 7
+    400104: pPlane3 8
+    400106: pPlane3 9
+    400108: pPlane4
+    400110: pPlane4 1
+    400112: pPlane4 10
+    400114: pPlane4 11
+    400116: pPlane4 12
+    400118: pPlane4 13
+    400120: pPlane4 14
+    400122: pPlane4 2
+    400124: pPlane4 3
+    400126: pPlane4 4
+    400128: pPlane4 5
+    400130: pPlane4 6
+    400132: pPlane4 7
+    400134: pPlane4 8
+    400136: pPlane4 9
+    400138: pPlane5
+    400140: pPlane6
+    400142: pSphere1
+    400144: transform1
+    400146: transform10
+    400148: transform11
+    400150: transform12
+    400152: transform13
+    400154: transform14
+    400156: transform15
+    400158: transform16
+    400160: transform17
+    400162: transform18
+    400164: transform19
+    400166: transform2
+    400168: transform20
+    400170: transform21
+    400172: transform22
+    400174: transform23
+    400176: transform24
+    400178: transform25
+    400180: transform26
+    400182: transform27
+    400184: transform28
+    400186: transform29
+    400188: transform3
+    400190: transform30
+    400192: transform31
+    400194: transform32
+    400196: transform33
+    400198: transform34
+    400200: transform35
+    400202: transform36
+    400204: transform37
+    400206: transform38
+    400208: transform39
+    400210: transform4
+    400212: transform40
+    400214: transform41
+    400216: transform42
+    400218: transform43
+    400220: transform44
+    400222: transform45
+    400224: transform46
+    400226: transform47
+    400228: transform48
+    400230: transform49
+    400232: transform5
+    400234: transform50
+    400236: transform51
+    400238: transform52
+    400240: transform6
+    400242: transform7
+    400244: transform8
+    400246: transform9
+    2300000: group1_pPlane1
+    3300000: group1_pPlane1
+    4300000: group1_pPlane1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

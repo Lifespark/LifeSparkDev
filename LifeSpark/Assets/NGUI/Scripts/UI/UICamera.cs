@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// This script should be attached to each camera that's used to draw the objects with
@@ -1082,6 +1083,8 @@ public class UICamera : MonoBehaviour
 		// Send out the press message
 		if (pressed)
 		{
+			m_startCount = true;
+			StartCoroutine(countHold());
 			if (mTooltip != null) ShowTooltip(false);
 
 			currentTouch.pressStarted = true;
@@ -1158,6 +1161,7 @@ public class UICamera : MonoBehaviour
 		// Send out the unpress message
 		if (unpressed)
 		{
+			countStop();
 			currentTouch.pressStarted = false;
 			if (mTooltip != null) ShowTooltip(false);
 
@@ -1210,6 +1214,22 @@ public class UICamera : MonoBehaviour
 			currentTouch.pressed = null;
 			currentTouch.dragged = null;
 		}
+	}
+
+	public static int m_secondsTouchHeld = 0;
+	private bool m_startCount = false;
+	private IEnumerator countHold () {
+		while(m_startCount) {
+			m_secondsTouchHeld++;
+			//Debug.Log("counting....."+m_secondsTouchHeld);
+			yield return new WaitForSeconds(1);
+		}
+	}
+
+	private void countStop () {
+		//Debug.Log("I HELD FOR  " + m_secondsTouchHeld);
+		m_startCount = false;
+		m_secondsTouchHeld = 0;
 	}
 
 	/// <summary>

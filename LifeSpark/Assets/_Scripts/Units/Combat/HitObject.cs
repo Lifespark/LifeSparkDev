@@ -5,7 +5,7 @@ using System.Collections;
 ///*Summary
 /// Stub
 /// */Summary
-public class HitObject : MonoBehaviour {
+public class HitObject {
 
 	// Use this for initialization
 	void Start () {

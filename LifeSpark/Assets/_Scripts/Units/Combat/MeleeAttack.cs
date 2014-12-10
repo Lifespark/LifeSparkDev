@@ -8,7 +8,8 @@ public class MeleeAttack : Attack {
 
 	public int m_attackSpeed;
 
-	public MeleeAttack(AttackType attackType, HitObject hitObject, int attackSpeed): base(attackType, hitObject){
+	public void CreateMeleeAttack(AttackType attackType, Hit hitObject, int attackSpeed){
+		CreateAttack(attackType, hitObject);
 		m_attackSpeed = attackSpeed;
 	}
 

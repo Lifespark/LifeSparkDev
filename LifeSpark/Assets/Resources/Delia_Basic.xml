@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Delia" id="0" isTemp="false"/>
+		<TemplateObject objectName="Target" id="1" isTemp="false"/>
+	</TemplateObjectList>
+	<RefParamList/>
+	<Action tag="" length="1.000" loop="false" hasFlowGraph="true">
+		<Track trackName="SetAnimatorParam0" eventType="SetAnimatorParam" guid="36fd91ae-b499-4d6c-adf4-10a53e307531" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.917" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="stateAttack" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="ac8d041d-a5ca-4522-ac71-b4de933c0f59" x="100.000" y="120.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.800" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.501" isDuration="false">
+				<TemplateObject name="targetId" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetAttackIndex" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="1" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="4" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="0.517" isDuration="false">
+				<TemplateObject name="targetId" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="receiveActionAttack" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="5" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="5" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="TriggerAudioOneShot0" eventType="TriggerAudioOneShot" guid="0d3e7052-0656-4011-9f80-d6368c1613aa" x="80.000" y="-60.000" enabled="true" useRefParam="false" refParamName="" r="0.850" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerAudioOneShot" time="0.522" isDuration="false">
+				<bool name="mutilSource" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="audioPath" value="audio/sfx/delia/blade hit" refParamName="" useRefParam="false"/>
+				<float name="volume" value="1.000" refParamName="" useRefParam="false"/>
+				<int name="priority" value="255" refParamName="" useRefParam="false"/>
+				<bool name="enableRand" value="false" refParamName="" useRefParam="false"/>
+				<Array name="randPaths" refParamName="" useRefParam="false" type="String"/>
+				<Array name="probabilities" refParamName="" useRefParam="false" type="float"/>
+			</Event>
+		</Track>
+		<Track trackName="StopMultipleTracks0" eventType="StopMultipleTracks" guid="ecdd7bdd-6803-492c-b407-5f5eb2834aff" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.717" b="0.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="StopMultipleTracks" time="0.000" isDuration="false">
+				<Array name="trackIds" refParamName="" useRefParam="false" type="TrackObject">
+					<Guid id="0" guid="36fd91ae-b499-4d6c-adf4-10a53e307531"/>
+					<Guid id="1" guid="ac8d041d-a5ca-4522-ac71-b4de933c0f59"/>
+					<Guid id="2" guid="0d3e7052-0656-4011-9f80-d6368c1613aa"/>
+				</Array>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

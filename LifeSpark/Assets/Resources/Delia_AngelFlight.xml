@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Delia" id="0" isTemp="false"/>
+		<TemplateObject objectName="Trail" id="1" isTemp="false"/>
+		<TemplateObject objectName="myPos" id="2" isTemp="true"/>
+	</TemplateObjectList>
+	<RefParamList>
+		<Vector3 name="endPos" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+	</RefParamList>
+	<Action tag="" length="2.400" loop="false" hasFlowGraph="true">
+		<Track trackName="ChangeAnimation" eventType="SetAnimatorParam" guid="613ffa11-30dd-48b2-b447-eafc186498e3" x="200.000" y="200.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.100" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.031" isDuration="false">
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="attackAngelFlight" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="TriggerHit0" eventType="TriggerHit" guid="25b87bfb-d194-41e5-93a1-82bec740de46" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.867" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerHit" time="0.047" length="1.435" isDuration="true">
+				<TemplateObject name="triggerId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="TriggerHelper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="GetCollisionSet" refParamName="" useRefParam="false"/>
+				<TemplateObject name="attackerId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="delia_angelflighthit" refParamName="" useRefParam="false"/>
+				<Array name="tags" refParamName="" useRefParam="false" type="String">
+					<String value="Player"/>
+					<String value="Enemy"/>
+					<String value="JungleCreep"/>
+					<String value="LaneCreep"/>
+					<String value="SparkPoint"/>
+					<String value="Boss"/>
+				</Array>
+				<float name="triggerInterval" value="0.100" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="2a9c1ec6-8a12-4174-99cc-37f733dd8fb2" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.583" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.111" isDuration="false">
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="MeleeTrailControl" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="MeleeSwitch" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="2.145" isDuration="false">
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="MeleeTrailControl" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="MeleeSwitch" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="StopMultipleTracks3" eventType="StopMultipleTracks" guid="c4244b51-9974-4f5b-bee8-4e6993dff968" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.767" g="1.000" b="0.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="StopMultipleTracks" time="0.000" isDuration="false">
+				<Array name="trackIds" refParamName="" useRefParam="false" type="TrackObject">
+					<Guid id="0" guid="613ffa11-30dd-48b2-b447-eafc186498e3"/>
+					<Guid id="1" guid="25b87bfb-d194-41e5-93a1-82bec740de46"/>
+					<Guid id="2" guid="2a9c1ec6-8a12-4174-99cc-37f733dd8fb2"/>
+				</Array>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="6daa8c0e-6b57-4ffc-b869-1f2dfedb4cfa" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.233" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Trail" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="MeleeTrailControl" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="MeleeSwitch" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="TriggerAudioOneShot0" eventType="TriggerAudioOneShot" guid="50f0aac3-a3e3-4527-9bac-23895af3ae1a" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.417" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerAudioOneShot" time="0.000" isDuration="false">
+				<bool name="mutilSource" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="audioPath" value="audio/sfx/delia/angelflight take4" refParamName="" useRefParam="false"/>
+				<float name="volume" value="1.000" refParamName="" useRefParam="false"/>
+				<int name="priority" value="255" refParamName="" useRefParam="false"/>
+				<bool name="enableRand" value="false" refParamName="" useRefParam="false"/>
+				<Array name="randPaths" refParamName="" useRefParam="false" type="String"/>
+				<Array name="probabilities" refParamName="" useRefParam="false" type="float"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

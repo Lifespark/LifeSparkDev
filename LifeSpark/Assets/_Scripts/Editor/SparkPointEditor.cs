@@ -2,11 +2,12 @@
 using UnityEditor;
 using System.Collections;
 	
-[CustomEditor (typeof(SparkPoint)), CanEditMultipleObjects]
+[CustomEditor (typeof(SparkPoint))]
 public class SparkPointEditor : Editor {
 
 	SerializedProperty connectedSparkPoints;
 	SerializedProperty connectedLines;
+    SerializedProperty defaultNextSparkPoint;
 
 	private static GUIContent addPoint = new GUIContent("+", "Add Point");
 	//private static GUIContent minusPoint = new GUIContent("-", "Remove Point");
@@ -14,6 +15,7 @@ public class SparkPointEditor : Editor {
 	public void OnEnable () {
 		connectedSparkPoints = serializedObject.FindProperty("_connections");
 		connectedLines = serializedObject.FindProperty("connectionLines");
+        defaultNextSparkPoint = serializedObject.FindProperty("m_defaultNextSparkPoint");
 	}
 
 	public override void OnInspectorGUI () {
@@ -102,7 +104,19 @@ public class SparkPointEditor : Editor {
 
 		} //end loop
 
+        //SparkPoint sparkPoint = (SparkPoint)target;
+        //for (int i = 0; i < 3; i++) {
+        //    EditorGUILayout.BeginHorizontal();
+        //    EditorGUILayout.LabelField("Boss Area: " + (i + 1));
+        //    EditorGUILayout.EndHorizontal();
+        //    for (int j = 0; j < 4; j++) {
+        //        EditorGUILayout.BeginHorizontal();
+        //        EditorGUILayout.LabelField("SP: " + (j + 1));
+        //        EditorGUILayout.ObjectField(sparkPoint._bossAreaConnections[i, j], typeof(SparkPoint), true);
+        //        EditorGUILayout.EndHorizontal();
 
+        //    }
+        //}
 		//end
 		serializedObject.ApplyModifiedProperties();
 	}
@@ -117,9 +131,14 @@ public class SparkPointEditor : Editor {
 				GameObject ptB = 
 					GameObject.Find(connectedSparkPoints.GetArrayElementAtIndex(i).objectReferenceValue.name);
 
-				Handles.DrawLine(ptA.transform.position, ptB.transform.position);
+                Debug.DrawLine(ptA.transform.position, ptB.transform.position);
 			}
 		}
+
+        SparkPoint sparkPoint = (SparkPoint)target;
+        if (sparkPoint.m_defaultNextSparkPoint != null) {
+            Debug.DrawLine(sparkPoint.transform.position, sparkPoint.m_defaultNextSparkPoint.transform.position, Color.green);
+        }
 	}
 
 }

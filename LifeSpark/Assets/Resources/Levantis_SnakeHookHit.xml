@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Victim" id="0" isTemp="false"/>
+		<TemplateObject objectName="Attacker" id="1" isTemp="false"/>
+		<TemplateObject objectName="Trigger" id="2" isTemp="false"/>
+		<TemplateObject objectName="myPos" id="3" isTemp="true"/>
+		<TemplateObject objectName="dragPos" id="4" isTemp="true"/>
+	</TemplateObjectList>
+	<RefParamList>
+		<String name="testStr" value="" refParamName="" useRefParam="false"/>
+	</RefParamList>
+	<Action tag="" length="0.466" loop="false" hasFlowGraph="true">
+		<Track trackName="CreateObjectTick0" eventType="CreateObjectTick" guid="57552aed-5bc5-4f08-8905-36ceb2c4f227" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="1.000" b="0.967" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="myPos" id="3" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="CreateObjectTick1" eventType="CreateObjectTick" guid="4b6c44d8-da80-4e19-a366-6a7d538abee9" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.417" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="dragPos" id="4" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="Attacker" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ModifyTransform0" eventType="ModifyTransform" guid="8b71e68a-9c8b-4ce8-9717-a078aac88d83" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.567" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="ModifyTransform" time="0.149" isDuration="false">
+				<TemplateObject name="targetId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="myPos" id="3" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="dragPos" id="4" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="0.466" isDuration="false">
+				<TemplateObject name="targetId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="myPos" id="3" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="dragPos" id="4" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.800" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="28d5aa05-8bf0-434b-9c2c-381032c9516a" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.567" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetAttackIndex" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="1" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="1" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="0.039" isDuration="false">
+				<TemplateObject name="targetId" objectName="Victim" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="receiveActionAttack" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="5" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="1" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Attacker" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

@@ -10,10 +10,9 @@ public class LineAttack : Attack {
 	public int m_duration;
 	public int m_cooldown;
 
-	public LineAttack(AttackType attackType, HitObject hitObject, int range, int duration, int cooldown): base(attackType, hitObject){
+	public void CreateLineAttack(AttackType attackType, Hit hitObject, int range, int duration, int cooldown){
 
-
-		//Attack(attackType, hitObject);
+		CreateAttack(attackType, hitObject);
 		m_range = range;
 		m_duration = duration;
 		m_cooldown = cooldown;

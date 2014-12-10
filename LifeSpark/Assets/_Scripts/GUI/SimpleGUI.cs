@@ -6,26 +6,39 @@ public enum GuiStage {
 	multiMenu,
 	inGame,
 	joiningLobby
+
 };
 
 public class SimpleGUI : LSMonoBehaviour {
-	private GuiStage guiStage = GuiStage.mainMenu; 
+
+    static private SimpleGUI _instance;
+    static public SimpleGUI Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(SimpleGUI)) as SimpleGUI;
+            return _instance;
+        }
+    }
+
+	public GuiStage guiStage = GuiStage.mainMenu; 
 	private NetworkManager networkManager;
 	private GameObject m_startUpUIObject;
 	private Vector2 scrollPos = Vector2.zero;
-	private string lobbyName = "default";
+	private string lobbyName = "QuicktestLobby";
 	private string sceneName = "MainMap";
-	private StartUpUI m_startUI;
-
-	// Use this for initialization
+	public StartUpUI m_startUI;
+    
+    // Use this for initialization
 	void Start () {
-		Debug.Log ("SimpleGUI.cs start");
+        _instance = this;
+        //Debug.Log ("SimpleGUI.cs start");
 		GameObject manager = GameObject.Find ("Manager");
 		Object.DontDestroyOnLoad (manager);
 		m_startUI = GetComponent<UIManager>().AddGui("StartAndLobby").GetComponent<StartUpUI>();
 		m_startUI.SetSimpleGuiObejct(this);
 		networkManager = (NetworkManager) manager.GetComponent("NetworkManager");
 		m_startUI.reset();
+		//m_startUI.leaveLobby();
 	}
 	
 	// Update is called once per frame
@@ -43,12 +56,22 @@ public class SimpleGUI : LSMonoBehaviour {
 //		guiStage = GuiStage.inGame;
 //		networkManager.mode = NetMode.quick; 
 //		Application.LoadLevel ("MainMap");
+        if (PhotonNetwork.insideLobby) {
 
-		networkManager.lobbyName = this.lobbyName;
-		guiStage = GuiStage.inGame;
-		networkManager.mode = NetMode.quick;
-		networkManager.playerName = "Quicktest Player";
-		networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
+            networkManager.CreateRoomBasedOnDevice();
+        }
+
+
+//        // generate pseudo random int for unique quicklobby name
+//		Random.seed = (int)System.DateTime.Now.Ticks;
+//		int randInt = Random.Range(0, 99999999);
+//		
+//		networkManager.lobbyName = this.lobbyName + "_" + randInt.ToString();
+//		//guiStage = GuiStage.inGame;
+//		//networkManager.mode = NetMode.quick;
+//		networkManager.playerName = "Quicktest Player";
+//		networkManager.CreateLobby(lobbyName, new RoomOptions() { maxPlayers = 4});
+
 	}
 
 	public void StartMultiPlayer ()
@@ -90,17 +113,17 @@ public class SimpleGUI : LSMonoBehaviour {
 	private void GUI_MainMenu () {
 
 		return;
-		int buttonWidth = 250;
-		int buttonHeight = 100;
-		int space = 10;
+        //int buttonWidth = 250;
+        //int buttonHeight = 100;
+        //int space = 10;
 
-		if (!networkManager.connected) {
-			GUI_Disconnected();
-		} else if (GUI.Button (new Rect ((Screen.width-buttonWidth)/2, ((Screen.height-buttonHeight)/2)-((buttonHeight+space)/2), 250, 100), "Quick Test Mode (1P)")) {
-			StartQuickTest ();
-		} else if (GUI.Button (new Rect ((Screen.width-buttonWidth)/2, ((Screen.height-buttonHeight)/2)+((buttonHeight+space)/2), 250, 100), "Multiplayer")) {
-			guiStage = GuiStage.multiMenu;
-		}
+        //if (!networkManager.connected) {
+        //    GUI_Disconnected();
+        //} else if (GUI.Button (new Rect ((Screen.width-buttonWidth)/2, ((Screen.height-buttonHeight)/2)-((buttonHeight+space)/2), 250, 100), "Quick Test Mode (1P)")) {
+        //    StartQuickTest ();
+        //} else if (GUI.Button (new Rect ((Screen.width-buttonWidth)/2, ((Screen.height-buttonHeight)/2)+((buttonHeight+space)/2), 250, 100), "Multiplayer")) {
+        //    guiStage = GuiStage.multiMenu;
+        //}
 	}
 
 	private void OnPlayerNameChanged()
@@ -128,11 +151,12 @@ public class SimpleGUI : LSMonoBehaviour {
 		});
 	}
 
-	public void CreateLobby (string lobbyName)
+	public void CreateLobby (string lobbyName, bool visible)
 	{
 		networkManager.lobbyName = lobbyName;
 		networkManager.CreateLobby (lobbyName, new RoomOptions () {
-			maxPlayers = 4
+			maxPlayers = 4,
+            isVisible = visible
 		});
 	}
 
@@ -147,52 +171,52 @@ public class SimpleGUI : LSMonoBehaviour {
 		m_startUI.MultiMenu();
 
 		return;
-		int menuWidth = 400;
-		int menuHeight = 300;
+        //int menuWidth = 400;
+        //int menuHeight = 300;
 
-		GUILayout.BeginArea(new Rect((Screen.width - menuWidth) / 2, (Screen.height - menuHeight) / 2, menuWidth, menuHeight));
+        //GUILayout.BeginArea(new Rect((Screen.width - menuWidth) / 2, (Screen.height - menuHeight) / 2, menuWidth, menuHeight));
 		
-		// Player name
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("Player name:", GUILayout.Width((2 * menuWidth) / 5));
-		networkManager.playerName = (GUILayout.TextField (networkManager.playerName));
-		if (GUI.changed) {
-			 OnPlayerNameChanged();
-		}
-		GUILayout.EndHorizontal();
-		GUILayout.Space(15);
+        //// Player name
+        //GUILayout.BeginHorizontal();
+        //GUILayout.Label("Player name:", GUILayout.Width((2 * menuWidth) / 5));
+        //networkManager.playerName = (GUILayout.TextField (networkManager.playerName));
+        //if (GUI.changed) {
+        //     OnPlayerNameChanged();
+        //}
+        //GUILayout.EndHorizontal();
+        //GUILayout.Space(15);
 
-		// Create a lobby (fails if already exists!)
-		GUILayout.BeginHorizontal();
-		this.lobbyName = GUILayout.TextField(this.lobbyName);
-		if (GUILayout.Button("CREATE")) {
-			CreateLobby ();
-		}
-		GUILayout.EndHorizontal();
-		GUILayout.Space(25);
+        //// Create a lobby (fails if already exists!)
+        //GUILayout.BeginHorizontal();
+        //this.lobbyName = GUILayout.TextField(this.lobbyName);
+        //if (GUILayout.Button("CREATE")) {
+        //    CreateLobby ();
+        //}
+        //GUILayout.EndHorizontal();
+        //GUILayout.Space(25);
 
-		//Show a list of all current lobbies
-		GUILayout.Label("Active Lobbies:");
-		if (networkManager.GetLobbies().Length == 0) {
-			GUILayout.Label("(none)");
-		}
-		else
-		{
-			// Room listing: simply call GetRoomList: no need to fetch/poll whatever!
-			this.scrollPos = GUILayout.BeginScrollView(this.scrollPos);
-			foreach (Lobby lobby in networkManager.GetLobbies ())
-			{
-				GUILayout.BeginHorizontal();
-				GUILayout.Label(lobby.name + " " + lobby.playerCount + "/" + lobby.maxPlayers);
-				if (GUILayout.Button("JOIN"))
-				{
-					join (lobby.name);
-				}
-				GUILayout.EndHorizontal();
-			}
-			GUILayout.EndScrollView();
-		}
-		GUILayout.EndArea();
+        ////Show a list of all current lobbies
+        //GUILayout.Label("Active Lobbies:");
+        //if (networkManager.GetLobbies().Length == 0) {
+        //    GUILayout.Label("(none)");
+        //}
+        //else
+        //{
+        //    // Room listing: simply call GetRoomList: no need to fetch/poll whatever!
+        //    this.scrollPos = GUILayout.BeginScrollView(this.scrollPos);
+        //    foreach (Lobby lobby in networkManager.GetLobbies ())
+        //    {
+        //        GUILayout.BeginHorizontal();
+        //        GUILayout.Label(lobby.name + " " + lobby.playerCount + "/" + lobby.maxPlayers);
+        //        if (GUILayout.Button("JOIN"))
+        //        {
+        //            join (lobby.name);
+        //        }
+        //        GUILayout.EndHorizontal();
+        //    }
+        //    GUILayout.EndScrollView();
+        //}
+        //GUILayout.EndArea();
 	}
 
 	public Lobby[] GetLobbyList()
@@ -200,32 +224,37 @@ public class SimpleGUI : LSMonoBehaviour {
 		return networkManager.GetLobbies();
 	}
 
+
+    public MetaPlayer[] getMetaPlayers() {
+        return networkManager.GetMetaPlayers();
+    }
+
 	private void GUI_InLobby() {
 		//
 
 		m_startUI.InLobby(networkManager.lobbyName,networkManager.GetMetaPlayers (),this.sceneName);
 		return;
-		GUILayout.Label("We are connected to room: "+networkManager.lobbyName);
-		GUILayout.Label("Players: ");
-		foreach (MetaPlayer player in networkManager.GetMetaPlayers ())
-		{
-			GUILayout.Label("ID: "+player.ID+" Name: "+player.name);
-		}
+        //GUILayout.Label("We are connected to room: "+networkManager.lobbyName);
+        //GUILayout.Label("Players: ");
+        //foreach (MetaPlayer player in networkManager.GetMetaPlayers ())
+        //{
+        //    GUILayout.Label("ID: "+player.ID+" Name: "+player.name);
+        //}
 
 
-		GUILayout.Label("Scene To Load:");
-		this.sceneName = GUILayout.TextField(this.sceneName);
+        //GUILayout.Label("Scene To Load:");
+        //this.sceneName = GUILayout.TextField(this.sceneName);
 
-		if (GUILayout.Button("Start game"))
-		{
-			networkManager.startNetworkedGame(this.sceneName);
-		}
+        //if (GUILayout.Button("Start game"))
+        //{
+        //    networkManager.startNetworkedGame(this.sceneName);
+        //}
 
-		if (GUILayout.Button("Leave room"))
-		{
-			guiStage = GuiStage.multiMenu;
-			PhotonNetwork.LeaveRoom();
-		}
+        //if (GUILayout.Button("Leave room"))
+        //{
+        //    guiStage = GuiStage.multiMenu;
+        //    PhotonNetwork.LeaveRoom();
+        //}
 	}
 
 	public void startGame(string sceneName)

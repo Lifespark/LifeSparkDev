@@ -1,0 +1,634 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: Frame_Atlas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 4123296ae300102469f905eae204f804, type: 2}
+  sprites:
+  - name: skill_1
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 15
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 15
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Target_Mana copy
+    outer:
+      serializedVersion: 2
+      x: 767
+      y: 124
+      width: 224
+      height: 224
+    inner:
+      serializedVersion: 2
+      x: 767
+      y: 124
+      width: 224
+      height: 224
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: skill_3 copy
+    outer:
+      serializedVersion: 2
+      x: 411
+      y: 19
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 411
+      y: 19
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Skill_halo copy
+    outer:
+      serializedVersion: 2
+      x: 598
+      y: 444
+      width: 129
+      height: 129
+    inner:
+      serializedVersion: 2
+      x: 598
+      y: 444
+      width: 129
+      height: 129
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Target_Frame copy
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 690
+      width: 334
+      height: 334
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 690
+      width: 334
+      height: 334
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Cycle_Target_Left_Button copy
+    outer:
+      serializedVersion: 2
+      x: 728
+      y: 539
+      width: 28
+      height: 34
+    inner:
+      serializedVersion: 2
+      x: 728
+      y: 539
+      width: 28
+      height: 34
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: circle copy
+    outer:
+      serializedVersion: 2
+      x: 335
+      y: 763
+      width: 261
+      height: 261
+    inner:
+      serializedVersion: 2
+      x: 335
+      y: 763
+      width: 261
+      height: 261
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Target_Health copy
+    outer:
+      serializedVersion: 2
+      x: 1125
+      y: 52
+      width: 131
+      height: 261
+    inner:
+      serializedVersion: 2
+      x: 1125
+      y: 52
+      width: -90
+      height: 261
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: skill_2 copy
+    outer:
+      serializedVersion: 2
+      x: 473
+      y: 694
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 473
+      y: 694
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Attack_Button copy
+    outer:
+      serializedVersion: 2
+      x: 542
+      y: 46
+      width: 153
+      height: 152
+    inner:
+      serializedVersion: 2
+      x: 542
+      y: 46
+      width: 153
+      height: 152
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Target_Health_Tail copy
+    outer:
+      serializedVersion: 2
+      x: 823
+      y: 801
+      width: 223
+      height: 223
+    inner:
+      serializedVersion: 2
+      x: 823
+      y: 801
+      width: 223
+      height: 223
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: skill_4 copy
+    outer:
+      serializedVersion: 2
+      x: 273
+      y: 19
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 273
+      y: 19
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Enemy_Portrait copy
+    outer:
+      serializedVersion: 2
+      x: 273
+      y: 88
+      width: 268
+      height: 268
+    inner:
+      serializedVersion: 2
+      x: 273
+      y: 88
+      width: 268
+      height: 268
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Player Level copy
+    outer:
+      serializedVersion: 2
+      x: 396
+      y: 374
+      width: 49
+      height: 49
+    inner:
+      serializedVersion: 2
+      x: 396
+      y: 374
+      width: 49
+      height: 49
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Player Portrait copy
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 84
+      width: 272
+      height: 272
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 84
+      width: 272
+      height: 272
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Fire Element copy
+    outer:
+      serializedVersion: 2
+      x: 542
+      y: 712
+      width: 50
+      height: 50
+    inner:
+      serializedVersion: 2
+      x: 542
+      y: 712
+      width: 50
+      height: 50
+    rotated: 0
+    paddingLeft: 4.21999979
+    paddingRight: 35.1599998
+    paddingTop: 5.98000002
+    paddingBottom: 18.5599995
+  - name: Player Health copy
+    outer:
+      serializedVersion: 2
+      x: 992
+      y: 45
+      width: 132
+      height: 268
+    inner:
+      serializedVersion: 2
+      x: 992
+      y: 45
+      width: 132
+      height: 268
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: .0075757578
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Player Frame copy
+    outer:
+      serializedVersion: 2
+      x: 0
+      y: 357
+      width: 330
+      height: 332
+    inner:
+      serializedVersion: 2
+      x: 0
+      y: 357
+      width: 330
+      height: 332
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Player Mana copy
+    outer:
+      serializedVersion: 2
+      x: 992
+      y: 314
+      width: 134
+      height: 268
+    inner:
+      serializedVersion: 2
+      x: 992
+      y: 314
+      width: 134
+      height: 268
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Water Element copy
+    outer:
+      serializedVersion: 2
+      x: 480
+      y: 37
+      width: 50
+      height: 50
+    inner:
+      serializedVersion: 2
+      x: 480
+      y: 37
+      width: 50
+      height: 50
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Player Experience copy
+    outer:
+      serializedVersion: 2
+      x: 823
+      y: 583
+      width: 217
+      height: 217
+    inner:
+      serializedVersion: 2
+      x: 823
+      y: 583
+      width: 217
+      height: 217
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: circle
+    outer:
+      serializedVersion: 2
+      x: 331
+      y: 424
+      width: 266
+      height: 265
+    inner:
+      serializedVersion: 2
+      x: 331
+      y: 424
+      width: 266
+      height: 265
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: friendlist
+    outer:
+      serializedVersion: 2
+      x: 331
+      y: 359
+      width: 64
+      height: 64
+    inner:
+      serializedVersion: 2
+      x: 331
+      y: 359
+      width: 64
+      height: 64
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 0-4
+    outer:
+      serializedVersion: 2
+      x: 696
+      y: 130
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 696
+      y: 130
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 0-1
+    outer:
+      serializedVersion: 2
+      x: 404
+      y: 694
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 404
+      y: 694
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 0-2
+    outer:
+      serializedVersion: 2
+      x: 335
+      y: 694
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 335
+      y: 694
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 0-3
+    outer:
+      serializedVersion: 2
+      x: 696
+      y: 61
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 696
+      y: 61
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 1-3
+    outer:
+      serializedVersion: 2
+      x: 597
+      y: 799
+      width: 225
+      height: 225
+    inner:
+      serializedVersion: 2
+      x: 597
+      y: 799
+      width: 225
+      height: 225
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 1-1
+    outer:
+      serializedVersion: 2
+      x: 767
+      y: 349
+      width: 224
+      height: 224
+    inner:
+      serializedVersion: 2
+      x: 767
+      y: 349
+      width: 224
+      height: 224
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 1-4
+    outer:
+      serializedVersion: 2
+      x: 542
+      y: 199
+      width: 224
+      height: 224
+    inner:
+      serializedVersion: 2
+      x: 542
+      y: 199
+      width: 224
+      height: 224
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: 1-2
+    outer:
+      serializedVersion: 2
+      x: 598
+      y: 574
+      width: 224
+      height: 224
+    inner:
+      serializedVersion: 2
+      x: 598
+      y: 574
+      width: 224
+      height: 224
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: cover
+    outer:
+      serializedVersion: 2
+      x: 342
+      y: 19
+      width: 68
+      height: 68
+    inner:
+      serializedVersion: 2
+      x: 342
+      y: 19
+      width: 68
+      height: 68
+    rotated: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  mCoordinates: 0
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

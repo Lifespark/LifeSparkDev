@@ -1,0 +1,744 @@
+fileFormatVersion: 2
+guid: 5d83d1bc802408640968642462780297
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: lowPolyMageCreep__1_1:polySurface1
+    100002: lowPolyMageCreep__1_:Head
+    100004: lowPolyMageCreep__1_:HeadTop_End
+    100006: lowPolyMageCreep__1_:Hips
+    100008: lowPolyMageCreep__1_:LeftArm
+    100010: lowPolyMageCreep__1_:LeftFoot
+    100012: lowPolyMageCreep__1_:LeftForeArm
+    100014: lowPolyMageCreep__1_:LeftHand
+    100016: lowPolyMageCreep__1_:LeftHandIndex1
+    100018: lowPolyMageCreep__1_:LeftHandIndex2
+    100020: lowPolyMageCreep__1_:LeftHandIndex3
+    100022: lowPolyMageCreep__1_:LeftHandIndex4
+    100024: lowPolyMageCreep__1_:LeftHandThumb1
+    100026: lowPolyMageCreep__1_:LeftHandThumb2
+    100028: lowPolyMageCreep__1_:LeftHandThumb3
+    100030: lowPolyMageCreep__1_:LeftHandThumb4
+    100032: lowPolyMageCreep__1_:LeftLeg
+    100034: lowPolyMageCreep__1_:LeftShoulder
+    100036: lowPolyMageCreep__1_:LeftToe_End
+    100038: lowPolyMageCreep__1_:LeftToeBase
+    100040: lowPolyMageCreep__1_:LeftUpLeg
+    100042: lowPolyMageCreep__1_:Neck
+    100044: lowPolyMageCreep__1_:polySurface1
+    100046: lowPolyMageCreep__1_:RightArm
+    100048: lowPolyMageCreep__1_:RightFoot
+    100050: lowPolyMageCreep__1_:RightForeArm
+    100052: lowPolyMageCreep__1_:RightHand
+    100054: lowPolyMageCreep__1_:RightHandIndex1
+    100056: lowPolyMageCreep__1_:RightHandIndex2
+    100058: lowPolyMageCreep__1_:RightHandIndex3
+    100060: lowPolyMageCreep__1_:RightHandIndex4
+    100062: lowPolyMageCreep__1_:RightHandThumb1
+    100064: lowPolyMageCreep__1_:RightHandThumb2
+    100066: lowPolyMageCreep__1_:RightHandThumb3
+    100068: lowPolyMageCreep__1_:RightHandThumb4
+    100070: lowPolyMageCreep__1_:RightLeg
+    100072: lowPolyMageCreep__1_:RightShoulder
+    100074: lowPolyMageCreep__1_:RightToe_End
+    100076: lowPolyMageCreep__1_:RightToeBase
+    100078: lowPolyMageCreep__1_:RightUpLeg
+    100080: lowPolyMageCreep__1_:Spine
+    100082: lowPolyMageCreep__1_:Spine1
+    100084: lowPolyMageCreep__1_:Spine2
+    100086: //RootNode
+    400000: lowPolyMageCreep__1_1:polySurface1
+    400002: lowPolyMageCreep__1_:Head
+    400004: lowPolyMageCreep__1_:HeadTop_End
+    400006: lowPolyMageCreep__1_:Hips
+    400008: lowPolyMageCreep__1_:LeftArm
+    400010: lowPolyMageCreep__1_:LeftFoot
+    400012: lowPolyMageCreep__1_:LeftForeArm
+    400014: lowPolyMageCreep__1_:LeftHand
+    400016: lowPolyMageCreep__1_:LeftHandIndex1
+    400018: lowPolyMageCreep__1_:LeftHandIndex2
+    400020: lowPolyMageCreep__1_:LeftHandIndex3
+    400022: lowPolyMageCreep__1_:LeftHandIndex4
+    400024: lowPolyMageCreep__1_:LeftHandThumb1
+    400026: lowPolyMageCreep__1_:LeftHandThumb2
+    400028: lowPolyMageCreep__1_:LeftHandThumb3
+    400030: lowPolyMageCreep__1_:LeftHandThumb4
+    400032: lowPolyMageCreep__1_:LeftLeg
+    400034: lowPolyMageCreep__1_:LeftShoulder
+    400036: lowPolyMageCreep__1_:LeftToe_End
+    400038: lowPolyMageCreep__1_:LeftToeBase
+    400040: lowPolyMageCreep__1_:LeftUpLeg
+    400042: lowPolyMageCreep__1_:Neck
+    400044: lowPolyMageCreep__1_:polySurface1
+    400046: lowPolyMageCreep__1_:RightArm
+    400048: lowPolyMageCreep__1_:RightFoot
+    400050: lowPolyMageCreep__1_:RightForeArm
+    400052: lowPolyMageCreep__1_:RightHand
+    400054: lowPolyMageCreep__1_:RightHandIndex1
+    400056: lowPolyMageCreep__1_:RightHandIndex2
+    400058: lowPolyMageCreep__1_:RightHandIndex3
+    400060: lowPolyMageCreep__1_:RightHandIndex4
+    400062: lowPolyMageCreep__1_:RightHandThumb1
+    400064: lowPolyMageCreep__1_:RightHandThumb2
+    400066: lowPolyMageCreep__1_:RightHandThumb3
+    400068: lowPolyMageCreep__1_:RightHandThumb4
+    400070: lowPolyMageCreep__1_:RightLeg
+    400072: lowPolyMageCreep__1_:RightShoulder
+    400074: lowPolyMageCreep__1_:RightToe_End
+    400076: lowPolyMageCreep__1_:RightToeBase
+    400078: lowPolyMageCreep__1_:RightUpLeg
+    400080: lowPolyMageCreep__1_:Spine
+    400082: lowPolyMageCreep__1_:Spine1
+    400084: lowPolyMageCreep__1_:Spine2
+    400086: //RootNode
+    2300000: lowPolyMageCreep__1_1:polySurface1
+    3300000: lowPolyMageCreep__1_1:polySurface1
+    4300000: lowPolyMageCreep__1_:polySurface1
+    4300002: lowPolyMageCreep__1_1:polySurface1
+    7400000: CreepIdle
+    9500000: //RootNode
+    13700000: lowPolyMageCreep__1_:polySurface1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: CreepIdle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: lowPolyMageCreep__1_1:polySurface1
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:LeftUpLeg
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:LeftUpLeg/lowPolyMageCreep__1_:LeftLeg
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:LeftUpLeg/lowPolyMageCreep__1_:LeftLeg/lowPolyMageCreep__1_:LeftFoot
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:LeftUpLeg/lowPolyMageCreep__1_:LeftLeg/lowPolyMageCreep__1_:LeftFoot/lowPolyMageCreep__1_:LeftToeBase
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:LeftUpLeg/lowPolyMageCreep__1_:LeftLeg/lowPolyMageCreep__1_:LeftFoot/lowPolyMageCreep__1_:LeftToeBase/lowPolyMageCreep__1_:LeftToe_End
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:RightUpLeg
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:RightUpLeg/lowPolyMageCreep__1_:RightLeg
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:RightUpLeg/lowPolyMageCreep__1_:RightLeg/lowPolyMageCreep__1_:RightFoot
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:RightUpLeg/lowPolyMageCreep__1_:RightLeg/lowPolyMageCreep__1_:RightFoot/lowPolyMageCreep__1_:RightToeBase
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:RightUpLeg/lowPolyMageCreep__1_:RightLeg/lowPolyMageCreep__1_:RightFoot/lowPolyMageCreep__1_:RightToeBase/lowPolyMageCreep__1_:RightToe_End
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandIndex1
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandIndex1/lowPolyMageCreep__1_:LeftHandIndex2
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandIndex1/lowPolyMageCreep__1_:LeftHandIndex2/lowPolyMageCreep__1_:LeftHandIndex3
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandIndex1/lowPolyMageCreep__1_:LeftHandIndex2/lowPolyMageCreep__1_:LeftHandIndex3/lowPolyMageCreep__1_:LeftHandIndex4
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandThumb1
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandThumb1/lowPolyMageCreep__1_:LeftHandThumb2
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandThumb1/lowPolyMageCreep__1_:LeftHandThumb2/lowPolyMageCreep__1_:LeftHandThumb3
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:LeftShoulder/lowPolyMageCreep__1_:LeftArm/lowPolyMageCreep__1_:LeftForeArm/lowPolyMageCreep__1_:LeftHand/lowPolyMageCreep__1_:LeftHandThumb1/lowPolyMageCreep__1_:LeftHandThumb2/lowPolyMageCreep__1_:LeftHandThumb3/lowPolyMageCreep__1_:LeftHandThumb4
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:Neck
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:Neck/lowPolyMageCreep__1_:Head
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:Neck/lowPolyMageCreep__1_:Head/lowPolyMageCreep__1_:HeadTop_End
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandIndex1
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandIndex1/lowPolyMageCreep__1_:RightHandIndex2
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandIndex1/lowPolyMageCreep__1_:RightHandIndex2/lowPolyMageCreep__1_:RightHandIndex3
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandIndex1/lowPolyMageCreep__1_:RightHandIndex2/lowPolyMageCreep__1_:RightHandIndex3/lowPolyMageCreep__1_:RightHandIndex4
+        weight: 0
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandThumb1
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandThumb1/lowPolyMageCreep__1_:RightHandThumb2
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandThumb1/lowPolyMageCreep__1_:RightHandThumb2/lowPolyMageCreep__1_:RightHandThumb3
+        weight: 1
+      - path: lowPolyMageCreep__1_:Hips/lowPolyMageCreep__1_:Spine/lowPolyMageCreep__1_:Spine1/lowPolyMageCreep__1_:Spine2/lowPolyMageCreep__1_:RightShoulder/lowPolyMageCreep__1_:RightArm/lowPolyMageCreep__1_:RightForeArm/lowPolyMageCreep__1_:RightHand/lowPolyMageCreep__1_:RightHandThumb1/lowPolyMageCreep__1_:RightHandThumb2/lowPolyMageCreep__1_:RightHandThumb3/lowPolyMageCreep__1_:RightHandThumb4
+        weight: 0
+      - path: lowPolyMageCreep__1_:polySurface1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 8
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: lowPolyMageCreep__1_:Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:Spine1
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:Spine2
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: lowPolyMageCreep__1_:RightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Mage@CreepIdle(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_1:polySurface1
+      position: {x: 1.05283666, y: 3.56490254, z: 3.18140125}
+      rotation: {x: -.537129521, y: .0132271936, z: .808507919, w: .24006632}
+      scale: {x: .00999999978, y: .00999999885, z: .00999999885}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:polySurface1
+      position: {x: .488000005, y: 4.5999999, z: .247999996}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: .00999999978, y: .00999999978, z: .00999999978}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:Hips
+      position: {x: -.00203096867, y: 3.75926566, z: .434316814}
+      rotation: {x: -.116036698, y: .0701333284, z: -.0250271894, w: .990449667}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:Spine
+      position: {x: -0, y: .650935173, z: .0288337767}
+      rotation: {x: .0725187138, y: -.0404390097, z: .0108218323, w: .996488154}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:Spine1
+      position: {x: -0, y: .76016885, z: 0}
+      rotation: {x: .0972534418, y: -.00467797602, z: .0211106203, w: .995024741}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:Spine2
+      position: {x: -0, y: .868764341, z: 0}
+      rotation: {x: .0972534865, y: -.00467800442, z: .0211106334, w: .995024741}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftShoulder
+      position: {x: -.238836721, y: .945581853, z: -.0309228282}
+      rotation: {x: .53860873, y: -.446038812, z: .59177196, w: .400943875}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftArm
+      position: {x: -0, y: .570556641, z: -8.8817842e-16}
+      rotation: {x: -.123249955, y: .344150811, z: -.0813267455, w: .92723012}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftForeArm
+      position: {x: -0, y: 1.52455783, z: 0}
+      rotation: {x: -.0068216729, y: .0494815297, z: -.0303741023, w: .998289824}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHand
+      position: {x: -0, y: 1.3383168, z: 0}
+      rotation: {x: -.16750665, y: -.352049053, z: -.0185384601, w: .920684159}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandIndex1
+      position: {x: 2.77555756e-17, y: .176200598, z: -5.42540901e-09}
+      rotation: {x: .0980104953, y: .0478753597, z: -.116894498, w: .987136066}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandIndex2
+      position: {x: -.0455986746, y: .331884146, z: 4.4408921e-16}
+      rotation: {x: .0364213251, y: -.0072537167, z: .147903651, w: .988304317}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandIndex3
+      position: {x: .0452367254, y: .277361035, z: -8.8817842e-16}
+      rotation: {x: -.00049530511, y: -.00606886623, z: -.081314154, w: .996669948}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandIndex4
+      position: {x: .000361951767, y: .203569502, z: -4.4408921e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandThumb1
+      position: {x: .244452983, y: .117777795, z: -2.29285035e-07}
+      rotation: {x: .04953219, y: -.129427522, z: -.255787313, w: .956748664}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandThumb2
+      position: {x: .045854155, y: .212178871, z: 4.4408921e-16}
+      rotation: {x: .0128922826, y: .0256130937, z: -.108574234, w: .993674695}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandThumb3
+      position: {x: -.00171376369, y: .244251356, z: 0}
+      rotation: {x: -.00108319381, y: .00779129053, z: -.131163478, w: .991329551}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftHandThumb4
+      position: {x: -.0441403911, y: .158886388, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:Neck
+      position: {x: -0, y: .977360189, z: -3.44341444e-08}
+      rotation: {x: -.0596653596, y: .0109808557, z: -.00245961151, w: .998154998}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:Head
+      position: {x: -0, y: .290057182, z: .0324235559}
+      rotation: {x: -.20917666, y: -.292488039, z: .0852521956, w: .929208279}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:HeadTop_End
+      position: {x: -0, y: 1.56669092, z: .17512992}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightShoulder
+      position: {x: .238836721, y: .948221028, z: .0286579784}
+      rotation: {x: .645953774, y: .373081207, z: -.477369219, w: .464405924}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightArm
+      position: {x: 5.55111512e-17, y: .569519103, z: -8.8817842e-16}
+      rotation: {x: -.10617885, y: -.0550367162, z: -.109415479, w: .98677516}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightForeArm
+      position: {x: -0, y: 1.50847375, z: 0}
+      rotation: {x: -.0169252846, y: -.12229798, z: .0357754342, w: .991704047}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHand
+      position: {x: -0, y: 1.33862162, z: 0}
+      rotation: {x: .0921991467, y: .0466724001, z: .0827501938, w: .991198003}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandIndex1
+      position: {x: -0, y: .213836834, z: -4.27179803e-09}
+      rotation: {x: -.0429596938, y: -.0405126177, z: .00022895413, w: .998255134}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandIndex2
+      position: {x: .0375843979, y: .321037501, z: -4.4408921e-16}
+      rotation: {x: .0361595005, y: .00783728156, z: -.131169081, w: .99066937}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandIndex3
+      position: {x: -.0398915783, y: .268606335, z: 4.4408921e-16}
+      rotation: {x: -.000552136917, y: .0081879301, z: .0802948773, w: .996737361}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandIndex4
+      position: {x: .00230717938, y: .184277222, z: 4.4408921e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandThumb1
+      position: {x: -.246518508, y: .110451654, z: 5.31620525e-10}
+      rotation: {x: -.0442382731, y: -.0125150764, z: .174971595, w: .983499527}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandThumb2
+      position: {x: -.0396597199, y: .212434456, z: 0}
+      rotation: {x: .0109466296, y: .0277975742, z: .0770531073, w: .996579289}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandThumb3
+      position: {x: .00801386964, y: .236425027, z: -1.11022302e-16}
+      rotation: {x: .00148228277, y: .0133004924, z: .0771417618, w: .996930301}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightHandThumb4
+      position: {x: .0316458531, y: .168143839, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftUpLeg
+      position: {x: -.481298894, y: -.361789703, z: .0942183286}
+      rotation: {x: -.0935821757, y: -.0106584625, z: .994761884, w: .0397183187}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftLeg
+      position: {x: -1.11022302e-16, y: 1.66670692, z: -2.77555756e-17}
+      rotation: {x: -.338073552, y: -.125346109, z: .0449657403, w: .931650579}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftFoot
+      position: {x: 1.11022302e-16, y: 1.22368085, z: 2.77555756e-17}
+      rotation: {x: .664298415, y: .055451382, z: -.0562773086, w: .743280411}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftToeBase
+      position: {x: -0, y: 1.06995714, z: 5.55111512e-17}
+      rotation: {x: .379948318, y: .0587301999, z: -.00305073662, w: .923136353}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:LeftToe_End
+      position: {x: -0, y: .368597984, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightUpLeg
+      position: {x: .481298894, y: -.361789703, z: .100325465}
+      rotation: {x: .129576847, y: -.017437432, z: .982489824, w: -.132738546}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightLeg
+      position: {x: -1.11022302e-16, y: 1.66643572, z: 0}
+      rotation: {x: -.317915767, y: -.0622066446, z: .0200261809, w: .945864081}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightFoot
+      position: {x: -0, y: 1.22383487, z: 2.77555756e-17}
+      rotation: {x: .610477805, y: .0135025717, z: -.164018437, w: .774746716}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightToeBase
+      position: {x: -0, y: 1.0688026, z: -1.11022302e-16}
+      rotation: {x: .391764164, y: -.0597186647, z: .0347032249, w: .917469501}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: lowPolyMageCreep__1_:RightToe_End
+      position: {x: 1.11022302e-16, y: .364717454, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  additionalBone: 0
+  userData: 

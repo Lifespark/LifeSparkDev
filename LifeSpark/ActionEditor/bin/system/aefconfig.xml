@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configs>
+  <config name="hinge">
+    <updater selected="enginesystem" />
+    <updater name="enginesystem">
+      <thread name="main" priority="normal">
+        <system name="BaseSystem" tickInterval="1000/60" />
+        <system name="EngineSystem" tickInterval="1000/60" />
+        <!--<system name="AudioSystem" tickInterval="1000/60" />-->
+        <!--system name="InputDeviceManager" tickInterval="1000/60" /-->
+        <!--system name="PhySystem" tickInterval="1000/60" -->
+        <system name="MorphemeDirector" tickInterval="1000/60" />
+        <system name="RenderDebugSystem" tickInterval="1000/60" />
+        <system name="RenderProxySystem" tickInterval="1000/60" />
+        <!--system name="ChaHitBoxDirector" tickInterval="1000/60" -->
+        <!--system name="MorphemeTrackDirector" tickInterval="1000/60" -->
+        <!--system name="DynamicRigid" tickInterval="1000/60" -->
+        <!--system name="TpsCameraCtrlDirector" tickInterval="1000/60" -->
+        <!--system name="SkillDirector" tickInterval="1000/60" -->
+        <!--system name="HitDirector" tickInterval="1000/60" -->
+        <!--system name="TargetingDirector" tickInterval="1000/60" -->
+        <!--system name="JudgingSystem"				tickInterval="1000/60" 	-->
+        <!--system name="MotionDirector" tickInterval="1000/60" -->
+        <!--system name="MutilationDirector" tickInterval="1000/60" -->
+        <system name="Transform" tickInterval="1000/60" />
+        <system name="SceneDirector" tickInterval="1000/60" />
+        <system name="EngineDirector" tickInterval="1000/60" />
+        <!--system name="MonsterTeamDirector" tickInterval="1000/60" -->
+        <system name="AnimationControllerDirector" tickInterval="1000/60" />
+        <!--<system name="GameConsoleDirector" tickInterval="1000/60" />-->
+        <!--system name="ChaScoreDirector" tickInterval="1000/60" -->
+        <!--<system name="RootMotionDirector" tickInterval="1000/60" />-->
+		<!--system name="CollisionSystem" tickInterval="1000/60" -->
+		<!--<system name="UISystem" tickInterval="1000/60" />-->
+		<!--system name="ScriptSystem" tickInterval="1000/60" /> -->
+		<!--system name="MissionSystem" tickInterval="1000/60" /> -->
+		<!--system name="ActionDirector" tickInterval="1000/60" /> -->
+		<system name="InputSystemDirector" tickInterval="1000/60" />
+      </thread>
+    </updater>
+  </config>
+</configs>

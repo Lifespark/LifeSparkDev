@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using ExitGames.Client.Photon;
 
 //Mode constants
 public enum NetMode { initial, quick, full };
@@ -32,6 +33,22 @@ public class Lobby {
 
 public class NetworkManager : LSMonoBehaviour {
 
+#if UNITY_IPHONE
+    iPhoneGeneration m_deviceType;
+#elif UNITY_STANDALONE_WIN
+    string m_deviceType;
+#endif
+
+    private GameObject serverManager;
+    static private NetworkManager _instance;
+    static public NetworkManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(NetworkManager)) as NetworkManager;
+            return _instance;
+        }
+    }
+
 	public NetMode mode { get; set; }
 	public bool connectFailed { get; set; }
 		
@@ -54,8 +71,18 @@ public class NetworkManager : LSMonoBehaviour {
 	} 
 	public string lobbyName { get; set; }
 
-	private void Awake()
-	{
+    public bool canJoin = false;
+
+	private void Awake() {
+#if UNITY_IPHONE
+        m_deviceType = iPhone.generation;
+        if (m_deviceType != iPhoneGeneration.iPadMini2Gen)
+            m_deviceType = iPhoneGeneration.iPad5Gen;
+#elif UNITY_STANDALONE_WIN
+        m_deviceType = SystemInfo.operatingSystem;
+        Debug.Log(m_deviceType);
+#endif
+        _instance = this;
         DebugClient dc = new DebugClient(1);
         DebugClient dc2 = new DebugClient(2);
         dc.Run();
@@ -71,12 +98,16 @@ public class NetworkManager : LSMonoBehaviour {
 		
 		//Load our name from PlayerPrefs
 		PhotonNetwork.playerName = "Guest" + Random.Range(1, 9999);
+
+        PhotonNetwork.sendRate = 15;
+        PhotonNetwork.sendRateOnSerialize = 15;
 	}
 	
 	// Use this for initialization
 	void Start () {
 		//Set scene to automatically update on all clients
 		PhotonNetwork.automaticallySyncScene = true; 
+		serverManager = GameObject.Find("ServerManager");
 	}
 	
 	// Update is called once per frame
@@ -84,8 +115,11 @@ public class NetworkManager : LSMonoBehaviour {
 	}
 
 	public void startNetworkedGame(string scene) {
+		serverManager.GetComponent<ClientManager>().ClientStartGame();
 		photonView.RPC("RPC_setGUIStage", PhotonTargets.All, (int)GuiStage.inGame);
-		PhotonNetwork.LoadLevel (scene);
+        PhotonNetwork.LoadLevel(scene);
+        PhotonNetwork.room.open = false;
+        PhotonNetwork.room.visible = false;
 	}
 
 
@@ -116,7 +150,10 @@ public class NetworkManager : LSMonoBehaviour {
 		int numLobbies = rooms.Length;
 		Lobby[] lobbies = new Lobby[numLobbies];
 		for (int i = 0; i < numLobbies; i++){
-			lobbies[i] = new Lobby(rooms[i].name, rooms[i].playerCount, rooms[i].maxPlayers);
+            if (rooms[i].visible && rooms[i].open) {
+                lobbies[i] = new Lobby(rooms[i].name, rooms[i].playerCount, rooms[i].maxPlayers);
+            }
+			
 		}
 		
 		return lobbies;
@@ -145,6 +182,15 @@ public class NetworkManager : LSMonoBehaviour {
 	}
 
 	void OnJoinedRoom() {
+        lobbyName = PhotonNetwork.room.name;
+        //SimpleGUI.Instance.guiStage = GuiStage.joiningLobby;
+        SimpleGUI.Instance.m_startUI.pickWindow.SetActive(true);
+        SimpleGUI.Instance.m_startUI.gameObject.SetActive(true);
+        if (!PhotonNetwork.isMasterClient)
+            SimpleGUI.Instance.m_startUI.startButton.gameObject.SetActive(true);
+        return;
+
+        // yeah I break it no i don't just don't use it for demo day
 		if (mode == NetMode.quick) {
 			startNetworkedGame ("MainMap");
 		}
@@ -153,4 +199,27 @@ public class NetworkManager : LSMonoBehaviour {
 	public bool IsMasterClient() {
 		return PhotonNetwork.isMasterClient;
 	}
+
+    public void CreateRoomBasedOnDevice() {
+        RoomOptions roomOptions = new RoomOptions() { isVisible = false, maxPlayers = 4 };
+#if UNITY_IPHONE
+        PhotonNetwork.JoinOrCreateRoom(m_deviceType.ToString(), roomOptions, TypedLobby.Default);
+#elif UNITY_STANDALONE_WIN
+        PhotonNetwork.JoinOrCreateRoom(m_deviceType, roomOptions, TypedLobby.Default);
+#endif
+    }
+
+    IEnumerator DeferJoin() {
+        yield return new WaitForSeconds(4.0f);
+        canJoin = true;
+    }
+
+//     void OnCreatedRoom() {
+//         SimpleGUI.Instance.guiStage = GuiStage.joiningLobby;
+// #if UNITY_IPHONE
+//         PhotonNetwork.JoinRoom(m_deviceType.ToString());
+// #elif UNITY_STANDALONE_WIN
+//         PhotonNetwork.JoinRoom(m_deviceType);
+// #endif
+//     }
 }

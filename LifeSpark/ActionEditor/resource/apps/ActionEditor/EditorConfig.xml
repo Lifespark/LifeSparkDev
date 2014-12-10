@@ -1,0 +1,4 @@
+<NamePattern>
+	<Pattern pat="[\w][\w ]*|[\w][\w ]*\[[\w ]*\][\w ]*"/>
+</NamePattern>
+

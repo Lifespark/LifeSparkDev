@@ -1,0 +1,230 @@
+fileFormatVersion: 2
+guid: 9ba38a407cbecf146b4f8c7e6241e18a
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: pCube1
+    100004: pCube2
+    100006: polySurface1
+    100008: polySurface3
+    100010: polySurface4
+    100012: polySurface5
+    100014: polySurface6
+    100016: polySurface7
+    100018: transform1
+    100020: transform2
+    100022: transform3
+    100024: transform4
+    100026: transform5
+    100028: transform6
+    100030: transform7
+    100032: whateverHead:Group1
+    100034: whateverHead:LevantisStartObj:Group60265
+    100036: whateverHead:polySurface1
+    100038: whateverHead:transform1
+    100040: whateverHead:transform2
+    400000: //RootNode
+    400002: pCube1
+    400004: pCube2
+    400006: polySurface1
+    400008: polySurface3
+    400010: polySurface4
+    400012: polySurface5
+    400014: polySurface6
+    400016: polySurface7
+    400018: transform1
+    400020: transform2
+    400022: transform3
+    400024: transform4
+    400026: transform5
+    400028: transform6
+    400030: transform7
+    400032: whateverHead:Group1
+    400034: whateverHead:LevantisStartObj:Group60265
+    400036: whateverHead:polySurface1
+    400038: whateverHead:transform1
+    400040: whateverHead:transform2
+    2300000: polySurface6
+    2300002: polySurface7
+    3300000: polySurface6
+    3300002: polySurface7
+    4300000: polySurface6
+    4300002: polySurface7
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .129999995
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: whateverHead:polySurface1
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: transform6
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: levantis(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pCube1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: transform2
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pCube2
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+      transformModified: 1
+    - name: transform1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface1
+      position: {x: -2.45664569e-06, y: .000959594268, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: transform4
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface3
+      position: {x: 0, y: .000959594268, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+      transformModified: 1
+    - name: transform3
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface4
+      position: {x: -2.54898591e-08, y: .000833158731, z: 6.65458501e-05}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: transform5
+      position: {x: 1.22834524e-06, y: -.000833158731, z: -6.65458501e-05}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface5
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface6
+      position: {x: -2.59434785e-07, y: .0017068747, z: -1.26885789e-05}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface7
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: transform7
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: whateverHead:Group1
+      position: {x: -.000814069237, y: .016617706, z: -.000325175788}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: -1.03949845, y: 1, z: 1}
+      transformModified: 1
+    - name: whateverHead:transform2
+      position: {x: -.000776324887, y: -.016617706, z: .000325175788}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: whateverHead:LevantisStartObj:Group60265
+      position: {x: .000813550199, y: .016617706, z: -.000325175788}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1.03949845, y: 1, z: 1}
+      transformModified: 1
+    - name: whateverHead:transform1
+      position: {x: -.000776324887, y: -.016617706, z: .000325175788}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: whateverHead:polySurface1
+      position: {x: -2.59434785e-07, y: .00170687446, z: -6.46728495e-06}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: .101024635, y: .101024635, z: .101024635}
+      transformModified: 1
+    - name: transform6
+      position: {x: 2.59434785e-07, y: -.0166153423, z: .000324888562}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 301db50c6c6799e4f90336c82d17b5e0,
+    type: 3}
+  animationType: 3
+  additionalBone: 0
+  userData: 

@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: fcbf4a287f2c61a4db7033a71e72d884
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: DeliaHolyFire_Effect_0
+    21300002: DeliaHolyFire_Effect_1
+    21300004: DeliaHolyFire_Effect_2
+    21300006: DeliaHolyFire_Effect_3
+    21300008: DeliaHolyFire_Effect_4
+    21300010: DeliaHolyFire_Effect_5
+    21300012: DeliaHolyFire_Effect_6
+    21300014: DeliaHolyFire_Effect_7
+    21300016: DeliaHolyFire_Effect_8
+    21300018: DeliaHolyFire_Effect_9
+    21300020: DeliaHolyFire_Effect_10
+    21300022: DeliaHolyFire_Effect_11
+    21300024: DeliaHolyFire_Effect_12
+    21300026: DeliaHolyFire_Effect_13
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: DeliaHolyFire_Effect_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 556
+        width: 113
+        height: 339
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 556
+        width: 89
+        height: 339
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 558
+        width: 115
+        height: 339
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_3
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 544
+        width: 102
+        height: 351
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 535
+        width: 133
+        height: 360
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 104
+        width: 180
+        height: 396
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 99
+        width: 172
+        height: 401
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_7
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 99
+        width: 174
+        height: 401
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_8
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 94
+        width: 165
+        height: 406
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_9
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 89
+        width: 118
+        height: 411
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DeliaHolyFire_Effect_10
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 84
+        width: 54
+        height: 413
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

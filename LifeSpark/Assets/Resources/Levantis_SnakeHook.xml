@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Levantis" id="0" isTemp="false"/>
+		<TemplateObject objectName="Hook" id="1" isTemp="false"/>
+		<TemplateObject objectName="levantisChain" id="2" isTemp="false"/>
+		<TemplateObject objectName="rightHand" id="3" isTemp="false"/>
+		<TemplateObject objectName="HookPos" id="4" isTemp="false"/>
+		<TemplateObject objectName="ChainOnModel" id="5" isTemp="false"/>
+		<TemplateObject objectName="myPos" id="6" isTemp="true"/>
+		<TemplateObject objectName="targetPos" id="7" isTemp="true"/>
+		<TemplateObject objectName="hitPos" id="8" isTemp="true"/>
+		<TemplateObject objectName="hookPos" id="9" isTemp="true"/>
+	</TemplateObjectList>
+	<RefParamList>
+		<EulerAngle name="lookRotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+		<Vector3 name="mousePos" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+	</RefParamList>
+	<Action tag="" length="1.428" loop="false" hasFlowGraph="true">
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="3f0b2bb0-9ad5-4bc4-bf3b-1d33ae39dfa2" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.817" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="ChainOnModel" id="5" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="1.428" isDuration="false">
+				<TemplateObject name="targetId" objectName="ChainOnModel" id="5" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="d4e14b5a-bdc4-4eeb-8c21-3f49e0a8c355" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.850" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="1.428" isDuration="false">
+				<TemplateObject name="targetId" objectName="ChainOnModel" id="5" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ChangeAnimation" eventType="SetAnimatorParam" guid="39d8a73b-2ab7-4739-9314-e86477cf52e1" x="200.000" y="200.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.483" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.066" isDuration="false">
+				<TemplateObject name="targetId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="attackSnakeHook" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ComponentSwitch0" eventType="ComponentSwitch" guid="54f77012-9085-4bac-a0f5-82c8ddde938e" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="1.000" b="0.917" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="ComponentSwitch" time="0.023" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enabled" value="true" refParamName="" useRefParam="false"/>
+				<String name="componentType" value="LineRenderer" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ComponentSwitch" time="1.428" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enabled" value="false" refParamName="" useRefParam="false"/>
+				<String name="componentType" value="LineRenderer" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="MoveHook" eventType="ModifyTransform" guid="1ec4d258-f7f9-40b8-863d-f371a7b72942" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.300" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="ModifyTransform" time="0.856" isDuration="false">
+				<TemplateObject name="targetId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="6.000" z="6.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="1.118" isDuration="false">
+				<TemplateObject name="targetId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="6.000" z="60.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="1.428" isDuration="false">
+				<TemplateObject name="targetId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="6.000" z="6.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="MoveChain" eventType="ModifyTransform" guid="590f712d-66e5-4a56-9285-79b1ee65dd14" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.017" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="ModifyTransform" time="0.856" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="6.000" z="6.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="1.118" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="6.000" z="60.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="1.428" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="5.000" y="8.000" z="-0.500" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="CreatePlayerPos" eventType="CreateObjectTick" guid="3c64d409-2604-466c-91d2-ef3551533571" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.633" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="myPos" id="6" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="CreateTargetPos" eventType="CreateObjectTick" guid="308790f1-50ae-422d-b684-5b98712189f0" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="1.000" b="0.017" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="targetPos" id="7" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.000" refParamName="mousePos" useRefParam="true"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ChainAnim" eventType="SetAnimatorParam" guid="238b28e5-0ca3-43a4-8bec-7bba883fd3f9" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.850" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="snakeHookSkill" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="SetAnimatorParam" time="1.428" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="snakeHookIdle" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="CreateHookPos" eventType="CreateObjectTick" guid="86a88d09-49c1-4492-afac-5770700428c3" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.583" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="hookPos" id="9" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="5.000" y="8.000" z="-0.500" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="HookHit" eventType="TriggerSingleHit" guid="3fd99a08-b298-4b54-8689-c9d429840322" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.133" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerSingleHit" time="0.850" length="0.358" isDuration="true">
+				<TemplateObject name="triggerId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="TriggerHelper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="GetCollisionSet" refParamName="" useRefParam="false"/>
+				<TemplateObject name="attackerId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="levantis_snakehookhit" refParamName="" useRefParam="false"/>
+				<Array name="tags" refParamName="" useRefParam="false" type="String">
+					<String value="Player"/>
+					<String value="JungleCreep"/>
+					<String value="LaneCreep"/>
+					<String value="Boss"/>
+				</Array>
+			</Event>
+		</Track>
+		<Track trackName="StopTracks" eventType="StopMultipleTracks" guid="b1cf11ec-c6bf-4521-8c8c-65e7197388bc" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="1.000" b="0.400" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="StopMultipleTracks" time="0.000" isDuration="false">
+				<Array name="trackIds" refParamName="" useRefParam="false" type="TrackObject">
+					<Guid id="2" guid="39d8a73b-2ab7-4739-9314-e86477cf52e1"/>
+					<Guid id="4" guid="1ec4d258-f7f9-40b8-863d-f371a7b72942"/>
+					<Guid id="-1" guid="00000000-0000-0000-0000-000000000000"/>
+					<Guid id="6" guid="3c64d409-2604-466c-91d2-ef3551533571"/>
+					<Guid id="7" guid="308790f1-50ae-422d-b684-5b98712189f0"/>
+					<Guid id="9" guid="86a88d09-49c1-4492-afac-5770700428c3"/>
+					<Guid id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322"/>
+					<Guid id="-1" guid="00000000-0000-0000-0000-000000000000"/>
+					<Guid id="5" guid="590f712d-66e5-4a56-9285-79b1ee65dd14"/>
+					<Guid id="8" guid="238b28e5-0ca3-43a4-8bec-7bba883fd3f9"/>
+					<Guid id="-1" guid="00000000-0000-0000-0000-000000000000"/>
+					<Guid id="0" guid="3f0b2bb0-9ad5-4bc4-bf3b-1d33ae39dfa2"/>
+					<Guid id="1" guid="d4e14b5a-bdc4-4eeb-8c21-3f49e0a8c355"/>
+				</Array>
+			</Event>
+		</Track>
+		<Track trackName="CreateHitPos" eventType="CreateObjectTick" guid="44c27af8-707c-4f6b-8b9d-33811448092e" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.817" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="CreateObjectTick" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="hitPos" id="8" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="DragHookBackIfHit" eventType="ModifyTransform" guid="db1428ec-b9ed-4e2e-ba7d-ff488ad5048a" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.667" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="ModifyTransform" time="0.011" isDuration="false">
+				<TemplateObject name="targetId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="hitPos" id="8" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="hookPos" id="9" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="1.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="0.223" isDuration="false">
+				<TemplateObject name="targetId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="hitPos" id="8" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="hookPos" id="9" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="DragChainBackIfHit" eventType="ModifyTransform" guid="3a141389-80a7-4e21-9b48-a5e68c1e2ef1" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.083" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="ModifyTransform" time="0.011" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="hitPos" id="8" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="hookPos" id="9" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="1.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="ModifyTransform" time="0.223" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="hitPos" id="8" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="hookPos" id="9" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="e200a781-a9e6-4059-84bd-25b27b953ed2" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.567" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="ChainOnModel" id="5" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="a08235f5-1c91-434c-b386-cfb2ce2efbbb" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ComponentSwitch0" eventType="ComponentSwitch" guid="11b0d97f-30cd-4947-b20b-87ca4ef0832c" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.600" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="ComponentSwitch" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enabled" value="false" refParamName="" useRefParam="false"/>
+				<String name="componentType" value="LineRenderer" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="SetAnimatorParam0" eventType="SetAnimatorParam" guid="e392a9a8-daee-44f0-904c-b39608f857c8" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.317" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="SetAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Levantis" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="stateIdle" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ChainAnim" eventType="SetAnimatorParam" guid="5cb2d443-ba92-4cc7-8771-c1a258444dcc" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.650" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="SetAnimatorParam" time="0.222" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="snakeHookIdle" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="StopMultipleTracks2" eventType="StopMultipleTracks" guid="2332fb46-ab87-4119-97e1-35df14464749" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.367" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="StopMultipleTracks" time="0.000" isDuration="false">
+				<Array name="trackIds" refParamName="" useRefParam="false" type="TrackObject">
+					<Guid id="2" guid="39d8a73b-2ab7-4739-9314-e86477cf52e1"/>
+					<Guid id="4" guid="1ec4d258-f7f9-40b8-863d-f371a7b72942"/>
+					<Guid id="5" guid="590f712d-66e5-4a56-9285-79b1ee65dd14"/>
+					<Guid id="6" guid="3c64d409-2604-466c-91d2-ef3551533571"/>
+					<Guid id="7" guid="308790f1-50ae-422d-b684-5b98712189f0"/>
+					<Guid id="8" guid="238b28e5-0ca3-43a4-8bec-7bba883fd3f9"/>
+					<Guid id="9" guid="86a88d09-49c1-4492-afac-5770700428c3"/>
+					<Guid id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322"/>
+					<Guid id="12" guid="44c27af8-707c-4f6b-8b9d-33811448092e"/>
+					<Guid id="13" guid="db1428ec-b9ed-4e2e-ba7d-ff488ad5048a"/>
+					<Guid id="14" guid="3a141389-80a7-4e21-9b48-a5e68c1e2ef1"/>
+					<Guid id="11" guid="b1cf11ec-c6bf-4521-8c8c-65e7197388bc"/>
+					<Guid id="18" guid="e392a9a8-daee-44f0-904c-b39608f857c8"/>
+					<Guid id="19" guid="5cb2d443-ba92-4cc7-8771-c1a258444dcc"/>
+					<Guid id="3" guid="54f77012-9085-4bac-a0f5-82c8ddde938e"/>
+					<Guid id="0" guid="3f0b2bb0-9ad5-4bc4-bf3b-1d33ae39dfa2"/>
+					<Guid id="15" guid="e200a781-a9e6-4059-84bd-25b27b953ed2"/>
+				</Array>
+			</Event>
+		</Track>
+		<Track trackName="ModifyTransform1" eventType="ModifyTransform" guid="ec9359c3-c401-44c0-98c0-f3fbb0b1c4da" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.067" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="ModifyTransform" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Hook" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="6.000" z="6.000" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ModifyTransform2" eventType="ModifyTransform" guid="32557536-226c-4cc7-9cbe-652123a1d09a" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.183" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="ModifyTransform" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<bool name="enableTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentTranslation" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="5.000" y="8.000" z="-0.500" refParamName="" useRefParam="false"/>
+				<bool name="enableRotation" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentRotation" value="false" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="enableScaling" value="false" refParamName="" useRefParam="false"/>
+				<bool name="currentScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="cubic" value="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="ChainAnim" eventType="SetAnimatorParam" guid="f8100bec-c9ae-4e53-ac47-6edf2a27d442" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.883" g="0.000" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Condition id="10" guid="3fd99a08-b298-4b54-8689-c9d429840322" status="true"/>
+			<Event eventName="SetAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="snakeHookIdle" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="418cbbfd-f16c-4c61-b907-b154bb4757d2" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.383" b="0.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="ChainOnModel" id="5" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="ebc14282-3d76-4ff9-b487-0e5205a57a31" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="levantisChain" id="2" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ChainSwitcher" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetEnable" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="4" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

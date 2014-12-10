@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EventGroup name="Unity">
+	<Event typeName="CameraProperty" category="Utility" isDuration="false" description="<b>摄像机属性</b><br>调整摄像机属性">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要拥有指定Component"/>
+		<Enum name="Projection" value="0" displayname="指定投影方式" description="指定投影方式">
+			<Entry name="Perspective"/>
+			<Entry name="Orthographic"/>
+		</Enum>
+		<float name="Size" value="5" displayname="大小" description="大小">
+			<condition conditionEnumName="Projection" conditionEnumValName="Orthographic" />
+		</float>
+		<float name="FOV" value="60" displayname="镜头视角" description="镜头视角">
+			<condition conditionEnumName="Projection" conditionEnumValName="Perspective" />
+		</float>
+	</Event>
+	<Event typeName="ModifyTransform" category="Movement" isDuration="false" description="<b>变换操作</b><br>操作指定对象的平移、旋转、缩放，作为关键帧来使用<br><i>可以指定多种坐标系">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="虚拟父对象" description="用于Coordinated坐标系的虚拟父对象<br><i>若指定则使用Coordinated坐标系"/>
+		<TemplateObject name="fromId" id="-1" displayname="起始点对象" description="用于Relative坐标系的起始点对象<br><i>必须与toId搭配使用才能使用Relative坐标系"/>
+		<TemplateObject name="toId" id="-1" displayname="终点对象" description="用于Relative坐标系的终点对象<br><i>必须与fromId搭配使用才能使用Relative坐标系"/>
+		<bool name="enableTranslation" value="true" displayname="启用平移" description="是否启用平移"/>
+		<bool name="normalizedRelative" value="false" displayname="单位化Relative坐标系" description="是否单位化Relative坐标系">
+			<condition conditionBoolName="enableTranslation" conditionBoolValName="true"/>
+		</bool>
+		<bool name="currentTranslation" value="false" displayname="采用当前平移值" description="是否采用当前平移值">
+			<condition conditionBoolName="enableTranslation" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="translation" x="0" y="0" z="0" displayname="平移量" description="平移量">
+			<condition conditionBoolName="enableTranslation" conditionBoolValName="true"/>
+			<condition conditionBoolName="currentTranslation" conditionBoolValName="false"/>
+		</Vector3>
+		<bool name="enableRotation" value="true" displayname="启用旋转" description="是否启用旋转"/>
+		<bool name="currentRotation" value="false" displayname="采用当前旋转值" description="是否采用当前旋转值">
+			<condition conditionBoolName="enableRotation" conditionBoolValName="true"/>
+		</bool>
+		<EulerAngle name="rotation" x="0" y="0" z="0" displayname="旋转量" description="旋转量">
+			<condition conditionBoolName="enableRotation" conditionBoolValName="true"/>
+			<condition conditionBoolName="currentRotation" conditionBoolValName="false"/>
+		</EulerAngle>
+		<bool name="enableScaling" value="false" displayname="启用缩放" description="是否启用缩放"/>
+		<bool name="currentScaling" value="false" displayname="采用当前缩放值" description="是否采用当前缩放值">
+			<condition conditionBoolName="enableScaling" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="缩放量" description="缩放量">
+			<condition conditionBoolName="enableScaling" conditionBoolValName="true"/>
+			<condition conditionBoolName="currentScaling" conditionBoolValName="false"/>
+		</Vector3>
+		<bool name="cubic" value="false" displayname="使用三次样条线" description="是否使用三次样条线"/>
+	</Event>
+	<Event typeName="ComponentSwitch" category="Utility" isDuration="false" description="<b>组件开关</b><br>启用或者禁用指定的Component">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要拥有指定Component"/>
+		<bool name="enabled" value="true" displayname="启用组件" description="启用/禁用组件"/>
+		<string name="componentType" value="" displayname="组件类型名" description="组件类型名（如：MeshRenderer）"/>
+	</Event>
+	<Event typeName="SetVelocity" category="Physics" isDuration="false" description="<b>设置速度</b><br>瞬间给指定对象设置一个物理速度<br><i>依赖于Rigidbody">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要有Rigidbody组件"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="虚拟父对象" description="用于Coordinated坐标系的虚拟父对象<br><i>若指定则使用Coordinated坐标系"/>
+		<TemplateObject name="fromId" id="-1" displayname="起始点对象" description="用于Relative坐标系的起始点对象<br><i>必须与toId搭配使用才能使用Relative坐标系"/>
+		<TemplateObject name="toId" id="-1" displayname="终点对象" description="用于Relative坐标系的终点对象<br><i>必须与fromId搭配使用才能使用Relative坐标系"/>
+		<Vector3 name="velocity" x="0" y="0" z="0" displayname="速度值" description="速度值"/>
+		<Vector3 name="angularVelocity" x="0" y="0" z="0" displayname="角速度值" description="角速度值"/>
+		<bool name="additive" value="false" displayname="覆盖当前速度" description="Off：覆盖当前速度<br>On：在当前速度上叠加"/>
+	</Event>
+	<Event typeName="SetAnimatorParam" category="Animation" isDuration="false" description="<b>设置Animator参数</b>">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要拥有Animator组件"/>
+		<string name="paramName" value="" displayname="参数名字" description="参数名字"/>
+		<string name="paramType" value="float" displayname="参数类型名" description="参数类型名<br><i>如float"/>
+		<string name="paramValue" value="0" displayname="参数值" description="参数值"/>
+	</Event>
+	<Event typeName="CreateObjectTick" category="Utility" isDuration="false" description="<b>创建对象[瞬时]</b><br>在触发瞬间实例化指定的Prafab<br><i>可以在Action结束后自动销毁<br><i>可以指定在创建的对象上播放新Action">
+		<TemplateObject name="targetId" id="-1" isTemp="true" displayname="临时句柄" description="为创建的新对象分配临时句柄，以便后续事件操作该对象<br>若不为空，则该对象在Action结束后会自动销毁"/>
+		<TemplateObject name="parentId" id="-1" displayname="父对象" description="新对象的父对象"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="虚拟父对象" description="用于Coordinated坐标系的虚拟父对象<br><i>若指定则使用Coordinated坐标系"/>
+		<TemplateObject name="fromId" id="-1" displayname="起始点对象" description="用于Relative坐标系的起始点对象<br><i>必须与toId搭配使用才能使用Relative坐标系"/>
+		<TemplateObject name="toId" id="-1" displayname="终点对象" description="用于Relative坐标系的终点对象<br><i>必须与fromId搭配使用才能使用Relative坐标系"/>
+		<string name="prefabName" value="" displayname="Prafab名" description="Prafab名<br><i>相对Resources目录的路径"/>
+		<bool name="recreateExisting" value="true" displayname="重新创建" description="当targetId指定的对象已经被创建过时，是否重新创建"/>
+		<bool name="modifyTranslation" value="true" displayname="改变平移" description="是否改变平移"/>
+		<bool name="normalizedRelative" value="false" displayname="单位化Relative坐标系" description="是否单位化Relative坐标系">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="translation" x="0" y="0" z="0" displayname="平移量" description="平移量">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</Vector3>
+		<bool name="modifyRotation" value="true" displayname="改变旋转" description="是否改变旋转"/>
+		<EulerAngle name="rotation" x="0" y="0" z="0" displayname="旋转量" description="旋转量">
+			<condition conditionBoolName="modifyRotation" conditionBoolValName="true"/>
+		</EulerAngle>
+		<bool name="modifyScaling" value="false" displayname="改变缩放" description="是否改变缩放"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="缩放量" description="缩放量">
+			<condition conditionBoolName="modifyScaling" conditionBoolValName="true"/>
+		</Vector3>
+		<string name="actionName" value="" displayname="Action名称" description="在新创建的对象上播放Action所对应的Action名<br><i>相对Resources目录的路径"/>
+		<Array type="TemplateObject" name="gameObjectIds" displayname="Action的对象引用" description="若actionName不为空，则在这里设置新对象上播放的Action的对象引用"/>
+		<bool name="enableLayer" value="false" displayname="改变layer" description="是否改变创建的新对象的layer"/>
+		<int name="layer" value="0" displayname="layer值" description="对象layer值">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="改变tag" description="是否改变创建的新对象的tag"/>
+		<string name="tag" value="" displayname="对象tag" description="对象tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToAnimation" value="true" displayname="Action速度影响动画" description="Action速度影响动画"/>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Action速度影响特效" description="Action速度影响特效"/>
+	</Event>
+	<Event typeName="TriggerParticle" category="Effect" isDuration="true" description="<b>触发特效[持续]</b><br>事件开始瞬间实例化指定的特效Prafab；事件结束时自动销毁特效对象<i><br>若Prefab带有ParticleSystem则自动播放<br>可以指定绑定点<br>可以指定特效缩放">
+		<TemplateObject name="targetId" id="0" displayname="父对象" description="特效对象的父对象<br><i>不指定则为世界空间坐标"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="虚拟父对象" description="用于Coordinated坐标系的虚拟父对象<br><i>若指定则使用Coordinated坐标系"/>
+		<string name="resourceName" value="" displayname="Prafab名" description="特效Prafab名<br><i>相对Resources目录的路径<br>可带有ParticleSystem"/>
+		<string name="bindPointName" value="" displayname="绑点对象名" description="绑点对象名<br><i>targetId指定的对象的子对象名"/>
+		<Vector3 name="bindPosOffset" x="0" y="0" z="0" displayname="相对平移量" description="相对绑点平移量"/>
+		<EulerAngle name="bindRotOffset" x="0" y="0" z="0" displayname="相对旋转量" description="相对绑点旋转量"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="特效缩放量" description="特效缩放量"/>
+		<bool name="enableLayer" value="false" displayname="改变layer" description="是否改变创建的新对象的layer"/>
+		<int name="layer" value="0" displayname="layer值" description="对象layer值">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="改变tag" description="是否改变创建的新对象的tag"/>
+		<string name="tag" value="" displayname="对象tag" description="对象tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Action速度影响特效" description="Action速度影响特效"/>
+	</Event>
+	<Event typeName="TriggerParticleTick" category="Effect" isDuration="false" description="<b>触发特效[瞬时]</b><br>事件触发瞬间实例化指定的Prafab；Action或特效结束时自动销毁<i><br>若Prefab带有ParticleSystem则自动播放<br>可以指定绑定点<br>可以指定特效缩放">
+		<TemplateObject name="targetId" id="0" displayname="父对象" description="特效对象的父对象<br><i>不指定则为世界空间坐标"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="虚拟父对象" description="用于Coordinated坐标系的虚拟父对象<br><i>若指定则使用Coordinated坐标系"/>
+		<string name="resourceName" value="" displayname="Prafab名" description="特效Prafab名<br><i>相对Resources目录的路径<br>可带有ParticleSystem"/>
+		<string name="bindPointName" value="" displayname="绑点对象名" description="绑点对象名<br><i>targetId指定的对象的子对象名"/>
+		<Vector3 name="bindPosOffset" x="0" y="0" z="0" displayname="相对平移量" description="相对绑点平移量"/>
+		<EulerAngle name="bindRotOffset" x="0" y="0" z="0" displayname="相对旋转量" description="相对绑点旋转量"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="特效缩放量" description="特效缩放量"/>
+		<bool name="enableLayer" value="false" displayname="改变layer" description="是否改变创建的新对象的layer"/>
+		<int name="layer" value="0" displayname="layer值" description="对象layer值">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="改变tag" description="是否改变创建的新对象的tag"/>
+		<string name="tag" value="" displayname="对象tag" description="对象tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Action速度影响特效" description="Action速度影响特效"/>
+	</Event>
+	<Event typeName="PlayAnimation" category="Animation" isDuration="true" description="<b>播放动画[持续]</b><br>在指定对象上播放动画剪辑，并根据事件长度来缩放<br><i>事件相交区域会进行Crossfade">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要拥有Animation组件"/>
+		<string name="clipName" value="" displayname="clip名称" description="动画剪辑名<br><i>必须存在于Animation组件的剪辑列表中"/>
+		<float name="startTime" value="0.0" displayname="clip开始时间" description="动画剪辑开始时间"/>
+		<float name="endTime" value="99999.0" displayname="clip结束时间" description="动画剪辑结束时间，如果大于动画剪辑长度则会自动设置为剪辑长度"/>
+		<bool name="applyActionSpeed" value="false" displayname="受Action速度影响" description="动画播放速度是否乘上Action的播放速度"/>
+	</Event>
+	<Event typeName="PlayAnimationTick" category="Animation" isDuration="false" description="<b>播放动画[瞬时]</b><br>在指定对象上播放动画剪辑，并可指定播放速度和Crossfade时长">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要拥有Animation组件"/>
+		<string name="clipName" value="" displayname="clip名称" description="动画剪辑名<br><i>必须存在于Animation组件的剪辑列表中"/>
+		<float name="crossFadeTime" value="0.0" displayname="切入Crossfade的时长" description="切入Crossfade的时长"/>
+		<float name="playSpeed" value="1.0" displayname="动画播放速度" description="动画播放速度"/>
+		<bool name="applyActionSpeed" value="false" displayname="受Action速度影响" description="动画播放速度是否乘上Action的播放速度"/>
+	</Event>
+	<Event typeName="SampleVelocity" category="Physics" isDuration="true" description="<b>采样速度</b><br>采样事件范围内对象的位移，并在事件结束时换算成物理速度">
+		<TemplateObject name="targetId" id="0" displayname="操作的对象" description="操作的对象<br><i>需要有Rigidbody组件"/>
+	</Event>
+	<Event typeName="PlaySubAction" category="Action Control" isDuration="true" description="<b>播放子Action</b><br>将指定Action作为子Action来播放<br><i>子Action将强制为非循环，并且长度为事件长度">
+		<string name="actionName" value="" displayname="子Action名" description="子Action名<br><i>相对Resources目录的路径"/>
+		<array type="TemplateObject" name="gameObjectIds" displayname="子Action的对象引用" description="子Action的对象引用"/>
+	</Event>
+	<Event typeName="CreateObjectDuration" category="Utility" isDuration="true" description="<b>创建对象[持续]</b><br>在事件开始时实例化指定的Prafab<br><i>可以在事件结束后自动销毁<br><i>可以指定在创建的对象上播放新Action">
+		<TemplateObject name="targetId" id="-1" isTemp="true" displayname="临时句柄" description="为创建的新对象分配临时句柄，以便后续事件操作该对象<br>若不为空，则该对象在Action结束后会自动销毁"/>
+		<TemplateObject name="parentId" id="-1" displayname="父对象" description="新对象的父对象"/>
+		<TemplateObject name="objectSpaceId" id="-1" displayname="虚拟父对象" description="用于Coordinated坐标系的虚拟父对象<br><i>若指定则使用Coordinated坐标系"/>
+		<TemplateObject name="fromId" id="-1" displayname="起始点对象" description="用于Relative坐标系的起始点对象<br><i>必须与toId搭配使用才能使用Relative坐标系"/>
+		<TemplateObject name="toId" id="-1" displayname="终点对象" description="用于Relative坐标系的终点对象<br><i>必须与fromId搭配使用才能使用Relative坐标系"/>
+		<string name="prefabName" value="" displayname="Prafab名" description="Prafab名<br><i>相对Resources目录的路径"/>
+		<bool name="recreateExisting" value="true" displayname="重新创建" description="当targetId指定的对象已经被创建过时，是否重新创建"/>
+		<bool name="modifyTranslation" value="true" displayname="改变平移" description="是否改变平移"/>
+		<bool name="normalizedRelative" value="false" displayname="单位化Relative坐标系" description="是否单位化Relative坐标系">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</bool>
+		<Vector3 name="translation" x="0" y="0" z="0" displayname="平移量" description="平移量">
+			<condition conditionBoolName="modifyTranslation" conditionBoolValName="true"/>
+		</Vector3>
+		<bool name="modifyRotation" value="true" displayname="改变旋转" description="是否改变旋转"/>
+		<EulerAngle name="rotation" x="0" y="0" z="0" displayname="旋转量" description="旋转量">
+			<condition conditionBoolName="modifyRotation" conditionBoolValName="true"/>
+		</EulerAngle>
+		<bool name="modifyScaling" value="false" displayname="改变缩放" description="是否改变缩放"/>
+		<Vector3 name="scaling" x="1" y="1" z="1" displayname="缩放量" description="缩放量">
+			<condition conditionBoolName="modifyScaling" conditionBoolValName="true"/>
+		</Vector3>
+		<string name="actionName" value="" displayname="Action名称" description="在新创建的对象上播放Action所对应的Action名<br><i>相对Resources目录的路径"/>
+		<Array type="TemplateObject" name="gameObjectIds" displayname="Action的对象引用" description="若actionName不为空，则在这里设置新对象上播放的Action的对象引用"/>
+		<bool name="enableLayer" value="false" displayname="改变layer" description="是否改变创建的新对象的layer"/>
+		<int name="layer" value="0" displayname="layer值" description="对象layer值">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="改变tag" description="是否改变创建的新对象的tag"/>
+		<string name="tag" value="" displayname="对象tag" description="对象tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+		<bool name="applyActionSpeedToAnimation" value="true" displayname="Action速度影响动画" description="Action速度影响动画"/>
+		<bool name="applyActionSpeedToParticle" value="true" displayname="Action速度影响特效" description="Action速度影响特效"/>
+	</Event>
+	<Event typeName="DestroyObject" category="Utility" isDuration="false" description="<b>销毁对象</b><br><i>请谨慎使用">
+		<TemplateObject name="targetId" id="-1" displayname="销毁的对象" description="将被销毁的对象"/>
+	</Event>
+	<Event typeName="TriggerHit" category="Condition" isDuration="true" description="<b>触发受击</b><br>在事件范围内，对指定Trigger触发的对象播放一对一的Action，同时满足条件">
+		<TemplateObject name="triggerId" id="0" displayname="触发对象" description="用于触发受击的对象<br><i>需要拥有受击判定脚本"/>
+		<string name="scriptName" value="" displayname="受击判定脚本名" description="指定受击判定脚本名"/>
+		<string name="methodName" value="" displayname="受击判定方法名" description="指定受击判定方法名"/>
+		<TemplateObject name="attackerId" id="0" displayname="攻击者" description="在播放的一对一Action中，充当攻击者的对象"/>
+		<string name="actionName" value="" displayname="Action的名称" description="在被触发的对象上播放的一对一Action所对应的Action名<br><i>相对Resources目录的路径<br>该Action的对象引用中前三个必须依次是受击者、攻击者和触发者"/>
+		<Array type="string" name="tags" displayname="可受击对象的tag" description="被纳入可受击对象所拥有的tag列表"/>
+		<float name="triggerInterval" value="0.5" displayname="多次受击的间隔" description="多次受击之间的时间间隔"/>
+	</Event>
+	<Event typeName="TriggerSingleHit" category="Condition" isDuration="true" description="<b>触发单次受击</b><br>在事件范围内，对指定Trigger触发的单一对象播放一对一的Action，同时满足条件">
+		<TemplateObject name="triggerId" id="0" displayname="触发受击的对象" description="用于触发受击的对象<br><i>需要拥有受击判定脚本"/>
+		<string name="scriptName" value="" displayname="受击判定脚本名" description="指定受击判定脚本名"/>
+		<string name="methodName" value="" displayname="受击判定方法名" description="指定受击判定方法名"/>
+		<TemplateObject name="attackerId" id="0" displayname="攻击者" description="在播放的一对一Action中，充当攻击者的对象"/>
+		<string name="actionName" value="" displayname="Action名称" description="在被触发的对象上播放的一对一Action所对应的Action名<br><i>相对Resources目录的路径<br>该Action的对象引用中前三个必须依次是受击者、攻击者和触发者"/>
+		<Array type="string" name="tags" displayname="可受击对象的tag" description="被纳入可受击对象所拥有的tag列表"/>
+	</Event>
+	<Event typeName="InvokeMethod" category="Utility" isDuration="false" description="<b>调用方法</b><br>事件发生瞬间调用指定脚本的指定方法，并传入参数">
+		<TemplateObject name="targetId" id="0" displayname="对象" description="拥有指定脚本的对象"/>
+		<string name="scriptName" value="" displayname="脚本名" description="指定脚本名"/>
+		<string name="methodName" value="" displayname="方法名" description="指定方法名"/>
+		<Enum name="paramType" value="0" displayname="参数类型" description="参数类型">
+			<Entry name="NoParam"/>
+			<Entry name="IntParam"/>
+			<Entry name="FloatParam"/>
+			<Entry name="StringParam"/>
+			<Entry name="BoolParam"/>
+			<Entry name="GameObjectParam"/>
+		</Enum>
+		<int name="intParam" value="0" displayname="int参数值" description="int类型参数值">
+			<condition conditionEnumName="paramType" conditionEnumValName="IntParam"/>
+		</int>
+		<float name="floatParam" value="0.0" displayname="float参数值" description="float类型参数值">
+			<condition conditionEnumName="paramType" conditionEnumValName="FloatParam"/>
+		</float>
+		<string name="stringParam" value="" displayname="string参数值" description="string类型参数值">
+			<condition conditionEnumName="paramType" conditionEnumValName="StringParam"/>
+		</string>
+		<bool name="boolParam" value="false" displayname="bool参数值" description="bool类型参数值">
+			<condition conditionEnumName="paramType" conditionEnumValName="BoolParam"/>
+		</bool>
+		<TemplateObject name="gameObjectParam" id="-1" displayname="GameObject参数" description="GameObject类型参数值">
+			<condition conditionEnumName="paramType" conditionEnumValName="GameObjectParam"/>
+		</TemplateObject>
+	</Event>
+	<Event typeName="TriggerAudio" category="Effect" isDuration="true" description="播放音效：事件开始时播放指定音效，并在事件结束时停止">
+		<bool name="mutilSource" value="false"  displayname="多音源" description="对象上有多个音源（自动增加多个AudioSource，事件结束时销毁），off为单音源，需要在对象上手动添加"/>
+		<TemplateObject name="targetId" id="-1" displayname="音源对象" description="音源对象，单音源下需要拥有AudioSource组件"/>
+		<string name="audioPath" value="" displayname="AudioClip资源路径" description="AudioClip资源路径，相对于Resources目录"/>
+		<bool name="loop" value="false"  displayname="是否循环" description="是否循环播放"/>
+		<float name="volume" value="1.0" displayname="音量" description="音源音量大小，0.0~1.0"/>
+		<int name="priority" value="128" displayname="优先级" description="多个audio source间的优先级，0~255，优先级0最高，255最低"/>
+		<bool name="enableRand" value="false"  displayname="随机播放" description="是否随机播放，进行随机音源和概率配置"/>
+		<Array type="string" name="randPaths" displayname="随机音源列表" description="随机音源列表">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+		<Array type="float" name="probabilities"  displayname="随机播放概率列表" description="顺序对应随机音源播放概率">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+	</Event>
+	<Event typeName="TriggerAudioOneShot" category="Effect" isDuration="false" description="播放单次音效">
+		<bool name="mutilSource" value="false"  displayname="多音源" description="对象上有多个音源（自动增加多个AudioSource,随对象销毁），off为单音源，需要在对象上手动添加"/>
+		<TemplateObject name="targetId" id="-1" displayname="音源对象" description="音源对象，单音源下需要拥有AudioSource组件"/>
+		<string name="audioPath" value="" displayname="AudioClip资源路径" description="AudioClip资源路径，相对于Resources目录"/>
+		<float name="volume" value="1.0" displayname="音量" description="音源音量大小，0.0~1.0"/>
+		<int name="priority" value="128" displayname="优先级" description="多个audio source间的优先级，0~255，优先级0最高，255最低"/>
+		<bool name="enableRand" value="false"  displayname="随机播放" description="是否随机播放，进行随机音源和概率配置"/>
+		<Array type="string" name="randPaths" displayname="随机音源列表" description="随机音源列表">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+		<Array type="float" name="probabilities"  displayname="随机播放概率列表" description="顺序对应随机音源播放概率">
+			<condition conditionBoolName="enableRand" conditionBoolValName="true"/>
+		</Array>
+	</Event>
+	<Event typeName="TriggerPlaymakerEvent" category="PlayMaker" isDuration="false" description="<b>触发PlayMaker事件</b>">
+	    <TemplateObject name="targetId" id="0" displayname="操作的对象"/>
+		<string name="sendEvent" value="" displayname="触发的Event"/>
+		<float name="delay" value="0.0" displayname="延时"/>
+		<bool name="broadcast" value="false" displayname="广播"/>
+	</Event>
+	<Event typeName="BreakPoint" category="Debug" isDuration="false" description="<b>断点</b><br>在编辑器+调试模式下，被启用的断点事件发生瞬间会触发Unity编辑器暂停">
+		<bool name="enabled" value="true" displayname="是否启用" description="是否启用"/>
+		<string name="info" value="" displayname="断点输出的Log" description="断点触发时输出的Log信息"/>
+	</Event>
+	<Event typeName="CameraLookAt" category="Movement" idDuration="false" description="<b>摄像机观察</b><br>让指定摄像机观察某个目标，作为关键帧使用">
+		<TemplateObject name="cameraId" id="0" displayname="摄像机" description="指定的摄像机"/>
+		<TemplateObject name="targetId" id="-1" displayname="观察的对象" description="观察的对象<br><i>若为空则是观察世界空间下某点"/>
+		<Vector3 name="worldOffset" x="0" y="0" z="0" displayname="WorldSpace偏移量" description="观察点相对观察对象在世界坐标下的偏移"/>
+		<Vector3 name="localOffset" x="0" y="0" z="0" displayname="LocalSpace偏移量" description="观察点相对观察对象在对象坐标下的偏移"/>
+		<Enum name="UpDirType" value="1" displayname="指定计算相机Up方向方式" description="指定计算相机Up方向方式">
+			<Entry name="NoOverrideUp"/>
+			<Entry name="RowAngleByZ"/>
+		</Enum>
+		<float name="rowAngleByZ" value="0" displayname="绕Z轴旋转的角度" description="绕Z轴旋转的角度">
+			<condition conditionEnumName="UpDirType" conditionEnumValName="RowAngleByZ" />
+		</float>
+		<!--bool name="overrideUpDir" value="false" displayname="覆盖相机的Up方向" description="是否覆盖相机的Up方向"/-->
+		<!--Vector3 name="upDir" x="0" y="1" z="0" displayname="相机的Up方向" description="如果overrideUpDir为真，则这里指定相机的Up方向"/-->
+	</Event>
+	<Event typeName="SetVisibility" category="Utility" isDuration="false" description="<b>设置可见性</b><br>开关指定对象及其下面所有子对象的Renderer">
+		<TemplateObject name="targetId" id="0" displayname="指定对象" description="指定对象"/>
+		<bool name="enabled" value="true" displayname="是否可见" description="是否可见"/>
+		<Array type="string" name="excludeMeshes" displayname="排除列表" description="不需要起作用的Mesh/submesh列表"/>
+	</Event>	
+	<Event typeName="StopConflictActions" category="Action Control" isDuration="false" description="<b>停止冲突Action</b><br>事件发生瞬间，停止其他引用到指定对象的Action<br><i>除非这些Action当前不可打断">
+		<Array type="TemplateObject" name="gameObjectIds" displayname="Action的引用对象" description="指定将要被停止的Action所引用的对象"/>
+	</Event>
+	<Event typeName="Unstoppable" category="Action Control" isDuration="true" description="<b>禁止被打断</b><br>事件范围内，当前Action无法被StopConflictActions打断">
+	</Event>
+	<Event typeName="OnTrigger" category="Condition" isDuration="true">
+		<TemplateObject name="targetId" id="0" displayname="触发的对象"/>
+		<string name="scriptName" value="" displayname="脚本名" description="指定触发判定脚本名"/>
+		<string name="methodName" value="" displayname="方法名" description="指定触发判定方法名"/>
+		<Array type="string" name="tags"/>
+	</Event>
+	<Event typeName="StopTrack" category="Action Control" isDuration="false">
+		<TrackObject name="trackId"/>
+	</Event>
+	<Event typeName="StopMultipleTracks" category="Action Control" isDuration="false">
+		<Array type="trackobject" name="trackIds"/>
+	</Event>
+	<Event typeName="ChangeSpeed" category="Action Control" isDuration="true" description="<b>改变Action播放速度</b>">
+		<Enum name="mode" value="0" displayname="模式" description="以何种模式来确定Action的播放速度">
+			<Entry name="Specified"/>
+			<Entry name="AverageSpeed"/>
+		</Enum>
+		<CurveContainer name="playSpeed" curveCount="1" displayname="播放速度" description="直接指定Action的播放速度">
+			<condition conditionEnumName="mode" conditionEnumValName="Specified"/>
+		</CurveContainer>
+		<float name="averageSpeed" value="1.0" displayname="平均速度" description="期待目标以多大的平均速度从起点到终点移动">
+			<condition conditionEnumName="mode" conditionEnumValName="AverageSpeed"/>
+		</float>
+		<TemplateObject name="fromId" id="-1" displayname="起点对象">
+			<condition conditionEnumName="mode" conditionEnumValName="AverageSpeed"/>
+		</TemplateObject>
+		<TemplateObject name="toId" id="-1" displayname="终点对象">
+			<condition conditionEnumName="mode" conditionEnumValName="AverageSpeed"/>
+		</TemplateObject>
+	</Event>
+	<Event typeName="SetMaterialColor" category="Utility" isDuration="true" description="<b>设置Material的颜色</b>">
+		<TemplateObject name="targetId" id="-1" isTemp="false" displayname="目标对象" description="设置颜色的对象"/>
+		<string name="colorName" value="" displayname="颜色名称" description="设置哪种类型的颜色"/>		
+		<CurveContainer name="color" curveCount="4" displayname="颜色" description="曲线编辑颜色的RGBA四通道"/>
+	</Event>
+	<Event typeName="GetSubObjectDuration" category="Utility" isDuration="true" description="从父对象获得子对象，并赋给子对象引用">
+		<TemplateObject name="targetId" id="-1" isTemp="true" displayname="子对象" description="子对象引用，默认获取父对象的第一个子对象"/>
+		<TemplateObject name="parentId" id="-1" displayname="父对象" description="比如定位点"/>
+        <bool name="isGetByName" value="false" displayname="启用名字获取子对象" description="是否启用名字获取子对象模式"/>
+        <string name="subObjectName" value="" displayname="子对象名字" description="子对象名称"/>		
+	</Event>
+	<Event typeName="GetSubObjectTick" category="Utility" isDuration="false" description="从父对象获得子对象，并赋给子对象引用">
+	    <TemplateObject name="targetId" id="-1" displayname="子对象" description="子对象引用，默认获取父对象的第一个子对象"/>
+		<TemplateObject name="parentId" id="-1" displayname="父对象" description="比如定位点"/>
+        <bool name="isGetByName" value="false" displayname="启用名字获取子对象" description="是否启用名字获取子对象模式"/>
+        <string name="subObjectName" value="" displayname="子对象名字" description="子对象名称"/>		
+	</Event>
+	<Event typeName="SetTagLayer" category="Utility" isDuration="false" description="改变目标对象的Tag和Layer">
+	    <TemplateObject name="targetId" id="-1" displayname="操作对象" description="需要操作的目标对象"/>
+		<bool name="enableLayer" value="false" displayname="改变layer" description="是否改变对象的layer"/>
+		<int name="layer" value="0" displayname="layer值" description="对象layer值">
+			<condition conditionBoolName="enableLayer" conditionBoolValName="true"/>
+		</int>
+		<bool name="enableTag" value="false" displayname="改变tag" description="是否改变对象的tag"/>
+		<string name="tag" value="" displayname="对象tag" description="对象tag">
+			<condition conditionBoolName="enableTag" conditionBoolValName="true"/>
+		</string>
+	</Event>
+	<Event typeName="SetPlaymakerParam" category="PlayMaker" isDuration="false" description="<b>设置Playmaker状态机变量</b>">
+		<TemplateObject name="targetId" id="-1" isTemp="false" displayname="目标对象" description="带有Playmaker状态机的对象"/>
+		<bool name="specifyFSM" value="false" displayname="指定状态机名" description="若勾选，则需要手动指定受到影响的FSM状态机名字；否则将影响全部状态机"/>
+		<Array type="string" name="fsmNames" displayname="状态机名" description="受到影响的状态机名列表">
+			<condition conditionBoolName="specifyFSM" conditionBoolValName="true"/>
+		</Array>
+		<string name="paramName" value="" displayname="变量名" description="变量名"/>
+		<Enum name="paramType" value="0" displayname="变量类型" description="变量类型">
+			<Entry name="BoolType"/>
+			<Entry name="IntType"/>
+			<Entry name="FloatType"/>
+			<Entry name="StringType"/>
+			<Entry name="Vector3Type"/>
+			<Entry name="QuaternionType"/>
+			<Entry name="GameObjectType"/>
+			<Entry name="MaterialType"/>
+			<Entry name="TextureType"/>
+		</Enum>
+		<bool name="boolValue" value="false" displayname="变量值" description="变量值">
+			<condition conditionEnumName="paramType" conditionEnumValName="BoolType"/>
+		</bool>
+		<int name="intValue" value="0" displayname="变量值" description="变量值">
+			<condition conditionEnumName="paramType" conditionEnumValName="IntType"/>
+		</int>
+		<float name="floatValue" value="0" displayname="变量值" description="变量值">
+			<condition conditionEnumName="paramType" conditionEnumValName="FloatType"/>
+		</float>
+		<string name="stringValue" value="" displayname="变量值" description="变量值">
+			<condition conditionEnumName="paramType" conditionEnumValName="StringType"/>
+		</string>
+		<Vector3 name="vec3Value" x="0" y="0" z="0" displayname="变量值" description="变量值">
+			<condition conditionEnumName="paramType" conditionEnumValName="Vector3Type"/>
+		</Vector3>
+		<EulerAngle name="quatValue" x="0" y="0" z="0" displayname="变量值" description="变量值">
+			<condition conditionEnumName="paramType" conditionEnumValName="QuaternionType"/>
+		</EulerAngle>
+		<TemplateObject name="gameObjectValue" value="-1" displayname="变量对象" description="变量引用的对象">
+			<condition conditionEnumName="paramType" conditionEnumValName="GameObjectType"/>
+		</TemplateObject>
+		<string name="materialValue" value="" displayname="材质名" description="材质的资源路径">
+			<condition conditionEnumName="paramType" conditionEnumValName="MaterialType"/>
+		</string>
+		<string name="textureValue" value="" displayname="贴图名" description="贴图的资源路径">
+			<condition conditionEnumName="paramType" conditionEnumValName="TextureType"/>
+		</string>
+	</Event>
+	<Event typeName="StopAction" category="Action Control" isDuration="false" description="<b>停止当前Action</b><br>并可以接着播放其他Action并传递对象引用">
+		<bool name="transitAction" value="false" displayname="播放其他Action" description="接着播放指定的Action"/>
+		<String name="actionName" value="" displayname="Action名" description="接着播放的Action名">
+			<condition conditionBoolName="transitAction" conditionBoolValName="true"/>
+		</String>
+		<Array name="gameObjectIds" type="TemplateObject" displayname="对象引用" description="传递给接着播放的Action的对象引用关系">
+			<condition conditionBoolName="transitAction" conditionBoolValName="true"/>
+		</Array>
+	</Event>
+	
+</EventGroup>

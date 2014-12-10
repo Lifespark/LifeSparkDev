@@ -2,8 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AGE;
 
-public class JungleMonster : UnitObject
+public class JungleMonster : UnitObject//FlockingUnitObject
 {
     #region ENUM_FIELD
     public enum JungleMonsterState
@@ -15,6 +16,8 @@ public class JungleMonster : UnitObject
         ATTACKING,
         ATTACKED,
         DEAD,
+        ROAMING,
+        GATHERING,
         DEFAULT
     }
 
@@ -24,6 +27,13 @@ public class JungleMonster : UnitObject
         INT = 2,
         FLOAT = 3,
         TRIGGER = 4
+    }
+
+    public enum CreepType 
+    {
+        ORC,
+        KOBOLD,
+        GOBLIN,
     }
 
     [Flags]
@@ -40,48 +50,69 @@ public class JungleMonster : UnitObject
     public float maxSpeed = 5.0f;
     public float detectRadius = 20;
     public float attackRadius = 2;
+	public static float m_XPradius = 35;
+	public static float m_XP = 25;
     public Transform target;
     public Vector3 source;
+    public int originCamp;
+    public int currentCamp;
+    public Vector3[] targets;
+    public int[] targetID;
+    public Vector3 deviatePos;
+    public bool isDeviated = false;
     public GameObject lockOnEnemy;
     public JungleMonsterState curState;
     public Vector3 spreadDir;
+    public Hit m_hit;
+    public CreepType m_creepType;
+    public JungleCamp m_myCamp;
     #endregion
 
     #region JungleMonster_STATE
     public JungleMonsterStateIdle jungleMonsterStateIdle;
     public JungleMonsterStateAttack jungleMonsterStateAttack;
+    public JungleMonsterStateAttacked jungleMonsterStateAttacked;
     public JungleMonsterStateChase jungleMonsterStateChase;
     public JungleMonsterStateReturn jungleMonsterStateReturn;
     public JungleMonsterStateDead jungleMonsterStateDead;
+    public JungleMonsterStateRoaming jungleMonsterStateRoaming;
+    public JungleMonsterStateGathering jungleMonsterStateGathering;
 
     private JungleMonsterStateBase jungleMonsterState;
     #endregion
 
-    private Vector3 correctJungleMonsterPos;
-    private Quaternion correctJungleMonsterRot;
     private Animator anim;
     private NavMeshAgent navAgent;
     private NavMeshPath mainNavPath = new NavMeshPath();
+    private int animPackageNum = 0;
 
-    private Vector3 lastSentPosition;
-    private Quaternion lastSentOrientation;
-    private Vector3 lastSentVelocity;
+    public bool isOffensive = false;
+    public bool isRoaming = false;
+    public bool isGathering = false;
+    public bool isInOffensive = false;
+    public bool isInRoaming = false;
+    public bool isInGathering = false;
 
-    private bool appliedInitialUpdate = false;
-
+    private AGE.Action m_action = null;
+    private ActionHelper m_actionHelper;
     // store the enemy so we do not search them during game
     // in case of a player die or drop, could just move it out of vision and not destroy it in case of null reference
     public List<Player> enemyPlayers = new List<Player>();
 
     // Use this for initialization
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
+        m_unitType = UnitObjectType.DYNAMIC;
         // initialize all states
         jungleMonsterStateIdle = new JungleMonsterStateIdle(this);
         jungleMonsterStateAttack = new JungleMonsterStateAttack(this);
+        jungleMonsterStateAttacked = new JungleMonsterStateAttacked(this);
         jungleMonsterStateChase = new JungleMonsterStateChase(this);
         jungleMonsterStateReturn = new JungleMonsterStateReturn(this);
         jungleMonsterStateDead = new JungleMonsterStateDead(this);
+        jungleMonsterStateRoaming = new JungleMonsterStateRoaming(this);
+        jungleMonsterStateGathering = new JungleMonsterStateGathering(this);
 
         // initialize Findable stuff
         SwitchState(JungleMonsterState.IDLE);
@@ -90,53 +121,140 @@ public class JungleMonster : UnitObject
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         source = (Vector3)photonView.instantiationData[0];
-
-        //GetComponentInChildren<SkinnedMeshRenderer>().material.color
-        //    = new Color((float)photonView.instantiationData[3],
-        //                (float)photonView.instantiationData[4],
-        //                (float)photonView.instantiationData[5],
-        //                (float)photonView.instantiationData[6]);
-        //source = SparkPointManager.Instance.sparkPointsDict[(string)photonView.instantiationData[7]].transform;
+        currentCamp = originCamp = (int)photonView.instantiationData[1];
+        targets = (Vector3[])photonView.instantiationData[2];
+        targetID = (int[])photonView.instantiationData[3];
+        gameObject.name = (string)photonView.instantiationData[4];
+        deviatePos = targets[currentCamp];
 
         // calculate and store the nav path from source to target
         //navAgent.CalculatePath(target.position + spreadDir * 2.0f, mainNavPath);
+
+        MonsterClient.Instance.allMonsters.Add(this);
+        MonsterClient.Instance.MonsterLookUp.Add(gameObject.name, this);
+        MonsterClient.Instance.OnJungleMonsterInstantiated();
+
+		// Connect TierAction func to Boss
+        //if(PhotonNetwork.isMasterClient) {
+        //    Boss.OnTierChanged += TierAction;
+        //}
+        UIManager.mgr.getHpBar(this, new Vector3(0, 10f, 0) / transform.localScale.x);
+        m_actionHelper = GetComponent<ActionHelper>();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+        if (!LevelManager.Instance.m_startedGame)
+            return;
+
+        base.Update();
+
+
+        if (unitHealth <= 0)
+            SwitchState(JungleMonsterState.DEAD);
         // if I'm not in control, sync position from network
-        if (!PhotonNetwork.isMasterClient)
-        {
-            transform.position = Vector3.Lerp(transform.position, this.correctJungleMonsterPos, Time.deltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctJungleMonsterRot, Time.deltaTime * 5);
-        }
-        // otherwise process current state's update
-        else
-        {
+        if (PhotonNetwork.isMasterClient) {
+			
             //if (targetSparkPoint.owner == owner && curState != jungleMonsterState.DEAD
             //    || targetSparkPoint.sparkPointState == SparkPoint.SparkPointState.DESTROYED)
             //{
             //    SwitchState(jungleMonsterState.DEAD);
             //    return;
             //}
+
+            //temp!!!!!!!!!!!!!!!!!!!!
+            if (Input.GetKeyUp("q"))
+            {
+                isInOffensive = false;
+            }
+            else if (Input.GetKeyUp("w"))
+            {
+                isInRoaming = false;
+            }
+            else if (Input.GetKeyUp("e"))
+            {
+                isInGathering = false;
+            }
+            else if (Input.GetKeyDown("q"))
+            {
+                if (!isInOffensive)
+                {
+                    isOffensive = !isOffensive;
+                    isInOffensive = true;
+                }
+            }
+            else if (Input.GetKeyDown("w"))
+            {
+
+                if (!isInRoaming)
+                {
+                    isRoaming = !isRoaming;
+                    isGathering = false;
+                    isInRoaming = true;
+
+                    if (isRoaming)
+                        SwitchState(JungleMonsterState.ROAMING);
+                    else
+                        SwitchState(JungleMonsterState.RETURNING);
+                }
+            }
+            else if (Input.GetKeyDown("e"))
+            {
+                if (!isInGathering)
+                {
+                    isGathering = !isGathering;
+                    isRoaming = false;
+                    isInGathering = true;
+
+                    if (isGathering)
+                        SwitchState(JungleMonsterState.GATHERING);
+                    else
+                        SwitchState(JungleMonsterState.RETURNING);
+                }
+            }
+
             if (jungleMonsterState != null)
                 jungleMonsterState.OnUpdate();
         }
     }
 
+	public void TierAction(int tier){
+		switch(tier) {
+			case 1:
+				if(!isOffensive) {
+					isOffensive = true;
+				}
+				break;
+			case 2:
+				if(!isRoaming) {
+					isRoaming = true;
+					SwitchState(JungleMonsterState.ROAMING);
+				}
+				break;
+			case 3:
+				if(!isGathering) {
+					isGathering = true;
+					isRoaming = false;
+					SwitchState(JungleMonsterState.GATHERING);
+				}
+				break;
+		}
+
+	}
+
     /// <summary>
     /// switch to another state
     /// </summary>
     /// <param name="toState">destination state</param>
-    private void SwitchState(JungleMonsterState toState)
+    public void SwitchState(JungleMonsterState toState)
     {
         if (jungleMonsterState != null && jungleMonsterState.State == toState)
             return;
         curState = toState;
         if (jungleMonsterState != null)
             jungleMonsterState.OnExit();
-
+        //Debug.Log(toState);
         switch (toState)
         {
             case JungleMonsterState.IDLE:
@@ -154,63 +272,36 @@ public class JungleMonster : UnitObject
             case JungleMonsterState.DEAD:
                 jungleMonsterState = jungleMonsterStateDead;
                 break;
+            case JungleMonsterState.GATHERING:
+                jungleMonsterState = jungleMonsterStateGathering;
+                break;
+            case JungleMonsterState.ROAMING:
+                jungleMonsterState = jungleMonsterStateRoaming;
+                break;
+            case JungleMonsterState.ATTACKED:
+                jungleMonsterState = jungleMonsterStateAttacked;
+                break;
         }
         jungleMonsterState.OnEnter();
     }
+    
+	public JungleMonsterStateBase GetJungleMonsterState() { return jungleMonsterState; }
 
     /// <summary>
     /// photon syncing
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="info"></param>
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    new void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.isWriting)
-        {
+        if (!LevelManager.Instance.m_startedGame)
+            return;
+        base.OnPhotonSerializeView(stream, info);
+    }
 
-            // reduce network traffic
-            PacketMask mask = PacketMask.NONE;
-
-            if (transform.position != lastSentPosition)
-            {
-                lastSentPosition = transform.position;
-                mask |= PacketMask.POSITION;
-            }
-            if (transform.rotation != lastSentOrientation)
-            {
-                lastSentOrientation = transform.rotation;
-                mask |= PacketMask.ROTATION;
-            }
-
-            if (rigidbody.velocity != lastSentVelocity)
-            {
-                lastSentVelocity = rigidbody.velocity;
-                mask |= PacketMask.VELOCITY;
-            }
-
-            stream.SendNext(mask);
-
-            // only send changed attributes
-            if ((mask & PacketMask.POSITION) != PacketMask.NONE) stream.SendNext(transform.position);
-            if ((mask & PacketMask.ROTATION) != PacketMask.NONE) stream.SendNext(transform.rotation);
-            if ((mask & PacketMask.VELOCITY) != PacketMask.NONE) stream.SendNext(rigidbody.velocity);
-        }
-        else
-        {
-            PacketMask mask = (PacketMask)stream.ReceiveNext();
-
-            if ((mask & PacketMask.POSITION) != PacketMask.NONE) correctJungleMonsterPos = (Vector3)stream.ReceiveNext();
-            if ((mask & PacketMask.ROTATION) != PacketMask.NONE) correctJungleMonsterRot = (Quaternion)stream.ReceiveNext();
-            if ((mask & PacketMask.VELOCITY) != PacketMask.NONE) rigidbody.velocity = (Vector3)stream.ReceiveNext();
-
-            if (!appliedInitialUpdate)
-            {
-                appliedInitialUpdate = true;
-                transform.position = correctJungleMonsterPos;
-                transform.rotation = correctJungleMonsterRot;
-                rigidbody.velocity = Vector3.zero;
-            }
-        }
+    void OnAnimatorMove() {
+        //if (PhotonNetwork.isMasterClient)
+            navAgent.velocity = anim.deltaPosition / Time.deltaTime;
     }
 
     /// <summary>
@@ -222,6 +313,7 @@ public class JungleMonster : UnitObject
     [RPC]
     void RPC_setAnimParam(int animType, string param, float value = 0)
     {
+        //Debug.Log(param + "\t" + Time.time);
         switch ((AnimatorType)animType)
         {
             case AnimatorType.BOOL:
@@ -234,8 +326,29 @@ public class JungleMonster : UnitObject
                 anim.SetFloat(param, value);
                 break;
             case AnimatorType.TRIGGER:
+                // reset all other trigger
+                anim.ResetTrigger("goWalk");
+                anim.ResetTrigger("goDead");
+                anim.ResetTrigger("goIdle");
+                anim.ResetTrigger("goAttack");
+                anim.ResetTrigger("goHit");
                 anim.SetTrigger(param);
                 break;
+        }
+    }
+
+    [RPC]
+    void RPC_setNavAgentState(bool enabled, bool updateDest, Vector3 destination) {
+        if (enabled) {
+            navAgent.Resume();
+            if (updateDest) {
+                // or do we pass the calculated path here?
+                navAgent.SetDestination(destination);
+            }
+        }
+        else {
+            navAgent.Stop();
+            navAgent.ResetPath();
         }
     }
 
@@ -287,20 +400,44 @@ public class JungleMonster : UnitObject
 
         public override void OnEnter()
         {
-            Debug.Log("Idle");
+            //Debug.Log("Idle");
             startTime = Time.time;
             if (jungleMonster.anim)
                 //jungleMonster.anim.SetTrigger("goIdle");
-                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)JungleMonster.AnimatorType.TRIGGER, "goIdle", 0f);
+                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goIdle", 0f);
         }
 
         public override void OnUpdate()
         {
-            if (Vector3.SqrMagnitude(jungleMonster.source - jungleMonster.transform.position) > 1.0)
+            if (jungleMonster.isOffensive)
             {
-                jungleMonster.SwitchState(JungleMonsterState.ATTACKING);
-                return;
+                //GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+                int index = -1;
+                float minDistance = 0;
+
+                for (int i = 0; i < PlayerManager.Instance.allPlayers.Count; i++)
+                {
+                    float currentDistance = Vector3.SqrMagnitude(jungleMonster.transform.position - PlayerManager.Instance.allPlayers[i].transform.position);
+                    if (index == -1 ||
+                        currentDistance < minDistance)
+                    {
+                        minDistance = currentDistance;
+                        index = i;
+                    }
+                }
+                jungleMonster.lockOnEnemy = PlayerManager.Instance.allPlayers[index].gameObject;
+
+                if (Vector3.SqrMagnitude(jungleMonster.transform.position - PlayerManager.Instance.allPlayers[index].transform.position) < jungleMonster.detectRadius * jungleMonster.detectRadius)
+                {
+                    jungleMonster.SwitchState(JungleMonsterState.ATTACKING);
+                }
             }
+
+            //if (Vector3.SqrMagnitude(jungleMonster.source - jungleMonster.transform.position) > 1.0)
+            //{
+            //    jungleMonster.SwitchState(JungleMonsterState.ATTACKING);
+            //    return;
+            //}
         }
 
         public override void OnExit()
@@ -312,9 +449,9 @@ public class JungleMonster : UnitObject
     [Serializable]
     public class JungleMonsterStateAttack : JungleMonsterStateBase
     {
-        public float attackIntervial = 2;
+        public float attackIntervial = 4;
         private float lastAttackTime = -2;
-
+        private Quaternion lookAtPlayer;
         public JungleMonsterStateAttack(JungleMonster pjungleMonster)
         {
             startTime = Time.time;
@@ -326,35 +463,29 @@ public class JungleMonster : UnitObject
         {
             Debug.Log("Attack");
             startTime = Time.time;
-            GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-            int index = -1;
-            float minDistance = 0;
-
-            for(int i = 0; i < allPlayers.Length;i++)
-            {
-                float currentDistance = Vector3.SqrMagnitude(jungleMonster.transform.position - allPlayers[i].transform.position);
-                if (index == -1 ||
-                    currentDistance < minDistance)
-                {
-                    minDistance = currentDistance;
-                    index = i;
-                }
-            }
-            jungleMonster.lockOnEnemy = allPlayers[index].gameObject;
-                
-            if (Vector3.SqrMagnitude(jungleMonster.transform.position - allPlayers[index].transform.position) > jungleMonster.attackRadius * jungleMonster.attackRadius)
+            //jungleMonster.navAgent.Stop();
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, false, false, Vector3.zero);
+            /*
+            if (Vector3.SqrMagnitude(jungleMonster.transform.position - jungleMonster.lockOnEnemy.transform.position) > jungleMonster.attackRadius * jungleMonster.attackRadius)
             {
                 jungleMonster.SwitchState(JungleMonsterState.CHASING);
                 return;
             }
-
+            */
         }
 
         public override void OnUpdate()
         {
+			UnitObject target = jungleMonster.lockOnEnemy.GetComponent<UnitObject>();
+
+			if (target != null && target.m_isDead){
+				jungleMonster.SwitchState(JungleMonsterState.IDLE);
+				return;
+			}
+
             float sqrDistance = Vector3.SqrMagnitude(jungleMonster.lockOnEnemy.transform.position - jungleMonster.transform.position);
             // if enemy not in attack range but in chasing range, return to tracing state
-            if (sqrDistance > jungleMonster.attackRadius * jungleMonster.attackRadius)
+            if (sqrDistance > jungleMonster.attackRadius * jungleMonster.attackRadius && jungleMonster.m_action == null)
             {
                 jungleMonster.SwitchState(JungleMonsterState.CHASING);
                 return;
@@ -362,14 +493,65 @@ public class JungleMonster : UnitObject
             // attack enemy
             if (Time.time - lastAttackTime > attackIntervial)
             {
-                if (jungleMonster.anim)
+				lastAttackTime = Time.time;
+                if (jungleMonster.anim) {
                     //jungleMonster.anim.SetTrigger("goAttack");
-                    jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)JungleMonster.AnimatorType.TRIGGER, "goAttack", 0f);
+                    //jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goAttack", 0f);
+                    lookAtPlayer = Quaternion.LookRotation(jungleMonster.lockOnEnemy.transform.position - jungleMonster.transform.position);
+                    jungleMonster.transform.rotation = lookAtPlayer;
+                    jungleMonster.m_action = jungleMonster.m_actionHelper.PlayAction("Attack");
+                    jungleMonster.StartCoroutine(DealDamage());
+                }
             }
         }
 
         public override void OnExit()
         {
+            //jungleMonster.navAgent.Resume();
+            //jungleMonster.StopCoroutine("DealDamage");
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, false, Vector3.zero);
+        }
+
+        IEnumerator DealDamage() {
+            yield return new WaitForSeconds(1.11f);
+            jungleMonster.lockOnEnemy.GetComponent<Player>().receiveAttack(jungleMonster.m_hit, jungleMonster.transform);
+        }
+    }
+
+    [Serializable]
+    public class JungleMonsterStateAttacked : JungleMonsterStateBase {
+
+        private bool hasHit;
+
+        public JungleMonsterStateAttacked(JungleMonster pjungleMonster) {
+            startTime = Time.time;
+            state = JungleMonsterState.ATTACKED;
+            jungleMonster = pjungleMonster;
+        }
+
+        public override void OnEnter() {
+            //Debug.Log("Attack");
+            startTime = Time.time;
+            hasHit = false;
+            //jungleMonster.navAgent.Stop();
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, false, false, Vector3.zero);
+        }
+
+        public override void OnUpdate() {
+            if (Time.time - startTime > 0.5f && !hasHit) {
+                hasHit = true;
+                if (jungleMonster.anim)
+                    //jungleMonster.anim.SetTrigger("goWalk");
+                    jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goHit", 0f);
+            }
+
+            if (Time.time - startTime > 1.5f) {
+                jungleMonster.SwitchState(JungleMonsterState.IDLE);
+                return;
+            }
+        }
+
+        public override void OnExit() {
 
         }
     }
@@ -390,21 +572,49 @@ public class JungleMonster : UnitObject
             startTime = Time.time;
             if (jungleMonster.anim)
                 //jungleMonster.anim.SetTrigger("goWalk");
-                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
-            jungleMonster.navAgent.Resume();
-            jungleMonster.navAgent.SetDestination(jungleMonster.lockOnEnemy.transform.position);
+                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
+            //jungleMonster.navAgent.Resume();
+            //jungleMonster.navAgent.SetDestination(jungleMonster.lockOnEnemy.transform.position);
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, jungleMonster.lockOnEnemy.transform.position);
+            //jungleMonster.transform.LookAt(jungleMonster.lockOnEnemy.transform.position);
+            Vector3 target = jungleMonster.m_navAgent.steeringTarget;
+            target.y = 0;
+            jungleMonster.transform.LookAt(target);
         }
 
         public override void OnUpdate()
         {
-            float sqrDistance = Vector3.SqrMagnitude(jungleMonster.transform.position - jungleMonster.source);
+            Vector3 target = jungleMonster.m_navAgent.steeringTarget;
+            target.y = 0;
+            jungleMonster.transform.LookAt(target);
+            float sqrDistance = 100000;
+            if (!jungleMonster.isRoaming)
+                sqrDistance  = Vector3.SqrMagnitude(jungleMonster.transform.position - jungleMonster.source);
+            else
+                sqrDistance = Vector3.SqrMagnitude(jungleMonster.transform.position - jungleMonster.deviatePos);
 
             if (sqrDistance < jungleMonster.detectRadius *jungleMonster.detectRadius)
             {
                 // still too far away to attack
-                if (Vector3.SqrMagnitude(jungleMonster.lockOnEnemy.transform.position - jungleMonster.transform.position) > jungleMonster.attackRadius * jungleMonster.attackRadius)
+                if (Vector3.SqrMagnitude(jungleMonster.lockOnEnemy.transform.position - jungleMonster.transform.position) > 0.8 * jungleMonster.attackRadius * 0.8 * jungleMonster.attackRadius)
                 {
-                    jungleMonster.navAgent.SetDestination(jungleMonster.lockOnEnemy.transform.position);
+#if false                
+					// Move via flocking algorithm (if flock leader) or navmesh pathfinding (if follower)
+					GameObject[] jungleCreeps = GameObject.FindGameObjectsWithTag("JungleCreep");
+					List<FlockingUnitObject> eligibleFlockMates = new List<FlockingUnitObject>();
+					for (int i = 0; i < jungleCreeps.Length; i++) {
+						if (jungleCreeps[i].GetComponent<JungleMonster>().GetJungleMonsterState().State == JungleMonsterState.CHASING && jungleCreeps[i].GetComponent<JungleMonster>() != jungleMonster) {
+							eligibleFlockMates.Add((FlockingUnitObject)jungleCreeps[i].GetComponent<JungleMonster>());
+						}
+					}
+					if (!jungleMonster.MoveWithFlockUnlessLeader(eligibleFlockMates, jungleMonster.maxSpeed)){
+						//jungleMonster.navAgent.SetDestination(jungleMonster.lockOnEnemy.transform.position);
+						jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, jungleMonster.lockOnEnemy.transform.position);
+					}
+#else
+                    jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, jungleMonster.lockOnEnemy.transform.position);
+#endif
+
                 }
                 else
                 {
@@ -414,14 +624,19 @@ public class JungleMonster : UnitObject
             }
             else
             {
-                jungleMonster.SwitchState(JungleMonsterState.RETURNING);
+                if (!jungleMonster.isRoaming)
+                    jungleMonster.SwitchState(JungleMonsterState.RETURNING);
+                else
+                    jungleMonster.SwitchState(JungleMonsterState.ROAMING);
                 return;
             }
         }
 
         public override void OnExit()
         {
-            jungleMonster.navAgent.Stop();
+            //jungleMonster.navAgent.Stop();
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, false, false, Vector3.zero);
+
         }
     }
 
@@ -440,19 +655,27 @@ public class JungleMonster : UnitObject
             Debug.Log("Return");
             startTime = Time.time;
             if (jungleMonster.anim)
-                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
+                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
 
-            jungleMonster.navAgent.Resume();
-            jungleMonster.navAgent.SetDestination(jungleMonster.source);
+            //jungleMonster.navAgent.Resume();
+            //jungleMonster.navAgent.SetDestination(jungleMonster.source);
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, jungleMonster.source);
+            Vector3 target = jungleMonster.m_navAgent.steeringTarget;
+            target.y = 0;
+            jungleMonster.transform.LookAt(target);
         }
 
         public override void OnUpdate()
         {
             if (true)
             {
-                if (Vector3.SqrMagnitude(jungleMonster.source - jungleMonster.transform.position) > 0.1)
+                Vector3 target = jungleMonster.m_navAgent.steeringTarget;
+                target.y = 0;
+                jungleMonster.transform.LookAt(target);
+                if (Vector3.SqrMagnitude(jungleMonster.source - jungleMonster.transform.position) > 2)
                 {
-                    jungleMonster.navAgent.SetDestination(jungleMonster.source);
+                    //jungleMonster.navAgent.SetDestination(jungleMonster.source);
+                    jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, jungleMonster.source);
                 }
                 else
                 {
@@ -470,7 +693,8 @@ public class JungleMonster : UnitObject
 
         public override void OnExit()
         {
-            jungleMonster.navAgent.Stop();
+            //jungleMonster.navAgent.Stop();
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, false, false, Vector3.zero);
         }
     }
 
@@ -479,19 +703,46 @@ public class JungleMonster : UnitObject
     [Serializable]
     public class JungleMonsterStateDead : JungleMonsterStateBase
     {
-        public float corpseRemainTime = 3f;
+        public float corpseRemainTime = 5f;
+        float disappearDuration = 1.5f;
+        bool hasChangedShader = false;
+        SkinnedMeshRenderer skinedMeshRrenderer;
 
         public JungleMonsterStateDead(JungleMonster pjungleMonster)
         {
             startTime = Time.time;
             state = JungleMonsterState.DEAD;
             jungleMonster = pjungleMonster;
+            skinedMeshRrenderer = jungleMonster.GetComponentInChildren<SkinnedMeshRenderer>();
         }
 
         public override void OnEnter()
         {
             startTime = Time.time;
-            jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.AllBufferedViaServer, (int)JungleMonster.AnimatorType.TRIGGER, "goDead", 0f);
+            jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goDead", 0f);
+			//Grant XP to players on the same team as the killer
+			//NOTE: CAN BE changed to grant all players 
+			Transform lastHit = jungleMonster.lastAttacker;
+			if (lastHit!= null)
+			{
+				Player attacker = lastHit.GetComponent<Player>();
+				int teamXP = attacker.team;	
+				
+				Vector3 position = jungleMonster.transform.position;
+				Collider[] objectsAroundMe = Physics.OverlapSphere(position, m_XPradius);
+				Collider temp;
+				for (int i = 0; i < objectsAroundMe.Length; i++)
+				{
+					temp = objectsAroundMe[i];
+					if (temp.CompareTag("Player"))
+					{
+						if (temp.GetComponent<Player>().team == teamXP)
+						temp.GetComponent<Player>().GetXP(m_XP);
+					}
+					
+				}
+			}
+			jungleMonster.m_isDead = true;
         }
 
         public override void OnUpdate()
@@ -499,13 +750,142 @@ public class JungleMonster : UnitObject
             if (Time.time - startTime >= corpseRemainTime)
             {
                // jungleMonsterManager.Instance.jungleMonsterDict[jungleMonster.source.gameObject].Remove(jungleMonster);
-                PhotonNetwork.Destroy(jungleMonster.gameObject);
+
+                // TODO: will need to pass the following event to non-master client
+                if (!hasChangedShader) {
+                    hasChangedShader = true;
+                    skinedMeshRrenderer.material.shader = Shader.Find("Transparent/Diffuse");
+                }
+                float disappearPercent = (Time.time - startTime - corpseRemainTime) / disappearDuration;
+                if (disappearPercent >= 1 && PhotonNetwork.isMasterClient) {
+                    PhotonNetwork.Destroy(jungleMonster.gameObject);
+                    jungleMonster.m_myCamp.m_myJungleCreeps.Remove(jungleMonster);
+                }
+                else {
+                    Color c = Color.white;
+                    c.a = (1 - disappearPercent);
+                    skinedMeshRrenderer.material.color = c;
+                }
             }
         }
 
         public override void OnExit()
         {
-
+			jungleMonster.m_isDead = false;
         }
     }
+
+    [Serializable]
+    public class JungleMonsterStateRoaming : JungleMonsterStateBase
+    {
+        Vector3 target;
+        public JungleMonsterStateRoaming(JungleMonster pjungleMonster)
+        {
+            startTime = Time.time;
+            state = JungleMonsterState.ROAMING;
+            jungleMonster = pjungleMonster;
+        }
+
+        public override void OnEnter()
+        {
+            Debug.Log("Roaming");
+            startTime = Time.time;
+            if (jungleMonster.anim)
+                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
+
+            target = jungleMonster.targets[jungleMonster.targetID[jungleMonster.currentCamp]];
+            //jungleMonster.navAgent.SetDestination(target);
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, target);
+        }
+
+        public override void OnUpdate()
+        {
+            if (jungleMonster.isOffensive)
+            {
+                GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+                int index = -1;
+                float minDistance = 0;
+
+                for (int i = 0; i < allPlayers.Length; i++)
+                {
+                    float currentDistance = Vector3.SqrMagnitude(jungleMonster.transform.position - allPlayers[i].transform.position);
+                    if (index == -1 ||
+                        currentDistance < minDistance)
+                    {
+                        minDistance = currentDistance;
+                        index = i;
+                    }
+                }
+                jungleMonster.lockOnEnemy = allPlayers[index].gameObject;
+
+                if (Vector3.SqrMagnitude(jungleMonster.transform.position - allPlayers[index].transform.position) < jungleMonster.attackRadius * jungleMonster.attackRadius)
+                {
+                    Vector3 startPos = jungleMonster.targets[jungleMonster.currentCamp];
+                    Vector3 endPos = target;
+                    Vector3 currentPos = jungleMonster.transform.position;
+                    Vector3 dir = Vector3.Normalize(endPos - startPos);
+                    Vector3 projectedPos = Vector3.Dot(currentPos - startPos, dir) * dir + startPos;
+
+                    float lastDistance = Vector3.Magnitude(endPos - jungleMonster.deviatePos);
+                    float currentDistance = Vector3.Magnitude(endPos - projectedPos);
+
+                    if (currentDistance < lastDistance)
+                    {
+                        jungleMonster.deviatePos = projectedPos;
+                        jungleMonster.SwitchState(JungleMonsterState.ATTACKING);
+                    }
+                }
+            }
+
+            if(Vector3.SqrMagnitude(target - jungleMonster.transform.position) < 1.0)
+            {
+                jungleMonster.currentCamp = jungleMonster.targetID[jungleMonster.currentCamp];
+                jungleMonster.deviatePos = target;
+                target = jungleMonster.targets[jungleMonster.targetID[jungleMonster.currentCamp]];
+                //jungleMonster.navAgent.SetDestination(target);
+                jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, target);
+            }
+        }
+
+        public override void OnExit()
+        {
+            if (jungleMonster.isRoaming == false)
+                jungleMonster.currentCamp = jungleMonster.originCamp;
+        }
+    }
+
+    [Serializable]
+    public class JungleMonsterStateGathering : JungleMonsterStateBase
+    {
+        public JungleMonsterStateGathering(JungleMonster pjungleMonster)
+        {
+            startTime = Time.time;
+            state = JungleMonsterState.IDLE;
+            jungleMonster = pjungleMonster;
+        }
+
+        public override void OnEnter()
+        {
+            Debug.Log("Gathering");
+            startTime = Time.time;
+            if (jungleMonster.anim)
+                //jungleMonster.anim.SetTrigger("goIdle");
+                jungleMonster.photonView.RPC("RPC_setAnimParam", PhotonTargets.All, (int)JungleMonster.AnimatorType.TRIGGER, "goWalk", 0f);
+            //jungleMonster.navAgent.Stop();
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, false, false, Vector3.zero);
+        }
+
+        public override void OnUpdate()
+        {
+            //jungleMonster.navAgent.SetDestination(new Vector3(0,0,0));
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, true, true, Vector3.zero);
+        }
+
+        public override void OnExit()
+        {
+            //jungleMonster.navAgent.Stop();
+            jungleMonster.photonView.RPC("RPC_setNavAgentState", PhotonTargets.AllViaServer, false, false, Vector3.zero);
+        }
+    }
+
 }

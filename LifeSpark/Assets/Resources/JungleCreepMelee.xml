@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Unit" id="0" isTemp="false"/>
+	</TemplateObjectList>
+	<RefParamList/>
+	<Action tag="" length="2.667" loop="false" hasFlowGraph="true">
+		<Track trackName="SetPhotonAnimatorParam0" eventType="SetPhotonAnimatorParam" guid="033443ce-3f0a-4694-8ea5-897834c497a9" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.933" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetPhotonAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Unit" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="goAttack" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

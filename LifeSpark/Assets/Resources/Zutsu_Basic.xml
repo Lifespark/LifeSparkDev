@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Zutsu" id="0" isTemp="false"/>
+		<TemplateObject objectName="Target" id="1" isTemp="false"/>
+	</TemplateObjectList>
+	<RefParamList/>
+	<Action tag="" length="2.000" loop="false" hasFlowGraph="true">
+		<Track trackName="SetAnimatorParam0" eventType="SetAnimatorParam" guid="36fd91ae-b499-4d6c-adf4-10a53e307531" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.917" g="0.000" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Zutsu" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="goAttack" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="InvokeMethod0" eventType="InvokeMethod" guid="ac8d041d-a5ca-4522-ac71-b4de933c0f59" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.800" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="InvokeMethod" time="1.306" isDuration="false">
+				<TemplateObject name="targetId" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="SetAttackIndex" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="1" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="0" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+			<Event eventName="InvokeMethod" time="1.329" isDuration="false">
+				<TemplateObject name="targetId" objectName="Target" id="1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="ActionSkillWrapper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="receiveActionAttack" refParamName="" useRefParam="false"/>
+				<Enum name="paramType" value="5" refParamName="" useRefParam="false">
+					<uint name="NoParam"/>
+					<uint name="IntParam"/>
+					<uint name="FloatParam"/>
+					<uint name="StringParam"/>
+					<uint name="BoolParam"/>
+					<uint name="GameObjectParam"/>
+				</Enum>
+				<int name="intParam" value="5" refParamName="" useRefParam="false"/>
+				<float name="floatParam" value="0.000" refParamName="" useRefParam="false"/>
+				<String name="stringParam" value="" refParamName="" useRefParam="false"/>
+				<bool name="boolParam" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="gameObjectParam" objectName="Zutsu" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

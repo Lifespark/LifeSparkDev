@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 20: {fileID: 2000000}
+  - 92: {fileID: 9200000}
+  - 124: {fileID: 12400000}
+  - 81: {fileID: 8100000}
+  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400002}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: .482851982, y: 0, z: 0, w: .875702024}
+  m_LocalPosition: {x: 0, y: 100.65007, z: -81.1693192}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!20 &2000000
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: .300000012
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 35
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967007
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_HDR: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: .0219999999
+--- !u!81 &8100000
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+--- !u!92 &9200000
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be27f0f2d0bba7b4faee67d7fb182537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_scrollSpeed: 100
+  m_scrollThreshold: 100
+  m_iPadScrollSpeed: 1
+  m_boundary_North: 175
+  m_boundary_East: 190
+  m_boundary_South: 310
+  m_boundary_West: 250
+  m_zoomSpeed: 30
+  m_zoomMin: 200
+  m_zoomMax: 200
+  m_iPadZoomSpeed: .5
+  m_vDefaultRotation: {x: 45, y: 0, z: 0}
+  m_vScoopedRotation: {x: 10, y: 0, z: 0}
+  m_scoopHeight: 20
+  m_fCameraAngle: 0
+  m_cameraFlyTime: .200000003
+  showCameraBoundaries: 1
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed7ca9e193d3be459209041db810753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xzCamera: {fileID: 0}
+  controllTex: {fileID: 2800000, guid: 08b416b5b575c7c42b0645527b198931, type: 3}
+  worldXZTex: {fileID: 8400000, guid: 4789326c7c196834d8289952ff56a76b, type: 2}
+  visionFogTex: {fileID: 8400000, guid: 4a9b8460eb1d6f846821c621bacb9ed9, type: 2}
+  formerFogTex: {fileID: 8400000, guid: 6ac67ef62639a2d478d88ee2c2c2edb9, type: 2}
+  visionFogShader: {fileID: 4800000, guid: 9164f2933aff42c44bebbd1f03b17a28, type: 3}
+  visionShader: {fileID: 4800000, guid: fcc8164f4525cfc48830ad2bd1087b99, type: 3}
+  blackShader: {fileID: 4800000, guid: 5333aabb4aa9e2c4aa884666e27432b0, type: 3}
+  worldXZShader: {fileID: 4800000, guid: 427ae0a0675bd8d4ebcee447319aa813, type: 3}
+  mergeShader: {fileID: 4800000, guid: c33991b16ea93d24ea3725383861a616, type: 3}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b7156638ca14ed47b03a289fb469610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layersActive: 000000000000
+  layerPresence:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  fadeInOutRate: .5
+  nearbyRange: 150
+  bossSpawned: 0
+  musicVolume: .800000012
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4b31d1b992cd74e903d9e5041b81fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pluginPaths: []
+--- !u!124 &12400000
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

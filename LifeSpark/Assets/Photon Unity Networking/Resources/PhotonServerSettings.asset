@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   HostType: 1
+  Protocol: 0
   ServerAddress: app-us.exitgamescloud.com
   ServerPort: 5055
+  PreferredRegion: 1
   AppID: bbca2890-1be8-4373-89bd-37c653e26248
   PingCloudServersOnAwake: 0
   RpcList:
@@ -48,4 +50,62 @@ MonoBehaviour:
   - RPC_setPlayerDeath
   - RPC_setPlayerRespawn
   - RPC_setSparkPointDestroy
+  - PickupItemInit
+  - PunPickup
+  - PunPickupSimple
+  - PunRespawn
+  - RequestForPickupTimes
+  - NetworkLevelInited
+  - StartNetworkGame
+  - RPC_setPlayerDeltaMove
+  - RPC_addPlayerEffect
+  - RPC_receiveChatMessage
+  - RPC_ReceiveChatMessage
+  - ValidateLogin
+  - AuthenticateLogin
+  - Message
+  - RPC_turnToFace
+  - RPC_castSkill
+  - RPC_setNavAgentState
+  - RPC_turnToFace
+  - RPC_turnToFace
+  - RPC_pickHero
+  - SetPickedHero
+  - RPC_AddKill
+  - RPC_CaptureSparkPoint
+  - RPC_DestroySparkPoint
+  - RPC_turnToFace
+  - RPC_setPickedHero
+  - RPC_startInitGame
+  - RPC_sendPlayerMessage
+  - RPC_resetAnimTriggers
+  - RPC_setPlayerVictory
+  - UpdateHealth
+  - UpdateAllClientHealth
+  - ReceivePlayerPing
+  - UpdatePlayerPing
+  - RPC_setSparkpointAttack
+  - UpdateAllClientUnitMana
+  - RPC_setTeamVictory
+  - RPC_pickupLore
+  - RPC_setPlayerPing
+  - RPC_dispatchCreepFromSP
+  - RPC_setPlayerMoveTarget
+  - RPC_setPlayerMoveDelta
+  - RPC_syncTransform
+  - RPC_syncState
+  - RPC_DestroyElement
+  - RPC_DropElement
+  - RPC_startSparkPointConnection
+  - RPC_deleteSparkPoint
+  - UpdateCD
+  - RPC_AttachEnchantment
+  - RPC_RemoveEnchantment
+  - RPC_levelUpAnim
+  - RPC_DoPeriodicAction
+  - RPC_SetEnabled
+  - RPC_SetSlowEffect
+  - RPC_ApplySlowEffect
+  - LevelUpAnim
+  - RPC_LevelUp
   DisableAutoOpenWizard: 0

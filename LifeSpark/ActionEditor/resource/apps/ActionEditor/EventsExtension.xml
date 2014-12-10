@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EventGroup name="Unity">
+	<Event typeName="SendMorphemeRequest" category="AgeDemo" isDuration="false">
+		<TemplateObject name="targetId" id="0"/>
+		<string name="request" value=""/>
+	</Event>
+	<Event typeName="GamepadInput" category="AgeDemo" isDuration="true">
+		<Enum name="inputType" value="0">
+			<Entry name="KeyInput"/>
+			<Entry name="AxisInput"/>
+		</Enum>
+		<Enum name="button" value="0">
+			<Entry name="A"/>
+			<Entry name="B"/>
+			<Entry name="X"/>
+			<Entry name="Y"/>
+			<Entry name="LB"/>
+			<Entry name="RB"/>
+			<Entry name="LA"/>
+			<Entry name="RA"/>
+			<Entry name="Start"/>
+			<Entry name="Back"/>
+			<condition conditionEnumName="inputType" conditionEnumValName="KeyInput" />
+		</Enum>
+		<string name="axisName" value="">
+			<condition conditionEnumName="inputType" conditionEnumValName="AxisInput" />
+		</string>
+		<float name="axisMinValue" value="-0.5f">
+			<condition conditionEnumName="inputType" conditionEnumValName="AxisInput" />
+		</float>
+		<float name="axisMaxValue" value="0.5f">
+			<condition conditionEnumName="inputType" conditionEnumValName="AxisInput" />
+		</float>
+		<float name="triggerTime" value="0.0"/>
+		<bool name="triggerOnce" value="true"/>
+	</Event>
+	<Event typeName="SetMorphemeCtrlParam" category="AgeDemo" isDuration="false">
+		<TemplateObject name="targetId" id="-1" isTemp="false"/>
+		<string name="paramName" value=""/>
+		<Enum name="paramType" value="0">
+			<Entry name="FloatType"/>
+			<Entry name="BoolType"/>
+			<Entry name="IntType"/>
+			<Entry name="Vec3Type"/>
+		</Enum>
+		<float name="floatValue" value="0">
+			<condition conditionEnumName="paramType" conditionEnumValName="FloatType"/>
+		</float>
+		<bool name="boolValue" value="false">
+			<condition conditionEnumName="paramType" conditionEnumValName="BoolType"/>
+		</bool>
+		<int name="intValue" value="0">
+			<condition conditionEnumName="paramType" conditionEnumValName="IntType"/>
+		</int>
+		<Vector3 name="vec3Value" x="0" y="0" z="0">
+			<condition conditionEnumName="paramType" conditionEnumValName="Vec3Type"/>
+		</Vector3>
+	</Event>
+	<Event typeName="PlayActionHelper" category="AgeDemo" isDuration="false">
+		<TemplateObject name="targetId" id="0" isTemp="false"/>
+		<string name="helperName" value=""/>
+		<string name="objectName1" value=""/>
+		<TemplateObject name="objectId1" id="-1" isTemp="false"/>
+		<string name="objectName2" value=""/>
+		<TemplateObject name="objectId2" id="-1" isTemp="false"/>
+		<string name="objectName3" value=""/>
+		<TemplateObject name="objectId3" id="-1" isTemp="false"/>
+	</Event>
+	<Event typeName="SkillHit" category="AgeDemo" isDuration="false">
+		<TemplateObject name="targetId" id="0" isTemp="false"/>
+		<TemplateObject name="attackerId" id="-1" isTemp="false"/>
+		<float name="damage" value="0.0"/>
+		<Enum name="hitDirection" value="2">
+			<Entry name="Back"/>
+			<Entry name="FrontDown"/>
+			<Entry name="FrontCenter"/>
+			<Entry name="FrontUp"/>
+			<Entry name="Left"/>
+			<Entry name="Right"/>
+			<Entry name="CW"/>
+			<Entry name="CCW"/>
+		</Enum>
+		<float name="handMutilation" value="0.0"/>
+		<float name="legMutilation" value="0.0"/>
+		<bool name="triggerBreak" value="false"/>
+	</Event>
+	<Event typeName="IsInvincible" category="AgeDemo" isDuration="false">
+		<TemplateObject name="targetId" id="-1" isTemp="false"/>
+	</Event>
+	<Event typeName="ScreenTouch" category="Condition" isDuration="true">
+		<int name="button" value="0"/>
+	</Event>
+	<Event typeName="SetPhotonAnimatorParam" category="Animation" isDuration="false" description="<b>Set Photon Animator Parameter</b>">
+		<TemplateObject name="targetId" id="0" displayname="Operating Object" description="Operating Object<br><i>Require Animator Component"/>
+		<string name="paramName" value="" displayname="Parameter Name" description="Parameter Name"/>
+		<string name="paramType" value="float" displayname="Parameter Type" description="Parameter Type<br><i>如float"/>
+		<string name="paramValue" value="0" displayname="Parameter Value" description="Parameter Value"/>
+	</Event>
+</EventGroup>

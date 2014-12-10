@@ -17,38 +17,52 @@ public class SparkPointManager : LSMonoBehaviour {
     }
 
     // use this dict to look up sparkpoint by name. DO NOT USE FIND!
-    public Dictionary<string, GameObject> sparkPointsDict = new Dictionary<string, GameObject>();
+    public Dictionary<string, SparkPoint> sparkPointsDict = new Dictionary<string, SparkPoint>();
     public List<GameObject> netSps;
 
-    private int sparkPointCount = 0;
+    private int sparkPointCount = 0, teamCount = 2;
     private bool loaded = false;
-    private List<GameObject> sparkPointPlaceHolders;
+    public List<GameObject> sparkPointPlaceHolders;
+    public List<GameObject> getAllSparkPoint()
+    {
+        return sparkPointPlaceHolders;
+    }
 
-    private List<Region> regions = new List<Region>();
+    private List<LS.Region> regions = new List<LS.Region>();
 
     void Awake() {
         _instance = this;
     }
 
-    void OnLevelWasLoaded(int level) {
-        if (level == 1) {
-            regions = new List<Region>(GameObject.FindWithTag("Ground").GetComponents<Region>());
-            sparkPointPlaceHolders = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
-            sparkPointCount = sparkPointPlaceHolders.Count;
-            if (PhotonNetwork.isMasterClient) {
-                for (int i = 0; i < sparkPointPlaceHolders.Count; i++) {
-                    List<object> connectedSparkPointNames = new List<object>();
-                    for (int j = 0; j < sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections.Length; j++) {
-                        if (sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections[j] != null)
-                            connectedSparkPointNames.Add(sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections[j].gameObject.name);
-                    }
-                    List<object> initData = new List<object> { sparkPointPlaceHolders[i].name, sparkPointPlaceHolders[i].tag };
-                    initData.AddRange(connectedSparkPointNames);
-                    GameObject netSp = PhotonNetwork.InstantiateSceneObject("SparkPoint", sparkPointPlaceHolders[i].transform.position, sparkPointPlaceHolders[i].transform.rotation, 0, initData.ToArray());
-                    //sparkPoints.Add(netSp.GetComponent<SparkPoint>());
+    public void InitSparkPoint() {
+//  *** COMMENTED OUT FOR DEMO 12/4 ***
+		//regions = new List<LS.Region>(GameObject.FindWithTag("Ground").GetComponents<LS.Region>());
+//
+//        for (int i = 0; i < regions.Count; i++) {
+//            regions[i].PrepareRegionPolygon();
+//        }
+
+        sparkPointPlaceHolders = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
+        sparkPointCount = sparkPointPlaceHolders.Count;
+        //if (PhotonNetwork.isMasterClient) {
+            for (int i = 0; i < sparkPointPlaceHolders.Count; i++) {
+
+                sparkPointsDict.Add(sparkPointPlaceHolders[i].name, sparkPointPlaceHolders[i].GetComponent<SparkPoint>());
+
+                /*
+                List<object> connectedSparkPointNames = new List<object>();
+                for (int j = 0; j < sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections.Length; j++) {
+                    if (sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections[j] != null)
+                        connectedSparkPointNames.Add(sparkPointPlaceHolders[i].GetComponent<SparkPoint>()._connections[j].gameObject.name);
                 }
+                List<object> initData = new List<object> { sparkPointPlaceHolders[i].name, sparkPointPlaceHolders[i].tag };
+                initData.AddRange(connectedSparkPointNames);
+                GameObject netSp = PhotonNetwork.InstantiateSceneObject("SparkPoint", sparkPointPlaceHolders[i].transform.position, sparkPointPlaceHolders[i].transform.rotation, 0, initData.ToArray());
+                //sparkPoints.Add(netSp.GetComponent<SparkPoint>());
+                */
             }
-        }
+        //}
+        LevelManager.Instance.m_sparkPointInited = true;
         loaded = true;
 	}
 	
@@ -71,8 +85,10 @@ public class SparkPointManager : LSMonoBehaviour {
             netSps = new List<GameObject>(GameObject.FindGameObjectsWithTag("SparkPoint"));
             netSps.RemoveAll(sparkPointPlaceHolders.Contains);
             for (int i = 0; i < netSps.Count; i++) {
-                netSps[i].name = netSps[i].name.Substring(0, 11);
-                sparkPointsDict.Add(netSps[i].name, netSps[i]);
+				netSps[i].name = netSps[i].name.Substring(0, netSps[i].name.LastIndexOf("_net"));
+				//netSps[i].name = netSps[i].name.Substring(0, 11);
+				Debug.Log (netSps[i].name);
+                sparkPointsDict.Add(netSps[i].name, netSps[i].GetComponent<SparkPoint>());
                 netSps[i].transform.parent = spParent;
                 foreach (var region in regions) {
                     for (int j = 0; j < region.regionPoints.Length; j++) {
@@ -91,7 +107,37 @@ public class SparkPointManager : LSMonoBehaviour {
             for (int i = 0; i < regions.Count; i++ ) {
                 regions[i].PrepareRegionPolygon();
             }
+
+			int rand = Random.Range (0, netSps.Count);
+			netSps[rand].GetComponent<SparkPoint>().sparkPointState = SparkPoint.SparkPointState.CAPTURED;
+			netSps[rand].GetComponent<SparkPoint>().owner = 1;
+			netSps[rand].GetComponent<SparkPoint>().sparkPointColor.r  = 1f;
+			netSps[rand].GetComponent<SparkPoint>().sparkPointColor.g  = 0f;
+			netSps[rand].GetComponent<SparkPoint>().sparkPointColor.b  = 0f;
+			netSps[rand].GetComponent<SparkPoint>().renderer.material.color = netSps[rand].GetComponent<SparkPoint>().sparkPointColor;
+
+			int rand2 = 1;
+			while(true) {
+				rand2 = Random.Range (0, netSps.Count);
+				if(rand2 != rand)
+					break;
+			}
+			netSps[rand2].GetComponent<SparkPoint>().sparkPointState = SparkPoint.SparkPointState.CAPTURED;
+			netSps[rand2].GetComponent<SparkPoint>().owner = 2;
+			netSps[rand2].GetComponent<SparkPoint>().sparkPointColor.r  = 0f;
+			netSps[rand2].GetComponent<SparkPoint>().sparkPointColor.g  = 0f;
+			netSps[rand2].GetComponent<SparkPoint>().sparkPointColor.b  = 1f;
+			netSps[rand2].GetComponent<SparkPoint>().renderer.material.color = netSps[rand2].GetComponent<SparkPoint>().sparkPointColor;
+			/*
+			GameObject.Find("Ground").GetPhotonView().RPC("RPC_setPlayerStartingSparkPointCaptured",
+			                                              PhotonTargets.All,
+			                                              capturers[i],
+			                                              netSps[rand].GetComponent<SparkPoint>().name);*/
+
+			
             CreepManager.Instance.sparkPointSetUp = true;
         }
+
+        LevelManager.Instance.m_sparkPointInited = true;
     }
 }

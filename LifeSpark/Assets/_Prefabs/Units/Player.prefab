@@ -92,19 +92,61 @@ MonoBehaviour:
   maxHealth: 0
   unitHealth: 0
   baseAttack: 0
+  m_silhouetteRenderer: {fileID: 0}
+  m_basicAttack: {fileID: 0}
+  slowAmount: 0
+  isFrozen: 0
+  isKnockedUp: 0
   team: 0
   playerID: 0
   playerName: 
   target: {x: 0, y: 0, z: 0}
   targetName: 
+  targetType: 0
   speed: 0
+  realspeed: 0
   totalRespawnTime: 0
   remainingRespawnTime: 0
-  lineAttackDist: 0
-  areaAttackRadius: 0
+  chatTimerLength: 5
   lineAttackPrefab: {fileID: 0}
   areaAttackPrefab: {fileID: 0}
+  missilePrefab: {fileID: 0}
+  m_attackRange: 100
+  m_meleeRange: 0
+  m_baseAttackType: 0
+  m_specialAttacks: []
+  m_elementalEnchantment: 0
+  tempHit:
+    m_damageDuration: 5
+    m_remainingDamageDuration: 5
+    m_totalDamage: 5
+    m_effectDuration: 5
+    m_remainingEffectDuration: 5
+    m_slowAmount: .5
+    m_isDiminishing: 1
+    tempInt: 0
+    tempString: 
+    m_source: {fileID: 0}
+    m_damageType: 1
+    m_effectType: 2
+  m_basicAttackSpeed: 0
+  m_basicAttackCooldownTime: 0
+  isBasicAttackCool: 0
+  m_rangedAttackRange: 0
+  m_rangedAttackCooldownTime: 0
+  isRangedAttackCool: 0
+  m_lineAttackRange: 0
+  m_lineAttackDuration: 0
+  m_lineAttackCooldownTime: 0
+  isLineAttackCool: 0
+  m_areaAttackRadius: 0
+  m_areaAttackDuration: 0
+  m_areaAttackCooldownTime: 0
+  isAreaAttackCool: 0
   playerState: 0
+  m_heroType: 0
+  gameState: 0
+  isAutoAttacking: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMine: 0
+  m_action: {fileID: 0}
   targetType: 0
 --- !u!136 &13600000
 CapsuleCollider:

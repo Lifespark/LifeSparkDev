@@ -20,6 +20,16 @@ GameObject:
   - 114: {fileID: 11400014}
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400018}
+  - 114: {fileID: 11400020}
+  - 114: {fileID: 11400024}
+  - 114: {fileID: 11400022}
+  - 82: {fileID: 8200000}
+  - 114: {fileID: 11400026}
+  - 114: {fileID: 11400028}
+  - 114: {fileID: 11400030}
+  - 114: {fileID: 11400032}
+  - 114: {fileID: 11400034}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Manager
@@ -45,7 +55,7 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -79,6 +89,64 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b5b4e54f1e14e4f9fcebb3ad74f5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canJoin: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,22 +181,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7806e47ff13c3e74bb3e99921cc7321f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_perCreepTimer: 2
+  m_waveTimer: 100
+  m_waveCount: 3
   creepPrefab: {fileID: 0}
   highlightPrefab: {fileID: 100006, guid: f911aac284f923f44b9052fa93479e15, type: 2}
-  maximumCreepNum: 3
+  sparkPointSetUp: 0
+  creepList: []
   menuOn: 0
   selectingTarget: 0
+  m_creepCount: 0
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e606d90d4bab77745b903a257013148d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_statusFX:
+  - {fileID: 100000, guid: fc840cfdabaa8eb42a74f7fe8bba57ca, type: 2}
+  - {fileID: 100000, guid: 9f1f5a61e0cc9954c8599c4051f6e800, type: 2}
+  - {fileID: 100000, guid: 2b5da50c4933fa74b921a045cfb3721d, type: 2}
+  - {fileID: 100000, guid: d3f1c3d626ad9ea4ca136ef86f88279f, type: 2}
+  - {fileID: 100000, guid: 53497aed84a32a14f81ccb12d551199e, type: 2}
+  - {fileID: 100000, guid: 63044f1ec4d69fa489a0b0875e21c88b, type: 2}
+  - {fileID: 100000, guid: a8e094a22d2f07c47a714878ded25433, type: 2}
+  - {fileID: 100000, guid: 79686e7b828071d4681f2d84d05d5b06, type: 2}
+  - {fileID: 100000, guid: eb0a68302b2eb20479bfd7c50ec79541, type: 2}
+  - {fileID: 100000, guid: 6d1220d0d9babb74a8890181510a352d, type: 2}
+  - {fileID: 100000, guid: 3aff317ccfa2d8c418757fea4bb05c11, type: 2}
+  m_statusFXNames:
+  - bloodOnHit
+  - fireOnHit
+  - fireBurn
+  - darkOnHit
+  - darkLeech
+  - lightOnHit
+  - lightReplenish
+  - earthOnHit
+  - airOnHit
+  - iceOnHit
+  - zutsuGoop
+  m_criticalHitMultiplier: 1.5
+  m_statusPositions: 0000000000000000000000000000000002000000000000000000000001000000010000000000000001000000
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08fa86a64c7ee654e8c6c6f6a6bc5f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guiStage: 0
+  m_startUI: {fileID: 0}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,6 +289,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiroot: {fileID: 0}
   uiCamera: {fileID: 0}
+  Team1HpBackground:
+    serializedVersion: 2
+    rgba: 4286545919
+  Team2HpBackground:
+    serializedVersion: 2
+    rgba: 4294934655
+  UseHpCircle: 1
+  mskilluiForm: {fileID: 0}
+  m_victUI: {fileID: 0}
+  endFlag: 0
+  psu: {fileID: 0}
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,6 +311,148 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be405dee0dafe74492ff3f0106d314a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  netSps: []
+  sparkPointPlaceHolders: []
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bb51e5b98a6634287ea8933a5816a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb90fce5504c84d9e3000b32978362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_levelUpEffect: {fileID: 100000, guid: c53cb8a12427bec4780aefddc0698507, type: 2}
+  m_levelUpEffect02: {fileID: 100000, guid: bf6524b2711feae45aab0dfb471ea479, type: 2}
+  m_playerInited: 0
+  m_sparkPointInited: 0
+  m_jungleCreepInited: 0
+  m_startedGame: 0
+--- !u!114 &11400022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f8692ae3e991647bfe53fe61373780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songs: []
+  startUpMusic: 0
+  inGameMusic: 0
+--- !u!114 &11400024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a186435c1a2c4c14a8a60f3b2186c48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b95a7a3defeda44b242fde7fd7abf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_jotstickDelta: {x: 0, y: 0, z: 0}
+--- !u!114 &11400028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532fb400e2edc0e4f9adb8c9177a8ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ElementMaterials:
+  - {fileID: 0}
+  - {fileID: 2100000, guid: b3f0271ad048f4a41a7c9df9341b12f7, type: 2}
+  - {fileID: 2100000, guid: 0f0659009ff7dc24d890b9183fb60d11, type: 2}
+  - {fileID: 2100000, guid: 4eb6ec2da7991f848a47c1023652ea54, type: 2}
+  - {fileID: 2100000, guid: 4eb6ec2da7991f848a47c1023652ea54, type: 2}
+  - {fileID: 2100000, guid: 01e8e52ae1c90cb4594384af116b16a5, type: 2}
+  - {fileID: 2100000, guid: 7aa04072e0889504b880a051c6abec56, type: 2}
+  - {fileID: 2100000, guid: 662555ac1b3b61a4ba32d1989b0ad33d, type: 2}
+  m_ElementFX:
+  - {fileID: 100000, guid: d25748d6844bbe8499acfeb2cea694ec, type: 2}
+  - {fileID: 100000, guid: 36c58ca56db13eb40b0b8fafc6da58d3, type: 2}
+  - {fileID: 100000, guid: b7822c617423b6947a3a151f7d9f4a96, type: 2}
+  - {fileID: 100000, guid: 6110a3ae08ef61e4e953b3da6dbf9c83, type: 2}
+  - {fileID: 100004, guid: 92a68a3f573803f48bc413f18a86624e, type: 2}
+  - {fileID: 100000, guid: 93cace5c845dd2f438de2dc6a5917918, type: 2}
+  - {fileID: 100000, guid: 36c58ca56db13eb40b0b8fafc6da58d3, type: 2}
+  - {fileID: 100004, guid: 92a68a3f573803f48bc413f18a86624e, type: 2}
+  m_ElementNames:
+  - fireOrb
+  - iceOrb
+  - airOrb
+  - earthOrb
+  - lightOrb
+  - darkOrb
+--- !u!114 &11400030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b95a7a3defeda44b242fde7fd7abf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_jotstickDelta: {x: 0, y: 0, z: 0}
+--- !u!114 &11400032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31f0f38aa151cd4d806c396de3bee7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_teamDatas: []
+  m_playerDatas: []
+  m_teamNumber: 2
+  m_playerNumber: 4
+--- !u!114 &11400034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857b9ec3e1d7c2243b4e96a6a770f681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_slowEffect: {fileID: 100000, guid: 3df7962e9d0dd704d9f6e7846cdcc6a3, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

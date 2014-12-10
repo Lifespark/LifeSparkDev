@@ -9,7 +9,8 @@ public class RangedAttack : Attack {
 	public int m_attackSpeed;
 	public int m_range;
 
-	public RangedAttack(AttackType attackType, HitObject hitObject, int attackSpeed, int range): base(attackType, hitObject){
+	public void CreateRangedAttack(AttackType attackType, Hit hitObject, int attackSpeed, int range){
+		CreateAttack(attackType, hitObject);
 		m_attackSpeed = attackSpeed;
 		m_range = range;
 	}

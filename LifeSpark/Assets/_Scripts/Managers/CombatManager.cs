@@ -3,6 +3,40 @@ using System.Collections;
 
 public class CombatManager : LSMonoBehaviour {
 
+
+
+	public enum StatusEffects {
+		BLOOD = 0,
+		FIRE = 1,
+		FIREBURN = 2,
+		DARK = 3,
+		DARKLEECH = 4,
+		LIGHT = 5,
+		LIGHTHEAL = 6,
+		EARTH = 7,
+		AIR = 8,
+		ICE = 9,
+		ZUTSUGOOP = 10
+	}
+
+	public Object[] m_statusFX;			//blood, fire, fire burn, dark, dark leech, light, light heal, earth, air, zutsu
+	public string[] m_statusFXNames;
+
+	public float m_criticalHitMultiplier;
+	//0 for use ElementContainer, 1 for use unit base, 2 requires a ParticleDirection Target to be set
+	public int[] m_statusPositions = { 0, 0, 0, 0,
+										2, 0, 0, 1,
+										1, 0, 1 };			
+
+    static private CombatManager _instance;
+    static public CombatManager Instance {
+        get {
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(CombatManager)) as CombatManager;
+            return _instance;
+        }
+    }
+
     private GameObject tempPlayer;
     private GameObject tempTarget;
 
@@ -10,14 +44,21 @@ public class CombatManager : LSMonoBehaviour {
 	private bool m_handledGameStartup = false;
 
 	// Use this for initialization
-	void Start () {
-
+	void Awake () {
+        _instance = this;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 	}
+
+	public enum AttackIndex {
+		BASIC = -1,
+		LINE = 0,
+		AREATARGETED = 2,
+		AREANOVA = 3
+	};
 
 	/// <summary>
 	/// Create missile targeted at player with targetName shot by attacker Name
@@ -34,7 +75,8 @@ public class CombatManager : LSMonoBehaviour {
 		//missile prefab stored in player or missile itself?
 		GameObject missile = (GameObject)Instantiate(attackerPlayer.missilePrefab, attackerPlayer.transform.position, 
 		                                            Quaternion.LookRotation(target.transform.position - attackerPlayer.transform.position));
-		missile.GetComponent<Renderer>().material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
+		//missile.GetComponent<Renderer>().material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
+		missile.renderer.material.color = Element.setElementVisualEffect(attackerPlayer.m_elementalEnchantment);
 
 		Projectile missileProjectile = missile.GetComponent<Projectile>();
 		missileProjectile.m_owner = attacker;
@@ -52,15 +94,14 @@ public class CombatManager : LSMonoBehaviour {
 		GameObject tempPlayer;
 		tempPlayer = GameObject.Find ("Players/" + attackerName);
 		
-		//GameObject tempTarget;
-		//tempTarget = GameObject.Find("Players/" + "***targetName to be determined from the missile hit***");
-		
+
+
+
 		GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
 		                                                 PhotonTargets.All,
 		                                                 targetName,
 		                                                 attackerName,
-		                                                 tempPlayer.GetComponent<Player>().baseAttack,
-		                                                 0);
+		                                                 (int)AttackIndex.BASIC);
 		
 	}
 
@@ -86,13 +127,13 @@ public class CombatManager : LSMonoBehaviour {
 		//would not be necessary if prefab itself is an animated object
 		//GameObject lineAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.lineAttackPrefab.name, realPos, Quaternion.LookRotation(targetDir), 0);
 		GameObject lineAttack = (GameObject)Instantiate(attackerPlayer.lineAttackPrefab, realPos, Quaternion.LookRotation(targetDir));
-		lineAttack.transform.localScale = (new Vector3(1,1,attackerPlayer.lineAttackDist));
+		lineAttack.transform.localScale = (new Vector3(1, 1, attackerPlayer.GetLineAttack().m_range));//attackObject.m_range));
 
 		//temporary coloring mechanic
 		lineAttack.GetComponentInChildren<Renderer>().material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
 
 		//lifetime is temporary set to 1 second - should set a value either in Player component or an attackType Object
-		Destroy(lineAttack, 1.0f);
+		Destroy (lineAttack, attackerPlayer.GetLineAttack().m_duration);//attackObject.m_duration);
 		//PhotonNetwork.Destroy(lineAttack.GetPhotonView());
 
 	}
@@ -113,72 +154,90 @@ public class CombatManager : LSMonoBehaviour {
 
 		//GameObject areaAttack = (GameObject)PhotonNetwork.Instantiate(attackerPlayer.areaAttackPrefab.name, realPos, Quaternion.identity, 0);
 		GameObject areaAttack = (GameObject)Instantiate(attackerPlayer.areaAttackPrefab, realPos, Quaternion.identity);
-		areaAttack.transform.localScale = (new Vector3(attackerPlayer.areaAttackRadius, 0.01f, attackerPlayer.areaAttackRadius));
+		areaAttack.transform.localScale = (new Vector3(attackerPlayer.GetAreaAttack().m_radius, 0.01f, attackerPlayer.GetAreaAttack().m_radius));
 
 		//temporary coloring mechanic
 		areaAttack.renderer.material.color = (attackerPlayer.team == 1) ? Color.red : Color.blue;
 
-		Destroy(areaAttack, 1.0f);
+		Destroy(areaAttack, attackerPlayer.GetAreaAttack().m_duration);
 
 	}
 
-	public void startCombat (string attackerName, PlayerInput.TargetType combatType, Vector3 location) {
+	public void LineAttack(string attackerName, Vector3 endLocation, LineAttack attackObject) {
+
+		tempPlayer = GameObject.Find ("Players/" + attackerName);
+		//Makes sure the ray is to the middle of the capsule
+		Vector3 startLocation = new Vector3(tempPlayer.transform.position.x,tempPlayer.GetComponent<CapsuleCollider>().bounds.size.y/2,tempPlayer.transform.position.z);
+		endLocation.y = tempPlayer.GetComponent<CapsuleCollider>().bounds.size.y/2;
+		
+		int attackerTeam = tempPlayer.GetComponent<Player>().team;
+
+		RaycastHit[] hits;
+		
+		Vector3 heading = endLocation - startLocation;
+		Vector3 direction = (heading / heading.magnitude);//*tempPlayer.GetComponent<Player>().lineAttackDist;
+		//Just to show how far the attack reaches for now
+		//Debug.DrawRay (startLocation, direction *attackObject.m_range, Color.white);
+		photonView.RPC ("RPC_lineAttackVisualization",
+		                PhotonTargets.All,
+		                attackerName,
+		                startLocation,
+		                direction);
+		
+		hits = Physics.RaycastAll(startLocation, direction, attackObject.m_range);
+		for (int n=0; n <hits.Length; n++) {
+			if (hits[n].collider.tag=="Player" && (hits[n].collider.GetComponentInParent<Player>().team != attackerTeam)) {
+				
+				Debug.Log("Enemy Hit");
+				GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+				                                                 PhotonTargets.All,
+				                                                 hits[n].collider.name,
+				                                                 attackerName,
+				                                                 (int) AttackIndex.LINE);
+			}
+		}
+
+		StartCoroutine(tempPlayer.GetComponent<Player>().coolLineAttack());
+
+	}
+
+	public void AreaAttack(string attackerName, Vector3 location, AreaAttack attackObject) {
+	
 		tempPlayer = GameObject.Find ("Players/" + attackerName);
 		//Makes sure the ray doesnt hit the ground
 		location.y = tempPlayer.transform.position.y;
 
-		if (combatType == PlayerInput.TargetType.LineAttack) {
-			RaycastHit[] hits;
+		int attackerTeam = tempPlayer.GetComponent<Player>().team;
 
-			Vector3 heading = location - tempPlayer.transform.position;
-			Vector3 direction = (heading / heading.magnitude);//*tempPlayer.GetComponent<Player>().lineAttackDist;
-			//Just to show how far the attack reaches for now
-			Debug.DrawRay (tempPlayer.transform.position, direction * tempPlayer.GetComponent<Player>().lineAttackDist, Color.black);
-
-			photonView.RPC ("RPC_lineAttackVisualization",
-			                 PhotonTargets.All,
-                             attackerName,
-                             tempPlayer.transform.position,
-                             direction);
-
-			hits = Physics.RaycastAll (tempPlayer.transform.position, direction, tempPlayer.GetComponent<Player>().lineAttackDist);
-
-			for (int n=0; n <hits.Length; n++) {
-				if (hits[n].collider.tag=="Player") {
-					GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
-				                                                 	PhotonTargets.All,
-				                                                 	hits[n].collider.name,
-				                                                 	attackerName,
-				                                                 	tempPlayer.GetComponent<Player>().baseAttack,
-				                                                 	0);
-				}
-			}
-		} else {
-			GameObject[] entities = GameObject.FindGameObjectsWithTag("Player");
-			Debug.DrawRay (location, Vector3.forward * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.black);
-			Debug.DrawRay (location, Vector3.left * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.red);
-			Debug.DrawRay (location, Vector3.back * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.red);
-			Debug.DrawRay (location, Vector3.right * tempPlayer.GetComponent<Player>().areaAttackRadius, Color.black);
-
-			photonView.RPC ("RPC_areaAttackVisualization",
-			                PhotonTargets.All,
-			                attackerName,
-			                location);
-
-			for (int x=0; x<entities.Length; x++) {
-				float dist = Vector3.Distance(location,entities[x].transform.position);
-				if (dist < tempPlayer.GetComponent<Player>().areaAttackRadius) {
-					GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
-					                                                 PhotonTargets.All,
-					                                                 entities[x].collider.name,
-					                                                 attackerName,
-					                                                 tempPlayer.GetComponent<Player>().baseAttack,
-					                                                 0);
-				}
+		
+		GameObject[] entities = GameObject.FindGameObjectsWithTag("Player");
+		Debug.DrawRay (location, Vector3.forward * attackObject.m_radius, Color.black);
+		Debug.DrawRay (location, Vector3.left * attackObject.m_radius, Color.red);
+		Debug.DrawRay (location, Vector3.back * attackObject.m_radius, Color.red);
+		Debug.DrawRay (location, Vector3.right * attackObject.m_radius, Color.black);
+		
+		photonView.RPC ("RPC_areaAttackVisualization",
+		                PhotonTargets.All,
+		                attackerName,
+		                location);
+		
+		for (int x=0; x<entities.Length; x++) {
+			if(entities[x].GetComponent<Player>().team == attackerTeam) continue;
+			float dist = Vector3.Distance(location,entities[x].transform.position);
+			if (dist < attackObject.m_radius) {
+				Debug.Log("Enemy Hit");
+				GameObject.Find ("Ground").GetPhotonView ().RPC ("RPC_setPlayerAttack",
+				                                                 PhotonTargets.All,
+				                                                 entities[x].collider.name,
+				                                                 attackerName,
+				                                                 (int) (attackObject.m_isPlayerOrigin ? AttackIndex.AREANOVA : AttackIndex.AREATARGETED));
 			}
 		}
 
+		StartCoroutine(tempPlayer.GetComponent<Player>().coolAreaAttack());
 
 	}
+
+
 	
 }

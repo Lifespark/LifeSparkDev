@@ -11,8 +11,8 @@ public class AreaAttack : Attack {
 	public int m_cooldown;
 	public bool m_isPlayerOrigin;
 
-	public AreaAttack(AttackType attackType, HitObject hitObject, int radius, int duration, int cooldown, bool isPlayerOrigin): base(attackType, hitObject){
-
+	public void CreateAreaAttack(AttackType attackType, Hit hitObject, int radius, int duration, int cooldown, bool isPlayerOrigin){
+		CreateAttack(attackType, hitObject);
 		m_radius = radius;
 		m_duration = duration;
 		m_cooldown = cooldown;

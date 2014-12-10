@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<TemplateObjectList>
+		<TemplateObject objectName="Delia" id="0" isTemp="false"/>
+		<TemplateObject objectName="myPos" id="1" isTemp="true"/>
+		<TemplateObject objectName="targetPos" id="2" isTemp="true"/>
+		<TemplateObject objectName="Skill" id="3" isTemp="true"/>
+		<TemplateObject objectName="SkillPre" id="4" isTemp="true"/>
+	</TemplateObjectList>
+	<RefParamList>
+		<Vector3 name="mousePos" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+	</RefParamList>
+	<Action tag="" length="2.000" loop="false" hasFlowGraph="true">
+		<Track trackName="ChangeAnimation" eventType="SetAnimatorParam" guid="39d8a73b-2ab7-4739-9314-e86477cf52e1" x="200.000" y="200.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.483" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="SetAnimatorParam" time="0.907" isDuration="false">
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="paramName" value="attackDivineFury" refParamName="" useRefParam="false"/>
+				<String name="paramType" value="trigger" refParamName="" useRefParam="false"/>
+				<String name="paramValue" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="CreateObjectTick0" eventType="CreateObjectTick" guid="79187e00-315c-4e3f-9bf2-0f94939531d8" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.533" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="0.020" isDuration="false">
+				<TemplateObject name="targetId" objectName="SkillPre" id="4" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="DivineFuryPreCast" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="10.000" z="10.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="1.000" y="1.000" z="1.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="DestroyObject0" eventType="DestroyObject" guid="6d849baf-7762-4262-a5a2-eb12b0187401" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.717" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="DestroyObject" time="1.020" isDuration="false">
+				<TemplateObject name="targetId" objectName="SkillPre" id="4" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="CreateObjectTick2" eventType="CreateObjectTick" guid="bf1d0fe5-2865-4475-84e5-f72604270916" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.233" b="1.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="CreateObjectTick" time="1.020" isDuration="false">
+				<TemplateObject name="targetId" objectName="Skill" id="3" isTemp="true" refParamName="" useRefParam="false"/>
+				<TemplateObject name="parentId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="objectSpaceId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="fromId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="toId" objectName="None" id="-1" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="prefabName" value="DivineFury" refParamName="" useRefParam="false"/>
+				<bool name="recreateExisting" value="true" refParamName="" useRefParam="false"/>
+				<bool name="modifyTranslation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="normalizedRelative" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="translation" x="0.000" y="0.000" z="1.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyRotation" value="true" refParamName="" useRefParam="false"/>
+				<EulerAngle name="rotation" x="0.000" y="0.000" z="0.000" refParamName="" useRefParam="false"/>
+				<bool name="modifyScaling" value="false" refParamName="" useRefParam="false"/>
+				<Vector3 name="scaling" x="2.000" y="2.000" z="2.000" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="" refParamName="" useRefParam="false"/>
+				<Array name="gameObjectIds" refParamName="" useRefParam="false" type="TemplateObject"/>
+				<bool name="enableLayer" value="false" refParamName="" useRefParam="false"/>
+				<int name="layer" value="0" refParamName="" useRefParam="false"/>
+				<bool name="enableTag" value="false" refParamName="" useRefParam="false"/>
+				<String name="tag" value="" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToAnimation" value="true" refParamName="" useRefParam="false"/>
+				<bool name="applyActionSpeedToParticle" value="true" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="TriggerHit0" eventType="TriggerHit" guid="65776a03-85e5-4eb0-8cab-a275b0ca3d3e" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.967" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerHit" time="1.092" length="0.377" isDuration="true">
+				<TemplateObject name="triggerId" objectName="Skill" id="3" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="scriptName" value="TriggerHelper" refParamName="" useRefParam="false"/>
+				<String name="methodName" value="GetCollisionSet" refParamName="" useRefParam="false"/>
+				<TemplateObject name="attackerId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="actionName" value="delia_divinefuryhit" refParamName="" useRefParam="false"/>
+				<Array name="tags" refParamName="" useRefParam="false" type="String">
+					<String value="Player"/>
+					<String value="Enemey"/>
+					<String value="JungleCreep"/>
+					<String value="LaneCreep"/>
+					<String value="SparkPoint"/>
+					<String value="Boss"/>
+				</Array>
+				<float name="triggerInterval" value="2.000" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="DestroyObject0" eventType="DestroyObject" guid="47c4cdb4-d6fc-4675-b451-3fcf081d5051" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.417" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="DestroyObject" time="1.470" isDuration="false">
+				<TemplateObject name="targetId" objectName="Skill" id="3" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="StopMultipleTracks4" eventType="StopMultipleTracks" guid="a59025b9-8cf7-490c-88bc-7bf990ba10c5" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="1.000" g="0.000" b="0.500" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="StopMultipleTracks" time="0.000" isDuration="false">
+				<Array name="trackIds" refParamName="" useRefParam="false" type="TrackObject">
+					<Guid id="0" guid="39d8a73b-2ab7-4739-9314-e86477cf52e1"/>
+					<Guid id="3" guid="bf1d0fe5-2865-4475-84e5-f72604270916"/>
+					<Guid id="4" guid="65776a03-85e5-4eb0-8cab-a275b0ca3d3e"/>
+					<Guid id="5" guid="47c4cdb4-d6fc-4675-b451-3fcf081d5051"/>
+					<Guid id="1" guid="79187e00-315c-4e3f-9bf2-0f94939531d8"/>
+				</Array>
+			</Event>
+		</Track>
+		<Track trackName="DestroyObject0" eventType="DestroyObject" guid="170fa0cb-8b9a-4a7c-8563-b35b9c3ac847" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.883" b="1.000" execOnForceStopped="true" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="DestroyObject" time="0.000" isDuration="false">
+				<TemplateObject name="targetId" objectName="Skill" id="3" isTemp="false" refParamName="" useRefParam="false"/>
+			</Event>
+		</Track>
+		<Track trackName="TriggerAudioOneShot0" eventType="TriggerAudioOneShot" guid="3d4d52f1-1ca9-4a55-b83e-31ebcd19fb39" x="100.000" y="50.000" enabled="true" useRefParam="false" refParamName="" r="0.350" g="1.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">
+			<Event eventName="TriggerAudioOneShot" time="0.000" isDuration="false">
+				<bool name="mutilSource" value="false" refParamName="" useRefParam="false"/>
+				<TemplateObject name="targetId" objectName="Delia" id="0" isTemp="false" refParamName="" useRefParam="false"/>
+				<String name="audioPath" value="audio/sfx/delia/divinefury take2" refParamName="" useRefParam="false"/>
+				<float name="volume" value="1.000" refParamName="" useRefParam="false"/>
+				<int name="priority" value="128" refParamName="" useRefParam="false"/>
+				<bool name="enableRand" value="false" refParamName="" useRefParam="false"/>
+				<Array name="randPaths" refParamName="" useRefParam="false" type="String"/>
+				<Array name="probabilities" refParamName="" useRefParam="false" type="float"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

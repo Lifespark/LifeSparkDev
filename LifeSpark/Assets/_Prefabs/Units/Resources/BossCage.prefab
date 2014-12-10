@@ -13,12 +13,12 @@ GameObject:
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BossCage
   m_TagString: BossCage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 4294967287
   m_IsActive: 1
 --- !u!4 &400000
 Transform:
@@ -27,8 +27,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 61.574913, y: 120.329597, z: -115.648346}
+  m_LocalScale: {x: 30.6849823, y: 30.6849785, z: 30.6849785}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -38,7 +38,7 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -70,18 +70,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263a9f9c285dcc40a991586240c7b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_connectionNames:
-  - SparkPointB
-  - SparkPointD
-  m_connections: []
-  m_lineCreatedMemo: 
+  m_connections:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_lineCreatedMemo: 00000000000000000000000000000000
+  m_teamOneCount: 0
+  m_teamTwoCount: 0
+  tomb: {fileID: 0}
   m_chargeRate: 3
   m_breakValue: 20
   m_chargedValue: 0
-  m_teamOneCharged: 0
-  m_teamTwoCharged: 0
-  t_gameObject: {fileID: 0}
-  t_sparkPoint: {fileID: 0}
+  m_Boss: {fileID: 100000, guid: 7899c2bc77e2e8145b98b9d35525ef2f, type: 2}
+  m_maxTier: 10
+  m_tierInterval: 5000
+  shouldDebugCageSize: 0
+  bossCageSize: 130
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,7 +106,7 @@ MonoBehaviour:
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
-  instantiationId: 0
+  instantiationId: -1
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -110,7 +115,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 100000}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: .5
   m_Height: 2
   m_Direction: 1

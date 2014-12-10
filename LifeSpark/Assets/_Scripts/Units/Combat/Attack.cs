@@ -16,10 +16,11 @@ using System.Collections;
 	};
 
 	public AttackType m_attackType;
-	public HitObject m_hitObject;
+	public Hit m_hitObject;
 	// Use this for initialization
+	
 
-	public Attack(AttackType attackType, HitObject hitObject){
+	public void CreateAttack(AttackType attackType, Hit hitObject){
 		m_attackType = attackType;
 		m_hitObject = hitObject;
 	}
